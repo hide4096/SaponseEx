@@ -1,0 +1,790 @@
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"spi.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.MX_SPI1_Init,"ax",%progbits
+  20              		.align	1
+  21              		.global	MX_SPI1_Init
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	MX_SPI1_Init:
+  27              	.LFB216:
+  28              		.file 1 "Core/Src/spi.c"
+   1:Core/Src/spi.c **** /* USER CODE BEGIN Header */
+   2:Core/Src/spi.c **** /**
+   3:Core/Src/spi.c ****   ******************************************************************************
+   4:Core/Src/spi.c ****   * @file    spi.c
+   5:Core/Src/spi.c ****   * @brief   This file provides code for the configuration
+   6:Core/Src/spi.c ****   *          of the SPI instances.
+   7:Core/Src/spi.c ****   ******************************************************************************
+   8:Core/Src/spi.c ****   * @attention
+   9:Core/Src/spi.c ****   *
+  10:Core/Src/spi.c ****   * Copyright (c) 2022 STMicroelectronics.
+  11:Core/Src/spi.c ****   * All rights reserved.
+  12:Core/Src/spi.c ****   *
+  13:Core/Src/spi.c ****   * This software is licensed under terms that can be found in the LICENSE file
+  14:Core/Src/spi.c ****   * in the root directory of this software component.
+  15:Core/Src/spi.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
+  16:Core/Src/spi.c ****   *
+  17:Core/Src/spi.c ****   ******************************************************************************
+  18:Core/Src/spi.c ****   */
+  19:Core/Src/spi.c **** /* USER CODE END Header */
+  20:Core/Src/spi.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/spi.c **** #include "spi.h"
+  22:Core/Src/spi.c **** 
+  23:Core/Src/spi.c **** /* USER CODE BEGIN 0 */
+  24:Core/Src/spi.c **** 
+  25:Core/Src/spi.c **** /* USER CODE END 0 */
+  26:Core/Src/spi.c **** 
+  27:Core/Src/spi.c **** SPI_HandleTypeDef hspi1;
+  28:Core/Src/spi.c **** SPI_HandleTypeDef hspi2;
+  29:Core/Src/spi.c **** 
+  30:Core/Src/spi.c **** /* SPI1 init function */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 2
+
+
+  31:Core/Src/spi.c **** void MX_SPI1_Init(void)
+  32:Core/Src/spi.c **** {
+  29              		.loc 1 32 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+  33:Core/Src/spi.c **** 
+  34:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_Init 0 */
+  35:Core/Src/spi.c **** 
+  36:Core/Src/spi.c ****   /* USER CODE END SPI1_Init 0 */
+  37:Core/Src/spi.c **** 
+  38:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_Init 1 */
+  39:Core/Src/spi.c **** 
+  40:Core/Src/spi.c ****   /* USER CODE END SPI1_Init 1 */
+  41:Core/Src/spi.c ****   hspi1.Instance = SPI1;
+  38              		.loc 1 41 3 view .LVU1
+  39              		.loc 1 41 18 is_stmt 0 view .LVU2
+  40 0002 0F48     		ldr	r0, .L5
+  41 0004 0F4B     		ldr	r3, .L5+4
+  42 0006 0360     		str	r3, [r0]
+  42:Core/Src/spi.c ****   hspi1.Init.Mode = SPI_MODE_MASTER;
+  43              		.loc 1 42 3 is_stmt 1 view .LVU3
+  44              		.loc 1 42 19 is_stmt 0 view .LVU4
+  45 0008 4FF48273 		mov	r3, #260
+  46 000c 4360     		str	r3, [r0, #4]
+  43:Core/Src/spi.c ****   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  47              		.loc 1 43 3 is_stmt 1 view .LVU5
+  48              		.loc 1 43 24 is_stmt 0 view .LVU6
+  49 000e 0023     		movs	r3, #0
+  50 0010 8360     		str	r3, [r0, #8]
+  44:Core/Src/spi.c ****   hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
+  51              		.loc 1 44 3 is_stmt 1 view .LVU7
+  52              		.loc 1 44 23 is_stmt 0 view .LVU8
+  53 0012 4FF40062 		mov	r2, #2048
+  54 0016 C260     		str	r2, [r0, #12]
+  45:Core/Src/spi.c ****   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  55              		.loc 1 45 3 is_stmt 1 view .LVU9
+  56              		.loc 1 45 26 is_stmt 0 view .LVU10
+  57 0018 0361     		str	r3, [r0, #16]
+  46:Core/Src/spi.c ****   hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
+  58              		.loc 1 46 3 is_stmt 1 view .LVU11
+  59              		.loc 1 46 23 is_stmt 0 view .LVU12
+  60 001a 0122     		movs	r2, #1
+  61 001c 4261     		str	r2, [r0, #20]
+  47:Core/Src/spi.c ****   hspi1.Init.NSS = SPI_NSS_SOFT;
+  62              		.loc 1 47 3 is_stmt 1 view .LVU13
+  63              		.loc 1 47 18 is_stmt 0 view .LVU14
+  64 001e 4FF40072 		mov	r2, #512
+  65 0022 8261     		str	r2, [r0, #24]
+  48:Core/Src/spi.c ****   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  66              		.loc 1 48 3 is_stmt 1 view .LVU15
+  67              		.loc 1 48 32 is_stmt 0 view .LVU16
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 3
+
+
+  68 0024 1822     		movs	r2, #24
+  69 0026 C261     		str	r2, [r0, #28]
+  49:Core/Src/spi.c ****   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  70              		.loc 1 49 3 is_stmt 1 view .LVU17
+  71              		.loc 1 49 23 is_stmt 0 view .LVU18
+  72 0028 0362     		str	r3, [r0, #32]
+  50:Core/Src/spi.c ****   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  73              		.loc 1 50 3 is_stmt 1 view .LVU19
+  74              		.loc 1 50 21 is_stmt 0 view .LVU20
+  75 002a 4362     		str	r3, [r0, #36]
+  51:Core/Src/spi.c ****   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  76              		.loc 1 51 3 is_stmt 1 view .LVU21
+  77              		.loc 1 51 29 is_stmt 0 view .LVU22
+  78 002c 8362     		str	r3, [r0, #40]
+  52:Core/Src/spi.c ****   hspi1.Init.CRCPolynomial = 10;
+  79              		.loc 1 52 3 is_stmt 1 view .LVU23
+  80              		.loc 1 52 28 is_stmt 0 view .LVU24
+  81 002e 0A23     		movs	r3, #10
+  82 0030 C362     		str	r3, [r0, #44]
+  53:Core/Src/spi.c ****   if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  83              		.loc 1 53 3 is_stmt 1 view .LVU25
+  84              		.loc 1 53 7 is_stmt 0 view .LVU26
+  85 0032 FFF7FEFF 		bl	HAL_SPI_Init
+  86              	.LVL0:
+  87              		.loc 1 53 6 view .LVU27
+  88 0036 00B9     		cbnz	r0, .L4
+  89              	.L1:
+  54:Core/Src/spi.c ****   {
+  55:Core/Src/spi.c ****     Error_Handler();
+  56:Core/Src/spi.c ****   }
+  57:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_Init 2 */
+  58:Core/Src/spi.c **** 
+  59:Core/Src/spi.c ****   /* USER CODE END SPI1_Init 2 */
+  60:Core/Src/spi.c **** 
+  61:Core/Src/spi.c **** }
+  90              		.loc 1 61 1 view .LVU28
+  91 0038 08BD     		pop	{r3, pc}
+  92              	.L4:
+  55:Core/Src/spi.c ****   }
+  93              		.loc 1 55 5 is_stmt 1 view .LVU29
+  94 003a FFF7FEFF 		bl	Error_Handler
+  95              	.LVL1:
+  96              		.loc 1 61 1 is_stmt 0 view .LVU30
+  97 003e FBE7     		b	.L1
+  98              	.L6:
+  99              		.align	2
+ 100              	.L5:
+ 101 0040 00000000 		.word	.LANCHOR0
+ 102 0044 00300140 		.word	1073819648
+ 103              		.cfi_endproc
+ 104              	.LFE216:
+ 106              		.section	.text.MX_SPI2_Init,"ax",%progbits
+ 107              		.align	1
+ 108              		.global	MX_SPI2_Init
+ 109              		.syntax unified
+ 110              		.thumb
+ 111              		.thumb_func
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 4
+
+
+ 113              	MX_SPI2_Init:
+ 114              	.LFB217:
+  62:Core/Src/spi.c **** /* SPI2 init function */
+  63:Core/Src/spi.c **** void MX_SPI2_Init(void)
+  64:Core/Src/spi.c **** {
+ 115              		.loc 1 64 1 is_stmt 1 view -0
+ 116              		.cfi_startproc
+ 117              		@ args = 0, pretend = 0, frame = 0
+ 118              		@ frame_needed = 0, uses_anonymous_args = 0
+ 119 0000 08B5     		push	{r3, lr}
+ 120              	.LCFI1:
+ 121              		.cfi_def_cfa_offset 8
+ 122              		.cfi_offset 3, -8
+ 123              		.cfi_offset 14, -4
+  65:Core/Src/spi.c **** 
+  66:Core/Src/spi.c ****   /* USER CODE BEGIN SPI2_Init 0 */
+  67:Core/Src/spi.c **** 
+  68:Core/Src/spi.c ****   /* USER CODE END SPI2_Init 0 */
+  69:Core/Src/spi.c **** 
+  70:Core/Src/spi.c ****   /* USER CODE BEGIN SPI2_Init 1 */
+  71:Core/Src/spi.c **** 
+  72:Core/Src/spi.c ****   /* USER CODE END SPI2_Init 1 */
+  73:Core/Src/spi.c ****   hspi2.Instance = SPI2;
+ 124              		.loc 1 73 3 view .LVU32
+ 125              		.loc 1 73 18 is_stmt 0 view .LVU33
+ 126 0002 0F48     		ldr	r0, .L11
+ 127 0004 0F4B     		ldr	r3, .L11+4
+ 128 0006 0360     		str	r3, [r0]
+  74:Core/Src/spi.c ****   hspi2.Init.Mode = SPI_MODE_MASTER;
+ 129              		.loc 1 74 3 is_stmt 1 view .LVU34
+ 130              		.loc 1 74 19 is_stmt 0 view .LVU35
+ 131 0008 4FF48273 		mov	r3, #260
+ 132 000c 4360     		str	r3, [r0, #4]
+  75:Core/Src/spi.c ****   hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+ 133              		.loc 1 75 3 is_stmt 1 view .LVU36
+ 134              		.loc 1 75 24 is_stmt 0 view .LVU37
+ 135 000e 0023     		movs	r3, #0
+ 136 0010 8360     		str	r3, [r0, #8]
+  76:Core/Src/spi.c ****   hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+ 137              		.loc 1 76 3 is_stmt 1 view .LVU38
+ 138              		.loc 1 76 23 is_stmt 0 view .LVU39
+ 139 0012 C360     		str	r3, [r0, #12]
+  77:Core/Src/spi.c ****   hspi2.Init.CLKPolarity = SPI_POLARITY_HIGH;
+ 140              		.loc 1 77 3 is_stmt 1 view .LVU40
+ 141              		.loc 1 77 26 is_stmt 0 view .LVU41
+ 142 0014 0222     		movs	r2, #2
+ 143 0016 0261     		str	r2, [r0, #16]
+  78:Core/Src/spi.c ****   hspi2.Init.CLKPhase = SPI_PHASE_2EDGE;
+ 144              		.loc 1 78 3 is_stmt 1 view .LVU42
+ 145              		.loc 1 78 23 is_stmt 0 view .LVU43
+ 146 0018 0122     		movs	r2, #1
+ 147 001a 4261     		str	r2, [r0, #20]
+  79:Core/Src/spi.c ****   hspi2.Init.NSS = SPI_NSS_SOFT;
+ 148              		.loc 1 79 3 is_stmt 1 view .LVU44
+ 149              		.loc 1 79 18 is_stmt 0 view .LVU45
+ 150 001c 4FF40072 		mov	r2, #512
+ 151 0020 8261     		str	r2, [r0, #24]
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 5
+
+
+  80:Core/Src/spi.c ****   hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+ 152              		.loc 1 80 3 is_stmt 1 view .LVU46
+ 153              		.loc 1 80 32 is_stmt 0 view .LVU47
+ 154 0022 1022     		movs	r2, #16
+ 155 0024 C261     		str	r2, [r0, #28]
+  81:Core/Src/spi.c ****   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+ 156              		.loc 1 81 3 is_stmt 1 view .LVU48
+ 157              		.loc 1 81 23 is_stmt 0 view .LVU49
+ 158 0026 0362     		str	r3, [r0, #32]
+  82:Core/Src/spi.c ****   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+ 159              		.loc 1 82 3 is_stmt 1 view .LVU50
+ 160              		.loc 1 82 21 is_stmt 0 view .LVU51
+ 161 0028 4362     		str	r3, [r0, #36]
+  83:Core/Src/spi.c ****   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+ 162              		.loc 1 83 3 is_stmt 1 view .LVU52
+ 163              		.loc 1 83 29 is_stmt 0 view .LVU53
+ 164 002a 8362     		str	r3, [r0, #40]
+  84:Core/Src/spi.c ****   hspi2.Init.CRCPolynomial = 10;
+ 165              		.loc 1 84 3 is_stmt 1 view .LVU54
+ 166              		.loc 1 84 28 is_stmt 0 view .LVU55
+ 167 002c 0A23     		movs	r3, #10
+ 168 002e C362     		str	r3, [r0, #44]
+  85:Core/Src/spi.c ****   if (HAL_SPI_Init(&hspi2) != HAL_OK)
+ 169              		.loc 1 85 3 is_stmt 1 view .LVU56
+ 170              		.loc 1 85 7 is_stmt 0 view .LVU57
+ 171 0030 FFF7FEFF 		bl	HAL_SPI_Init
+ 172              	.LVL2:
+ 173              		.loc 1 85 6 view .LVU58
+ 174 0034 00B9     		cbnz	r0, .L10
+ 175              	.L7:
+  86:Core/Src/spi.c ****   {
+  87:Core/Src/spi.c ****     Error_Handler();
+  88:Core/Src/spi.c ****   }
+  89:Core/Src/spi.c ****   /* USER CODE BEGIN SPI2_Init 2 */
+  90:Core/Src/spi.c **** 
+  91:Core/Src/spi.c ****   /* USER CODE END SPI2_Init 2 */
+  92:Core/Src/spi.c **** 
+  93:Core/Src/spi.c **** }
+ 176              		.loc 1 93 1 view .LVU59
+ 177 0036 08BD     		pop	{r3, pc}
+ 178              	.L10:
+  87:Core/Src/spi.c ****   }
+ 179              		.loc 1 87 5 is_stmt 1 view .LVU60
+ 180 0038 FFF7FEFF 		bl	Error_Handler
+ 181              	.LVL3:
+ 182              		.loc 1 93 1 is_stmt 0 view .LVU61
+ 183 003c FBE7     		b	.L7
+ 184              	.L12:
+ 185 003e 00BF     		.align	2
+ 186              	.L11:
+ 187 0040 00000000 		.word	.LANCHOR1
+ 188 0044 00380040 		.word	1073756160
+ 189              		.cfi_endproc
+ 190              	.LFE217:
+ 192              		.section	.text.HAL_SPI_MspInit,"ax",%progbits
+ 193              		.align	1
+ 194              		.global	HAL_SPI_MspInit
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 6
+
+
+ 195              		.syntax unified
+ 196              		.thumb
+ 197              		.thumb_func
+ 199              	HAL_SPI_MspInit:
+ 200              	.LVL4:
+ 201              	.LFB218:
+  94:Core/Src/spi.c **** 
+  95:Core/Src/spi.c **** void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
+  96:Core/Src/spi.c **** {
+ 202              		.loc 1 96 1 is_stmt 1 view -0
+ 203              		.cfi_startproc
+ 204              		@ args = 0, pretend = 0, frame = 40
+ 205              		@ frame_needed = 0, uses_anonymous_args = 0
+ 206              		.loc 1 96 1 is_stmt 0 view .LVU63
+ 207 0000 00B5     		push	{lr}
+ 208              	.LCFI2:
+ 209              		.cfi_def_cfa_offset 4
+ 210              		.cfi_offset 14, -4
+ 211 0002 8BB0     		sub	sp, sp, #44
+ 212              	.LCFI3:
+ 213              		.cfi_def_cfa_offset 48
+  97:Core/Src/spi.c **** 
+  98:Core/Src/spi.c ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 214              		.loc 1 98 3 is_stmt 1 view .LVU64
+ 215              		.loc 1 98 20 is_stmt 0 view .LVU65
+ 216 0004 0023     		movs	r3, #0
+ 217 0006 0593     		str	r3, [sp, #20]
+ 218 0008 0693     		str	r3, [sp, #24]
+ 219 000a 0793     		str	r3, [sp, #28]
+ 220 000c 0893     		str	r3, [sp, #32]
+ 221 000e 0993     		str	r3, [sp, #36]
+  99:Core/Src/spi.c ****   if(spiHandle->Instance==SPI1)
+ 222              		.loc 1 99 3 is_stmt 1 view .LVU66
+ 223              		.loc 1 99 15 is_stmt 0 view .LVU67
+ 224 0010 0368     		ldr	r3, [r0]
+ 225              		.loc 1 99 5 view .LVU68
+ 226 0012 284A     		ldr	r2, .L19
+ 227 0014 9342     		cmp	r3, r2
+ 228 0016 05D0     		beq	.L17
+ 100:Core/Src/spi.c ****   {
+ 101:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_MspInit 0 */
+ 102:Core/Src/spi.c **** 
+ 103:Core/Src/spi.c ****   /* USER CODE END SPI1_MspInit 0 */
+ 104:Core/Src/spi.c ****     /* SPI1 clock enable */
+ 105:Core/Src/spi.c ****     __HAL_RCC_SPI1_CLK_ENABLE();
+ 106:Core/Src/spi.c **** 
+ 107:Core/Src/spi.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+ 108:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
+ 109:Core/Src/spi.c ****     PA5     ------> SPI1_SCK
+ 110:Core/Src/spi.c ****     PA6     ------> SPI1_MISO
+ 111:Core/Src/spi.c ****     PA7     ------> SPI1_MOSI
+ 112:Core/Src/spi.c ****     */
+ 113:Core/Src/spi.c ****     GPIO_InitStruct.Pin = CLK_ENC_Pin|MISO_ENC_Pin|MOSI_ENC_Pin;
+ 114:Core/Src/spi.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 115:Core/Src/spi.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 116:Core/Src/spi.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 117:Core/Src/spi.c ****     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 7
+
+
+ 118:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 119:Core/Src/spi.c **** 
+ 120:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_MspInit 1 */
+ 121:Core/Src/spi.c **** 
+ 122:Core/Src/spi.c ****   /* USER CODE END SPI1_MspInit 1 */
+ 123:Core/Src/spi.c ****   }
+ 124:Core/Src/spi.c ****   else if(spiHandle->Instance==SPI2)
+ 229              		.loc 1 124 8 is_stmt 1 view .LVU69
+ 230              		.loc 1 124 10 is_stmt 0 view .LVU70
+ 231 0018 274A     		ldr	r2, .L19+4
+ 232 001a 9342     		cmp	r3, r2
+ 233 001c 25D0     		beq	.L18
+ 234              	.LVL5:
+ 235              	.L13:
+ 125:Core/Src/spi.c ****   {
+ 126:Core/Src/spi.c ****   /* USER CODE BEGIN SPI2_MspInit 0 */
+ 127:Core/Src/spi.c **** 
+ 128:Core/Src/spi.c ****   /* USER CODE END SPI2_MspInit 0 */
+ 129:Core/Src/spi.c ****     /* SPI2 clock enable */
+ 130:Core/Src/spi.c ****     __HAL_RCC_SPI2_CLK_ENABLE();
+ 131:Core/Src/spi.c **** 
+ 132:Core/Src/spi.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 133:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
+ 134:Core/Src/spi.c ****     PB13     ------> SPI2_SCK
+ 135:Core/Src/spi.c ****     PB14     ------> SPI2_MISO
+ 136:Core/Src/spi.c ****     PB15     ------> SPI2_MOSI
+ 137:Core/Src/spi.c ****     */
+ 138:Core/Src/spi.c ****     GPIO_InitStruct.Pin = CLK_IMU_Pin|MISO_IMU_Pin|MOSI_IMU_Pin;
+ 139:Core/Src/spi.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 140:Core/Src/spi.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 141:Core/Src/spi.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 142:Core/Src/spi.c ****     GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+ 143:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 144:Core/Src/spi.c **** 
+ 145:Core/Src/spi.c ****   /* USER CODE BEGIN SPI2_MspInit 1 */
+ 146:Core/Src/spi.c **** 
+ 147:Core/Src/spi.c ****   /* USER CODE END SPI2_MspInit 1 */
+ 148:Core/Src/spi.c ****   }
+ 149:Core/Src/spi.c **** }
+ 236              		.loc 1 149 1 view .LVU71
+ 237 001e 0BB0     		add	sp, sp, #44
+ 238              	.LCFI4:
+ 239              		.cfi_remember_state
+ 240              		.cfi_def_cfa_offset 4
+ 241              		@ sp needed
+ 242 0020 5DF804FB 		ldr	pc, [sp], #4
+ 243              	.LVL6:
+ 244              	.L17:
+ 245              	.LCFI5:
+ 246              		.cfi_restore_state
+ 105:Core/Src/spi.c **** 
+ 247              		.loc 1 105 5 is_stmt 1 view .LVU72
+ 248              	.LBB2:
+ 105:Core/Src/spi.c **** 
+ 249              		.loc 1 105 5 view .LVU73
+ 250 0024 0021     		movs	r1, #0
+ 251 0026 0191     		str	r1, [sp, #4]
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 8
+
+
+ 105:Core/Src/spi.c **** 
+ 252              		.loc 1 105 5 view .LVU74
+ 253 0028 244B     		ldr	r3, .L19+8
+ 254 002a 5A6C     		ldr	r2, [r3, #68]
+ 255 002c 42F48052 		orr	r2, r2, #4096
+ 256 0030 5A64     		str	r2, [r3, #68]
+ 105:Core/Src/spi.c **** 
+ 257              		.loc 1 105 5 view .LVU75
+ 258 0032 5A6C     		ldr	r2, [r3, #68]
+ 259 0034 02F48052 		and	r2, r2, #4096
+ 260 0038 0192     		str	r2, [sp, #4]
+ 105:Core/Src/spi.c **** 
+ 261              		.loc 1 105 5 view .LVU76
+ 262 003a 019A     		ldr	r2, [sp, #4]
+ 263              	.LBE2:
+ 105:Core/Src/spi.c **** 
+ 264              		.loc 1 105 5 view .LVU77
+ 107:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
+ 265              		.loc 1 107 5 view .LVU78
+ 266              	.LBB3:
+ 107:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
+ 267              		.loc 1 107 5 view .LVU79
+ 268 003c 0291     		str	r1, [sp, #8]
+ 107:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
+ 269              		.loc 1 107 5 view .LVU80
+ 270 003e 1A6B     		ldr	r2, [r3, #48]
+ 271 0040 42F00102 		orr	r2, r2, #1
+ 272 0044 1A63     		str	r2, [r3, #48]
+ 107:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
+ 273              		.loc 1 107 5 view .LVU81
+ 274 0046 1B6B     		ldr	r3, [r3, #48]
+ 275 0048 03F00103 		and	r3, r3, #1
+ 276 004c 0293     		str	r3, [sp, #8]
+ 107:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
+ 277              		.loc 1 107 5 view .LVU82
+ 278 004e 029B     		ldr	r3, [sp, #8]
+ 279              	.LBE3:
+ 107:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
+ 280              		.loc 1 107 5 view .LVU83
+ 113:Core/Src/spi.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 281              		.loc 1 113 5 view .LVU84
+ 113:Core/Src/spi.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 282              		.loc 1 113 25 is_stmt 0 view .LVU85
+ 283 0050 E023     		movs	r3, #224
+ 284 0052 0593     		str	r3, [sp, #20]
+ 114:Core/Src/spi.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 285              		.loc 1 114 5 is_stmt 1 view .LVU86
+ 114:Core/Src/spi.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 286              		.loc 1 114 26 is_stmt 0 view .LVU87
+ 287 0054 0223     		movs	r3, #2
+ 288 0056 0693     		str	r3, [sp, #24]
+ 115:Core/Src/spi.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 289              		.loc 1 115 5 is_stmt 1 view .LVU88
+ 116:Core/Src/spi.c ****     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+ 290              		.loc 1 116 5 view .LVU89
+ 116:Core/Src/spi.c ****     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+ 291              		.loc 1 116 27 is_stmt 0 view .LVU90
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 9
+
+
+ 292 0058 0323     		movs	r3, #3
+ 293 005a 0893     		str	r3, [sp, #32]
+ 117:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 294              		.loc 1 117 5 is_stmt 1 view .LVU91
+ 117:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 295              		.loc 1 117 31 is_stmt 0 view .LVU92
+ 296 005c 0523     		movs	r3, #5
+ 297 005e 0993     		str	r3, [sp, #36]
+ 118:Core/Src/spi.c **** 
+ 298              		.loc 1 118 5 is_stmt 1 view .LVU93
+ 299 0060 05A9     		add	r1, sp, #20
+ 300 0062 1748     		ldr	r0, .L19+12
+ 301              	.LVL7:
+ 118:Core/Src/spi.c **** 
+ 302              		.loc 1 118 5 is_stmt 0 view .LVU94
+ 303 0064 FFF7FEFF 		bl	HAL_GPIO_Init
+ 304              	.LVL8:
+ 305 0068 D9E7     		b	.L13
+ 306              	.LVL9:
+ 307              	.L18:
+ 130:Core/Src/spi.c **** 
+ 308              		.loc 1 130 5 is_stmt 1 view .LVU95
+ 309              	.LBB4:
+ 130:Core/Src/spi.c **** 
+ 310              		.loc 1 130 5 view .LVU96
+ 311 006a 0021     		movs	r1, #0
+ 312 006c 0391     		str	r1, [sp, #12]
+ 130:Core/Src/spi.c **** 
+ 313              		.loc 1 130 5 view .LVU97
+ 314 006e 134B     		ldr	r3, .L19+8
+ 315 0070 1A6C     		ldr	r2, [r3, #64]
+ 316 0072 42F48042 		orr	r2, r2, #16384
+ 317 0076 1A64     		str	r2, [r3, #64]
+ 130:Core/Src/spi.c **** 
+ 318              		.loc 1 130 5 view .LVU98
+ 319 0078 1A6C     		ldr	r2, [r3, #64]
+ 320 007a 02F48042 		and	r2, r2, #16384
+ 321 007e 0392     		str	r2, [sp, #12]
+ 130:Core/Src/spi.c **** 
+ 322              		.loc 1 130 5 view .LVU99
+ 323 0080 039A     		ldr	r2, [sp, #12]
+ 324              	.LBE4:
+ 130:Core/Src/spi.c **** 
+ 325              		.loc 1 130 5 view .LVU100
+ 132:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
+ 326              		.loc 1 132 5 view .LVU101
+ 327              	.LBB5:
+ 132:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
+ 328              		.loc 1 132 5 view .LVU102
+ 329 0082 0491     		str	r1, [sp, #16]
+ 132:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
+ 330              		.loc 1 132 5 view .LVU103
+ 331 0084 1A6B     		ldr	r2, [r3, #48]
+ 332 0086 42F00202 		orr	r2, r2, #2
+ 333 008a 1A63     		str	r2, [r3, #48]
+ 132:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
+ 334              		.loc 1 132 5 view .LVU104
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 10
+
+
+ 335 008c 1B6B     		ldr	r3, [r3, #48]
+ 336 008e 03F00203 		and	r3, r3, #2
+ 337 0092 0493     		str	r3, [sp, #16]
+ 132:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
+ 338              		.loc 1 132 5 view .LVU105
+ 339 0094 049B     		ldr	r3, [sp, #16]
+ 340              	.LBE5:
+ 132:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
+ 341              		.loc 1 132 5 view .LVU106
+ 138:Core/Src/spi.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 342              		.loc 1 138 5 view .LVU107
+ 138:Core/Src/spi.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 343              		.loc 1 138 25 is_stmt 0 view .LVU108
+ 344 0096 4FF46043 		mov	r3, #57344
+ 345 009a 0593     		str	r3, [sp, #20]
+ 139:Core/Src/spi.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 346              		.loc 1 139 5 is_stmt 1 view .LVU109
+ 139:Core/Src/spi.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 347              		.loc 1 139 26 is_stmt 0 view .LVU110
+ 348 009c 0223     		movs	r3, #2
+ 349 009e 0693     		str	r3, [sp, #24]
+ 140:Core/Src/spi.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 350              		.loc 1 140 5 is_stmt 1 view .LVU111
+ 141:Core/Src/spi.c ****     GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+ 351              		.loc 1 141 5 view .LVU112
+ 141:Core/Src/spi.c ****     GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+ 352              		.loc 1 141 27 is_stmt 0 view .LVU113
+ 353 00a0 0323     		movs	r3, #3
+ 354 00a2 0893     		str	r3, [sp, #32]
+ 142:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 355              		.loc 1 142 5 is_stmt 1 view .LVU114
+ 142:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 356              		.loc 1 142 31 is_stmt 0 view .LVU115
+ 357 00a4 0523     		movs	r3, #5
+ 358 00a6 0993     		str	r3, [sp, #36]
+ 143:Core/Src/spi.c **** 
+ 359              		.loc 1 143 5 is_stmt 1 view .LVU116
+ 360 00a8 05A9     		add	r1, sp, #20
+ 361 00aa 0648     		ldr	r0, .L19+16
+ 362              	.LVL10:
+ 143:Core/Src/spi.c **** 
+ 363              		.loc 1 143 5 is_stmt 0 view .LVU117
+ 364 00ac FFF7FEFF 		bl	HAL_GPIO_Init
+ 365              	.LVL11:
+ 366              		.loc 1 149 1 view .LVU118
+ 367 00b0 B5E7     		b	.L13
+ 368              	.L20:
+ 369 00b2 00BF     		.align	2
+ 370              	.L19:
+ 371 00b4 00300140 		.word	1073819648
+ 372 00b8 00380040 		.word	1073756160
+ 373 00bc 00380240 		.word	1073887232
+ 374 00c0 00000240 		.word	1073872896
+ 375 00c4 00040240 		.word	1073873920
+ 376              		.cfi_endproc
+ 377              	.LFE218:
+ 379              		.section	.text.HAL_SPI_MspDeInit,"ax",%progbits
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 11
+
+
+ 380              		.align	1
+ 381              		.global	HAL_SPI_MspDeInit
+ 382              		.syntax unified
+ 383              		.thumb
+ 384              		.thumb_func
+ 386              	HAL_SPI_MspDeInit:
+ 387              	.LVL12:
+ 388              	.LFB219:
+ 150:Core/Src/spi.c **** 
+ 151:Core/Src/spi.c **** void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
+ 152:Core/Src/spi.c **** {
+ 389              		.loc 1 152 1 is_stmt 1 view -0
+ 390              		.cfi_startproc
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393              		.loc 1 152 1 is_stmt 0 view .LVU120
+ 394 0000 08B5     		push	{r3, lr}
+ 395              	.LCFI6:
+ 396              		.cfi_def_cfa_offset 8
+ 397              		.cfi_offset 3, -8
+ 398              		.cfi_offset 14, -4
+ 153:Core/Src/spi.c **** 
+ 154:Core/Src/spi.c ****   if(spiHandle->Instance==SPI1)
+ 399              		.loc 1 154 3 is_stmt 1 view .LVU121
+ 400              		.loc 1 154 15 is_stmt 0 view .LVU122
+ 401 0002 0368     		ldr	r3, [r0]
+ 402              		.loc 1 154 5 view .LVU123
+ 403 0004 0E4A     		ldr	r2, .L27
+ 404 0006 9342     		cmp	r3, r2
+ 405 0008 03D0     		beq	.L25
+ 155:Core/Src/spi.c ****   {
+ 156:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_MspDeInit 0 */
+ 157:Core/Src/spi.c **** 
+ 158:Core/Src/spi.c ****   /* USER CODE END SPI1_MspDeInit 0 */
+ 159:Core/Src/spi.c ****     /* Peripheral clock disable */
+ 160:Core/Src/spi.c ****     __HAL_RCC_SPI1_CLK_DISABLE();
+ 161:Core/Src/spi.c **** 
+ 162:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
+ 163:Core/Src/spi.c ****     PA5     ------> SPI1_SCK
+ 164:Core/Src/spi.c ****     PA6     ------> SPI1_MISO
+ 165:Core/Src/spi.c ****     PA7     ------> SPI1_MOSI
+ 166:Core/Src/spi.c ****     */
+ 167:Core/Src/spi.c ****     HAL_GPIO_DeInit(GPIOA, CLK_ENC_Pin|MISO_ENC_Pin|MOSI_ENC_Pin);
+ 168:Core/Src/spi.c **** 
+ 169:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_MspDeInit 1 */
+ 170:Core/Src/spi.c **** 
+ 171:Core/Src/spi.c ****   /* USER CODE END SPI1_MspDeInit 1 */
+ 172:Core/Src/spi.c ****   }
+ 173:Core/Src/spi.c ****   else if(spiHandle->Instance==SPI2)
+ 406              		.loc 1 173 8 is_stmt 1 view .LVU124
+ 407              		.loc 1 173 10 is_stmt 0 view .LVU125
+ 408 000a 0E4A     		ldr	r2, .L27+4
+ 409 000c 9342     		cmp	r3, r2
+ 410 000e 0BD0     		beq	.L26
+ 411              	.LVL13:
+ 412              	.L21:
+ 174:Core/Src/spi.c ****   {
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 12
+
+
+ 175:Core/Src/spi.c ****   /* USER CODE BEGIN SPI2_MspDeInit 0 */
+ 176:Core/Src/spi.c **** 
+ 177:Core/Src/spi.c ****   /* USER CODE END SPI2_MspDeInit 0 */
+ 178:Core/Src/spi.c ****     /* Peripheral clock disable */
+ 179:Core/Src/spi.c ****     __HAL_RCC_SPI2_CLK_DISABLE();
+ 180:Core/Src/spi.c **** 
+ 181:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
+ 182:Core/Src/spi.c ****     PB13     ------> SPI2_SCK
+ 183:Core/Src/spi.c ****     PB14     ------> SPI2_MISO
+ 184:Core/Src/spi.c ****     PB15     ------> SPI2_MOSI
+ 185:Core/Src/spi.c ****     */
+ 186:Core/Src/spi.c ****     HAL_GPIO_DeInit(GPIOB, CLK_IMU_Pin|MISO_IMU_Pin|MOSI_IMU_Pin);
+ 187:Core/Src/spi.c **** 
+ 188:Core/Src/spi.c ****   /* USER CODE BEGIN SPI2_MspDeInit 1 */
+ 189:Core/Src/spi.c **** 
+ 190:Core/Src/spi.c ****   /* USER CODE END SPI2_MspDeInit 1 */
+ 191:Core/Src/spi.c ****   }
+ 192:Core/Src/spi.c **** }
+ 413              		.loc 1 192 1 view .LVU126
+ 414 0010 08BD     		pop	{r3, pc}
+ 415              	.LVL14:
+ 416              	.L25:
+ 160:Core/Src/spi.c **** 
+ 417              		.loc 1 160 5 is_stmt 1 view .LVU127
+ 418 0012 02F58432 		add	r2, r2, #67584
+ 419 0016 536C     		ldr	r3, [r2, #68]
+ 420 0018 23F48053 		bic	r3, r3, #4096
+ 421 001c 5364     		str	r3, [r2, #68]
+ 167:Core/Src/spi.c **** 
+ 422              		.loc 1 167 5 view .LVU128
+ 423 001e E021     		movs	r1, #224
+ 424 0020 0948     		ldr	r0, .L27+8
+ 425              	.LVL15:
+ 167:Core/Src/spi.c **** 
+ 426              		.loc 1 167 5 is_stmt 0 view .LVU129
+ 427 0022 FFF7FEFF 		bl	HAL_GPIO_DeInit
+ 428              	.LVL16:
+ 429 0026 F3E7     		b	.L21
+ 430              	.LVL17:
+ 431              	.L26:
+ 179:Core/Src/spi.c **** 
+ 432              		.loc 1 179 5 is_stmt 1 view .LVU130
+ 433 0028 02F50032 		add	r2, r2, #131072
+ 434 002c 136C     		ldr	r3, [r2, #64]
+ 435 002e 23F48043 		bic	r3, r3, #16384
+ 436 0032 1364     		str	r3, [r2, #64]
+ 186:Core/Src/spi.c **** 
+ 437              		.loc 1 186 5 view .LVU131
+ 438 0034 4FF46041 		mov	r1, #57344
+ 439 0038 0448     		ldr	r0, .L27+12
+ 440              	.LVL18:
+ 186:Core/Src/spi.c **** 
+ 441              		.loc 1 186 5 is_stmt 0 view .LVU132
+ 442 003a FFF7FEFF 		bl	HAL_GPIO_DeInit
+ 443              	.LVL19:
+ 444              		.loc 1 192 1 view .LVU133
+ 445 003e E7E7     		b	.L21
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 13
+
+
+ 446              	.L28:
+ 447              		.align	2
+ 448              	.L27:
+ 449 0040 00300140 		.word	1073819648
+ 450 0044 00380040 		.word	1073756160
+ 451 0048 00000240 		.word	1073872896
+ 452 004c 00040240 		.word	1073873920
+ 453              		.cfi_endproc
+ 454              	.LFE219:
+ 456              		.global	hspi2
+ 457              		.global	hspi1
+ 458              		.section	.bss.hspi1,"aw",%nobits
+ 459              		.align	2
+ 460              		.set	.LANCHOR0,. + 0
+ 463              	hspi1:
+ 464 0000 00000000 		.space	88
+ 464      00000000 
+ 464      00000000 
+ 464      00000000 
+ 464      00000000 
+ 465              		.section	.bss.hspi2,"aw",%nobits
+ 466              		.align	2
+ 467              		.set	.LANCHOR1,. + 0
+ 470              	hspi2:
+ 471 0000 00000000 		.space	88
+ 471      00000000 
+ 471      00000000 
+ 471      00000000 
+ 471      00000000 
+ 472              		.text
+ 473              	.Letext0:
+ 474              		.file 2 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_default_type
+ 475              		.file 3 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 476              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f412cx.h"
+ 477              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 478              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 479              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 480              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 481              		.file 9 "Core/Inc/spi.h"
+ 482              		.file 10 "Core/Inc/main.h"
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi.c
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:20     .text.MX_SPI1_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:26     .text.MX_SPI1_Init:00000000 MX_SPI1_Init
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:101    .text.MX_SPI1_Init:00000040 $d
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:107    .text.MX_SPI2_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:113    .text.MX_SPI2_Init:00000000 MX_SPI2_Init
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:187    .text.MX_SPI2_Init:00000040 $d
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:193    .text.HAL_SPI_MspInit:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:199    .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:371    .text.HAL_SPI_MspInit:000000b4 $d
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:380    .text.HAL_SPI_MspDeInit:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:386    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:449    .text.HAL_SPI_MspDeInit:00000040 $d
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:470    .bss.hspi2:00000000 hspi2
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:463    .bss.hspi1:00000000 hspi1
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:459    .bss.hspi1:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc3W85ZS.s:466    .bss.hspi2:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_SPI_Init
+Error_Handler
+HAL_GPIO_Init
+HAL_GPIO_DeInit
