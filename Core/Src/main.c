@@ -30,8 +30,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#define ARM_MATH_CM4
-#include<arm_math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,6 +41,7 @@
 /* USER CODE BEGIN PD */
 #define FFTSAMPLE 64
 #define MAXADC 4096
+#define N 4
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -64,32 +63,63 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+//DMAの送信先(L,FL,FR,R,VBAT/2)
 uint16_t adcval[5];
-uint16_t fftval[4][FFTSAMPLE];
-int sensval[4];
-int cnt = 0;
+//フーリエ変換用
+double_t f_real[4] = {0.0};
+double_t f_imagin[4] = {0.0};
+double_t t_cos[FFTSAMPLE],t_sin[FFTSAMPLE];
+uint16_t sensval[4];
+uint8_t cnt = 0;
+//0→FR,L 1→FL,R
+uint8_t flag_led = 0;
+
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   if(htim == &htim6){
-    fftval[0][cnt] = adcval[0];
-    fftval[1][cnt] = adcval[1];
-    fftval[2][cnt] = adcval[2];
-    fftval[3][cnt] = adcval[3];
-    cnt++;
-
     if(cnt >= FFTSAMPLE){
-      HAL_TIM_Base_Stop_IT(&htim6);
-      for(int i=0;i<4;i++){
-        double r =0,j=0;
-        for(int k=0;k<FFTSAMPLE;k++){
-          double theta = 25.132741228718345 * ((double)i + 1.0) / 64.0;
-          r+= fftval[i][k] * cos(theta);
-          j+= fftval[i][k] * sin(theta);
-        }
-        sensval[i] = sqrt(r*r+j*j);
+      for(int i = flag_led;i<4;i+=2){
+        //10kHzの成分出す
+        double_t pow_r = f_real[i] * f_real[i];
+        double_t pow_i = f_imagin[i] * f_imagin[i];
+        sensval[i] = sqrt(pow_r + pow_i);
       }
-      cnt = 0;
-      HAL_TIM_Base_Start_IT(&htim6);
+      flag_led = !flag_led;
+      if(flag_led){
+        __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,0);
+        __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,250);
+      }else{
+        __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
+        __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,0);
+      }
+    }else{
+      for(int i = flag_led;i<4;i+=2){
+        //センサ値とりながらフーリエ変換
+        f_real[i]   += adcval[i] * cos(cnt);
+        f_imagin[i] += adcval[i] * sin(cnt);
+      }
+      cnt++;
     }
+  }
+}
+
+void init(){
+  //壁センサ関係
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
+  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,0);
+  flag_led = 0;
+  //160kHz割り込み
+  HAL_TIM_Base_Start_IT(&htim6);
+
+  //フーリエ変換用三角関数テーブル
+  const double_t piN = 2*M_PI*N;
+  for(int k=0;k<FFTSAMPLE;k++){
+    double_t theta = piN*k/FFTSAMPLE;
+    t_cos[k] = cos(theta);
+    t_sin[k] = sin(theta);
   }
 }
 /* USER CODE END 0 */
@@ -132,14 +162,7 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
-  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
-  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,0);
-
-  HAL_TIM_Base_Start_IT(&htim6);
-
+  init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -149,7 +172,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    printf("%ld,%ld,%ld,%ld\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+    printf("%d,%d,%d,%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
     //printf("%ld,%ld,%ld,%ld\r\n",adcval[0],adcval[1],adcval[2],adcval[3]);
     HAL_Delay(100);
   }

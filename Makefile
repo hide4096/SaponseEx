@@ -150,7 +150,7 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 LDSCRIPT = STM32F412CGUx_FLASH.ld
 
 # libraries
-LIBS = -lc -lm -lnosys C:\Users\neko2\GoogleDrive\reRo\MicroMouse\SaponseEx\Middlewares\ST\ARM\DSP\Lib\iar_cortexM4lf_math.a
+LIBS = -lc -lm -lnosys
 LIBDIR =
 LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
