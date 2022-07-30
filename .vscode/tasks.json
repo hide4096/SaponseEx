@@ -25,7 +25,7 @@
         },
         {
             "label": "Clean project",
-            "command": "powershell -Command Remove-Item",
+            "command": "Remove-Item",
             "args": [
                 "${workspaceFolder}\\build",
                 "-Recurse"

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -19,16 +19,23 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   16              		.text
   17              	.Ltext0:
   18              		.cfi_sections	.debug_frame
-  19              		.section	.text._write,"ax",%progbits
-  20              		.align	1
-  21              		.global	_write
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  26              	_write:
-  27              	.LVL0:
-  28              	.LFB218:
-  29              		.file 1 "Core/Src/main.c"
+  19              		.section	.rodata.HAL_TIM_PeriodElapsedCallback.str1.4,"aMS",%progbits,1
+  20              		.align	2
+  21              	.LC0:
+  22 0000 25642C00 		.ascii	"%d,\000"
+  23              		.align	2
+  24              	.LC1:
+  25 0004 0D00     		.ascii	"\015\000"
+  26              		.section	.text.HAL_TIM_PeriodElapsedCallback,"ax",%progbits
+  27              		.align	1
+  28              		.global	HAL_TIM_PeriodElapsedCallback
+  29              		.syntax unified
+  30              		.thumb
+  31              		.thumb_func
+  33              	HAL_TIM_PeriodElapsedCallback:
+  34              	.LVL0:
+  35              	.LFB252:
+  36              		.file 1 "Core/Src/main.c"
    1:Core/Src/main.c **** /* USER CODE BEGIN Header */
    2:Core/Src/main.c **** /**
    3:Core/Src/main.c ****   ******************************************************************************
@@ -51,6 +58,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   20:Core/Src/main.c **** #include "main.h"
   21:Core/Src/main.c **** #include "adc.h"
   22:Core/Src/main.c **** #include "dma.h"
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 2
+
+
   23:Core/Src/main.c **** #include "spi.h"
   24:Core/Src/main.c **** #include "tim.h"
   25:Core/Src/main.c **** #include "usart.h"
@@ -58,171 +68,496 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   27:Core/Src/main.c **** 
   28:Core/Src/main.c **** /* Private includes ----------------------------------------------------------*/
   29:Core/Src/main.c **** /* USER CODE BEGIN Includes */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 2
-
-
-  30:Core/Src/main.c **** 
-  31:Core/Src/main.c **** /* USER CODE END Includes */
-  32:Core/Src/main.c **** 
-  33:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
-  34:Core/Src/main.c **** /* USER CODE BEGIN PTD */
-  35:Core/Src/main.c **** 
-  36:Core/Src/main.c **** /* USER CODE END PTD */
-  37:Core/Src/main.c **** 
-  38:Core/Src/main.c **** /* Private define ------------------------------------------------------------*/
-  39:Core/Src/main.c **** /* USER CODE BEGIN PD */
-  40:Core/Src/main.c **** /* USER CODE END PD */
+  30:Core/Src/main.c **** #include<stdio.h>
+  31:Core/Src/main.c **** #include<stdlib.h>
+  32:Core/Src/main.c **** #include<math.h>
+  33:Core/Src/main.c **** #define ARM_MATH_CM4
+  34:Core/Src/main.c **** #include<arm_math.h>
+  35:Core/Src/main.c **** /* USER CODE END Includes */
+  36:Core/Src/main.c **** 
+  37:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
+  38:Core/Src/main.c **** /* USER CODE BEGIN PTD */
+  39:Core/Src/main.c **** 
+  40:Core/Src/main.c **** /* USER CODE END PTD */
   41:Core/Src/main.c **** 
-  42:Core/Src/main.c **** /* Private macro -------------------------------------------------------------*/
-  43:Core/Src/main.c **** /* USER CODE BEGIN PM */
-  44:Core/Src/main.c **** 
-  45:Core/Src/main.c **** /* USER CODE END PM */
-  46:Core/Src/main.c **** 
-  47:Core/Src/main.c **** /* Private variables ---------------------------------------------------------*/
-  48:Core/Src/main.c **** 
-  49:Core/Src/main.c **** /* USER CODE BEGIN PV */
+  42:Core/Src/main.c **** /* Private define ------------------------------------------------------------*/
+  43:Core/Src/main.c **** /* USER CODE BEGIN PD */
+  44:Core/Src/main.c **** #define FFTSAMPLE 64
+  45:Core/Src/main.c **** #define MAXADC 4096
+  46:Core/Src/main.c **** /* USER CODE END PD */
+  47:Core/Src/main.c **** 
+  48:Core/Src/main.c **** /* Private macro -------------------------------------------------------------*/
+  49:Core/Src/main.c **** /* USER CODE BEGIN PM */
   50:Core/Src/main.c **** 
-  51:Core/Src/main.c **** /* USER CODE END PV */
+  51:Core/Src/main.c **** /* USER CODE END PM */
   52:Core/Src/main.c **** 
-  53:Core/Src/main.c **** /* Private function prototypes -----------------------------------------------*/
-  54:Core/Src/main.c **** void SystemClock_Config(void);
-  55:Core/Src/main.c **** /* USER CODE BEGIN PFP */
+  53:Core/Src/main.c **** /* Private variables ---------------------------------------------------------*/
+  54:Core/Src/main.c **** 
+  55:Core/Src/main.c **** /* USER CODE BEGIN PV */
   56:Core/Src/main.c **** 
-  57:Core/Src/main.c **** /* USER CODE END PFP */
+  57:Core/Src/main.c **** /* USER CODE END PV */
   58:Core/Src/main.c **** 
-  59:Core/Src/main.c **** /* Private user code ---------------------------------------------------------*/
-  60:Core/Src/main.c **** /* USER CODE BEGIN 0 */
-  61:Core/Src/main.c **** 
-  62:Core/Src/main.c **** /* USER CODE END 0 */
-  63:Core/Src/main.c **** 
-  64:Core/Src/main.c **** /**
-  65:Core/Src/main.c ****   * @brief  The application entry point.
-  66:Core/Src/main.c ****   * @retval int
-  67:Core/Src/main.c ****   */
-  68:Core/Src/main.c **** int main(void)
-  69:Core/Src/main.c **** {
-  70:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
-  71:Core/Src/main.c **** 
-  72:Core/Src/main.c ****   /* USER CODE END 1 */
-  73:Core/Src/main.c **** 
-  74:Core/Src/main.c ****   /* MCU Configuration--------------------------------------------------------*/
-  75:Core/Src/main.c **** 
-  76:Core/Src/main.c ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  77:Core/Src/main.c ****   HAL_Init();
+  59:Core/Src/main.c **** /* Private function prototypes -----------------------------------------------*/
+  60:Core/Src/main.c **** void SystemClock_Config(void);
+  61:Core/Src/main.c **** /* USER CODE BEGIN PFP */
+  62:Core/Src/main.c **** 
+  63:Core/Src/main.c **** /* USER CODE END PFP */
+  64:Core/Src/main.c **** 
+  65:Core/Src/main.c **** /* Private user code ---------------------------------------------------------*/
+  66:Core/Src/main.c **** /* USER CODE BEGIN 0 */
+  67:Core/Src/main.c **** uint16_t adcval[5];
+  68:Core/Src/main.c **** uint16_t fftval[4][FFTSAMPLE];
+  69:Core/Src/main.c **** int sensval[4];
+  70:Core/Src/main.c **** int cnt = 0;
+  71:Core/Src/main.c **** void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+  37              		.loc 1 71 60 view -0
+  38              		.cfi_startproc
+  39              		@ args = 0, pretend = 0, frame = 536
+  40              		@ frame_needed = 0, uses_anonymous_args = 0
+  72:Core/Src/main.c ****   if(htim == &htim6){
+  41              		.loc 1 72 3 view .LVU1
+  42              		.loc 1 72 5 is_stmt 0 view .LVU2
+  43 0000 394B     		ldr	r3, .L16
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 3
+
+
+  44 0002 8342     		cmp	r3, r0
+  45 0004 00D0     		beq	.L13
+  46 0006 7047     		bx	lr
+  47              	.L13:
+  71:Core/Src/main.c ****   if(htim == &htim6){
+  48              		.loc 1 71 60 view .LVU3
+  49 0008 30B5     		push	{r4, r5, lr}
+  50              	.LCFI0:
+  51              		.cfi_def_cfa_offset 12
+  52              		.cfi_offset 4, -12
+  53              		.cfi_offset 5, -8
+  54              		.cfi_offset 14, -4
+  55 000a ADF5077D 		sub	sp, sp, #540
+  56              	.LCFI1:
+  57              		.cfi_def_cfa_offset 552
+  73:Core/Src/main.c ****     fftval[0][cnt] = adcval[0];
+  58              		.loc 1 73 5 is_stmt 1 view .LVU4
+  59              		.loc 1 73 14 is_stmt 0 view .LVU5
+  60 000e 3748     		ldr	r0, .L16+4
+  61              	.LVL1:
+  62              		.loc 1 73 14 view .LVU6
+  63 0010 0368     		ldr	r3, [r0]
+  64              		.loc 1 73 28 view .LVU7
+  65 0012 3749     		ldr	r1, .L16+8
+  66 0014 0C88     		ldrh	r4, [r1]
+  67              		.loc 1 73 20 view .LVU8
+  68 0016 374A     		ldr	r2, .L16+12
+  69 0018 22F81340 		strh	r4, [r2, r3, lsl #1]	@ movhi
+  74:Core/Src/main.c ****     fftval[1][cnt] = adcval[1];
+  70              		.loc 1 74 5 is_stmt 1 view .LVU9
+  71              		.loc 1 74 28 is_stmt 0 view .LVU10
+  72 001c 4D88     		ldrh	r5, [r1, #2]
+  73              		.loc 1 74 20 view .LVU11
+  74 001e 03F14004 		add	r4, r3, #64
+  75 0022 22F81450 		strh	r5, [r2, r4, lsl #1]	@ movhi
+  75:Core/Src/main.c ****     fftval[2][cnt] = adcval[2];
+  76              		.loc 1 75 5 is_stmt 1 view .LVU12
+  77              		.loc 1 75 28 is_stmt 0 view .LVU13
+  78 0026 8D88     		ldrh	r5, [r1, #4]
+  79              		.loc 1 75 20 view .LVU14
+  80 0028 03F18004 		add	r4, r3, #128
+  81 002c 22F81450 		strh	r5, [r2, r4, lsl #1]	@ movhi
+  76:Core/Src/main.c ****     fftval[3][cnt] = adcval[3];
+  82              		.loc 1 76 5 is_stmt 1 view .LVU15
+  83              		.loc 1 76 28 is_stmt 0 view .LVU16
+  84 0030 CC88     		ldrh	r4, [r1, #6]
+  85              		.loc 1 76 20 view .LVU17
+  86 0032 03F1C001 		add	r1, r3, #192
+  87 0036 22F81140 		strh	r4, [r2, r1, lsl #1]	@ movhi
+  77:Core/Src/main.c ****     cnt++;
+  88              		.loc 1 77 5 is_stmt 1 view .LVU18
+  89              		.loc 1 77 8 is_stmt 0 view .LVU19
+  90 003a 0133     		adds	r3, r3, #1
+  91 003c 0360     		str	r3, [r0]
   78:Core/Src/main.c **** 
-  79:Core/Src/main.c ****   /* USER CODE BEGIN Init */
-  80:Core/Src/main.c **** 
-  81:Core/Src/main.c ****   /* USER CODE END Init */
-  82:Core/Src/main.c **** 
-  83:Core/Src/main.c ****   /* Configure the system clock */
-  84:Core/Src/main.c ****   SystemClock_Config();
-  85:Core/Src/main.c **** 
-  86:Core/Src/main.c ****   /* USER CODE BEGIN SysInit */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 3
+  79:Core/Src/main.c ****     if(cnt >= FFTSAMPLE){
+  92              		.loc 1 79 5 is_stmt 1 view .LVU20
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 4
 
 
-  87:Core/Src/main.c **** 
-  88:Core/Src/main.c ****   /* USER CODE END SysInit */
-  89:Core/Src/main.c **** 
-  90:Core/Src/main.c ****   /* Initialize all configured peripherals */
-  91:Core/Src/main.c ****   MX_GPIO_Init();
-  92:Core/Src/main.c ****   MX_DMA_Init();
-  93:Core/Src/main.c ****   MX_SPI2_Init();
-  94:Core/Src/main.c ****   MX_ADC1_Init();
-  95:Core/Src/main.c ****   MX_SPI1_Init();
-  96:Core/Src/main.c ****   MX_USART6_UART_Init();
-  97:Core/Src/main.c ****   MX_TIM1_Init();
-  98:Core/Src/main.c ****   MX_TIM2_Init();
-  99:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
- 100:Core/Src/main.c **** 
- 101:Core/Src/main.c ****   /* USER CODE END 2 */
- 102:Core/Src/main.c **** 
- 103:Core/Src/main.c ****   /* Infinite loop */
- 104:Core/Src/main.c ****   /* USER CODE BEGIN WHILE */
- 105:Core/Src/main.c ****   while (1)
- 106:Core/Src/main.c ****   {
- 107:Core/Src/main.c ****     /* USER CODE END WHILE */
- 108:Core/Src/main.c **** 
- 109:Core/Src/main.c ****     /* USER CODE BEGIN 3 */
- 110:Core/Src/main.c ****     printf("HelloWorld\r\n");
- 111:Core/Src/main.c ****     HAL_Delay(1000);
- 112:Core/Src/main.c ****   }
- 113:Core/Src/main.c ****   /* USER CODE END 3 */
- 114:Core/Src/main.c **** }
- 115:Core/Src/main.c **** 
- 116:Core/Src/main.c **** /**
- 117:Core/Src/main.c ****   * @brief System Clock Configuration
- 118:Core/Src/main.c ****   * @retval None
- 119:Core/Src/main.c ****   */
- 120:Core/Src/main.c **** void SystemClock_Config(void)
- 121:Core/Src/main.c **** {
- 122:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 123:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 124:Core/Src/main.c **** 
- 125:Core/Src/main.c ****   /** Configure the main internal regulator output voltage
- 126:Core/Src/main.c ****   */
- 127:Core/Src/main.c ****   __HAL_RCC_PWR_CLK_ENABLE();
- 128:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
- 129:Core/Src/main.c **** 
- 130:Core/Src/main.c ****   /** Initializes the RCC Oscillators according to the specified parameters
- 131:Core/Src/main.c ****   * in the RCC_OscInitTypeDef structure.
- 132:Core/Src/main.c ****   */
- 133:Core/Src/main.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
- 134:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
- 135:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
- 136:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
- 137:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLM = 10;
- 138:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLN = 100;
- 139:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
- 140:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
- 141:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLR = 2;
- 142:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 143:Core/Src/main.c ****   {
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 4
+  93              		.loc 1 79 7 is_stmt 0 view .LVU21
+  94 003e 3F2B     		cmp	r3, #63
+  95 0040 02DC     		bgt	.L14
+  96              	.L1:
+  80:Core/Src/main.c ****       HAL_TIM_Base_Stop_IT(&htim6);
+  81:Core/Src/main.c ****       for(int i=0;i<4;i++){
+  82:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+  83:Core/Src/main.c ****         float32_t fftans[FFTSAMPLE];
+  84:Core/Src/main.c ****         
+  85:Core/Src/main.c ****         for(int j=0;j<FFTSAMPLE;j++) fftcalc[j] = fftval[i][j];
+  86:Core/Src/main.c ****         
+  87:Core/Src/main.c ****         arm_rfft_fast_instance_f32 instance;
+  88:Core/Src/main.c ****         arm_rfft_fast_init_f32(&instance, FFTSAMPLE);
+  89:Core/Src/main.c ****         arm_rfft_fast_f32(&instance,fftcalc,fftans,0);
+  90:Core/Src/main.c ****         for(int j=0;j<FFTSAMPLE;j++) printf("%d,",abs((int)fftans[j]));
+  91:Core/Src/main.c **** 
+  92:Core/Src/main.c ****         printf("\r\n");
+  93:Core/Src/main.c ****         sensval[i] = abs((int)fftans[9]);
+  94:Core/Src/main.c ****       }
+  95:Core/Src/main.c ****       cnt = 0;
+  96:Core/Src/main.c ****       HAL_TIM_Base_Start_IT(&htim6);
+  97:Core/Src/main.c ****     }
+  98:Core/Src/main.c ****   }
+  99:Core/Src/main.c **** }
+  97              		.loc 1 99 1 view .LVU22
+  98 0042 0DF5077D 		add	sp, sp, #540
+  99              	.LCFI2:
+ 100              		.cfi_remember_state
+ 101              		.cfi_def_cfa_offset 12
+ 102              		@ sp needed
+ 103 0046 30BD     		pop	{r4, r5, pc}
+ 104              	.L14:
+ 105              	.LCFI3:
+ 106              		.cfi_restore_state
+  80:Core/Src/main.c ****       HAL_TIM_Base_Stop_IT(&htim6);
+ 107              		.loc 1 80 7 is_stmt 1 view .LVU23
+ 108 0048 2748     		ldr	r0, .L16
+ 109 004a FFF7FEFF 		bl	HAL_TIM_Base_Stop_IT
+ 110              	.LVL2:
+  81:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+ 111              		.loc 1 81 7 view .LVU24
+ 112              	.LBB4:
+  81:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+ 113              		.loc 1 81 11 view .LVU25
+  81:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+ 114              		.loc 1 81 15 is_stmt 0 view .LVU26
+ 115 004e 0025     		movs	r5, #0
+  81:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+ 116              		.loc 1 81 7 view .LVU27
+ 117 0050 3EE0     		b	.L3
+ 118              	.LVL3:
+ 119              	.L4:
+ 120              	.LBB5:
+ 121              	.LBB6:
+  85:Core/Src/main.c ****         
+ 122              		.loc 1 85 38 is_stmt 1 discriminator 3 view .LVU28
+  85:Core/Src/main.c ****         
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 5
 
 
- 144:Core/Src/main.c ****     Error_Handler();
- 145:Core/Src/main.c ****   }
- 146:Core/Src/main.c **** 
- 147:Core/Src/main.c ****   /** Initializes the CPU, AHB and APB buses clocks
- 148:Core/Src/main.c ****   */
- 149:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
- 150:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 151:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
- 152:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 153:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
- 154:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 123              		.loc 1 85 60 is_stmt 0 discriminator 3 view .LVU29
+ 124 0052 03EB8511 		add	r1, r3, r5, lsl #6
+ 125 0056 274A     		ldr	r2, .L16+12
+ 126 0058 32F81120 		ldrh	r2, [r2, r1, lsl #1]
+ 127 005c 07EE902A 		vmov	s15, r2	@ int
+  85:Core/Src/main.c ****         
+ 128              		.loc 1 85 49 discriminator 3 view .LVU30
+ 129 0060 06AA     		add	r2, sp, #24
+ 130 0062 02EB8302 		add	r2, r2, r3, lsl #2
+ 131 0066 F8EE677A 		vcvt.f32.u32	s15, s15
+ 132 006a C2ED007A 		vstr.32	s15, [r2]
+  85:Core/Src/main.c ****         
+ 133              		.loc 1 85 33 is_stmt 1 discriminator 3 view .LVU31
+  85:Core/Src/main.c ****         
+ 134              		.loc 1 85 34 is_stmt 0 discriminator 3 view .LVU32
+ 135 006e 0133     		adds	r3, r3, #1
+ 136              	.LVL4:
+ 137              	.L7:
+  85:Core/Src/main.c ****         
+ 138              		.loc 1 85 21 is_stmt 1 discriminator 1 view .LVU33
+  85:Core/Src/main.c ****         
+ 139              		.loc 1 85 9 is_stmt 0 discriminator 1 view .LVU34
+ 140 0070 3F2B     		cmp	r3, #63
+ 141 0072 EEDD     		ble	.L4
+ 142              	.LBE6:
+  87:Core/Src/main.c ****         arm_rfft_fast_init_f32(&instance, FFTSAMPLE);
+ 143              		.loc 1 87 9 is_stmt 1 view .LVU35
+  88:Core/Src/main.c ****         arm_rfft_fast_f32(&instance,fftcalc,fftans,0);
+ 144              		.loc 1 88 9 view .LVU36
+ 145 0074 4021     		movs	r1, #64
+ 146 0076 6846     		mov	r0, sp
+ 147 0078 FFF7FEFF 		bl	arm_rfft_fast_init_f32
+ 148              	.LVL5:
+  89:Core/Src/main.c ****         for(int j=0;j<FFTSAMPLE;j++) printf("%d,",abs((int)fftans[j]));
+ 149              		.loc 1 89 9 view .LVU37
+ 150 007c 0023     		movs	r3, #0
+ 151 007e 46AA     		add	r2, sp, #280
+ 152 0080 06A9     		add	r1, sp, #24
+ 153 0082 6846     		mov	r0, sp
+ 154 0084 FFF7FEFF 		bl	arm_rfft_fast_f32
+ 155              	.LVL6:
+  90:Core/Src/main.c **** 
+ 156              		.loc 1 90 9 view .LVU38
+ 157              	.LBB7:
+  90:Core/Src/main.c **** 
+ 158              		.loc 1 90 13 view .LVU39
+  90:Core/Src/main.c **** 
+ 159              		.loc 1 90 17 is_stmt 0 view .LVU40
+ 160 0088 0024     		movs	r4, #0
+  90:Core/Src/main.c **** 
+ 161              		.loc 1 90 9 view .LVU41
+ 162 008a 0FE0     		b	.L5
+ 163              	.LVL7:
+ 164              	.L6:
+  90:Core/Src/main.c **** 
+ 165              		.loc 1 90 38 is_stmt 1 discriminator 3 view .LVU42
+  90:Core/Src/main.c **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 6
+
+
+ 166              		.loc 1 90 66 is_stmt 0 discriminator 3 view .LVU43
+ 167 008c 46AB     		add	r3, sp, #280
+ 168 008e 03EB8403 		add	r3, r3, r4, lsl #2
+ 169 0092 D3ED007A 		vldr.32	s15, [r3]
+  90:Core/Src/main.c **** 
+ 170              		.loc 1 90 55 discriminator 3 view .LVU44
+ 171 0096 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 172 009a 17EE901A 		vmov	r1, s15	@ int
+  90:Core/Src/main.c **** 
+ 173              		.loc 1 90 38 discriminator 3 view .LVU45
+ 174 009e 0029     		cmp	r1, #0
+ 175 00a0 B8BF     		it	lt
+ 176 00a2 4942     		rsblt	r1, r1, #0
+ 177 00a4 1448     		ldr	r0, .L16+16
+ 178 00a6 FFF7FEFF 		bl	printf
+ 179              	.LVL8:
+  90:Core/Src/main.c **** 
+ 180              		.loc 1 90 33 is_stmt 1 discriminator 3 view .LVU46
+  90:Core/Src/main.c **** 
+ 181              		.loc 1 90 34 is_stmt 0 discriminator 3 view .LVU47
+ 182 00aa 0134     		adds	r4, r4, #1
+ 183              	.LVL9:
+ 184              	.L5:
+  90:Core/Src/main.c **** 
+ 185              		.loc 1 90 21 is_stmt 1 discriminator 1 view .LVU48
+  90:Core/Src/main.c **** 
+ 186              		.loc 1 90 9 is_stmt 0 discriminator 1 view .LVU49
+ 187 00ac 3F2C     		cmp	r4, #63
+ 188 00ae EDDD     		ble	.L6
+ 189              	.LBE7:
+  92:Core/Src/main.c ****         sensval[i] = abs((int)fftans[9]);
+ 190              		.loc 1 92 9 is_stmt 1 discriminator 2 view .LVU50
+ 191 00b0 1248     		ldr	r0, .L16+20
+ 192 00b2 FFF7FEFF 		bl	puts
+ 193              	.LVL10:
+  93:Core/Src/main.c ****       }
+ 194              		.loc 1 93 9 discriminator 2 view .LVU51
+  93:Core/Src/main.c ****       }
+ 195              		.loc 1 93 37 is_stmt 0 discriminator 2 view .LVU52
+ 196 00b6 DDED4F7A 		vldr.32	s15, [sp, #316]
+  93:Core/Src/main.c ****       }
+ 197              		.loc 1 93 26 discriminator 2 view .LVU53
+ 198 00ba FDEEE77A 		vcvt.s32.f32	s15, s15
+ 199 00be 17EE903A 		vmov	r3, s15	@ int
+  93:Core/Src/main.c ****       }
+ 200              		.loc 1 93 22 discriminator 2 view .LVU54
+ 201 00c2 002B     		cmp	r3, #0
+ 202 00c4 B8BF     		it	lt
+ 203 00c6 5B42     		rsblt	r3, r3, #0
+  93:Core/Src/main.c ****       }
+ 204              		.loc 1 93 20 discriminator 2 view .LVU55
+ 205 00c8 0D4A     		ldr	r2, .L16+24
+ 206 00ca 42F82530 		str	r3, [r2, r5, lsl #2]
+ 207              	.LBE5:
+  81:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+ 208              		.loc 1 81 23 is_stmt 1 discriminator 2 view .LVU56
+  81:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 7
+
+
+ 209              		.loc 1 81 24 is_stmt 0 discriminator 2 view .LVU57
+ 210 00ce 0135     		adds	r5, r5, #1
+ 211              	.LVL11:
+ 212              	.L3:
+  81:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+ 213              		.loc 1 81 19 is_stmt 1 discriminator 1 view .LVU58
+  81:Core/Src/main.c ****         float32_t fftcalc[FFTSAMPLE];
+ 214              		.loc 1 81 7 is_stmt 0 discriminator 1 view .LVU59
+ 215 00d0 032D     		cmp	r5, #3
+ 216 00d2 01DC     		bgt	.L15
+ 217              	.LBB9:
+ 218              	.LBB8:
+  85:Core/Src/main.c ****         
+ 219              		.loc 1 85 17 view .LVU60
+ 220 00d4 0023     		movs	r3, #0
+ 221 00d6 CBE7     		b	.L7
+ 222              	.L15:
+ 223              	.LBE8:
+ 224              	.LBE9:
+ 225              	.LBE4:
+  95:Core/Src/main.c ****       HAL_TIM_Base_Start_IT(&htim6);
+ 226              		.loc 1 95 7 is_stmt 1 view .LVU61
+  95:Core/Src/main.c ****       HAL_TIM_Base_Start_IT(&htim6);
+ 227              		.loc 1 95 11 is_stmt 0 view .LVU62
+ 228 00d8 044B     		ldr	r3, .L16+4
+ 229 00da 0022     		movs	r2, #0
+ 230 00dc 1A60     		str	r2, [r3]
+  96:Core/Src/main.c ****     }
+ 231              		.loc 1 96 7 is_stmt 1 view .LVU63
+ 232 00de 0248     		ldr	r0, .L16
+ 233 00e0 FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
+ 234              	.LVL12:
+ 235              		.loc 1 99 1 is_stmt 0 view .LVU64
+ 236 00e4 ADE7     		b	.L1
+ 237              	.L17:
+ 238 00e6 00BF     		.align	2
+ 239              	.L16:
+ 240 00e8 00000000 		.word	htim6
+ 241 00ec 00000000 		.word	.LANCHOR0
+ 242 00f0 00000000 		.word	.LANCHOR1
+ 243 00f4 00000000 		.word	.LANCHOR2
+ 244 00f8 00000000 		.word	.LC0
+ 245 00fc 04000000 		.word	.LC1
+ 246 0100 00000000 		.word	.LANCHOR3
+ 247              		.cfi_endproc
+ 248              	.LFE252:
+ 250              		.section	.text._write,"ax",%progbits
+ 251              		.align	1
+ 252              		.global	_write
+ 253              		.syntax unified
+ 254              		.thumb
+ 255              		.thumb_func
+ 257              	_write:
+ 258              	.LVL13:
+ 259              	.LFB255:
+ 100:Core/Src/main.c **** /* USER CODE END 0 */
+ 101:Core/Src/main.c **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 8
+
+
+ 102:Core/Src/main.c **** /**
+ 103:Core/Src/main.c ****   * @brief  The application entry point.
+ 104:Core/Src/main.c ****   * @retval int
+ 105:Core/Src/main.c ****   */
+ 106:Core/Src/main.c **** int main(void)
+ 107:Core/Src/main.c **** {
+ 108:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
+ 109:Core/Src/main.c **** 
+ 110:Core/Src/main.c ****   /* USER CODE END 1 */
+ 111:Core/Src/main.c **** 
+ 112:Core/Src/main.c ****   /* MCU Configuration--------------------------------------------------------*/
+ 113:Core/Src/main.c **** 
+ 114:Core/Src/main.c ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+ 115:Core/Src/main.c ****   HAL_Init();
+ 116:Core/Src/main.c **** 
+ 117:Core/Src/main.c ****   /* USER CODE BEGIN Init */
+ 118:Core/Src/main.c **** 
+ 119:Core/Src/main.c ****   /* USER CODE END Init */
+ 120:Core/Src/main.c **** 
+ 121:Core/Src/main.c ****   /* Configure the system clock */
+ 122:Core/Src/main.c ****   SystemClock_Config();
+ 123:Core/Src/main.c **** 
+ 124:Core/Src/main.c ****   /* USER CODE BEGIN SysInit */
+ 125:Core/Src/main.c **** 
+ 126:Core/Src/main.c ****   /* USER CODE END SysInit */
+ 127:Core/Src/main.c **** 
+ 128:Core/Src/main.c ****   /* Initialize all configured peripherals */
+ 129:Core/Src/main.c ****   MX_GPIO_Init();
+ 130:Core/Src/main.c ****   MX_DMA_Init();
+ 131:Core/Src/main.c ****   MX_SPI2_Init();
+ 132:Core/Src/main.c ****   MX_ADC1_Init();
+ 133:Core/Src/main.c ****   MX_SPI1_Init();
+ 134:Core/Src/main.c ****   MX_USART6_UART_Init();
+ 135:Core/Src/main.c ****   MX_TIM1_Init();
+ 136:Core/Src/main.c ****   MX_TIM2_Init();
+ 137:Core/Src/main.c ****   MX_TIM3_Init();
+ 138:Core/Src/main.c ****   MX_TIM6_Init();
+ 139:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
+ 140:Core/Src/main.c ****   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
+ 141:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+ 142:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+ 143:Core/Src/main.c ****   __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
+ 144:Core/Src/main.c ****   __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,0);
+ 145:Core/Src/main.c **** 
+ 146:Core/Src/main.c ****   HAL_TIM_Base_Start_IT(&htim6);
+ 147:Core/Src/main.c **** 
+ 148:Core/Src/main.c ****   /* USER CODE END 2 */
+ 149:Core/Src/main.c **** 
+ 150:Core/Src/main.c ****   /* Infinite loop */
+ 151:Core/Src/main.c ****   /* USER CODE BEGIN WHILE */
+ 152:Core/Src/main.c ****   while (1)
+ 153:Core/Src/main.c ****   {
+ 154:Core/Src/main.c ****     /* USER CODE END WHILE */
  155:Core/Src/main.c **** 
- 156:Core/Src/main.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
- 157:Core/Src/main.c ****   {
- 158:Core/Src/main.c ****     Error_Handler();
+ 156:Core/Src/main.c ****     /* USER CODE BEGIN 3 */
+ 157:Core/Src/main.c ****     //printf("%ld,%ld,%ld,%ld\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+ 158:Core/Src/main.c ****     //HAL_Delay(500);
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 9
+
+
  159:Core/Src/main.c ****   }
- 160:Core/Src/main.c **** }
- 161:Core/Src/main.c **** 
- 162:Core/Src/main.c **** /* USER CODE BEGIN 4 */
- 163:Core/Src/main.c **** int _write(int file, char *ptr, int len)
- 164:Core/Src/main.c **** {
-  30              		.loc 1 164 1 view -0
-  31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 0
-  33              		@ frame_needed = 0, uses_anonymous_args = 0
-  34              		@ link register save eliminated.
-  35              		.loc 1 164 1 is_stmt 0 view .LVU1
-  36 0000 1046     		mov	r0, r2
-  37              	.LVL1:
- 165:Core/Src/main.c ****   int DataIdx;
-  38              		.loc 1 165 3 is_stmt 1 view .LVU2
- 166:Core/Src/main.c ****   for(DataIdx=0; DataIdx<len; DataIdx++)
-  39              		.loc 1 166 3 view .LVU3
-  40              		.loc 1 166 14 is_stmt 0 view .LVU4
-  41 0002 4FF0000C 		mov	ip, #0
-  42              		.loc 1 166 3 view .LVU5
-  43 0006 0AE0     		b	.L2
-  44              	.LVL2:
-  45              	.L5:
-  46              	.LBB6:
-  47              	.LBB7:
-  48              		.file 2 "Drivers/CMSIS/Include/core_cm4.h"
+ 160:Core/Src/main.c ****   /* USER CODE END 3 */
+ 161:Core/Src/main.c **** }
+ 162:Core/Src/main.c **** 
+ 163:Core/Src/main.c **** /**
+ 164:Core/Src/main.c ****   * @brief System Clock Configuration
+ 165:Core/Src/main.c ****   * @retval None
+ 166:Core/Src/main.c ****   */
+ 167:Core/Src/main.c **** void SystemClock_Config(void)
+ 168:Core/Src/main.c **** {
+ 169:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ 170:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 171:Core/Src/main.c **** 
+ 172:Core/Src/main.c ****   /** Configure the main internal regulator output voltage
+ 173:Core/Src/main.c ****   */
+ 174:Core/Src/main.c ****   __HAL_RCC_PWR_CLK_ENABLE();
+ 175:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 176:Core/Src/main.c **** 
+ 177:Core/Src/main.c ****   /** Initializes the RCC Oscillators according to the specified parameters
+ 178:Core/Src/main.c ****   * in the RCC_OscInitTypeDef structure.
+ 179:Core/Src/main.c ****   */
+ 180:Core/Src/main.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+ 181:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
+ 182:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 183:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+ 184:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLM = 10;
+ 185:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLN = 100;
+ 186:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+ 187:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
+ 188:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLR = 2;
+ 189:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 190:Core/Src/main.c ****   {
+ 191:Core/Src/main.c ****     Error_Handler();
+ 192:Core/Src/main.c ****   }
+ 193:Core/Src/main.c **** 
+ 194:Core/Src/main.c ****   /** Initializes the CPU, AHB and APB buses clocks
+ 195:Core/Src/main.c ****   */
+ 196:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 197:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 198:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+ 199:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 200:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+ 201:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 202:Core/Src/main.c **** 
+ 203:Core/Src/main.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
+ 204:Core/Src/main.c ****   {
+ 205:Core/Src/main.c ****     Error_Handler();
+ 206:Core/Src/main.c ****   }
+ 207:Core/Src/main.c **** }
+ 208:Core/Src/main.c **** 
+ 209:Core/Src/main.c **** /* USER CODE BEGIN 4 */
+ 210:Core/Src/main.c **** int _write(int file, char *ptr, int len)
+ 211:Core/Src/main.c **** {
+ 260              		.loc 1 211 1 is_stmt 1 view -0
+ 261              		.cfi_startproc
+ 262              		@ args = 0, pretend = 0, frame = 0
+ 263              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 10
+
+
+ 264              		@ link register save eliminated.
+ 265              		.loc 1 211 1 is_stmt 0 view .LVU66
+ 266 0000 1046     		mov	r0, r2
+ 267              	.LVL14:
+ 212:Core/Src/main.c ****   int DataIdx;
+ 268              		.loc 1 212 3 is_stmt 1 view .LVU67
+ 213:Core/Src/main.c ****   for(DataIdx=0; DataIdx<len; DataIdx++)
+ 269              		.loc 1 213 3 view .LVU68
+ 270              		.loc 1 213 14 is_stmt 0 view .LVU69
+ 271 0002 4FF0000C 		mov	ip, #0
+ 272              		.loc 1 213 3 view .LVU70
+ 273 0006 0AE0     		b	.L19
+ 274              	.LVL15:
+ 275              	.L22:
+ 276              	.LBB12:
+ 277              	.LBB13:
+ 278              		.file 2 "Drivers/CMSIS/Include/core_cm4.h"
    1:Drivers/CMSIS/Include/core_cm4.h **** /**************************************************************************//**
    2:Drivers/CMSIS/Include/core_cm4.h ****  * @file     core_cm4.h
    3:Drivers/CMSIS/Include/core_cm4.h ****  * @brief    CMSIS Cortex-M4 Core Peripheral Access Layer Header File
@@ -238,9 +573,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   13:Drivers/CMSIS/Include/core_cm4.h ****  * not use this file except in compliance with the License.
   14:Drivers/CMSIS/Include/core_cm4.h ****  * You may obtain a copy of the License at
   15:Drivers/CMSIS/Include/core_cm4.h ****  *
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 5
-
-
   16:Drivers/CMSIS/Include/core_cm4.h ****  * www.apache.org/licenses/LICENSE-2.0
   17:Drivers/CMSIS/Include/core_cm4.h ****  *
   18:Drivers/CMSIS/Include/core_cm4.h ****  * Unless required by applicable law or agreed to in writing, software
@@ -266,6 +598,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   38:Drivers/CMSIS/Include/core_cm4.h **** #endif
   39:Drivers/CMSIS/Include/core_cm4.h **** 
   40:Drivers/CMSIS/Include/core_cm4.h **** /**
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 11
+
+
   41:Drivers/CMSIS/Include/core_cm4.h ****   \page CMSIS_MISRA_Exceptions  MISRA-C:2004 Compliance Exceptions
   42:Drivers/CMSIS/Include/core_cm4.h ****   CMSIS violates the following MISRA-C:2004 rules:
   43:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -298,9 +633,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   70:Drivers/CMSIS/Include/core_cm4.h **** 
   71:Drivers/CMSIS/Include/core_cm4.h **** #define __CORTEX_M                (4U)                                   /*!< Cortex-M Core */
   72:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 6
-
-
   73:Drivers/CMSIS/Include/core_cm4.h **** /** __FPU_USED indicates whether an FPU is used or not.
   74:Drivers/CMSIS/Include/core_cm4.h ****     For this, __FPU_PRESENT has to be checked prior to making use of FPU specific registers and fun
   75:Drivers/CMSIS/Include/core_cm4.h **** */
@@ -326,6 +658,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   95:Drivers/CMSIS/Include/core_cm4.h ****     #endif
   96:Drivers/CMSIS/Include/core_cm4.h ****   #else
   97:Drivers/CMSIS/Include/core_cm4.h ****     #define __FPU_USED         0U
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 12
+
+
   98:Drivers/CMSIS/Include/core_cm4.h ****   #endif
   99:Drivers/CMSIS/Include/core_cm4.h **** 
  100:Drivers/CMSIS/Include/core_cm4.h **** #elif defined ( __GNUC__ )
@@ -358,9 +693,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  127:Drivers/CMSIS/Include/core_cm4.h ****       #define __FPU_USED       1U
  128:Drivers/CMSIS/Include/core_cm4.h ****     #else
  129:Drivers/CMSIS/Include/core_cm4.h ****       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 7
-
-
  130:Drivers/CMSIS/Include/core_cm4.h ****       #define __FPU_USED       0U
  131:Drivers/CMSIS/Include/core_cm4.h ****     #endif
  132:Drivers/CMSIS/Include/core_cm4.h ****   #else
@@ -386,6 +718,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  152:Drivers/CMSIS/Include/core_cm4.h ****     #else
  153:Drivers/CMSIS/Include/core_cm4.h ****       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
  154:Drivers/CMSIS/Include/core_cm4.h ****       #define __FPU_USED       0U
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 13
+
+
  155:Drivers/CMSIS/Include/core_cm4.h ****     #endif
  156:Drivers/CMSIS/Include/core_cm4.h ****   #else
  157:Drivers/CMSIS/Include/core_cm4.h ****     #define __FPU_USED         0U
@@ -418,9 +753,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  184:Drivers/CMSIS/Include/core_cm4.h ****     #warning "__CM4_REV not defined in device header file; using default!"
  185:Drivers/CMSIS/Include/core_cm4.h ****   #endif
  186:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 8
-
-
  187:Drivers/CMSIS/Include/core_cm4.h ****   #ifndef __FPU_PRESENT
  188:Drivers/CMSIS/Include/core_cm4.h ****     #define __FPU_PRESENT             0U
  189:Drivers/CMSIS/Include/core_cm4.h ****     #warning "__FPU_PRESENT not defined in device header file; using default!"
@@ -446,6 +778,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  209:Drivers/CMSIS/Include/core_cm4.h **** /**
  210:Drivers/CMSIS/Include/core_cm4.h ****     \defgroup CMSIS_glob_defs CMSIS Global Defines
  211:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 14
+
+
  212:Drivers/CMSIS/Include/core_cm4.h ****     <strong>IO Type Qualifiers</strong> are used
  213:Drivers/CMSIS/Include/core_cm4.h ****     \li to specify the access to peripheral variables.
  214:Drivers/CMSIS/Include/core_cm4.h ****     \li for automatic generation of peripheral register debug information.
@@ -478,9 +813,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  241:Drivers/CMSIS/Include/core_cm4.h ****   - Core MPU Register
  242:Drivers/CMSIS/Include/core_cm4.h ****   - Core FPU Register
  243:Drivers/CMSIS/Include/core_cm4.h ****  ******************************************************************************/
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 9
-
-
  244:Drivers/CMSIS/Include/core_cm4.h **** /**
  245:Drivers/CMSIS/Include/core_cm4.h ****   \defgroup CMSIS_core_register Defines and Type Definitions
  246:Drivers/CMSIS/Include/core_cm4.h ****   \brief Type definitions and defines for Cortex-M processor based devices.
@@ -506,6 +838,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  266:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t Q:1;                        /*!< bit:     27  Saturation condition flag */
  267:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t V:1;                        /*!< bit:     28  Overflow condition code flag */
  268:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t C:1;                        /*!< bit:     29  Carry condition code flag */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 15
+
+
  269:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t Z:1;                        /*!< bit:     30  Zero condition code flag */
  270:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t N:1;                        /*!< bit:     31  Negative condition code flag */
  271:Drivers/CMSIS/Include/core_cm4.h ****   } b;                                   /*!< Structure used for bit  access */
@@ -538,9 +873,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  298:Drivers/CMSIS/Include/core_cm4.h **** typedef union
  299:Drivers/CMSIS/Include/core_cm4.h **** {
  300:Drivers/CMSIS/Include/core_cm4.h ****   struct
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 10
-
-
  301:Drivers/CMSIS/Include/core_cm4.h ****   {
  302:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t ISR:9;                      /*!< bit:  0.. 8  Exception number */
  303:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t _reserved0:23;              /*!< bit:  9..31  Reserved */
@@ -566,6 +898,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  323:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t GE:4;                       /*!< bit: 16..19  Greater than or Equal flags */
  324:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t _reserved1:4;               /*!< bit: 20..23  Reserved */
  325:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t T:1;                        /*!< bit:     24  Thumb bit */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 16
+
+
  326:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t ICI_IT_2:2;                 /*!< bit: 25..26  ICI/IT part 2 */
  327:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t Q:1;                        /*!< bit:     27  Saturation condition flag */
  328:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t V:1;                        /*!< bit:     28  Overflow condition code flag */
@@ -598,9 +933,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  355:Drivers/CMSIS/Include/core_cm4.h **** #define xPSR_T_Pos                         24U                                            /*!< xPSR
  356:Drivers/CMSIS/Include/core_cm4.h **** #define xPSR_T_Msk                         (1UL << xPSR_T_Pos)                            /*!< xPSR
  357:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 11
-
-
  358:Drivers/CMSIS/Include/core_cm4.h **** #define xPSR_GE_Pos                        16U                                            /*!< xPSR
  359:Drivers/CMSIS/Include/core_cm4.h **** #define xPSR_GE_Msk                        (0xFUL << xPSR_GE_Pos)                         /*!< xPSR
  360:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -626,6 +958,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  380:Drivers/CMSIS/Include/core_cm4.h ****   uint32_t w;                            /*!< Type      used for word access */
  381:Drivers/CMSIS/Include/core_cm4.h **** } CONTROL_Type;
  382:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 17
+
+
  383:Drivers/CMSIS/Include/core_cm4.h **** /* CONTROL Register Definitions */
  384:Drivers/CMSIS/Include/core_cm4.h **** #define CONTROL_FPCA_Pos                    2U                                            /*!< CONT
  385:Drivers/CMSIS/Include/core_cm4.h **** #define CONTROL_FPCA_Msk                   (1UL << CONTROL_FPCA_Pos)                      /*!< CONT
@@ -658,9 +993,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  412:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t ISPR[8U];               /*!< Offset: 0x100 (R/W)  Interrupt Set Pending Register *
  413:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED2[24U];
  414:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t ICPR[8U];               /*!< Offset: 0x180 (R/W)  Interrupt Clear Pending Register
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 12
-
-
  415:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED3[24U];
  416:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t IABR[8U];               /*!< Offset: 0x200 (R/W)  Interrupt Active bit Register */
  417:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED4[56U];
@@ -686,6 +1018,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  437:Drivers/CMSIS/Include/core_cm4.h **** /**
  438:Drivers/CMSIS/Include/core_cm4.h ****   \brief  Structure type to access the System Control Block (SCB).
  439:Drivers/CMSIS/Include/core_cm4.h ****  */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 18
+
+
  440:Drivers/CMSIS/Include/core_cm4.h **** typedef struct
  441:Drivers/CMSIS/Include/core_cm4.h **** {
  442:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t CPUID;                  /*!< Offset: 0x000 (R/ )  CPUID Base Register */
@@ -718,9 +1053,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  469:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CPUID_VARIANT_Pos              20U                                            /*!< SCB 
  470:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CPUID_VARIANT_Msk              (0xFUL << SCB_CPUID_VARIANT_Pos)               /*!< SCB 
  471:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 13
-
-
  472:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CPUID_ARCHITECTURE_Pos         16U                                            /*!< SCB 
  473:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CPUID_ARCHITECTURE_Msk         (0xFUL << SCB_CPUID_ARCHITECTURE_Pos)          /*!< SCB 
  474:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -746,6 +1078,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  494:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_ICSR_PENDSTCLR_Pos             25U                                            /*!< SCB 
  495:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_ICSR_PENDSTCLR_Msk             (1UL << SCB_ICSR_PENDSTCLR_Pos)                /*!< SCB 
  496:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 19
+
+
  497:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_ICSR_ISRPREEMPT_Pos            23U                                            /*!< SCB 
  498:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_ICSR_ISRPREEMPT_Msk            (1UL << SCB_ICSR_ISRPREEMPT_Pos)               /*!< SCB 
  499:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -778,9 +1113,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  526:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_AIRCR_PRIGROUP_Pos              8U                                            /*!< SCB 
  527:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_AIRCR_PRIGROUP_Msk             (7UL << SCB_AIRCR_PRIGROUP_Pos)                /*!< SCB 
  528:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 14
-
-
  529:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_AIRCR_SYSRESETREQ_Pos           2U                                            /*!< SCB 
  530:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_AIRCR_SYSRESETREQ_Msk          (1UL << SCB_AIRCR_SYSRESETREQ_Pos)             /*!< SCB 
  531:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -806,6 +1138,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  551:Drivers/CMSIS/Include/core_cm4.h **** 
  552:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CCR_BFHFNMIGN_Pos               8U                                            /*!< SCB 
  553:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CCR_BFHFNMIGN_Msk              (1UL << SCB_CCR_BFHFNMIGN_Pos)                 /*!< SCB 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 20
+
+
  554:Drivers/CMSIS/Include/core_cm4.h **** 
  555:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CCR_DIV_0_TRP_Pos               4U                                            /*!< SCB 
  556:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CCR_DIV_0_TRP_Msk              (1UL << SCB_CCR_DIV_0_TRP_Pos)                 /*!< SCB 
@@ -838,9 +1173,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  583:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_MEMFAULTPENDED_Pos       13U                                            /*!< SCB 
  584:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_MEMFAULTPENDED_Msk       (1UL << SCB_SHCSR_MEMFAULTPENDED_Pos)          /*!< SCB 
  585:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 15
-
-
  586:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_USGFAULTPENDED_Pos       12U                                            /*!< SCB 
  587:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_USGFAULTPENDED_Msk       (1UL << SCB_SHCSR_USGFAULTPENDED_Pos)          /*!< SCB 
  588:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -866,6 +1198,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  608:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_MEMFAULTACT_Msk          (1UL /*<< SCB_SHCSR_MEMFAULTACT_Pos*/)         /*!< SCB 
  609:Drivers/CMSIS/Include/core_cm4.h **** 
  610:Drivers/CMSIS/Include/core_cm4.h **** /* SCB Configurable Fault Status Register Definitions */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 21
+
+
  611:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_USGFAULTSR_Pos            16U                                            /*!< SCB 
  612:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_USGFAULTSR_Msk            (0xFFFFUL << SCB_CFSR_USGFAULTSR_Pos)          /*!< SCB 
  613:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -898,9 +1233,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  640:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_BFARVALID_Pos            (SCB_CFSR_BUSFAULTSR_Pos + 7U)                  /*!< SCB 
  641:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_BFARVALID_Msk            (1UL << SCB_CFSR_BFARVALID_Pos)                 /*!< SCB 
  642:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 16
-
-
  643:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_LSPERR_Pos               (SCB_CFSR_BUSFAULTSR_Pos + 5U)                  /*!< SCB 
  644:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_LSPERR_Msk               (1UL << SCB_CFSR_LSPERR_Pos)                    /*!< SCB 
  645:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -926,6 +1258,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  665:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_UNALIGNED_Pos            (SCB_CFSR_USGFAULTSR_Pos + 8U)                  /*!< SCB 
  666:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_UNALIGNED_Msk            (1UL << SCB_CFSR_UNALIGNED_Pos)                 /*!< SCB 
  667:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 22
+
+
  668:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_NOCP_Pos                 (SCB_CFSR_USGFAULTSR_Pos + 3U)                  /*!< SCB 
  669:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_NOCP_Msk                 (1UL << SCB_CFSR_NOCP_Pos)                      /*!< SCB 
  670:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -958,9 +1293,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  697:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_DFSR_DWTTRAP_Pos                2U                                            /*!< SCB 
  698:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_DFSR_DWTTRAP_Msk               (1UL << SCB_DFSR_DWTTRAP_Pos)                  /*!< SCB 
  699:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 17
-
-
  700:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_DFSR_BKPT_Pos                   1U                                            /*!< SCB 
  701:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_DFSR_BKPT_Msk                  (1UL << SCB_DFSR_BKPT_Pos)                     /*!< SCB 
  702:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -986,6 +1318,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  722:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t ICTR;                   /*!< Offset: 0x004 (R/ )  Interrupt Controller Type Regist
  723:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t ACTLR;                  /*!< Offset: 0x008 (R/W)  Auxiliary Control Register */
  724:Drivers/CMSIS/Include/core_cm4.h **** } SCnSCB_Type;
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 23
+
+
  725:Drivers/CMSIS/Include/core_cm4.h **** 
  726:Drivers/CMSIS/Include/core_cm4.h **** /* Interrupt Controller Type Register Definitions */
  727:Drivers/CMSIS/Include/core_cm4.h **** #define SCnSCB_ICTR_INTLINESNUM_Pos         0U                                         /*!< ICTR: I
@@ -1018,9 +1353,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  754:Drivers/CMSIS/Include/core_cm4.h ****  */
  755:Drivers/CMSIS/Include/core_cm4.h **** 
  756:Drivers/CMSIS/Include/core_cm4.h **** /**
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 18
-
-
  757:Drivers/CMSIS/Include/core_cm4.h ****   \brief  Structure type to access the System Timer (SysTick).
  758:Drivers/CMSIS/Include/core_cm4.h ****  */
  759:Drivers/CMSIS/Include/core_cm4.h **** typedef struct
@@ -1046,6 +1378,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  779:Drivers/CMSIS/Include/core_cm4.h **** 
  780:Drivers/CMSIS/Include/core_cm4.h **** /* SysTick Reload Register Definitions */
  781:Drivers/CMSIS/Include/core_cm4.h **** #define SysTick_LOAD_RELOAD_Pos             0U                                            /*!< SysT
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 24
+
+
  782:Drivers/CMSIS/Include/core_cm4.h **** #define SysTick_LOAD_RELOAD_Msk            (0xFFFFFFUL /*<< SysTick_LOAD_RELOAD_Pos*/)    /*!< SysT
  783:Drivers/CMSIS/Include/core_cm4.h **** 
  784:Drivers/CMSIS/Include/core_cm4.h **** /* SysTick Current Register Definitions */
@@ -1078,9 +1413,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  811:Drivers/CMSIS/Include/core_cm4.h **** typedef struct
  812:Drivers/CMSIS/Include/core_cm4.h **** {
  813:Drivers/CMSIS/Include/core_cm4.h ****   __OM  union
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 19
-
-
  814:Drivers/CMSIS/Include/core_cm4.h ****   {
  815:Drivers/CMSIS/Include/core_cm4.h ****     __OM  uint8_t    u8;                 /*!< Offset: 0x000 ( /W)  ITM Stimulus Port 8-bit */
  816:Drivers/CMSIS/Include/core_cm4.h ****     __OM  uint16_t   u16;                /*!< Offset: 0x000 ( /W)  ITM Stimulus Port 16-bit */
@@ -1106,6 +1438,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  836:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t PID7;                   /*!< Offset: 0xFDC (R/ )  ITM Peripheral Identification Re
  837:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t PID0;                   /*!< Offset: 0xFE0 (R/ )  ITM Peripheral Identification Re
  838:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t PID1;                   /*!< Offset: 0xFE4 (R/ )  ITM Peripheral Identification Re
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 25
+
+
  839:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t PID2;                   /*!< Offset: 0xFE8 (R/ )  ITM Peripheral Identification Re
  840:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t PID3;                   /*!< Offset: 0xFEC (R/ )  ITM Peripheral Identification Re
  841:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t CID0;                   /*!< Offset: 0xFF0 (R/ )  ITM Component  Identification Re
@@ -1138,9 +1473,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  868:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_TCR_DWTENA_Msk                 (1UL << ITM_TCR_DWTENA_Pos)                    /*!< ITM 
  869:Drivers/CMSIS/Include/core_cm4.h **** 
  870:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_TCR_SYNCENA_Pos                 2U                                            /*!< ITM 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 20
-
-
  871:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_TCR_SYNCENA_Msk                (1UL << ITM_TCR_SYNCENA_Pos)                   /*!< ITM 
  872:Drivers/CMSIS/Include/core_cm4.h **** 
  873:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_TCR_TSENA_Pos                   1U                                            /*!< ITM 
@@ -1166,6 +1498,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  893:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_LSR_ByteAcc_Msk                (1UL << ITM_LSR_ByteAcc_Pos)                   /*!< ITM 
  894:Drivers/CMSIS/Include/core_cm4.h **** 
  895:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_LSR_Access_Pos                  1U                                            /*!< ITM 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 26
+
+
  896:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_LSR_Access_Msk                 (1UL << ITM_LSR_Access_Pos)                    /*!< ITM 
  897:Drivers/CMSIS/Include/core_cm4.h **** 
  898:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_LSR_Present_Pos                 0U                                            /*!< ITM 
@@ -1198,9 +1533,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  925:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t MASK0;                  /*!< Offset: 0x024 (R/W)  Mask Register 0 */
  926:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t FUNCTION0;              /*!< Offset: 0x028 (R/W)  Function Register 0 */
  927:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED0[1U];
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 21
-
-
  928:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t COMP1;                  /*!< Offset: 0x030 (R/W)  Comparator Register 1 */
  929:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t MASK1;                  /*!< Offset: 0x034 (R/W)  Mask Register 1 */
  930:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t FUNCTION1;              /*!< Offset: 0x038 (R/W)  Function Register 1 */
@@ -1226,6 +1558,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  950:Drivers/CMSIS/Include/core_cm4.h **** 
  951:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_NOCYCCNT_Pos              25U                                         /*!< DWT CTR
  952:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_NOCYCCNT_Msk              (0x1UL << DWT_CTRL_NOCYCCNT_Pos)            /*!< DWT CTR
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 27
+
+
  953:Drivers/CMSIS/Include/core_cm4.h **** 
  954:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_NOPRFCNT_Pos              24U                                         /*!< DWT CTR
  955:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_NOPRFCNT_Msk              (0x1UL << DWT_CTRL_NOPRFCNT_Pos)            /*!< DWT CTR
@@ -1258,9 +1593,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  982:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_SYNCTAP_Msk               (0x3UL << DWT_CTRL_SYNCTAP_Pos)             /*!< DWT CTR
  983:Drivers/CMSIS/Include/core_cm4.h **** 
  984:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_CYCTAP_Pos                 9U                                         /*!< DWT CTR
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 22
-
-
  985:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_CYCTAP_Msk                (0x1UL << DWT_CTRL_CYCTAP_Pos)              /*!< DWT CTR
  986:Drivers/CMSIS/Include/core_cm4.h **** 
  987:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_POSTINIT_Pos               5U                                         /*!< DWT CTR
@@ -1286,6 +1618,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1007:Drivers/CMSIS/Include/core_cm4.h **** 
 1008:Drivers/CMSIS/Include/core_cm4.h **** /* DWT LSU Count Register Definitions */
 1009:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_LSUCNT_LSUCNT_Pos               0U                                         /*!< DWT LSU
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 28
+
+
 1010:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_LSUCNT_LSUCNT_Msk              (0xFFUL /*<< DWT_LSUCNT_LSUCNT_Pos*/)       /*!< DWT LSU
 1011:Drivers/CMSIS/Include/core_cm4.h **** 
 1012:Drivers/CMSIS/Include/core_cm4.h **** /* DWT Folded-instruction Count Register Definitions */
@@ -1318,9 +1653,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1039:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_FUNCTION_CYCMATCH_Pos           7U                                         /*!< DWT FUN
 1040:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_FUNCTION_CYCMATCH_Msk          (0x1UL << DWT_FUNCTION_CYCMATCH_Pos)        /*!< DWT FUN
 1041:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 23
-
-
 1042:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_FUNCTION_EMITRANGE_Pos          5U                                         /*!< DWT FUN
 1043:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_FUNCTION_EMITRANGE_Msk         (0x1UL << DWT_FUNCTION_EMITRANGE_Pos)       /*!< DWT FUN
 1044:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1346,6 +1678,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1064:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t CSPSR;                  /*!< Offset: 0x004 (R/W)  Current Parallel Port Size Regis
 1065:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED0[2U];
 1066:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t ACPR;                   /*!< Offset: 0x010 (R/W)  Asynchronous Clock Prescaler Reg
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 29
+
+
 1067:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED1[55U];
 1068:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t SPPR;                   /*!< Offset: 0x0F0 (R/W)  Selected Pin Protocol Register *
 1069:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED2[131U];
@@ -1378,9 +1713,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1096:Drivers/CMSIS/Include/core_cm4.h **** 
 1097:Drivers/CMSIS/Include/core_cm4.h **** /* TPI Formatter and Flush Status Register Definitions */
 1098:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FFSR_FtNonStop_Pos              3U                                         /*!< TPI FFS
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 24
-
-
 1099:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FFSR_FtNonStop_Msk             (0x1UL << TPI_FFSR_FtNonStop_Pos)           /*!< TPI FFS
 1100:Drivers/CMSIS/Include/core_cm4.h **** 
 1101:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FFSR_TCPresent_Pos              2U                                         /*!< TPI FFS
@@ -1406,6 +1738,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1121:Drivers/CMSIS/Include/core_cm4.h **** /* TPI Integration ETM Data Register Definitions (FIFO0) */
 1122:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO0_ITM_ATVALID_Pos          29U                                         /*!< TPI FIF
 1123:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO0_ITM_ATVALID_Msk          (0x3UL << TPI_FIFO0_ITM_ATVALID_Pos)        /*!< TPI FIF
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 30
+
+
 1124:Drivers/CMSIS/Include/core_cm4.h **** 
 1125:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO0_ITM_bytecount_Pos        27U                                         /*!< TPI FIF
 1126:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO0_ITM_bytecount_Msk        (0x3UL << TPI_FIFO0_ITM_bytecount_Pos)      /*!< TPI FIF
@@ -1438,9 +1773,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1153:Drivers/CMSIS/Include/core_cm4.h **** 
 1154:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ITM_bytecount_Pos        27U                                         /*!< TPI FIF
 1155:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ITM_bytecount_Msk        (0x3UL << TPI_FIFO1_ITM_bytecount_Pos)      /*!< TPI FIF
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 25
-
-
 1156:Drivers/CMSIS/Include/core_cm4.h **** 
 1157:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ETM_ATVALID_Pos          26U                                         /*!< TPI FIF
 1158:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ETM_ATVALID_Msk          (0x3UL << TPI_FIFO1_ETM_ATVALID_Pos)        /*!< TPI FIF
@@ -1466,6 +1798,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1178:Drivers/CMSIS/Include/core_cm4.h **** 
 1179:Drivers/CMSIS/Include/core_cm4.h **** /* TPI Integration Mode Control Register Definitions */
 1180:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_ITCTRL_Mode_Pos                 0U                                         /*!< TPI ITC
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 31
+
+
 1181:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_ITCTRL_Mode_Msk                (0x3UL /*<< TPI_ITCTRL_Mode_Pos*/)          /*!< TPI ITC
 1182:Drivers/CMSIS/Include/core_cm4.h **** 
 1183:Drivers/CMSIS/Include/core_cm4.h **** /* TPI DEVID Register Definitions */
@@ -1498,9 +1833,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1210:Drivers/CMSIS/Include/core_cm4.h **** 
 1211:Drivers/CMSIS/Include/core_cm4.h **** 
 1212:Drivers/CMSIS/Include/core_cm4.h **** #if defined (__MPU_PRESENT) && (__MPU_PRESENT == 1U)
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 26
-
-
 1213:Drivers/CMSIS/Include/core_cm4.h **** /**
 1214:Drivers/CMSIS/Include/core_cm4.h ****   \ingroup  CMSIS_core_register
 1215:Drivers/CMSIS/Include/core_cm4.h ****   \defgroup CMSIS_MPU     Memory Protection Unit (MPU)
@@ -1526,6 +1858,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1235:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t RASR_A3;                /*!< Offset: 0x028 (R/W)  MPU Alias 3 Region Attribute and
 1236:Drivers/CMSIS/Include/core_cm4.h **** } MPU_Type;
 1237:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 32
+
+
 1238:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_TYPE_RALIASES                  4U
 1239:Drivers/CMSIS/Include/core_cm4.h **** 
 1240:Drivers/CMSIS/Include/core_cm4.h **** /* MPU Type Register Definitions */
@@ -1558,9 +1893,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1267:Drivers/CMSIS/Include/core_cm4.h **** 
 1268:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RBAR_VALID_Pos                  4U                                            /*!< MPU 
 1269:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RBAR_VALID_Msk                 (1UL << MPU_RBAR_VALID_Pos)                    /*!< MPU 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 27
-
-
 1270:Drivers/CMSIS/Include/core_cm4.h **** 
 1271:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RBAR_REGION_Pos                 0U                                            /*!< MPU 
 1272:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RBAR_REGION_Msk                (0xFUL /*<< MPU_RBAR_REGION_Pos*/)             /*!< MPU 
@@ -1586,6 +1918,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1292:Drivers/CMSIS/Include/core_cm4.h **** 
 1293:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_B_Pos                     16U                                            /*!< MPU 
 1294:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_B_Msk                     (1UL << MPU_RASR_B_Pos)                        /*!< MPU 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 33
+
+
 1295:Drivers/CMSIS/Include/core_cm4.h **** 
 1296:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_SRD_Pos                    8U                                            /*!< MPU 
 1297:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_SRD_Msk                   (0xFFUL << MPU_RASR_SRD_Pos)                   /*!< MPU 
@@ -1618,9 +1953,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1324:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t FPDSCR;                 /*!< Offset: 0x00C (R/W)  Floating-Point Default Status Co
 1325:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t MVFR0;                  /*!< Offset: 0x010 (R/ )  Media and FP Feature Register 0 
 1326:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t MVFR1;                  /*!< Offset: 0x014 (R/ )  Media and FP Feature Register 1 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 28
-
-
 1327:Drivers/CMSIS/Include/core_cm4.h **** } FPU_Type;
 1328:Drivers/CMSIS/Include/core_cm4.h **** 
 1329:Drivers/CMSIS/Include/core_cm4.h **** /* Floating-Point Context Control Register Definitions */
@@ -1646,6 +1978,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1349:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_THREAD_Msk               (1UL << FPU_FPCCR_THREAD_Pos)                  /*!< FPCC
 1350:Drivers/CMSIS/Include/core_cm4.h **** 
 1351:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_USER_Pos                  1U                                            /*!< FPCC
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 34
+
+
 1352:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_USER_Msk                 (1UL << FPU_FPCCR_USER_Pos)                    /*!< FPCC
 1353:Drivers/CMSIS/Include/core_cm4.h **** 
 1354:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_LSPACT_Pos                0U                                            /*!< FPCC
@@ -1678,9 +2013,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1381:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR0_Square_root_Pos          20U                                            /*!< MVFR
 1382:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR0_Square_root_Msk          (0xFUL << FPU_MVFR0_Square_root_Pos)           /*!< MVFR
 1383:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 29
-
-
 1384:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR0_Divide_Pos               16U                                            /*!< MVFR
 1385:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR0_Divide_Msk               (0xFUL << FPU_MVFR0_Divide_Pos)                /*!< MVFR
 1386:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1706,6 +2038,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1406:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR1_D_NaN_mode_Pos            4U                                            /*!< MVFR
 1407:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR1_D_NaN_mode_Msk           (0xFUL << FPU_MVFR1_D_NaN_mode_Pos)            /*!< MVFR
 1408:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 35
+
+
 1409:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR1_FtZ_mode_Pos              0U                                            /*!< MVFR
 1410:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR1_FtZ_mode_Msk             (0xFUL /*<< FPU_MVFR1_FtZ_mode_Pos*/)          /*!< MVFR
 1411:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1738,9 +2073,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1438:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_RESET_ST_Msk     (1UL << CoreDebug_DHCSR_S_RESET_ST_Pos)        /*!< Core
 1439:Drivers/CMSIS/Include/core_cm4.h **** 
 1440:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_RETIRE_ST_Pos    24U                                            /*!< Core
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 30
-
-
 1441:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_RETIRE_ST_Msk    (1UL << CoreDebug_DHCSR_S_RETIRE_ST_Pos)       /*!< Core
 1442:Drivers/CMSIS/Include/core_cm4.h **** 
 1443:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_LOCKUP_Pos       19U                                            /*!< Core
@@ -1766,6 +2098,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1463:Drivers/CMSIS/Include/core_cm4.h **** 
 1464:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_C_HALT_Pos          1U                                            /*!< Core
 1465:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_C_HALT_Msk         (1UL << CoreDebug_DHCSR_C_HALT_Pos)            /*!< Core
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 36
+
+
 1466:Drivers/CMSIS/Include/core_cm4.h **** 
 1467:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_C_DEBUGEN_Pos       0U                                            /*!< Core
 1468:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_C_DEBUGEN_Msk      (1UL /*<< CoreDebug_DHCSR_C_DEBUGEN_Pos*/)     /*!< Core
@@ -1798,9 +2133,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1495:Drivers/CMSIS/Include/core_cm4.h **** 
 1496:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_INTERR_Pos       9U                                            /*!< Core
 1497:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_INTERR_Msk      (1UL << CoreDebug_DEMCR_VC_INTERR_Pos)         /*!< Core
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 31
-
-
 1498:Drivers/CMSIS/Include/core_cm4.h **** 
 1499:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_BUSERR_Pos       8U                                            /*!< Core
 1500:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_BUSERR_Msk      (1UL << CoreDebug_DEMCR_VC_BUSERR_Pos)         /*!< Core
@@ -1826,6 +2158,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1520:Drivers/CMSIS/Include/core_cm4.h **** /**
 1521:Drivers/CMSIS/Include/core_cm4.h ****   \ingroup    CMSIS_core_register
 1522:Drivers/CMSIS/Include/core_cm4.h ****   \defgroup   CMSIS_core_bitfield     Core register bit field macros
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 37
+
+
 1523:Drivers/CMSIS/Include/core_cm4.h ****   \brief      Macros for use with bit field definitions (xxx_Pos, xxx_Msk).
 1524:Drivers/CMSIS/Include/core_cm4.h ****   @{
 1525:Drivers/CMSIS/Include/core_cm4.h ****  */
@@ -1858,9 +2193,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1552:Drivers/CMSIS/Include/core_cm4.h **** 
 1553:Drivers/CMSIS/Include/core_cm4.h **** /* Memory mapping of Core Hardware */
 1554:Drivers/CMSIS/Include/core_cm4.h **** #define SCS_BASE            (0xE000E000UL)                            /*!< System Control Space Bas
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 32
-
-
 1555:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_BASE            (0xE0000000UL)                            /*!< ITM Base Address */
 1556:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_BASE            (0xE0001000UL)                            /*!< DWT Base Address */
 1557:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_BASE            (0xE0040000UL)                            /*!< TPI Base Address */
@@ -1886,6 +2218,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1577:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_BASE            (SCS_BASE +  0x0F30UL)                    /*!< Floating Point Unit */
 1578:Drivers/CMSIS/Include/core_cm4.h **** #define FPU                 ((FPU_Type       *)     FPU_BASE      )   /*!< Floating Point Unit */
 1579:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 38
+
+
 1580:Drivers/CMSIS/Include/core_cm4.h **** /*@} */
 1581:Drivers/CMSIS/Include/core_cm4.h **** 
 1582:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1918,9 +2253,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1609:Drivers/CMSIS/Include/core_cm4.h ****   #endif
 1610:Drivers/CMSIS/Include/core_cm4.h ****   #include CMSIS_NVIC_VIRTUAL_HEADER_FILE
 1611:Drivers/CMSIS/Include/core_cm4.h **** #else
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 33
-
-
 1612:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_SetPriorityGrouping    __NVIC_SetPriorityGrouping
 1613:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_GetPriorityGrouping    __NVIC_GetPriorityGrouping
 1614:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_EnableIRQ              __NVIC_EnableIRQ
@@ -1946,6 +2278,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1634:Drivers/CMSIS/Include/core_cm4.h **** #endif  /* (CMSIS_VECTAB_VIRTUAL) */
 1635:Drivers/CMSIS/Include/core_cm4.h **** 
 1636:Drivers/CMSIS/Include/core_cm4.h **** #define NVIC_USER_IRQ_OFFSET          16
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 39
+
+
 1637:Drivers/CMSIS/Include/core_cm4.h **** 
 1638:Drivers/CMSIS/Include/core_cm4.h **** 
 1639:Drivers/CMSIS/Include/core_cm4.h **** /* The following EXC_RETURN values are saved the LR on exception entry */
@@ -1978,9 +2313,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1666:Drivers/CMSIS/Include/core_cm4.h ****                 (PriorityGroupTmp << SCB_AIRCR_PRIGROUP_Pos)  );              /* Insert write key a
 1667:Drivers/CMSIS/Include/core_cm4.h ****   SCB->AIRCR =  reg_value;
 1668:Drivers/CMSIS/Include/core_cm4.h **** }
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 34
-
-
 1669:Drivers/CMSIS/Include/core_cm4.h **** 
 1670:Drivers/CMSIS/Include/core_cm4.h **** 
 1671:Drivers/CMSIS/Include/core_cm4.h **** /**
@@ -2006,6 +2338,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1691:Drivers/CMSIS/Include/core_cm4.h ****   {
 1692:Drivers/CMSIS/Include/core_cm4.h ****     NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
 1693:Drivers/CMSIS/Include/core_cm4.h ****   }
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 40
+
+
 1694:Drivers/CMSIS/Include/core_cm4.h **** }
 1695:Drivers/CMSIS/Include/core_cm4.h **** 
 1696:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2038,9 +2373,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1723:Drivers/CMSIS/Include/core_cm4.h ****  */
 1724:Drivers/CMSIS/Include/core_cm4.h **** __STATIC_INLINE void __NVIC_DisableIRQ(IRQn_Type IRQn)
 1725:Drivers/CMSIS/Include/core_cm4.h **** {
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 35
-
-
 1726:Drivers/CMSIS/Include/core_cm4.h ****   if ((int32_t)(IRQn) >= 0)
 1727:Drivers/CMSIS/Include/core_cm4.h ****   {
 1728:Drivers/CMSIS/Include/core_cm4.h ****     NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
@@ -2066,6 +2398,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1748:Drivers/CMSIS/Include/core_cm4.h ****   }
 1749:Drivers/CMSIS/Include/core_cm4.h ****   else
 1750:Drivers/CMSIS/Include/core_cm4.h ****   {
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 41
+
+
 1751:Drivers/CMSIS/Include/core_cm4.h ****     return(0U);
 1752:Drivers/CMSIS/Include/core_cm4.h ****   }
 1753:Drivers/CMSIS/Include/core_cm4.h **** }
@@ -2098,9 +2433,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1780:Drivers/CMSIS/Include/core_cm4.h ****   {
 1781:Drivers/CMSIS/Include/core_cm4.h ****     NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
 1782:Drivers/CMSIS/Include/core_cm4.h ****   }
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 36
-
-
 1783:Drivers/CMSIS/Include/core_cm4.h **** }
 1784:Drivers/CMSIS/Include/core_cm4.h **** 
 1785:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2126,6 +2458,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1805:Drivers/CMSIS/Include/core_cm4.h **** 
 1806:Drivers/CMSIS/Include/core_cm4.h **** 
 1807:Drivers/CMSIS/Include/core_cm4.h **** /**
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 42
+
+
 1808:Drivers/CMSIS/Include/core_cm4.h ****   \brief   Set Interrupt Priority
 1809:Drivers/CMSIS/Include/core_cm4.h ****   \details Sets the priority of a device specific interrupt or a processor exception.
 1810:Drivers/CMSIS/Include/core_cm4.h ****            The interrupt number can be positive to specify a device specific interrupt,
@@ -2158,9 +2493,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1837:Drivers/CMSIS/Include/core_cm4.h ****  */
 1838:Drivers/CMSIS/Include/core_cm4.h **** __STATIC_INLINE uint32_t __NVIC_GetPriority(IRQn_Type IRQn)
 1839:Drivers/CMSIS/Include/core_cm4.h **** {
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 37
-
-
 1840:Drivers/CMSIS/Include/core_cm4.h **** 
 1841:Drivers/CMSIS/Include/core_cm4.h ****   if ((int32_t)(IRQn) >= 0)
 1842:Drivers/CMSIS/Include/core_cm4.h ****   {
@@ -2186,6 +2518,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1862:Drivers/CMSIS/Include/core_cm4.h ****  */
 1863:Drivers/CMSIS/Include/core_cm4.h **** __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t PreemptPriority, uin
 1864:Drivers/CMSIS/Include/core_cm4.h **** {
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 43
+
+
 1865:Drivers/CMSIS/Include/core_cm4.h ****   uint32_t PriorityGroupTmp = (PriorityGroup & (uint32_t)0x07UL);   /* only values 0..7 are used   
 1866:Drivers/CMSIS/Include/core_cm4.h ****   uint32_t PreemptPriorityBits;
 1867:Drivers/CMSIS/Include/core_cm4.h ****   uint32_t SubPriorityBits;
@@ -2218,9 +2553,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1894:Drivers/CMSIS/Include/core_cm4.h ****   uint32_t SubPriorityBits;
 1895:Drivers/CMSIS/Include/core_cm4.h **** 
 1896:Drivers/CMSIS/Include/core_cm4.h ****   PreemptPriorityBits = ((7UL - PriorityGroupTmp) > (uint32_t)(__NVIC_PRIO_BITS)) ? (uint32_t)(__NV
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 38
-
-
 1897:Drivers/CMSIS/Include/core_cm4.h ****   SubPriorityBits     = ((PriorityGroupTmp + (uint32_t)(__NVIC_PRIO_BITS)) < (uint32_t)7UL) ? (uint
 1898:Drivers/CMSIS/Include/core_cm4.h **** 
 1899:Drivers/CMSIS/Include/core_cm4.h ****   *pPreemptPriority = (Priority >> SubPriorityBits) & (uint32_t)((1UL << (PreemptPriorityBits)) - 1
@@ -2246,6 +2578,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1919:Drivers/CMSIS/Include/core_cm4.h **** 
 1920:Drivers/CMSIS/Include/core_cm4.h **** /**
 1921:Drivers/CMSIS/Include/core_cm4.h ****   \brief   Get Interrupt Vector
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 44
+
+
 1922:Drivers/CMSIS/Include/core_cm4.h ****   \details Reads an interrupt vector from interrupt vector table.
 1923:Drivers/CMSIS/Include/core_cm4.h ****            The interrupt number can be positive to specify a device specific interrupt,
 1924:Drivers/CMSIS/Include/core_cm4.h ****            or negative to specify a processor exception.
@@ -2278,9 +2613,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1951:Drivers/CMSIS/Include/core_cm4.h ****   }
 1952:Drivers/CMSIS/Include/core_cm4.h **** }
 1953:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 39
-
-
 1954:Drivers/CMSIS/Include/core_cm4.h **** /*@} end of CMSIS_Core_NVICFunctions */
 1955:Drivers/CMSIS/Include/core_cm4.h **** 
 1956:Drivers/CMSIS/Include/core_cm4.h **** /* ##########################  MPU functions  #################################### */
@@ -2306,6 +2638,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 1976:Drivers/CMSIS/Include/core_cm4.h ****   \returns
 1977:Drivers/CMSIS/Include/core_cm4.h ****    - \b  0: No FPU
 1978:Drivers/CMSIS/Include/core_cm4.h ****    - \b  1: Single precision FPU
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 45
+
+
 1979:Drivers/CMSIS/Include/core_cm4.h ****    - \b  2: Double + Single precision FPU
 1980:Drivers/CMSIS/Include/core_cm4.h ****  */
 1981:Drivers/CMSIS/Include/core_cm4.h **** __STATIC_INLINE uint32_t SCB_GetFPUType(void)
@@ -2338,9 +2673,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 2008:Drivers/CMSIS/Include/core_cm4.h **** 
 2009:Drivers/CMSIS/Include/core_cm4.h **** #if defined (__Vendor_SysTickConfig) && (__Vendor_SysTickConfig == 0U)
 2010:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 40
-
-
 2011:Drivers/CMSIS/Include/core_cm4.h **** /**
 2012:Drivers/CMSIS/Include/core_cm4.h ****   \brief   System Tick Configuration
 2013:Drivers/CMSIS/Include/core_cm4.h ****   \details Initializes the System Timer and its interrupt, and starts the System Tick Timer.
@@ -2366,6 +2698,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 2033:Drivers/CMSIS/Include/core_cm4.h ****                    SysTick_CTRL_TICKINT_Msk   |
 2034:Drivers/CMSIS/Include/core_cm4.h ****                    SysTick_CTRL_ENABLE_Msk;                         /* Enable SysTick IRQ and SysTi
 2035:Drivers/CMSIS/Include/core_cm4.h ****   return (0UL);                                                     /* Function successful */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 46
+
+
 2036:Drivers/CMSIS/Include/core_cm4.h **** }
 2037:Drivers/CMSIS/Include/core_cm4.h **** 
 2038:Drivers/CMSIS/Include/core_cm4.h **** #endif
@@ -2398,134 +2733,131 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
 2065:Drivers/CMSIS/Include/core_cm4.h **** {
 2066:Drivers/CMSIS/Include/core_cm4.h ****   if (((ITM->TCR & ITM_TCR_ITMENA_Msk) != 0UL) &&      /* ITM enabled */
 2067:Drivers/CMSIS/Include/core_cm4.h ****       ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 41
-
-
 2068:Drivers/CMSIS/Include/core_cm4.h ****   {
 2069:Drivers/CMSIS/Include/core_cm4.h ****     while (ITM->PORT[0U].u32 == 0UL)
 2070:Drivers/CMSIS/Include/core_cm4.h ****     {
 2071:Drivers/CMSIS/Include/core_cm4.h ****       __NOP();
-  49              		.loc 2 2071 7 is_stmt 1 view .LVU6
-  50              		.syntax unified
-  51              	@ 2071 "Drivers/CMSIS/Include/core_cm4.h" 1
-  52 0008 00BF     		nop
-  53              	@ 0 "" 2
-  54              		.thumb
-  55              		.syntax unified
-  56              	.L4:
+ 279              		.loc 2 2071 7 is_stmt 1 view .LVU71
+ 280              		.syntax unified
+ 281              	@ 2071 "Drivers/CMSIS/Include/core_cm4.h" 1
+ 282 0008 00BF     		nop
+ 283              	@ 0 "" 2
+ 284              		.thumb
+ 285              		.syntax unified
+ 286              	.L21:
 2069:Drivers/CMSIS/Include/core_cm4.h ****     {
-  57              		.loc 2 2069 11 view .LVU7
+ 287              		.loc 2 2069 11 view .LVU72
 2069:Drivers/CMSIS/Include/core_cm4.h ****     {
-  58              		.loc 2 2069 25 is_stmt 0 view .LVU8
-  59 000a 4FF06043 		mov	r3, #-536870912
-  60 000e 1B68     		ldr	r3, [r3]
+ 288              		.loc 2 2069 25 is_stmt 0 view .LVU73
+ 289 000a 4FF06043 		mov	r3, #-536870912
+ 290 000e 1B68     		ldr	r3, [r3]
 2069:Drivers/CMSIS/Include/core_cm4.h ****     {
-  61              		.loc 2 2069 11 view .LVU9
-  62 0010 002B     		cmp	r3, #0
-  63 0012 F9D0     		beq	.L5
+ 291              		.loc 2 2069 11 view .LVU74
+ 292 0010 002B     		cmp	r3, #0
+ 293 0012 F9D0     		beq	.L22
 2072:Drivers/CMSIS/Include/core_cm4.h ****     }
 2073:Drivers/CMSIS/Include/core_cm4.h ****     ITM->PORT[0U].u8 = (uint8_t)ch;
-  64              		.loc 2 2073 5 is_stmt 1 view .LVU10
-  65              		.loc 2 2073 22 is_stmt 0 view .LVU11
-  66 0014 4FF06043 		mov	r3, #-536870912
-  67 0018 1A70     		strb	r2, [r3]
-  68              	.L3:
+ 294              		.loc 2 2073 5 is_stmt 1 view .LVU75
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 47
+
+
+ 295              		.loc 2 2073 22 is_stmt 0 view .LVU76
+ 296 0014 4FF06043 		mov	r3, #-536870912
+ 297 0018 1A70     		strb	r2, [r3]
+ 298              	.L20:
 2074:Drivers/CMSIS/Include/core_cm4.h ****   }
 2075:Drivers/CMSIS/Include/core_cm4.h ****   return (ch);
-  69              		.loc 2 2075 3 is_stmt 1 view .LVU12
-  70              	.LVL3:
-  71              		.loc 2 2075 3 is_stmt 0 view .LVU13
-  72              	.LBE7:
-  73              	.LBE6:
-  74              		.loc 1 166 31 is_stmt 1 view .LVU14
-  75              		.loc 1 166 38 is_stmt 0 view .LVU15
-  76 001a 0CF1010C 		add	ip, ip, #1
-  77              	.LVL4:
-  78              	.L2:
-  79              		.loc 1 166 18 is_stmt 1 discriminator 1 view .LVU16
-  80              		.loc 1 166 3 is_stmt 0 discriminator 1 view .LVU17
-  81 001e 8445     		cmp	ip, r0
-  82 0020 10DA     		bge	.L7
- 167:Core/Src/main.c ****   {
- 168:Core/Src/main.c ****     ITM_SendChar(*ptr++);
-  83              		.loc 1 168 5 is_stmt 1 discriminator 3 view .LVU18
-  84              	.LVL5:
-  85              		.loc 1 168 18 is_stmt 0 discriminator 3 view .LVU19
-  86 0022 11F8012B 		ldrb	r2, [r1], #1	@ zero_extendqisi2
-  87              	.LVL6:
-  88              	.LBB9:
-  89              	.LBI6:
+ 299              		.loc 2 2075 3 is_stmt 1 view .LVU77
+ 300              	.LVL16:
+ 301              		.loc 2 2075 3 is_stmt 0 view .LVU78
+ 302              	.LBE13:
+ 303              	.LBE12:
+ 304              		.loc 1 213 31 is_stmt 1 view .LVU79
+ 305              		.loc 1 213 38 is_stmt 0 view .LVU80
+ 306 001a 0CF1010C 		add	ip, ip, #1
+ 307              	.LVL17:
+ 308              	.L19:
+ 309              		.loc 1 213 18 is_stmt 1 discriminator 1 view .LVU81
+ 310              		.loc 1 213 3 is_stmt 0 discriminator 1 view .LVU82
+ 311 001e 8445     		cmp	ip, r0
+ 312 0020 10DA     		bge	.L24
+ 214:Core/Src/main.c ****   {
+ 215:Core/Src/main.c ****     ITM_SendChar(*ptr++);
+ 313              		.loc 1 215 5 is_stmt 1 discriminator 3 view .LVU83
+ 314              	.LVL18:
+ 315              		.loc 1 215 18 is_stmt 0 discriminator 3 view .LVU84
+ 316 0022 11F8012B 		ldrb	r2, [r1], #1	@ zero_extendqisi2
+ 317              	.LVL19:
+ 318              	.LBB15:
+ 319              	.LBI12:
 2064:Drivers/CMSIS/Include/core_cm4.h **** {
-  90              		.loc 2 2064 26 is_stmt 1 discriminator 3 view .LVU20
-  91              	.LBB8:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 42
-
-
+ 320              		.loc 2 2064 26 is_stmt 1 discriminator 3 view .LVU85
+ 321              	.LBB14:
 2066:Drivers/CMSIS/Include/core_cm4.h ****       ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
-  92              		.loc 2 2066 3 discriminator 3 view .LVU21
+ 322              		.loc 2 2066 3 discriminator 3 view .LVU86
 2066:Drivers/CMSIS/Include/core_cm4.h ****       ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
-  93              		.loc 2 2066 12 is_stmt 0 discriminator 3 view .LVU22
-  94 0026 4FF06043 		mov	r3, #-536870912
-  95 002a D3F8803E 		ldr	r3, [r3, #3712]
+ 323              		.loc 2 2066 12 is_stmt 0 discriminator 3 view .LVU87
+ 324 0026 4FF06043 		mov	r3, #-536870912
+ 325 002a D3F8803E 		ldr	r3, [r3, #3712]
 2066:Drivers/CMSIS/Include/core_cm4.h ****       ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
-  96              		.loc 2 2066 6 discriminator 3 view .LVU23
-  97 002e 13F0010F 		tst	r3, #1
-  98 0032 F2D0     		beq	.L3
+ 326              		.loc 2 2066 6 discriminator 3 view .LVU88
+ 327 002e 13F0010F 		tst	r3, #1
+ 328 0032 F2D0     		beq	.L20
 2067:Drivers/CMSIS/Include/core_cm4.h ****   {
-  99              		.loc 2 2067 12 view .LVU24
- 100 0034 4FF06043 		mov	r3, #-536870912
- 101 0038 D3F8003E 		ldr	r3, [r3, #3584]
+ 329              		.loc 2 2067 12 view .LVU89
+ 330 0034 4FF06043 		mov	r3, #-536870912
+ 331 0038 D3F8003E 		ldr	r3, [r3, #3584]
 2066:Drivers/CMSIS/Include/core_cm4.h ****       ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
- 102              		.loc 2 2066 48 view .LVU25
- 103 003c 13F0010F 		tst	r3, #1
- 104 0040 E3D1     		bne	.L4
- 105 0042 EAE7     		b	.L3
- 106              	.LVL7:
- 107              	.L7:
+ 332              		.loc 2 2066 48 view .LVU90
+ 333 003c 13F0010F 		tst	r3, #1
+ 334 0040 E3D1     		bne	.L21
+ 335 0042 EAE7     		b	.L20
+ 336              	.LVL20:
+ 337              	.L24:
 2066:Drivers/CMSIS/Include/core_cm4.h ****       ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
- 108              		.loc 2 2066 48 view .LVU26
- 109              	.LBE8:
- 110              	.LBE9:
- 169:Core/Src/main.c ****   }
- 170:Core/Src/main.c ****   return len;
- 111              		.loc 1 170 3 is_stmt 1 view .LVU27
- 171:Core/Src/main.c **** }
- 112              		.loc 1 171 1 is_stmt 0 view .LVU28
- 113 0044 7047     		bx	lr
- 114              		.cfi_endproc
- 115              	.LFE218:
- 117              		.section	.text.Error_Handler,"ax",%progbits
- 118              		.align	1
- 119              		.global	Error_Handler
- 120              		.syntax unified
- 121              		.thumb
- 122              		.thumb_func
- 124              	Error_Handler:
- 125              	.LFB219:
- 172:Core/Src/main.c **** /* USER CODE END 4 */
- 173:Core/Src/main.c **** 
- 174:Core/Src/main.c **** /**
- 175:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
- 176:Core/Src/main.c ****   * @retval None
- 177:Core/Src/main.c ****   */
- 178:Core/Src/main.c **** void Error_Handler(void)
- 179:Core/Src/main.c **** {
- 126              		.loc 1 179 1 is_stmt 1 view -0
- 127              		.cfi_startproc
- 128              		@ Volatile: function does not return.
- 129              		@ args = 0, pretend = 0, frame = 0
- 130              		@ frame_needed = 0, uses_anonymous_args = 0
- 131              		@ link register save eliminated.
- 180:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
- 181:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 43
+ 338              		.loc 2 2066 48 view .LVU91
+ 339              	.LBE14:
+ 340              	.LBE15:
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 48
 
 
- 182:Core/Src/main.c ****   __disable_irq();
- 132              		.loc 1 182 3 view .LVU30
- 133              	.LBB10:
- 134              	.LBI10:
- 135              		.file 3 "Drivers/CMSIS/Include/cmsis_gcc.h"
+ 216:Core/Src/main.c ****   }
+ 217:Core/Src/main.c ****   return len;
+ 341              		.loc 1 217 3 is_stmt 1 view .LVU92
+ 218:Core/Src/main.c **** }
+ 342              		.loc 1 218 1 is_stmt 0 view .LVU93
+ 343 0044 7047     		bx	lr
+ 344              		.cfi_endproc
+ 345              	.LFE255:
+ 347              		.section	.text.Error_Handler,"ax",%progbits
+ 348              		.align	1
+ 349              		.global	Error_Handler
+ 350              		.syntax unified
+ 351              		.thumb
+ 352              		.thumb_func
+ 354              	Error_Handler:
+ 355              	.LFB256:
+ 219:Core/Src/main.c **** /* USER CODE END 4 */
+ 220:Core/Src/main.c **** 
+ 221:Core/Src/main.c **** /**
+ 222:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
+ 223:Core/Src/main.c ****   * @retval None
+ 224:Core/Src/main.c ****   */
+ 225:Core/Src/main.c **** void Error_Handler(void)
+ 226:Core/Src/main.c **** {
+ 356              		.loc 1 226 1 is_stmt 1 view -0
+ 357              		.cfi_startproc
+ 358              		@ Volatile: function does not return.
+ 359              		@ args = 0, pretend = 0, frame = 0
+ 360              		@ frame_needed = 0, uses_anonymous_args = 0
+ 361              		@ link register save eliminated.
+ 227:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
+ 228:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
+ 229:Core/Src/main.c ****   __disable_irq();
+ 362              		.loc 1 229 3 view .LVU95
+ 363              	.LBB16:
+ 364              	.LBI16:
+ 365              		.file 3 "Drivers/CMSIS/Include/cmsis_gcc.h"
    1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
    2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
    3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
@@ -2546,6 +2878,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   18:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
   19:Drivers/CMSIS/Include/cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
   20:Drivers/CMSIS/Include/cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 49
+
+
   21:Drivers/CMSIS/Include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
   22:Drivers/CMSIS/Include/cmsis_gcc.h ****  * limitations under the License.
   23:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
@@ -2578,9 +2913,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   50:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
   51:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif                                           
   52:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __NO_RETURN
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 44
-
-
   53:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
   54:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   55:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __USED
@@ -2606,6 +2938,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
   75:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
   76:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
   77:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 50
+
+
   78:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
   79:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
   80:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
@@ -2638,9 +2973,6 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  107:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
  108:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
  109:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 45
-
-
  110:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ALIGNED
  111:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
  112:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
@@ -2666,390 +2998,482 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 1
  132:Drivers/CMSIS/Include/cmsis_gcc.h **** }
  133:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  134:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 51
+
+
  135:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
  136:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
  137:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
  138:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
  139:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  140:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
- 136              		.loc 3 140 27 view .LVU31
- 137              	.LBB11:
+ 366              		.loc 3 140 27 view .LVU96
+ 367              	.LBB17:
  141:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  142:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
- 138              		.loc 3 142 3 view .LVU32
- 139              		.syntax unified
- 140              	@ 142 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 141 0000 72B6     		cpsid i
- 142              	@ 0 "" 2
- 143              		.thumb
- 144              		.syntax unified
- 145              	.L9:
- 146              	.LBE11:
- 147              	.LBE10:
- 183:Core/Src/main.c ****   while (1)
- 148              		.loc 1 183 3 discriminator 1 view .LVU33
- 184:Core/Src/main.c ****   {
- 185:Core/Src/main.c ****   }
- 149              		.loc 1 185 3 discriminator 1 view .LVU34
- 183:Core/Src/main.c ****   while (1)
- 150              		.loc 1 183 9 discriminator 1 view .LVU35
- 151 0002 FEE7     		b	.L9
- 152              		.cfi_endproc
- 153              	.LFE219:
- 155              		.section	.text.SystemClock_Config,"ax",%progbits
- 156              		.align	1
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 46
+ 368              		.loc 3 142 3 view .LVU97
+ 369              		.syntax unified
+ 370              	@ 142 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 371 0000 72B6     		cpsid i
+ 372              	@ 0 "" 2
+ 373              		.thumb
+ 374              		.syntax unified
+ 375              	.L26:
+ 376              	.LBE17:
+ 377              	.LBE16:
+ 230:Core/Src/main.c ****   while (1)
+ 378              		.loc 1 230 3 discriminator 1 view .LVU98
+ 231:Core/Src/main.c ****   {
+ 232:Core/Src/main.c ****   }
+ 379              		.loc 1 232 3 discriminator 1 view .LVU99
+ 230:Core/Src/main.c ****   while (1)
+ 380              		.loc 1 230 9 discriminator 1 view .LVU100
+ 381 0002 FEE7     		b	.L26
+ 382              		.cfi_endproc
+ 383              	.LFE256:
+ 385              		.section	.text.SystemClock_Config,"ax",%progbits
+ 386              		.align	1
+ 387              		.global	SystemClock_Config
+ 388              		.syntax unified
+ 389              		.thumb
+ 390              		.thumb_func
+ 392              	SystemClock_Config:
+ 393              	.LFB254:
+ 168:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ 394              		.loc 1 168 1 view -0
+ 395              		.cfi_startproc
+ 396              		@ args = 0, pretend = 0, frame = 80
+ 397              		@ frame_needed = 0, uses_anonymous_args = 0
+ 398 0000 00B5     		push	{lr}
+ 399              	.LCFI4:
+ 400              		.cfi_def_cfa_offset 4
+ 401              		.cfi_offset 14, -4
+ 402 0002 95B0     		sub	sp, sp, #84
+ 403              	.LCFI5:
+ 404              		.cfi_def_cfa_offset 88
+ 169:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 405              		.loc 1 169 3 view .LVU102
+ 169:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 406              		.loc 1 169 22 is_stmt 0 view .LVU103
+ 407 0004 3422     		movs	r2, #52
+ 408 0006 0021     		movs	r1, #0
+ 409 0008 07A8     		add	r0, sp, #28
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 52
 
 
- 157              		.global	SystemClock_Config
- 158              		.syntax unified
- 159              		.thumb
- 160              		.thumb_func
- 162              	SystemClock_Config:
- 163              	.LFB217:
- 121:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 164              		.loc 1 121 1 view -0
- 165              		.cfi_startproc
- 166              		@ args = 0, pretend = 0, frame = 80
- 167              		@ frame_needed = 0, uses_anonymous_args = 0
- 168 0000 00B5     		push	{lr}
- 169              	.LCFI0:
- 170              		.cfi_def_cfa_offset 4
- 171              		.cfi_offset 14, -4
- 172 0002 95B0     		sub	sp, sp, #84
- 173              	.LCFI1:
- 174              		.cfi_def_cfa_offset 88
- 122:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 175              		.loc 1 122 3 view .LVU37
- 122:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 176              		.loc 1 122 22 is_stmt 0 view .LVU38
- 177 0004 3422     		movs	r2, #52
- 178 0006 0021     		movs	r1, #0
- 179 0008 07A8     		add	r0, sp, #28
- 180 000a FFF7FEFF 		bl	memset
- 181              	.LVL8:
- 123:Core/Src/main.c **** 
- 182              		.loc 1 123 3 is_stmt 1 view .LVU39
- 123:Core/Src/main.c **** 
- 183              		.loc 1 123 22 is_stmt 0 view .LVU40
- 184 000e 0023     		movs	r3, #0
- 185 0010 0293     		str	r3, [sp, #8]
- 186 0012 0393     		str	r3, [sp, #12]
- 187 0014 0493     		str	r3, [sp, #16]
- 188 0016 0593     		str	r3, [sp, #20]
- 189 0018 0693     		str	r3, [sp, #24]
- 127:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
- 190              		.loc 1 127 3 is_stmt 1 view .LVU41
- 191              	.LBB12:
- 127:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
- 192              		.loc 1 127 3 view .LVU42
- 193 001a 0093     		str	r3, [sp]
- 127:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
- 194              		.loc 1 127 3 view .LVU43
- 195 001c 1F4A     		ldr	r2, .L16
- 196 001e 116C     		ldr	r1, [r2, #64]
- 197 0020 41F08051 		orr	r1, r1, #268435456
- 198 0024 1164     		str	r1, [r2, #64]
- 127:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
- 199              		.loc 1 127 3 view .LVU44
- 200 0026 126C     		ldr	r2, [r2, #64]
- 201 0028 02F08052 		and	r2, r2, #268435456
- 202 002c 0092     		str	r2, [sp]
- 127:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
- 203              		.loc 1 127 3 view .LVU45
- 204 002e 009A     		ldr	r2, [sp]
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 47
+ 410 000a FFF7FEFF 		bl	memset
+ 411              	.LVL21:
+ 170:Core/Src/main.c **** 
+ 412              		.loc 1 170 3 is_stmt 1 view .LVU104
+ 170:Core/Src/main.c **** 
+ 413              		.loc 1 170 22 is_stmt 0 view .LVU105
+ 414 000e 0023     		movs	r3, #0
+ 415 0010 0293     		str	r3, [sp, #8]
+ 416 0012 0393     		str	r3, [sp, #12]
+ 417 0014 0493     		str	r3, [sp, #16]
+ 418 0016 0593     		str	r3, [sp, #20]
+ 419 0018 0693     		str	r3, [sp, #24]
+ 174:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 420              		.loc 1 174 3 is_stmt 1 view .LVU106
+ 421              	.LBB18:
+ 174:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 422              		.loc 1 174 3 view .LVU107
+ 423 001a 0093     		str	r3, [sp]
+ 174:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 424              		.loc 1 174 3 view .LVU108
+ 425 001c 1F4A     		ldr	r2, .L33
+ 426 001e 116C     		ldr	r1, [r2, #64]
+ 427 0020 41F08051 		orr	r1, r1, #268435456
+ 428 0024 1164     		str	r1, [r2, #64]
+ 174:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 429              		.loc 1 174 3 view .LVU109
+ 430 0026 126C     		ldr	r2, [r2, #64]
+ 431 0028 02F08052 		and	r2, r2, #268435456
+ 432 002c 0092     		str	r2, [sp]
+ 174:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 433              		.loc 1 174 3 view .LVU110
+ 434 002e 009A     		ldr	r2, [sp]
+ 435              	.LBE18:
+ 174:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 436              		.loc 1 174 3 view .LVU111
+ 175:Core/Src/main.c **** 
+ 437              		.loc 1 175 3 view .LVU112
+ 438              	.LBB19:
+ 175:Core/Src/main.c **** 
+ 439              		.loc 1 175 3 view .LVU113
+ 440 0030 0193     		str	r3, [sp, #4]
+ 175:Core/Src/main.c **** 
+ 441              		.loc 1 175 3 view .LVU114
+ 442 0032 1B4B     		ldr	r3, .L33+4
+ 443 0034 1A68     		ldr	r2, [r3]
+ 444 0036 42F44042 		orr	r2, r2, #49152
+ 445 003a 1A60     		str	r2, [r3]
+ 175:Core/Src/main.c **** 
+ 446              		.loc 1 175 3 view .LVU115
+ 447 003c 1B68     		ldr	r3, [r3]
+ 448 003e 03F44043 		and	r3, r3, #49152
+ 449 0042 0193     		str	r3, [sp, #4]
+ 175:Core/Src/main.c **** 
+ 450              		.loc 1 175 3 view .LVU116
+ 451 0044 019B     		ldr	r3, [sp, #4]
+ 452              	.LBE19:
+ 175:Core/Src/main.c **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 53
 
 
- 205              	.LBE12:
- 127:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
- 206              		.loc 1 127 3 view .LVU46
- 128:Core/Src/main.c **** 
- 207              		.loc 1 128 3 view .LVU47
- 208              	.LBB13:
- 128:Core/Src/main.c **** 
- 209              		.loc 1 128 3 view .LVU48
- 210 0030 0193     		str	r3, [sp, #4]
- 128:Core/Src/main.c **** 
- 211              		.loc 1 128 3 view .LVU49
- 212 0032 1B4B     		ldr	r3, .L16+4
- 213 0034 1A68     		ldr	r2, [r3]
- 214 0036 42F44042 		orr	r2, r2, #49152
- 215 003a 1A60     		str	r2, [r3]
- 128:Core/Src/main.c **** 
- 216              		.loc 1 128 3 view .LVU50
- 217 003c 1B68     		ldr	r3, [r3]
- 218 003e 03F44043 		and	r3, r3, #49152
- 219 0042 0193     		str	r3, [sp, #4]
- 128:Core/Src/main.c **** 
- 220              		.loc 1 128 3 view .LVU51
- 221 0044 019B     		ldr	r3, [sp, #4]
- 222              	.LBE13:
- 128:Core/Src/main.c **** 
- 223              		.loc 1 128 3 view .LVU52
- 133:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
- 224              		.loc 1 133 3 view .LVU53
- 133:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
- 225              		.loc 1 133 36 is_stmt 0 view .LVU54
- 226 0046 0123     		movs	r3, #1
- 227 0048 0793     		str	r3, [sp, #28]
- 134:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
- 228              		.loc 1 134 3 is_stmt 1 view .LVU55
- 134:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
- 229              		.loc 1 134 30 is_stmt 0 view .LVU56
- 230 004a 4FF4A023 		mov	r3, #327680
- 231 004e 0893     		str	r3, [sp, #32]
- 135:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
- 232              		.loc 1 135 3 is_stmt 1 view .LVU57
- 135:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
- 233              		.loc 1 135 34 is_stmt 0 view .LVU58
- 234 0050 0223     		movs	r3, #2
- 235 0052 0D93     		str	r3, [sp, #52]
- 136:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLM = 10;
- 236              		.loc 1 136 3 is_stmt 1 view .LVU59
- 136:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLM = 10;
- 237              		.loc 1 136 35 is_stmt 0 view .LVU60
- 238 0054 4FF48002 		mov	r2, #4194304
- 239 0058 0E92     		str	r2, [sp, #56]
- 137:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLN = 100;
- 240              		.loc 1 137 3 is_stmt 1 view .LVU61
- 137:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLN = 100;
- 241              		.loc 1 137 30 is_stmt 0 view .LVU62
- 242 005a 0A22     		movs	r2, #10
- 243 005c 0F92     		str	r2, [sp, #60]
- 138:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 48
+ 453              		.loc 1 175 3 view .LVU117
+ 180:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
+ 454              		.loc 1 180 3 view .LVU118
+ 180:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
+ 455              		.loc 1 180 36 is_stmt 0 view .LVU119
+ 456 0046 0123     		movs	r3, #1
+ 457 0048 0793     		str	r3, [sp, #28]
+ 181:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 458              		.loc 1 181 3 is_stmt 1 view .LVU120
+ 181:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 459              		.loc 1 181 30 is_stmt 0 view .LVU121
+ 460 004a 4FF4A023 		mov	r3, #327680
+ 461 004e 0893     		str	r3, [sp, #32]
+ 182:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+ 462              		.loc 1 182 3 is_stmt 1 view .LVU122
+ 182:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+ 463              		.loc 1 182 34 is_stmt 0 view .LVU123
+ 464 0050 0223     		movs	r3, #2
+ 465 0052 0D93     		str	r3, [sp, #52]
+ 183:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLM = 10;
+ 466              		.loc 1 183 3 is_stmt 1 view .LVU124
+ 183:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLM = 10;
+ 467              		.loc 1 183 35 is_stmt 0 view .LVU125
+ 468 0054 4FF48002 		mov	r2, #4194304
+ 469 0058 0E92     		str	r2, [sp, #56]
+ 184:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLN = 100;
+ 470              		.loc 1 184 3 is_stmt 1 view .LVU126
+ 184:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLN = 100;
+ 471              		.loc 1 184 30 is_stmt 0 view .LVU127
+ 472 005a 0A22     		movs	r2, #10
+ 473 005c 0F92     		str	r2, [sp, #60]
+ 185:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+ 474              		.loc 1 185 3 is_stmt 1 view .LVU128
+ 185:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+ 475              		.loc 1 185 30 is_stmt 0 view .LVU129
+ 476 005e 6422     		movs	r2, #100
+ 477 0060 1092     		str	r2, [sp, #64]
+ 186:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
+ 478              		.loc 1 186 3 is_stmt 1 view .LVU130
+ 186:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
+ 479              		.loc 1 186 30 is_stmt 0 view .LVU131
+ 480 0062 1193     		str	r3, [sp, #68]
+ 187:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLR = 2;
+ 481              		.loc 1 187 3 is_stmt 1 view .LVU132
+ 187:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLR = 2;
+ 482              		.loc 1 187 30 is_stmt 0 view .LVU133
+ 483 0064 1293     		str	r3, [sp, #72]
+ 188:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 484              		.loc 1 188 3 is_stmt 1 view .LVU134
+ 188:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 485              		.loc 1 188 30 is_stmt 0 view .LVU135
+ 486 0066 1393     		str	r3, [sp, #76]
+ 189:Core/Src/main.c ****   {
+ 487              		.loc 1 189 3 is_stmt 1 view .LVU136
+ 189:Core/Src/main.c ****   {
+ 488              		.loc 1 189 7 is_stmt 0 view .LVU137
+ 489 0068 07A8     		add	r0, sp, #28
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 54
 
 
- 244              		.loc 1 138 3 is_stmt 1 view .LVU63
- 138:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
- 245              		.loc 1 138 30 is_stmt 0 view .LVU64
- 246 005e 6422     		movs	r2, #100
- 247 0060 1092     		str	r2, [sp, #64]
- 139:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
- 248              		.loc 1 139 3 is_stmt 1 view .LVU65
- 139:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
- 249              		.loc 1 139 30 is_stmt 0 view .LVU66
- 250 0062 1193     		str	r3, [sp, #68]
- 140:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLR = 2;
- 251              		.loc 1 140 3 is_stmt 1 view .LVU67
- 140:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLR = 2;
- 252              		.loc 1 140 30 is_stmt 0 view .LVU68
- 253 0064 1293     		str	r3, [sp, #72]
- 141:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 254              		.loc 1 141 3 is_stmt 1 view .LVU69
- 141:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 255              		.loc 1 141 30 is_stmt 0 view .LVU70
- 256 0066 1393     		str	r3, [sp, #76]
- 142:Core/Src/main.c ****   {
- 257              		.loc 1 142 3 is_stmt 1 view .LVU71
- 142:Core/Src/main.c ****   {
- 258              		.loc 1 142 7 is_stmt 0 view .LVU72
- 259 0068 07A8     		add	r0, sp, #28
- 260 006a FFF7FEFF 		bl	HAL_RCC_OscConfig
- 261              	.LVL9:
- 142:Core/Src/main.c ****   {
- 262              		.loc 1 142 6 view .LVU73
- 263 006e 88B9     		cbnz	r0, .L14
- 149:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 264              		.loc 1 149 3 is_stmt 1 view .LVU74
- 149:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 265              		.loc 1 149 31 is_stmt 0 view .LVU75
- 266 0070 0F23     		movs	r3, #15
- 267 0072 0293     		str	r3, [sp, #8]
- 151:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 268              		.loc 1 151 3 is_stmt 1 view .LVU76
- 151:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 269              		.loc 1 151 34 is_stmt 0 view .LVU77
- 270 0074 0223     		movs	r3, #2
- 271 0076 0393     		str	r3, [sp, #12]
- 152:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
- 272              		.loc 1 152 3 is_stmt 1 view .LVU78
- 152:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
- 273              		.loc 1 152 35 is_stmt 0 view .LVU79
- 274 0078 0023     		movs	r3, #0
- 275 007a 0493     		str	r3, [sp, #16]
- 153:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 276              		.loc 1 153 3 is_stmt 1 view .LVU80
- 153:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 277              		.loc 1 153 36 is_stmt 0 view .LVU81
- 278 007c 4FF48052 		mov	r2, #4096
- 279 0080 0592     		str	r2, [sp, #20]
- 154:Core/Src/main.c **** 
- 280              		.loc 1 154 3 is_stmt 1 view .LVU82
- 154:Core/Src/main.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 49
+ 490 006a FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 491              	.LVL22:
+ 189:Core/Src/main.c ****   {
+ 492              		.loc 1 189 6 view .LVU138
+ 493 006e 88B9     		cbnz	r0, .L31
+ 196:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 494              		.loc 1 196 3 is_stmt 1 view .LVU139
+ 196:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 495              		.loc 1 196 31 is_stmt 0 view .LVU140
+ 496 0070 0F23     		movs	r3, #15
+ 497 0072 0293     		str	r3, [sp, #8]
+ 198:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 498              		.loc 1 198 3 is_stmt 1 view .LVU141
+ 198:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 499              		.loc 1 198 34 is_stmt 0 view .LVU142
+ 500 0074 0223     		movs	r3, #2
+ 501 0076 0393     		str	r3, [sp, #12]
+ 199:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+ 502              		.loc 1 199 3 is_stmt 1 view .LVU143
+ 199:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+ 503              		.loc 1 199 35 is_stmt 0 view .LVU144
+ 504 0078 0023     		movs	r3, #0
+ 505 007a 0493     		str	r3, [sp, #16]
+ 200:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 506              		.loc 1 200 3 is_stmt 1 view .LVU145
+ 200:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 507              		.loc 1 200 36 is_stmt 0 view .LVU146
+ 508 007c 4FF48052 		mov	r2, #4096
+ 509 0080 0592     		str	r2, [sp, #20]
+ 201:Core/Src/main.c **** 
+ 510              		.loc 1 201 3 is_stmt 1 view .LVU147
+ 201:Core/Src/main.c **** 
+ 511              		.loc 1 201 36 is_stmt 0 view .LVU148
+ 512 0082 0693     		str	r3, [sp, #24]
+ 203:Core/Src/main.c ****   {
+ 513              		.loc 1 203 3 is_stmt 1 view .LVU149
+ 203:Core/Src/main.c ****   {
+ 514              		.loc 1 203 7 is_stmt 0 view .LVU150
+ 515 0084 0321     		movs	r1, #3
+ 516 0086 02A8     		add	r0, sp, #8
+ 517 0088 FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 518              	.LVL23:
+ 203:Core/Src/main.c ****   {
+ 519              		.loc 1 203 6 view .LVU151
+ 520 008c 20B9     		cbnz	r0, .L32
+ 207:Core/Src/main.c **** 
+ 521              		.loc 1 207 1 view .LVU152
+ 522 008e 15B0     		add	sp, sp, #84
+ 523              	.LCFI6:
+ 524              		.cfi_remember_state
+ 525              		.cfi_def_cfa_offset 4
+ 526              		@ sp needed
+ 527 0090 5DF804FB 		ldr	pc, [sp], #4
+ 528              	.L31:
+ 529              	.LCFI7:
+ 530              		.cfi_restore_state
+ 191:Core/Src/main.c ****   }
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 55
 
 
- 281              		.loc 1 154 36 is_stmt 0 view .LVU83
- 282 0082 0693     		str	r3, [sp, #24]
- 156:Core/Src/main.c ****   {
- 283              		.loc 1 156 3 is_stmt 1 view .LVU84
- 156:Core/Src/main.c ****   {
- 284              		.loc 1 156 7 is_stmt 0 view .LVU85
- 285 0084 0321     		movs	r1, #3
- 286 0086 02A8     		add	r0, sp, #8
- 287 0088 FFF7FEFF 		bl	HAL_RCC_ClockConfig
- 288              	.LVL10:
- 156:Core/Src/main.c ****   {
- 289              		.loc 1 156 6 view .LVU86
- 290 008c 20B9     		cbnz	r0, .L15
- 160:Core/Src/main.c **** 
- 291              		.loc 1 160 1 view .LVU87
- 292 008e 15B0     		add	sp, sp, #84
- 293              	.LCFI2:
- 294              		.cfi_remember_state
- 295              		.cfi_def_cfa_offset 4
- 296              		@ sp needed
- 297 0090 5DF804FB 		ldr	pc, [sp], #4
- 298              	.L14:
- 299              	.LCFI3:
- 300              		.cfi_restore_state
- 144:Core/Src/main.c ****   }
- 301              		.loc 1 144 5 is_stmt 1 view .LVU88
- 302 0094 FFF7FEFF 		bl	Error_Handler
- 303              	.LVL11:
- 304              	.L15:
- 158:Core/Src/main.c ****   }
- 305              		.loc 1 158 5 view .LVU89
- 306 0098 FFF7FEFF 		bl	Error_Handler
- 307              	.LVL12:
- 308              	.L17:
- 309              		.align	2
- 310              	.L16:
- 311 009c 00380240 		.word	1073887232
- 312 00a0 00700040 		.word	1073770496
- 313              		.cfi_endproc
- 314              	.LFE217:
- 316              		.section	.rodata.main.str1.4,"aMS",%progbits,1
- 317              		.align	2
- 318              	.LC0:
- 319 0000 48656C6C 		.ascii	"HelloWorld\015\000"
- 319      6F576F72 
- 319      6C640D00 
- 320              		.section	.text.main,"ax",%progbits
- 321              		.align	1
- 322              		.global	main
- 323              		.syntax unified
- 324              		.thumb
- 325              		.thumb_func
- 327              	main:
- 328              	.LFB216:
-  69:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
- 329              		.loc 1 69 1 view -0
- 330              		.cfi_startproc
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 50
+ 531              		.loc 1 191 5 is_stmt 1 view .LVU153
+ 532 0094 FFF7FEFF 		bl	Error_Handler
+ 533              	.LVL24:
+ 534              	.L32:
+ 205:Core/Src/main.c ****   }
+ 535              		.loc 1 205 5 view .LVU154
+ 536 0098 FFF7FEFF 		bl	Error_Handler
+ 537              	.LVL25:
+ 538              	.L34:
+ 539              		.align	2
+ 540              	.L33:
+ 541 009c 00380240 		.word	1073887232
+ 542 00a0 00700040 		.word	1073770496
+ 543              		.cfi_endproc
+ 544              	.LFE254:
+ 546              		.section	.text.main,"ax",%progbits
+ 547              		.align	1
+ 548              		.global	main
+ 549              		.syntax unified
+ 550              		.thumb
+ 551              		.thumb_func
+ 553              	main:
+ 554              	.LFB253:
+ 107:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
+ 555              		.loc 1 107 1 view -0
+ 556              		.cfi_startproc
+ 557              		@ Volatile: function does not return.
+ 558              		@ args = 0, pretend = 0, frame = 0
+ 559              		@ frame_needed = 0, uses_anonymous_args = 0
+ 560 0000 08B5     		push	{r3, lr}
+ 561              	.LCFI8:
+ 562              		.cfi_def_cfa_offset 8
+ 563              		.cfi_offset 3, -8
+ 564              		.cfi_offset 14, -4
+ 115:Core/Src/main.c **** 
+ 565              		.loc 1 115 3 view .LVU156
+ 566 0002 FFF7FEFF 		bl	HAL_Init
+ 567              	.LVL26:
+ 122:Core/Src/main.c **** 
+ 568              		.loc 1 122 3 view .LVU157
+ 569 0006 FFF7FEFF 		bl	SystemClock_Config
+ 570              	.LVL27:
+ 129:Core/Src/main.c ****   MX_DMA_Init();
+ 571              		.loc 1 129 3 view .LVU158
+ 572 000a FFF7FEFF 		bl	MX_GPIO_Init
+ 573              	.LVL28:
+ 130:Core/Src/main.c ****   MX_SPI2_Init();
+ 574              		.loc 1 130 3 view .LVU159
+ 575 000e FFF7FEFF 		bl	MX_DMA_Init
+ 576              	.LVL29:
+ 131:Core/Src/main.c ****   MX_ADC1_Init();
+ 577              		.loc 1 131 3 view .LVU160
+ 578 0012 FFF7FEFF 		bl	MX_SPI2_Init
+ 579              	.LVL30:
+ 132:Core/Src/main.c ****   MX_SPI1_Init();
+ 580              		.loc 1 132 3 view .LVU161
+ 581 0016 FFF7FEFF 		bl	MX_ADC1_Init
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 56
 
 
- 331              		@ Volatile: function does not return.
- 332              		@ args = 0, pretend = 0, frame = 0
- 333              		@ frame_needed = 0, uses_anonymous_args = 0
- 334 0000 08B5     		push	{r3, lr}
- 335              	.LCFI4:
- 336              		.cfi_def_cfa_offset 8
- 337              		.cfi_offset 3, -8
- 338              		.cfi_offset 14, -4
-  77:Core/Src/main.c **** 
- 339              		.loc 1 77 3 view .LVU91
- 340 0002 FFF7FEFF 		bl	HAL_Init
- 341              	.LVL13:
-  84:Core/Src/main.c **** 
- 342              		.loc 1 84 3 view .LVU92
- 343 0006 FFF7FEFF 		bl	SystemClock_Config
- 344              	.LVL14:
-  91:Core/Src/main.c ****   MX_DMA_Init();
- 345              		.loc 1 91 3 view .LVU93
- 346 000a FFF7FEFF 		bl	MX_GPIO_Init
- 347              	.LVL15:
-  92:Core/Src/main.c ****   MX_SPI2_Init();
- 348              		.loc 1 92 3 view .LVU94
- 349 000e FFF7FEFF 		bl	MX_DMA_Init
- 350              	.LVL16:
-  93:Core/Src/main.c ****   MX_ADC1_Init();
- 351              		.loc 1 93 3 view .LVU95
- 352 0012 FFF7FEFF 		bl	MX_SPI2_Init
- 353              	.LVL17:
-  94:Core/Src/main.c ****   MX_SPI1_Init();
- 354              		.loc 1 94 3 view .LVU96
- 355 0016 FFF7FEFF 		bl	MX_ADC1_Init
- 356              	.LVL18:
-  95:Core/Src/main.c ****   MX_USART6_UART_Init();
- 357              		.loc 1 95 3 view .LVU97
- 358 001a FFF7FEFF 		bl	MX_SPI1_Init
- 359              	.LVL19:
-  96:Core/Src/main.c ****   MX_TIM1_Init();
- 360              		.loc 1 96 3 view .LVU98
- 361 001e FFF7FEFF 		bl	MX_USART6_UART_Init
- 362              	.LVL20:
-  97:Core/Src/main.c ****   MX_TIM2_Init();
- 363              		.loc 1 97 3 view .LVU99
- 364 0022 FFF7FEFF 		bl	MX_TIM1_Init
- 365              	.LVL21:
-  98:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
- 366              		.loc 1 98 3 view .LVU100
- 367 0026 FFF7FEFF 		bl	MX_TIM2_Init
- 368              	.LVL22:
- 369              	.L19:
- 105:Core/Src/main.c ****   {
- 370              		.loc 1 105 3 discriminator 1 view .LVU101
- 371              	.LBB14:
- 110:Core/Src/main.c ****     HAL_Delay(1000);
- 372              		.loc 1 110 5 discriminator 1 view .LVU102
- 373 002a 0448     		ldr	r0, .L21
- 374 002c FFF7FEFF 		bl	puts
- 375              	.LVL23:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 51
+ 582              	.LVL31:
+ 133:Core/Src/main.c ****   MX_USART6_UART_Init();
+ 583              		.loc 1 133 3 view .LVU162
+ 584 001a FFF7FEFF 		bl	MX_SPI1_Init
+ 585              	.LVL32:
+ 134:Core/Src/main.c ****   MX_TIM1_Init();
+ 586              		.loc 1 134 3 view .LVU163
+ 587 001e FFF7FEFF 		bl	MX_USART6_UART_Init
+ 588              	.LVL33:
+ 135:Core/Src/main.c ****   MX_TIM2_Init();
+ 589              		.loc 1 135 3 view .LVU164
+ 590 0022 FFF7FEFF 		bl	MX_TIM1_Init
+ 591              	.LVL34:
+ 136:Core/Src/main.c ****   MX_TIM3_Init();
+ 592              		.loc 1 136 3 view .LVU165
+ 593 0026 FFF7FEFF 		bl	MX_TIM2_Init
+ 594              	.LVL35:
+ 137:Core/Src/main.c ****   MX_TIM6_Init();
+ 595              		.loc 1 137 3 view .LVU166
+ 596 002a FFF7FEFF 		bl	MX_TIM3_Init
+ 597              	.LVL36:
+ 138:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
+ 598              		.loc 1 138 3 view .LVU167
+ 599 002e FFF7FEFF 		bl	MX_TIM6_Init
+ 600              	.LVL37:
+ 140:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+ 601              		.loc 1 140 3 view .LVU168
+ 602 0032 0522     		movs	r2, #5
+ 603 0034 0A49     		ldr	r1, .L38
+ 604 0036 0B48     		ldr	r0, .L38+4
+ 605 0038 FFF7FEFF 		bl	HAL_ADC_Start_DMA
+ 606              	.LVL38:
+ 141:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+ 607              		.loc 1 141 3 view .LVU169
+ 608 003c 0A4C     		ldr	r4, .L38+8
+ 609 003e 0021     		movs	r1, #0
+ 610 0040 2046     		mov	r0, r4
+ 611 0042 FFF7FEFF 		bl	HAL_TIM_PWM_Start
+ 612              	.LVL39:
+ 142:Core/Src/main.c ****   __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
+ 613              		.loc 1 142 3 view .LVU170
+ 614 0046 0421     		movs	r1, #4
+ 615 0048 2046     		mov	r0, r4
+ 616 004a FFF7FEFF 		bl	HAL_TIM_PWM_Start
+ 617              	.LVL40:
+ 143:Core/Src/main.c ****   __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,0);
+ 618              		.loc 1 143 3 view .LVU171
+ 619 004e 2368     		ldr	r3, [r4]
+ 620 0050 FA22     		movs	r2, #250
+ 621 0052 5A63     		str	r2, [r3, #52]
+ 144:Core/Src/main.c **** 
+ 622              		.loc 1 144 3 view .LVU172
+ 623 0054 0022     		movs	r2, #0
+ 624 0056 9A63     		str	r2, [r3, #56]
+ 146:Core/Src/main.c **** 
+ 625              		.loc 1 146 3 view .LVU173
+ 626 0058 0448     		ldr	r0, .L38+12
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 57
 
 
- 111:Core/Src/main.c ****   }
- 376              		.loc 1 111 5 discriminator 1 view .LVU103
- 377 0030 4FF47A70 		mov	r0, #1000
- 378 0034 FFF7FEFF 		bl	HAL_Delay
- 379              	.LVL24:
- 380              	.LBE14:
- 105:Core/Src/main.c ****   {
- 381              		.loc 1 105 9 discriminator 1 view .LVU104
- 382 0038 F7E7     		b	.L19
- 383              	.L22:
- 384 003a 00BF     		.align	2
- 385              	.L21:
- 386 003c 00000000 		.word	.LC0
- 387              		.cfi_endproc
- 388              	.LFE216:
- 390              		.text
- 391              	.Letext0:
- 392              		.file 4 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_default_type
- 393              		.file 5 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
- 394              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f412cx.h"
- 395              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h"
- 396              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h"
- 397              		.file 9 "<built-in>"
- 398              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 399              		.file 11 "Core/Inc/gpio.h"
- 400              		.file 12 "Core/Inc/dma.h"
- 401              		.file 13 "Core/Inc/spi.h"
- 402              		.file 14 "Core/Inc/adc.h"
- 403              		.file 15 "Core/Inc/usart.h"
- 404              		.file 16 "Core/Inc/tim.h"
- 405              		.file 17 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccNopic2.s 			page 52
+ 627 005a FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
+ 628              	.LVL41:
+ 629              	.L36:
+ 152:Core/Src/main.c ****   {
+ 630              		.loc 1 152 3 discriminator 1 view .LVU174
+ 159:Core/Src/main.c ****   /* USER CODE END 3 */
+ 631              		.loc 1 159 3 discriminator 1 view .LVU175
+ 152:Core/Src/main.c ****   {
+ 632              		.loc 1 152 9 discriminator 1 view .LVU176
+ 633 005e FEE7     		b	.L36
+ 634              	.L39:
+ 635              		.align	2
+ 636              	.L38:
+ 637 0060 00000000 		.word	.LANCHOR1
+ 638 0064 00000000 		.word	hadc1
+ 639 0068 00000000 		.word	htim3
+ 640 006c 00000000 		.word	htim6
+ 641              		.cfi_endproc
+ 642              	.LFE253:
+ 644              		.global	cnt
+ 645              		.global	sensval
+ 646              		.global	fftval
+ 647              		.global	adcval
+ 648              		.section	.bss.adcval,"aw",%nobits
+ 649              		.align	2
+ 650              		.set	.LANCHOR1,. + 0
+ 653              	adcval:
+ 654 0000 00000000 		.space	10
+ 654      00000000 
+ 654      0000
+ 655              		.section	.bss.cnt,"aw",%nobits
+ 656              		.align	2
+ 657              		.set	.LANCHOR0,. + 0
+ 660              	cnt:
+ 661 0000 00000000 		.space	4
+ 662              		.section	.bss.fftval,"aw",%nobits
+ 663              		.align	2
+ 664              		.set	.LANCHOR2,. + 0
+ 667              	fftval:
+ 668 0000 00000000 		.space	512
+ 668      00000000 
+ 668      00000000 
+ 668      00000000 
+ 668      00000000 
+ 669              		.section	.bss.sensval,"aw",%nobits
+ 670              		.align	2
+ 671              		.set	.LANCHOR3,. + 0
+ 674              	sensval:
+ 675 0000 00000000 		.space	16
+ 675      00000000 
+ 675      00000000 
+ 675      00000000 
+ 676              		.text
+ 677              	.Letext0:
+ 678              		.file 4 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_default_type
+ 679              		.file 5 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 680              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f412cx.h"
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 58
+
+
+ 681              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 682              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 683              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h"
+ 684              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h"
+ 685              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 686              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 687              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 688              		.file 14 "Core/Inc/adc.h"
+ 689              		.file 15 "Core/Inc/tim.h"
+ 690              		.file 16 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 691              		.file 17 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 692              		.file 18 "Core/Inc/gpio.h"
+ 693              		.file 19 "Core/Inc/dma.h"
+ 694              		.file 20 "Core/Inc/spi.h"
+ 695              		.file 21 "Core/Inc/usart.h"
+ 696              		.file 22 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\stdio.h"
+ 697              		.file 23 "<built-in>"
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s 			page 59
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:20     .text._write:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:26     .text._write:00000000 _write
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:118    .text.Error_Handler:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:124    .text.Error_Handler:00000000 Error_Handler
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:156    .text.SystemClock_Config:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:162    .text.SystemClock_Config:00000000 SystemClock_Config
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:311    .text.SystemClock_Config:0000009c $d
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:317    .rodata.main.str1.4:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:321    .text.main:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:327    .text.main:00000000 main
-C:\Users\neko2\AppData\Local\Temp\ccNopic2.s:386    .text.main:0000003c $d
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:20     .rodata.HAL_TIM_PeriodElapsedCallback.str1.4:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:27     .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:33     .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:240    .text.HAL_TIM_PeriodElapsedCallback:000000e8 $d
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:251    .text._write:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:257    .text._write:00000000 _write
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:348    .text.Error_Handler:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:354    .text.Error_Handler:00000000 Error_Handler
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:386    .text.SystemClock_Config:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:392    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:541    .text.SystemClock_Config:0000009c $d
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:547    .text.main:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:553    .text.main:00000000 main
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:637    .text.main:00000060 $d
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:660    .bss.cnt:00000000 cnt
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:674    .bss.sensval:00000000 sensval
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:667    .bss.fftval:00000000 fftval
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:653    .bss.adcval:00000000 adcval
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:649    .bss.adcval:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:656    .bss.cnt:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:663    .bss.fftval:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccaD0B0j.s:670    .bss.sensval:00000000 $d
 
 UNDEFINED SYMBOLS
+HAL_TIM_Base_Stop_IT
+arm_rfft_fast_init_f32
+arm_rfft_fast_f32
+printf
+puts
+HAL_TIM_Base_Start_IT
+htim6
 memset
 HAL_RCC_OscConfig
 HAL_RCC_ClockConfig
@@ -3062,5 +3486,9 @@ MX_SPI1_Init
 MX_USART6_UART_Init
 MX_TIM1_Init
 MX_TIM2_Init
-puts
-HAL_Delay
+MX_TIM3_Init
+MX_TIM6_Init
+HAL_ADC_Start_DMA
+HAL_TIM_PWM_Start
+hadc1
+htim3

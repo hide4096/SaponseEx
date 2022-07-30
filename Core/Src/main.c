@@ -27,7 +27,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#define ARM_MATH_CM4
+#include<arm_math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -37,6 +41,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define FFTSAMPLE 64
+#define MAXADC 4096
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -58,7 +64,39 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint16_t adcval[5];
+uint16_t fftval[4][FFTSAMPLE];
+int sensval[4];
+int cnt = 0;
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+  if(htim == &htim6){
+    fftval[0][cnt] = adcval[0];
+    fftval[1][cnt] = adcval[1];
+    fftval[2][cnt] = adcval[2];
+    fftval[3][cnt] = adcval[3];
+    cnt++;
 
+    if(cnt >= FFTSAMPLE){
+      HAL_TIM_Base_Stop_IT(&htim6);
+      for(int i=0;i<4;i++){
+        float32_t fftcalc[FFTSAMPLE];
+        float32_t fftans[FFTSAMPLE];
+        
+        for(int j=0;j<FFTSAMPLE;j++) fftcalc[j] = fftval[i][j];
+        
+        arm_rfft_fast_instance_f32 instance;
+        arm_rfft_fast_init_f32(&instance, FFTSAMPLE);
+        arm_rfft_fast_f32(&instance,fftcalc,fftans,0);
+        for(int j=0;j<FFTSAMPLE;j++) printf("%d,",abs((int)fftans[j]));
+
+        printf("\r\n");
+        sensval[i] = abs((int)fftans[9]);
+      }
+      cnt = 0;
+      HAL_TIM_Base_Start_IT(&htim6);
+    }
+  }
+}
 /* USER CODE END 0 */
 
 /**
@@ -96,7 +134,16 @@ int main(void)
   MX_USART6_UART_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
+  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,0);
+
+  HAL_TIM_Base_Start_IT(&htim6);
 
   /* USER CODE END 2 */
 
@@ -107,8 +154,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    printf("HelloWorld\r\n");
-    HAL_Delay(1000);
+    //printf("%ld,%ld,%ld,%ld\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+    //HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
