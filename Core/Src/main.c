@@ -79,18 +79,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     if(cnt >= FFTSAMPLE){
       HAL_TIM_Base_Stop_IT(&htim6);
       for(int i=0;i<4;i++){
-        float32_t fftcalc[FFTSAMPLE];
-        float32_t fftans[FFTSAMPLE];
-        
-        for(int j=0;j<FFTSAMPLE;j++) fftcalc[j] = fftval[i][j];
-        
-        arm_rfft_fast_instance_f32 instance;
-        arm_rfft_fast_init_f32(&instance, FFTSAMPLE);
-        arm_rfft_fast_f32(&instance,fftcalc,fftans,0);
-        for(int j=0;j<FFTSAMPLE;j++) printf("%d,",abs((int)fftans[j]));
-
-        printf("\r\n");
-        sensval[i] = abs((int)fftans[9]);
+        double r =0,j=0;
+        for(int k=0;k<FFTSAMPLE;k++){
+          double theta = 25.132741228718345 * ((double)i + 1.0) / 64.0;
+          r+= fftval[i][k] * cos(theta);
+          j+= fftval[i][k] * sin(theta);
+        }
+        sensval[i] = sqrt(r*r+j*j);
       }
       cnt = 0;
       HAL_TIM_Base_Start_IT(&htim6);
@@ -154,8 +149,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    //printf("%ld,%ld,%ld,%ld\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
-    //HAL_Delay(500);
+    printf("%ld,%ld,%ld,%ld\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+    //printf("%ld,%ld,%ld,%ld\r\n",adcval[0],adcval[1],adcval[2],adcval[3]);
+    HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
