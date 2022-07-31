@@ -39,9 +39,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define FFTSAMPLE 64
-#define MAXADC 4096
-#define N 4
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -63,65 +61,31 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//DMAの送信先(L,FL,FR,R,VBAT/2)
+//DMAの送信(L,FL,FR,R,VBAT/2)
 uint16_t adcval[5];
-//フーリエ変換用
-double_t f_real[4] = {0.0};
-double_t f_imagin[4] = {0.0};
-double_t tb_cos[FFTSAMPLE],tb_sin[FFTSAMPLE];
 uint16_t sensval[4];
-uint8_t cnt = 0;
+uint16_t offval[4];
 //0→FR,L 1→FL,R
-uint8_t flag_led = 0;
+uint8_t senstype = 0;
 
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-  if(htim == &htim6){
-    if(cnt >= FFTSAMPLE){
-      for(int i = flag_led;i<4;i+=2){
-        //10kHzの成分出す
-        double_t pow_r = f_real[i] * f_real[i];
-        double_t pow_i = f_imagin[i] * f_imagin[i];
-        sensval[i] = sqrt(pow_r + pow_i);
-      }
-      flag_led = !flag_led;
-      if(flag_led){
-        __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,0);
-        __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,250);
-      }else{
-        __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
-        __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,0);
-      }
-      cnt = 0;
-    }else{
-      for(int i = flag_led;i<4;i+=2){
-        //センサ値とりながらフーリエ変換
-        f_real[i]   += adcval[i] * tb_cos(cnt);
-        f_imagin[i] -= adcval[i] * tb_sin(cnt);
-      }
-      cnt++;
-    }
+void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc){
+  if(senstype){
+    sensval[0] = adcval[0];
+    sensval[2] = adcval[2];
+    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
+    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,1);
+  }else{
+    sensval[1] = adcval[1];
+    sensval[3] = adcval[3];
+    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,1);
+    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
   }
+  senstype = 1-senstype;
 }
 
 void init(){
-  //壁センサ関係
+  //壁センサ
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
-  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
-  __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_2,0);
-  flag_led = 0;
-  //160kHz割り込み
-  HAL_TIM_Base_Start_IT(&htim6);
-
-  //フーリエ変換用三角関数テーブル
-  const double_t piN = 2*M_PI*N;
-  for(int k=0;k<FFTSAMPLE;k++){
-    double_t theta = piN*k/FFTSAMPLE;
-    tb_cos[k] = cos(theta);
-    tb_sin[k] = sin(theta);
-  }
 }
 /* USER CODE END 0 */
 
@@ -160,8 +124,6 @@ int main(void)
   MX_USART6_UART_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
-  MX_TIM3_Init();
-  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
   init();
   /* USER CODE END 2 */
@@ -174,8 +136,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     printf("%d,%d,%d,%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
-    //printf("%ld,%ld,%ld,%ld\r\n",adcval[0],adcval[1],adcval[2],adcval[3]);
-    HAL_Delay(100);
+    HAL_Delay(10);
   }
   /* USER CODE END 3 */
 }
