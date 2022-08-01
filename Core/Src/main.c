@@ -30,6 +30,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include"ICM_20648.h"
+#include"as5047p.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -39,7 +41,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define MAXINITERR  10
+#define MTPERIOD    2000 
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -67,8 +70,46 @@ uint16_t sensval[4];
 uint16_t offval[4];
 //0→FR,L 1→FL,R
 uint8_t senstype = 0;
+//Enc
+AS5047P_Instance encR;
+AS5047P_Instance encL;
+AS5047P_Result encR_val;
+AS5047P_Result encL_val;
+//motor
+double_t motR = 0.0;
+double_t motL = 0.0;
+double_t motF = 0;
 
-void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc){
+void SetDutyRatio(){
+  if(motR >= 0.0){
+    if(motR > 1.0) motR = 1.0;
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD*motR);
+    
+  }else{
+    motR*=-1;
+    if(motR > 1.0) motR = 1.0;
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD*motR);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
+    
+  }
+
+  if(motL >= 0.0){
+    if(motL > 1.0) motL = 1.0;
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MTPERIOD*motL);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+  }else{
+    motL*=-1;
+    if(motL > 1.0) motL = 1.0;
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,MTPERIOD*motL);
+  }
+
+  if(motF > 1.0) motF = 1.0;
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,MTPERIOD*motF);
+}
+
+void GetWallSens(){
   if(senstype){
     sensval[0] = adcval[0];
     sensval[2] = adcval[2];
@@ -80,12 +121,70 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc){
     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,1);
     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
   }
-  senstype = 1-senstype;
+    senstype = 1-senstype;
+}
+
+void GetEncAngle(){
+  encR_val = AS5047P_ReadPosition(&encL, AS5047P_OPT_ENABLED);
+  encL_val = AS5047P_ReadPosition(&encL, AS5047P_OPT_ENABLED);
+	if(AS5047P_ErrorPending(&encR)) AS5047P_ErrorAck(&encR);
+	if(AS5047P_ErrorPending(&encL)) AS5047P_ErrorAck(&encL);
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+  if(htim == &htim6){
+    //1kHz
+    GetWallSens();
+    GetEncAngle();
+    read_gyro_data();
+    read_accel_data();
+    SetDutyRatio();
+  }
 }
 
 void init(){
-  //壁センサ
+  //StartDMA
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
+
+  //InitIMU
+  uint8_t errcnt = 0;
+  while(IMU_init() == 0 || errcnt >= MAXINITERR){
+    HAL_Delay(100);
+    errcnt++;
+  }
+  if(errcnt >= MAXINITERR) while(1);
+  else errcnt = 0;
+
+  //InitEnc
+  do{
+    AS5047P_Init(&encL, 0);
+    AS5047P_Init(&encR, 1);
+    HAL_Delay(100);
+    AS5047P_SetZeroPosition(&encL);
+    AS5047P_SetZeroPosition(&encR);
+    errcnt++;
+  }while(AS5047P_ErrorPending(&encR) || AS5047P_ErrorPending(&encL));
+  if(errcnt >= MAXINITERR) while(1);
+  else errcnt = 0;
+
+  //RightMotor
+  HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+  __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+
+  //LeftMotor
+  HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+  __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+  __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
+
+  //FanMotor
+  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,0);
+
+  //Interrupt 1kHz
+  HAL_TIM_Base_Start_IT(&htim6);
 }
 /* USER CODE END 0 */
 
@@ -124,19 +223,25 @@ int main(void)
   MX_USART6_UART_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
   init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //HAL_Delay(1000);
+  motR = 0.0,motL=-0.3;
+  HAL_Delay(500);
+  motR = 0.0,motL=0.0;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    printf("%d,%d,%d,%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
-    HAL_Delay(10);
+    //printf("%d,%d,%d,%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+    //printf("%d,%d,%d\r\n",xa,ya,za);
+    //printf("%d,%d,%d\r\n",xg,yg,zg);
   }
   /* USER CODE END 3 */
 }
