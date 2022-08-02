@@ -75,38 +75,40 @@ AS5047P_Instance encR;
 AS5047P_Instance encL;
 AS5047P_Result encR_val;
 AS5047P_Result encL_val;
-//motor
-double_t motR = 0.0;
-double_t motL = 0.0;
-double_t motF = 0;
 
-void SetDutyRatio(){
-  if(motR >= 0.0){
-    if(motR > 1.0) motR = 1.0;
+void SetLED(uint8_t led){
+  HAL_GPIO_WritePin(D3_GPIO_Port,D3_Pin,!(led & 0b001));
+  HAL_GPIO_WritePin(D4_GPIO_Port,D4_Pin,!(led & 0b010));
+  HAL_GPIO_WritePin(D5_GPIO_Port,D5_Pin,!(led & 0b100));
+}
+
+void SetDutyRatio(int16_t motR,int16_t motL,int16_t motF){
+  if(motR > 0){
+    if(motR > MTPERIOD) motR = MTPERIOD;
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD*motR);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);
     
   }else{
     motR*=-1;
-    if(motR > 1.0) motR = 1.0;
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD*motR);
+    if(motR > MTPERIOD) motR = MTPERIOD;
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
     
   }
 
-  if(motL >= 0.0){
-    if(motL > 1.0) motL = 1.0;
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MTPERIOD*motL);
+  if(motL > 0){
+    if(motL > MTPERIOD) motL = MTPERIOD;
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
   }else{
     motL*=-1;
-    if(motL > 1.0) motL = 1.0;
+    if(motL > MTPERIOD) motL = MTPERIOD;
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,MTPERIOD*motL);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
   }
 
-  if(motF > 1.0) motF = 1.0;
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,MTPERIOD*motF);
+  if(motF > MTPERIOD) motF = MTPERIOD;
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,motF);
 }
 
 void GetWallSens(){
@@ -138,7 +140,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetEncAngle();
     read_gyro_data();
     read_accel_data();
-    SetDutyRatio();
+  }
+}
+
+void DoPanic(){
+  uint8_t l_sig = 0b111;
+  SetLED(l_sig);
+  SetDutyRatio(0,0,0);
+  HAL_TIM_Base_Stop_IT(&htim6);
+  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
+  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
+  while(1){
+    l_sig = ~l_sig;
+    SetLED(l_sig);
+    HAL_Delay(100);
   }
 }
 
@@ -152,7 +167,7 @@ void init(){
     HAL_Delay(100);
     errcnt++;
   }
-  if(errcnt >= MAXINITERR) while(1);
+  if(errcnt >= MAXINITERR) DoPanic();
   else errcnt = 0;
 
   //InitEnc
@@ -164,7 +179,7 @@ void init(){
     AS5047P_SetZeroPosition(&encR);
     errcnt++;
   }while(AS5047P_ErrorPending(&encR) || AS5047P_ErrorPending(&encL));
-  if(errcnt >= MAXINITERR) while(1);
+  if(errcnt >= MAXINITERR) DoPanic();
   else errcnt = 0;
 
   //RightMotor
@@ -182,6 +197,9 @@ void init(){
   //FanMotor
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,0);
+
+  //LED
+  SetLED(0b000);
 
   //Interrupt 1kHz
   HAL_TIM_Base_Start_IT(&htim6);
@@ -231,9 +249,11 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   //HAL_Delay(1000);
-  motR = 0.0,motL=-0.3;
-  HAL_Delay(500);
-  motR = 0.0,motL=0.0;
+  for(int i = 0;i<200;i++){
+    printf("%d,%d,%d\r\n",xg,yg,zg);
+    HAL_Delay(100);
+  }
+  DoPanic();
   while (1)
   {
     /* USER CODE END WHILE */
