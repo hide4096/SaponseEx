@@ -220,20 +220,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   }
 }
 
-void DoPanic(){
+void Blink(uint16_t val){
   uint8_t l_sig = 0b111;
-  SetLED(l_sig);
+  for(uint16_t i = 0; i< val;i++){
+    l_sig = ~l_sig;
+    SetLED(l_sig);
+    HAL_Delay(50);
+  }
+}
+
+void DoPanic(){
   SetDutyRatio(0,0,0);
   motpower = 0;
   HAL_TIM_Base_Stop_IT(&htim6);
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
   printf("Soiya!!\r\n");
-  while(1){
-    l_sig = ~l_sig;
-    SetLED(l_sig);
-    HAL_Delay(100);
-  }
+  while(1) Blink(100);
 }
 
 void init(){
@@ -330,37 +333,52 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint8_t mode = 1;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    uint8_t mode = 3;
-    switch (mode){
-      case 1:
-        printf("%fm/s\t%fdeg/s\t%fdeg\r\n",spd,angvel,deg);
-        HAL_Delay(100);
-        break;
-      case 2:
-        motpower = 1;
-        tgt_spd = 0.5;
-        tgt_deg = deg;
-        HAL_Delay(1000);
-        tgt_spd = 0.0;
-        HAL_Delay(1000);
-        DoPanic();
-        break;
-      case 3:
-        motpower = 1;
-        tgt_deg = 0.0;
-        tgt_spd = 0;
-        while (1);
-        break;
-      default:
-        DoPanic();
-        break;
+    if(spd > 0.1){
+      mode++;
+      Blink(5);
+    }else if(spd < -0.1){
+      mode--;
+      Blink(5);
+    }else if(sensval[0] + sensval[3] >= CONFIRM*2){
+      switch (mode){
+        case 1:
+          while(1){
+            printf("%fm/s\t%fdeg/s\t%fdeg\r\n",spd,angvel,deg);
+            HAL_Delay(100);
+          }
+          break;
+        case 2:
+          motpower = 1;
+          tgt_spd = 0.2;
+          tgt_deg = deg;
+          HAL_Delay(1000);
+          tgt_spd = 0.0;
+          HAL_Delay(1000);
+          DoPanic();
+          break;
+        case 3:
+          motpower = 1;
+          tgt_deg = 0.0;
+          tgt_spd = 0;
+          while (1);
+          break;
+        case 4:
+          read_accel_data();
+          printf("%d\t%d\t%d\r\n",xa,ya,za);
+          HAL_Delay(10);
+          break;
+        default:
+          DoPanic();
+          break;
+      }
     }
-
+    SetLED(mode);
   }
   /* USER CODE END 3 */
 }

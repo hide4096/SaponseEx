@@ -12,4 +12,6 @@
 
 #define GYROREFTIME 1000
 #define VBATREF 1.0
+
+#define CONFIRM 3000
 #endif
