@@ -187,6 +187,10 @@ void init(){
   errcnt = 0;
 
   //Motor
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
   SetDutyRatio(0,0,0);
 
   //LED
@@ -235,10 +239,12 @@ int main(void)
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
   init();
+  int16_t spd = 1000;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_Delay(1000);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -248,7 +254,10 @@ int main(void)
     //printf("%d,%d,%d\r\n",xa,ya,za);
     //printf("%d,%d,%d\r\n",xg,yg,zg);
     //printf("%d,%d\r\n",encL_val,encR_val);
-    HAL_Delay(10);
+    HAL_Delay(100);
+    SetDutyRatio(spd,spd,0);
+    spd-=100;
+    if(spd <= -1000) DoPanic();
   }
   /* USER CODE END 3 */
 }
