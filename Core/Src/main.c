@@ -143,7 +143,7 @@ void GetSpeed(){
   b_spdR = spdR;
   b_spdL = spdL;
 
-  //ローパスフィルタ
+  //ローパスフィルタ（係数はRTのパクリ）
   spdR = n_spdR * 0.1 + b_spdR * 0.9;
   spdL = n_spdL * 0.1 + b_spdL * 0.9;
 
@@ -174,22 +174,29 @@ void GetWallSens(){
     senstype = 1-senstype;
 }
 
+float vbat = 0; //バッテリ電圧[v]
+void GetBattVoltage(){
+  vbat = 3.3 * (adcval[4] / 4096.0) * 2;
+  vbat *= VBATREF;
+}
+
 float deg = 0;
 float angvel = 0,b_angvel = 0;
-float r_yaw = 0,r_yaw_new = 0,r_yaw_ref = 0;
+float r_yaw = 0,r_yaw_new = 0,r_yaw_ref = 0,r_b_yaw;
 
 void GetYawDeg(){
   read_gyro_data();
 
-  //LowPass Filter
-		r_yaw_new = (float)(zg & 0x0000FFFF);
-		r_yaw = (r_yaw_new - r_yaw_ref);
-		//角速度の更新
-		b_angvel = angvel;
-		angvel = ((2000.0*(zg)/32767.0))*PI/180.0;
+  //ローパスフィルタ（係数はテキトー）
+	r_yaw_new = (float)zg - r_yaw_ref;
+  r_b_yaw = r_yaw;
+  r_yaw = r_yaw_new * 0.4 + r_b_yaw * 0.6;
+	//角速度の更新
+	b_angvel = angvel;
+	angvel = (2000.0*r_yaw/32767.0)*PI/180.0;
 		
-		//ジャイロの値を角度に変換
-		deg += 2.0*r_yaw/32767.0;
+	//ジャイロの値を角度に変換
+	deg += 2.0*r_yaw/32767.0;
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
@@ -198,6 +205,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetWallSens();
     GetSpeed();
     GetYawDeg();
+    GetBattVoltage();
   }
 }
 
@@ -246,10 +254,10 @@ void init(){
   r_yaw_ref = 0;
   for(uint16_t i = 0;i<GYROREFTIME;i++){
     read_gyro_data();
-    r_yaw_ref += (float)(zg & 0x0000FFFF);
+    r_yaw_ref += zg;
     HAL_Delay(1);
   }
-  r_yaw_ref /= GYROREFTIME;
+  r_yaw_ref /= (float)GYROREFTIME;
 
   //Motor
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
@@ -316,7 +324,7 @@ int main(void)
     uint8_t mode = 1;
     switch (mode){
       case 1:
-        printf("%fm/s\t%fdeg/s\r\n",spd,angvel);
+        printf("%fm/s\t%fdeg/s\t%fdeg\r\n",spd,angvel,deg);
         HAL_Delay(100);
         break;
     

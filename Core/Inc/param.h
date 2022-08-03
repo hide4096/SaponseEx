@@ -11,4 +11,5 @@
 #define PPMM        (TIRE_DIAM*M_PI)/ENC_MAX
 
 #define GYROREFTIME 2500
+#define VBATREF 1.0
 #endif
