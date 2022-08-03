@@ -72,33 +72,34 @@ void SetLED(uint8_t led){
   HAL_GPIO_WritePin(D5_GPIO_Port,D5_Pin,!(led & 0b100));
 }
 
+uint8_t motpower = 0;
 void SetDutyRatio(int16_t motR,int16_t motL,int16_t motF){
-  if(motR > 0){
-    if(motR > MTPERIOD) motR = MTPERIOD;
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);
-    
-  }else{
-    motR*=-1;
-    if(motR > MTPERIOD) motR = MTPERIOD;
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
-    
-  }
+  if(motpower){
+    if(motR > 0){
+      if(motR > MTPERIOD) motR = MTPERIOD;
+     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);
+    }else{
+      motR*=-1;
+      if(motR > MTPERIOD) motR = MTPERIOD;
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
+    }
 
-  if(motL > 0){
-    if(motL > MTPERIOD) motL = MTPERIOD;
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
-  }else{
-    motL*=-1;
-    if(motL > MTPERIOD) motL = MTPERIOD;
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
-  }
+    if(motL > 0){
+      if(motL > MTPERIOD) motL = MTPERIOD;
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+    }else{
+      motL*=-1;
+      if(motL > MTPERIOD) motL = MTPERIOD;
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
+    }
 
-  if(motF > MTPERIOD) motF = MTPERIOD;
-  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,motF);
+    if(motF > MTPERIOD) motF = MTPERIOD;
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,motF);
+  }
 }
 
 //Enc
@@ -109,7 +110,6 @@ float spd = 0;
 int16_t b_encR_val=0,b_encL_val=0;
 float spdR = 0,spdL=0;
 float b_spdR = 0,b_spdL=0;
-
 void GetSpeed(){
   //エンコーダから値取る
   int16_t encR_val,encL_val;
@@ -199,6 +199,15 @@ void GetYawDeg(){
 	deg += 2.0*r_yaw/32767.0;
 }
 
+float tgt_spd = 0.0;
+float tgt_deg = 0.0;
+void ControlDuty(){
+  float dutyR = 0.0,dutyL = 0.0;
+  dutyR = (tgt_spd - spd)*1.0 + (tgt_deg - deg)*0.01;
+  dutyL = (tgt_spd - spd)*1.0 - (tgt_deg - deg)*0.01;
+  SetDutyRatio(MTPERIOD*dutyR,MTPERIOD*dutyL,0);
+}
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   if(htim == &htim6){
     //1kHz
@@ -206,6 +215,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetSpeed();
     GetYawDeg();
     GetBattVoltage();
+
+    ControlDuty();
   }
 }
 
@@ -213,6 +224,7 @@ void DoPanic(){
   uint8_t l_sig = 0b111;
   SetLED(l_sig);
   SetDutyRatio(0,0,0);
+  motpower = 0;
   HAL_TIM_Base_Stop_IT(&htim6);
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
@@ -252,12 +264,13 @@ void init(){
   errcnt = 0;
 
   r_yaw_ref = 0;
+  int32_t r_yaw_ref_tmp = 0;
   for(uint16_t i = 0;i<GYROREFTIME;i++){
     read_gyro_data();
-    r_yaw_ref += zg;
+    r_yaw_ref_tmp += zg;
     HAL_Delay(1);
   }
-  r_yaw_ref /= (float)GYROREFTIME;
+  r_yaw_ref = (float)(r_yaw_ref_tmp / GYROREFTIME);
 
   //Motor
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
@@ -265,6 +278,7 @@ void init(){
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
   SetDutyRatio(0,0,0);
+  motpower = 0;
 
   //LED
   SetLED(0b000);
@@ -321,13 +335,27 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    uint8_t mode = 1;
+    uint8_t mode = 3;
     switch (mode){
       case 1:
         printf("%fm/s\t%fdeg/s\t%fdeg\r\n",spd,angvel,deg);
         HAL_Delay(100);
         break;
-    
+      case 2:
+        motpower = 1;
+        tgt_spd = 0.5;
+        tgt_deg = deg;
+        HAL_Delay(1000);
+        tgt_spd = 0.0;
+        HAL_Delay(1000);
+        DoPanic();
+        break;
+      case 3:
+        motpower = 1;
+        tgt_deg = 0.0;
+        tgt_spd = 0;
+        while (1);
+        break;
       default:
         DoPanic();
         break;
