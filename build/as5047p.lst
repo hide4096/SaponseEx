@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
   28:Core/Src/as5047p.c **** #include "as5047p_hal.h"
   29:Core/Src/as5047p.c **** #include "as5047p.h"
   30:Core/Src/as5047p.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 2
 
 
   31:Core/Src/as5047p.c **** #if AS5047P_SAVE_SPACE == 1
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
   85:Core/Src/as5047p.c ****     "",	// 	[34]
   86:Core/Src/as5047p.c ****     "",	// 	[35]
   87:Core/Src/as5047p.c ****     "",	// 	[36]
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 3
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 3
 
 
   88:Core/Src/as5047p.c ****     "",	// 	[37]
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  142:Core/Src/as5047p.c ****     "Encoder not initialized while ABI resolution set attempt",	// 	[91]
  143:Core/Src/as5047p.c ****     "",	// 	[92]
  144:Core/Src/as5047p.c ****     "",	// 	[93]
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 4
 
 
  145:Core/Src/as5047p.c ****     "",	// 	[94]
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  199:Core/Src/as5047p.c ****  * 	Inputs:
  200:Core/Src/as5047p.c ****  * 		v: 32 bits for which parity is to be calculated.
  201:Core/Src/as5047p.c ****  *
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 5
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 5
 
 
  202:Core/Src/as5047p.c ****  * 	Returns:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
   65              	AS5047P_CountTrailZeros:
   66              	.LVL6:
   67              	.LFB4:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 6
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 6
 
 
  222:Core/Src/as5047p.c **** 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
   93 0010 6342     		rsbs	r3, r4, #0
   94              		.loc 1 250 31 view .LVU18
   95 0012 03EA0400 		and	r0, r3, r4
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 7
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 7
 
 
   96              		.loc 1 250 36 view .LVU19
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  269:Core/Src/as5047p.c ****  *	Generates no error.
  270:Core/Src/as5047p.c ****  *
  271:Core/Src/as5047p.c ****  ************************************************************************************/
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 8
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 8
 
 
  272:Core/Src/as5047p.c **** static uint16_t AS5047P_SetBitsAndShiftAndMask(uint16_t fieldMask, uint16_t fieldVal)
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  293:Core/Src/as5047p.c ****  *	Generates no error.
  294:Core/Src/as5047p.c ****  *
  295:Core/Src/as5047p.c ****  ************************************************************************************/
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 9
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 9
 
 
  296:Core/Src/as5047p.c **** static _Bool AS5047P_IsParityOk(uint16_t frameRx)
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  206              		.loc 1 307 12 view .LVU43
  207 0016 0120     		movs	r0, #1
  208 0018 FCE7     		b	.L9
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 10
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 10
 
 
  209              		.cfi_endproc
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  237              		.loc 1 339 4 is_stmt 0 view .LVU52
  238 000a 8B29     		cmp	r1, #139
  239 000c 06DC     		bgt	.L15
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 11
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 11
 
 
  340:Core/Src/as5047p.c **** 	{
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  361:Core/Src/as5047p.c ****  *
  362:Core/Src/as5047p.c ****  * 	Function: 	AS5047P_ClearError(instance)
  363:Core/Src/as5047p.c ****  * 	Access:		private
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 12
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 12
 
 
  364:Core/Src/as5047p.c ****  * 	Inputs:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  304              	AS5047P_ReadWriteRaw:
  305              	.LVL22:
  306              	.LFB9:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 13
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 13
 
 
  391:Core/Src/as5047p.c **** 
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  332              	.LVL25:
  420:Core/Src/as5047p.c ****   frameTx |= AS5047P_CalcParity(frameTx) << 15;
  333              		.loc 1 420 3 is_stmt 1 view .LVU75
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 14
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 14
 
 
  334              		.loc 1 420 14 is_stmt 0 view .LVU76
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  369              	.LVL32:
  370              		.loc 1 439 6 view .LVU91
  371 0036 80B1     		cbz	r0, .L29
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 15
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 15
 
 
  440:Core/Src/as5047p.c ****   {
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  409              	.LVL39:
  442:Core/Src/as5047p.c ****   }
  410              		.loc 1 442 7 view .LVU104
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 16
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 16
 
 
  442:Core/Src/as5047p.c ****   }
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  473:Core/Src/as5047p.c **** 
  474:Core/Src/as5047p.c ****   AS5047P_Result cmdResponse;
  441              		.loc 1 474 3 is_stmt 1 view .LVU108
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 17
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 17
 
 
  475:Core/Src/as5047p.c ****   AS5047P_Result tmpResponse;
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  491:Core/Src/as5047p.c ****    ************************************************************************************/
  492:Core/Src/as5047p.c **** 
  493:Core/Src/as5047p.c ****   AS5047P_ReadWriteRaw(instance, regAddr, AS5047P_ACCESS_READ);
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 18
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 18
 
 
  479              		.loc 1 493 3 is_stmt 1 view .LVU121
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  504              	.LVL45:
  505              	.L32:
  523:Core/Src/as5047p.c ****   {
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 19
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 19
 
 
  524:Core/Src/as5047p.c ****     tmpResponse = AS5047P_ReadWriteRaw(instance, AS5047P_NOP , AS5047P_ACCESS_READ);
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  527:Core/Src/as5047p.c ****     {
  533              		.loc 1 527 7 is_stmt 0 view .LVU140
  534 0074 0028     		cmp	r0, #0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 20
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 20
 
 
  535              	.LVL52:
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  552:Core/Src/as5047p.c ****  * 		newRegContent:	The Content that is to be written do the register.
  553:Core/Src/as5047p.c ****  * 		writeVerif:	Write verification activation.
  554:Core/Src/as5047p.c ****  * 		devReachCheck:	Device reachability check activation.
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 21
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 21
 
 
  555:Core/Src/as5047p.c ****  *
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  600 0014 1729     		cmp	r1, #23
  601 0016 05D0     		beq	.L39
  602              		.loc 1 582 70 discriminator 2 view .LVU156
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 22
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 22
 
 
  603 0018 1629     		cmp	r1, #22
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  631              		.loc 1 608 5 is_stmt 1 view .LVU165
  632              		.loc 1 608 7 is_stmt 0 view .LVU166
  633 0038 0028     		cmp	r0, #0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 23
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 23
 
 
  634 003a 33DB     		blt	.L43
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  657:Core/Src/as5047p.c ****      * 	     is faulty.
  658:Core/Src/as5047p.c ****      *
  659:Core/Src/as5047p.c ****      ************************************************************************************/
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 24
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 24
 
 
  660:Core/Src/as5047p.c ****     if( devReachCheck )
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  667 005c 3846     		mov	r0, r7
  668              	.LVL67:
  626:Core/Src/as5047p.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 25
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 25
 
 
  669              		.loc 1 626 23 view .LVU179
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  708              		.loc 1 662 21 is_stmt 0 view .LVU194
  709 0082 0122     		movs	r2, #1
  710 0084 0021     		movs	r1, #0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 26
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 26
 
 
  711 0086 3846     		mov	r0, r7
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  752              		.cfi_endproc
  753              	.LFE11:
  755              		.section	.text.AS5047P_Init,"ax",%progbits
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 27
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 27
 
 
  756              		.align	1
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  784 0008 8371     		strb	r3, [r0, #6]
  708:Core/Src/as5047p.c ****   instance->initialized = true;
  785              		.loc 1 708 3 is_stmt 1 view .LVU214
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 28
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 28
 
 
  786              		.loc 1 708 25 is_stmt 0 view .LVU215
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  816 0028 0122     		movs	r2, #1
  817 002a 1146     		mov	r1, r2
  818 002c 2046     		mov	r0, r4
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 29
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 29
 
 
  819 002e FFF7FEFF 		bl	AS5047P_ReadRegister
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  850              		.loc 1 725 14 is_stmt 0 view .LVU240
  851 004a 4FF0FF30 		mov	r0, #-1
  852 004e F7E7     		b	.L56
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 30
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 30
 
 
  853              	.L61:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  884              		.loc 1 772 1 is_stmt 0 view .LVU246
  885 0000 70B5     		push	{r4, r5, r6, lr}
  886              	.LCFI9:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 31
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 31
 
 
  887              		.cfi_def_cfa_offset 16
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  934 0030 0022     		movs	r2, #0
  935 0032 1721     		movs	r1, #23
  936 0034 3046     		mov	r0, r6
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 32
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 32
 
 
  937 0036 FFF7FEFF 		bl	AS5047P_WriteRegister
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  973              		.cfi_restore_state
  792:Core/Src/as5047p.c ****         return -1;
  974              		.loc 1 792 9 is_stmt 1 view .LVU268
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 33
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 33
 
 
  975 0056 2821     		movs	r1, #40
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1006              		@ link register save eliminated.
  819:Core/Src/as5047p.c ****   return (instance->error).errorCode != 0 ? true : false;
  1007              		.loc 1 819 3 view .LVU274
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 34
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 34
 
 
  1008              		.loc 1 819 27 is_stmt 0 view .LVU275
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1043              		.loc 1 840 19 view .LVU282
  1044 0006 83E80300 		stm	r3, {r0, r1}
  841:Core/Src/as5047p.c **** }
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 35
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 35
 
 
  1045              		.loc 1 841 1 view .LVU283
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  865:Core/Src/as5047p.c ****   {
  866:Core/Src/as5047p.c ****       if( AS5047P_ErrorPending(instance))
  1078              		.loc 1 866 7 is_stmt 1 view .LVU290
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 36
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 36
 
 
  1079              		.loc 1 866 11 is_stmt 0 view .LVU291
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1099 001c 0122     		movs	r2, #1
  1100 001e 1146     		mov	r1, r2
  1101 0020 2046     		mov	r0, r4
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 37
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 37
 
 
  1102 0022 FFF7FEFF 		bl	AS5047P_ReadRegister
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1142 0050 4FF0FF30 		mov	r0, #-1
  1143 0054 DCE7     		b	.L72
  1144              		.cfi_endproc
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 38
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 38
 
 
  1145              	.LFE16:
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  922:Core/Src/as5047p.c ****   AS5047P_ErrCode errCode = 0;
  1177              		.loc 1 922 3 view .LVU315
  1178              	.LVL127:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 39
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 39
 
 
  923:Core/Src/as5047p.c **** 
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  945:Core/Src/as5047p.c ****     *
  946:Core/Src/as5047p.c ****     * STEP 2:  Write new register content.
  947:Core/Src/as5047p.c ****     *
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 40
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 40
 
 
  948:Core/Src/as5047p.c ****     ************************************************************************************/
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  962:Core/Src/as5047p.c ****       return -1;
  1244              		.loc 1 962 7 is_stmt 0 view .LVU336
  1245 004c FFF7FEFF 		bl	AS5047P_HandleError
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 41
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 41
 
 
  1246              	.LVL139:
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  986:Core/Src/as5047p.c ****  *	calling AS5047P_SetZeroPosition() function.
  987:Core/Src/as5047p.c ****  *	Input 'extendedDiag' allows to check if AS5047P is reachable on SPI line by
  988:Core/Src/as5047p.c ****  *	requesting DIAAGC register content which is always non-zero and additional
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 42
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 42
 
 
  989:Core/Src/as5047p.c ****  *	errors related to magnetic field are checked.
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1017:Core/Src/as5047p.c ****        *
 1018:Core/Src/as5047p.c ****        ************************************************************************************/
 1019:Core/Src/as5047p.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 43
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 43
 
 
 1020:Core/Src/as5047p.c ****       currPos = AS5047P_ReadWriteRaw(instance, AS5047P_DIAAGC , AS5047P_ACCESS_READ);
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1074:Core/Src/as5047p.c **** 	}
 1075:Core/Src/as5047p.c **** 
 1076:Core/Src/as5047p.c **** 	//--- Magnet offset compensation error
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 44
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 44
 
 
 1077:Core/Src/as5047p.c **** 	if( ( diagData & AS5047P_DIAAGC_LF ) == 0 )
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1330 0026 0122     		movs	r2, #1
  1331 0028 43F6FC71 		movw	r1, #16380
  1332 002c 2046     		mov	r0, r4
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 45
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 45
 
 
  1333 002e FFF7FEFF 		bl	AS5047P_ReadWriteRaw
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1370 0056 1AD1     		bne	.L101
 1070:Core/Src/as5047p.c **** 	{
  1371              		.loc 1 1070 2 is_stmt 1 view .LVU379
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 46
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 46
 
 
 1070:Core/Src/as5047p.c **** 	{
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1413              	.LVL156:
 1066:Core/Src/as5047p.c **** 	}
  1414              		.loc 1 1066 4 view .LVU393
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 47
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 47
 
 
 1066:Core/Src/as5047p.c **** 	}
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1455              		.loc 1 1095 14 is_stmt 0 view .LVU407
  1456 00c0 4FF0FF36 		mov	r6, #-1
  1457 00c4 A8E7     		b	.L87
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 48
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 48
 
 
  1458              	.LVL166:
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1489              		.cfi_offset 4, -20
  1490              		.cfi_offset 5, -16
  1491              		.cfi_offset 6, -12
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 49
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 49
 
 
  1492              		.cfi_offset 7, -8
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1148:Core/Src/as5047p.c ****      /************************************************************************************
 1149:Core/Src/as5047p.c ****      *
 1150:Core/Src/as5047p.c ****      * STEP 2:  Write 6 least significant bits of ZPOSL to default (0) value.
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 50
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 50
 
 
 1151:Core/Src/as5047p.c ****      * 	 	Keep comp_i_err_en and comp_h_err_en bits unchanged.
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1170:Core/Src/as5047p.c ****      *
 1171:Core/Src/as5047p.c ****      * STEP 3: 	Read current encoder position.
 1172:Core/Src/as5047p.c ****      *
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 51
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 51
 
 
 1173:Core/Src/as5047p.c ****      ************************************************************************************/
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1586 0068 2046     		mov	r0, r4
  1587 006a FFF7FEFF 		bl	AS5047P_WriteRegister
  1588              	.LVL183:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 52
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 52
 
 
  1589              		.loc 1 1197 15 view .LVU446
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1619              		.loc 1 1221 1 is_stmt 0 view .LVU457
  1620 008c 2846     		mov	r0, r5
  1621 008e 03B0     		add	sp, sp, #12
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 53
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 53
 
 
  1622              	.LCFI21:
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1670              	.LVL194:
  1671              	.LFB20:
 1222:Core/Src/as5047p.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 54
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 54
 
 
 1223:Core/Src/as5047p.c **** /************************************************************************************
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1699 001e 38D1     		bne	.L115
 1250:Core/Src/as5047p.c ****   {
 1251:Core/Src/as5047p.c ****     case AS5047P_ABIRES_100:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 55
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 55
 
 
 1252:Core/Src/as5047p.c ****       abires = 7;
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1720 0042 26D1     		bne	.L115
 1255:Core/Src/as5047p.c ****       break;
  1721              		.loc 1 1255 14 view .LVU476
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 56
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 56
 
 
  1722 0044 0624     		movs	r4, #6
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1305:Core/Src/as5047p.c ****      if(errCode < 0 )
  1754              		.loc 1 1305 6 is_stmt 1 view .LVU487
  1755              		.loc 1 1305 8 is_stmt 0 view .LVU488
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 57
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 57
 
 
  1756 006a 0028     		cmp	r0, #0
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1780              		.loc 1 1249 3 view .LVU496
  1781 0082 B1F5C86F 		cmp	r1, #1600
  1782 0086 15D0     		beq	.L126
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 58
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 58
 
 
  1783 0088 B1F5FA6F 		cmp	r1, #2000
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1825 00b4 0224     		movs	r4, #2
  1826 00b6 C6E7     		b	.L112
  1827              	.L128:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 59
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 59
 
 
 1273:Core/Src/as5047p.c ****       break;
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1335:Core/Src/as5047p.c **** 
 1336:Core/Src/as5047p.c **** /************************************************************************************
 1337:Core/Src/as5047p.c ****  *
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 60
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 60
 
 
 1338:Core/Src/as5047p.c ****  * 	Function: 	AS5047P_BurnOTP(instance,yesImSure)
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1378:Core/Src/as5047p.c **** 	*
 1379:Core/Src/as5047p.c **** 	* STEP 1: Read current contents of ZPOS, ZPOSL, SETTINGS1 and SETTINGS2 registers
 1380:Core/Src/as5047p.c **** 	* 	for verification later.
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 61
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 61
 
 
 1381:Core/Src/as5047p.c **** 	*
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1435:Core/Src/as5047p.c **** 	if( errCode < 0)
 1436:Core/Src/as5047p.c **** 	{
 1437:Core/Src/as5047p.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 62
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 62
 
 
 1438:Core/Src/as5047p.c **** 	    return -1;
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1492:Core/Src/as5047p.c **** 	    return -1;
 1493:Core/Src/as5047p.c **** 	}
 1494:Core/Src/as5047p.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 63
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 63
 
 
 1495:Core/Src/as5047p.c **** 	/************************************************************************************
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1549:Core/Src/as5047p.c **** 	//--- Guardband test failed while OTP burn. Reprogramming not allowed
 1550:Core/Src/as5047p.c **** 	if( (oldZPOSM != newZPOSM) || (oldZPOSL != newZPOSL) || ( ((~AS5047P_SETTINGS1_BIT0) & oldSETTINGS
 1551:Core/Src/as5047p.c **** 	{
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 64
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 64
 
 
 1552:Core/Src/as5047p.c **** 	    AS5047P_HandleError(instance,101);
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  1922 001e 1621     		movs	r1, #22
  1923              	.LVL219:
 1383:Core/Src/as5047p.c **** 	oldZPOSL = AS5047P_ReadRegister(instance, AS5047P_ZPOSL ,AS5047P_OPT_ENABLED);
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 65
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 65
 
 
  1924              		.loc 1 1383 13 view .LVU534
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1389:Core/Src/as5047p.c **** 	{
  1967              		.loc 1 1389 61 discriminator 3 view .LVU546
  1968 005e 0028     		cmp	r0, #0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 66
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 66
 
 
  1969 0060 C0F2C180 		blt	.L149
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2010 009a FFF7FEFF 		bl	AS5047P_WriteRegister
  2011              	.LVL233:
 1435:Core/Src/as5047p.c **** 	{
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 67
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 67
 
 
  2012              		.loc 1 1435 2 is_stmt 1 view .LVU560
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2050              		.loc 1 1474 6 is_stmt 0 view .LVU576
  2051 00c6 FFF7FEFF 		bl	AS5047P_HAL_Delay_ms
  2052              	.LVL239:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 68
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 68
 
 
 1476:Core/Src/as5047p.c **** 
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2095 0100 0443     		orrs	r4, r4, r0
  2096              	.LVL248:
 1484:Core/Src/as5047p.c **** 	errCode |= AS5047P_WriteRegister(instance, AS5047P_SETTINGS1 , 0x0000, AS5047P_OPT_DISABLED, AS504
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 69
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 69
 
 
  2097              		.loc 1 1484 10 view .LVU589
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2139 0138 0321     		movs	r1, #3
  2140 013a 2846     		mov	r0, r5
  2141 013c FFF7FEFF 		bl	AS5047P_WriteRegister
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 70
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 70
 
 
  2142              	.LVL256:
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2183              	.LVL263:
  2184 0174 0446     		mov	r4, r0
  2185              	.LVL264:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 71
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 71
 
 
 1532:Core/Src/as5047p.c **** 	newSETTINGS2 = AS5047P_ReadRegister(instance, AS5047P_SETTINGS2 , AS5047P_OPT_DISABLED);
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
 1550:Core/Src/as5047p.c **** 	{
  2227              		.loc 1 1550 103 discriminator 2 view .LVU628
  2228 01ae 26F00106 		bic	r6, r6, #1
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 72
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 72
 
 
  2229 01b2 30B2     		sxth	r0, r6
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2270              		.loc 1 1392 13 view .LVU641
  2271 01de 10E0     		b	.L139
  2272              	.LVL279:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 73
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 73
 
 
  2273              	.L148:
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2316              		.cfi_remember_state
  2317              		.cfi_def_cfa_offset 36
  2318              		@ sp needed
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 74
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 74
 
 
  2319 0204 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2362              	.LVL302:
  2363              	.L160:
 1539:Core/Src/as5047p.c **** 	}
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 75
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 75
 
 
  2364              		.loc 1 1539 13 view .LVU665
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2401 0004 00000000 		.word	0
  2402 0008 01000000 		.word	1
  2403 000c 1A000000 		.word	26
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 76
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 76
 
 
  2404 0010 02000000 		.word	2
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2445      00000000 
  2445      00000000 
  2446 00a0 4672616D 		.ascii	"Framing error occurred in last Tx frame\000"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 77
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 77
 
 
  2446      696E6720 
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2461      00000000 
  2462 0320 52656769 		.ascii	"Register with a given address doesn't exist\000"
  2462      73746572 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 78
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 78
 
 
  2462      20776974 
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2478 05a0 00       		.ascii	"\000"
  2479 05a1 00000000 		.space	79
  2479      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 79
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 79
 
 
  2479      00000000 
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2493      00000000 
  2494 07d0 00       		.ascii	"\000"
  2495 07d1 00000000 		.space	79
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 80
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 80
 
 
  2495      00000000 
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2510      00000000 
  2510      00000000 
  2510      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 81
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 81
 
 
  2511 0a50 00       		.ascii	"\000"
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2527      00
  2528 0cd0 00       		.ascii	"\000"
  2529 0cd1 00000000 		.space	79
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 82
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 82
 
 
  2529      00000000 
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2546      6E6F776C 
  2546      65646765 
  2546      20746865 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 83
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 83
 
 
  2547 0fd3 65742072 		.ascii	"et routine\000"
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2563 1220 00       		.ascii	"\000"
  2564 1221 00000000 		.space	79
  2564      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 84
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 84
 
 
  2564      00000000 
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2581      00000000 
  2581      00000000 
  2581      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 85
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 85
 
 
  2581      00000000 
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2595      00000000 
  2595      00000000 
  2595      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 86
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 86
 
 
  2595      00000000 
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2610      64657220 
  2610      6E6F7420 
  2610      696E6974 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 87
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 87
 
 
  2610      69616C69 
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2628      00000000 
  2628      00000000 
  2629 1bd0 00       		.ascii	"\000"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 88
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 88
 
 
  2630 1bd1 00000000 		.space	79
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2645      00000000 
  2645      00000000 
  2645      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 89
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 89
 
 
  2646 1e50 00       		.ascii	"\000"
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2660      00000000 
  2660      00000000 
  2660      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 90
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 90
 
 
  2661 2080 00       		.ascii	"\000"
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2679 2350 00       		.ascii	"\000"
  2680 2351 00000000 		.space	79
  2680      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 91
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 91
 
 
  2680      00000000 
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2698      00000000 
  2698      00000000 
  2698      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 92
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 92
 
 
  2699 2670 00       		.ascii	"\000"
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2717 2940 00       		.ascii	"\000"
  2718 2941 00000000 		.space	79
  2718      00000000 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 93
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 93
 
 
  2718      00000000 
@@ -5573,58 +5573,58 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 1
  2737              		.file 4 "Core/Inc/as5047p.h"
  2738              		.file 5 "Core/Inc/as5047p_hal.h"
  2739              		.file 6 "<built-in>"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s 			page 94
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s 			page 94
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 as5047p.c
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:20     .text.AS5047P_CalcParity:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:25     .text.AS5047P_CalcParity:00000000 AS5047P_CalcParity
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:60     .text.AS5047P_CountTrailZeros:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:65     .text.AS5047P_CountTrailZeros:00000000 AS5047P_CountTrailZeros
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:120    .text.AS5047P_CountTrailZeros:0000003c $d
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:126    .text.AS5047P_SetBitsAndShiftAndMask:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:131    .text.AS5047P_SetBitsAndShiftAndMask:00000000 AS5047P_SetBitsAndShiftAndMask
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:161    .text.AS5047P_IsParityOk:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:166    .text.AS5047P_IsParityOk:00000000 AS5047P_IsParityOk
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:213    .text.AS5047P_HandleError:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:218    .text.AS5047P_HandleError:00000000 AS5047P_HandleError
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:262    .text.AS5047P_HandleError:00000024 $d
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:2441   .data.errMesage:00000000 errMesage
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:267    .text.AS5047P_ClearError:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:272    .text.AS5047P_ClearError:00000000 AS5047P_ClearError
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:293    .text.AS5047P_ClearError:0000000c $d
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:298    .text.AS5047P_ReadWriteRaw:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:304    .text.AS5047P_ReadWriteRaw:00000000 AS5047P_ReadWriteRaw
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:418    .text.AS5047P_ReadRegister:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:424    .text.AS5047P_ReadRegister:00000000 AS5047P_ReadRegister
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:565    .text.AS5047P_WriteRegister:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:571    .text.AS5047P_WriteRegister:00000000 AS5047P_WriteRegister
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:756    .text.AS5047P_Init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:762    .text.AS5047P_Init:00000000 AS5047P_Init
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:871    .text.AS5047P_SetFactorySettings:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:877    .text.AS5047P_SetFactorySettings:00000000 AS5047P_SetFactorySettings
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:993    .text.AS5047P_ErrorPending:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:999    .text.AS5047P_ErrorPending:00000000 AS5047P_ErrorPending
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1020   .text.AS5047P_GetError:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1026   .text.AS5047P_GetError:00000000 AS5047P_GetError
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1052   .text.AS5047P_ErrorAck:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1058   .text.AS5047P_ErrorAck:00000000 AS5047P_ErrorAck
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1148   .text.AS5047P_SetFieldInRegister:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1154   .text.AS5047P_SetFieldInRegister:00000000 AS5047P_SetFieldInRegister
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1269   .text.AS5047P_ReadPosition:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1275   .text.AS5047P_ReadPosition:00000000 AS5047P_ReadPosition
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1472   .text.AS5047P_SetZeroPosition:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1478   .text.AS5047P_SetZeroPosition:00000000 AS5047P_SetZeroPosition
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1663   .text.AS5047P_SetABIResolution:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1669   .text.AS5047P_SetABIResolution:00000000 AS5047P_SetABIResolution
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1861   .text.AS5047P_SetABIResolution:000000d8 $d
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1866   .text.AS5047P_BurnOTP:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:1872   .text.AS5047P_BurnOTP:00000000 AS5047P_BurnOTP
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:2373   .text.AS5047P_GetID:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:2379   .text.AS5047P_GetID:00000000 AS5047P_GetID
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:2397   .rodata:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccC61ZOC.s:2438   .data.errMesage:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:20     .text.AS5047P_CalcParity:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:25     .text.AS5047P_CalcParity:00000000 AS5047P_CalcParity
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:60     .text.AS5047P_CountTrailZeros:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:65     .text.AS5047P_CountTrailZeros:00000000 AS5047P_CountTrailZeros
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:120    .text.AS5047P_CountTrailZeros:0000003c $d
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:126    .text.AS5047P_SetBitsAndShiftAndMask:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:131    .text.AS5047P_SetBitsAndShiftAndMask:00000000 AS5047P_SetBitsAndShiftAndMask
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:161    .text.AS5047P_IsParityOk:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:166    .text.AS5047P_IsParityOk:00000000 AS5047P_IsParityOk
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:213    .text.AS5047P_HandleError:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:218    .text.AS5047P_HandleError:00000000 AS5047P_HandleError
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:262    .text.AS5047P_HandleError:00000024 $d
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:2441   .data.errMesage:00000000 errMesage
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:267    .text.AS5047P_ClearError:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:272    .text.AS5047P_ClearError:00000000 AS5047P_ClearError
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:293    .text.AS5047P_ClearError:0000000c $d
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:298    .text.AS5047P_ReadWriteRaw:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:304    .text.AS5047P_ReadWriteRaw:00000000 AS5047P_ReadWriteRaw
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:418    .text.AS5047P_ReadRegister:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:424    .text.AS5047P_ReadRegister:00000000 AS5047P_ReadRegister
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:565    .text.AS5047P_WriteRegister:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:571    .text.AS5047P_WriteRegister:00000000 AS5047P_WriteRegister
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:756    .text.AS5047P_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:762    .text.AS5047P_Init:00000000 AS5047P_Init
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:871    .text.AS5047P_SetFactorySettings:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:877    .text.AS5047P_SetFactorySettings:00000000 AS5047P_SetFactorySettings
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:993    .text.AS5047P_ErrorPending:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:999    .text.AS5047P_ErrorPending:00000000 AS5047P_ErrorPending
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1020   .text.AS5047P_GetError:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1026   .text.AS5047P_GetError:00000000 AS5047P_GetError
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1052   .text.AS5047P_ErrorAck:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1058   .text.AS5047P_ErrorAck:00000000 AS5047P_ErrorAck
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1148   .text.AS5047P_SetFieldInRegister:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1154   .text.AS5047P_SetFieldInRegister:00000000 AS5047P_SetFieldInRegister
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1269   .text.AS5047P_ReadPosition:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1275   .text.AS5047P_ReadPosition:00000000 AS5047P_ReadPosition
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1472   .text.AS5047P_SetZeroPosition:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1478   .text.AS5047P_SetZeroPosition:00000000 AS5047P_SetZeroPosition
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1663   .text.AS5047P_SetABIResolution:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1669   .text.AS5047P_SetABIResolution:00000000 AS5047P_SetABIResolution
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1861   .text.AS5047P_SetABIResolution:000000d8 $d
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1866   .text.AS5047P_BurnOTP:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:1872   .text.AS5047P_BurnOTP:00000000 AS5047P_BurnOTP
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:2373   .text.AS5047P_GetID:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:2379   .text.AS5047P_GetID:00000000 AS5047P_GetID
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:2397   .rodata:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccJ8MpJf.s:2438   .data.errMesage:00000000 $d
 
 UNDEFINED SYMBOLS
 memcpy

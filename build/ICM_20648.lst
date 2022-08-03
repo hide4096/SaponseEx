@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
   43              		.cfi_def_cfa_offset 24
   14:Core/Src/ICM_20648.c **** 	uint8_t ret,val;
   44              		.loc 1 14 2 is_stmt 1 view .LVU2
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 2
 
 
   15:Core/Src/ICM_20648.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
   90 0048 00040240 		.word	1073873920
   91 004c 00000000 		.word	hspi2
   92              		.cfi_endproc
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 3
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 3
 
 
   93              	.LFE219:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
  142 0028 FFF7FEFF 		bl	HAL_SPI_Transmit
  143              	.LVL10:
   31:Core/Src/ICM_20648.c **** 	HAL_SPI_Transmit(&hspi2,&val,1,100);
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 4
 
 
  144              		.loc 1 31 2 view .LVU21
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
   37:Core/Src/ICM_20648.c **** 	uint16_t ret = 0;
  194              		.loc 1 37 2 view .LVU26
  195              	.LVL13:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 5
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 5
 
 
   38:Core/Src/ICM_20648.c **** 
@@ -272,9 +272,9 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
   43:Core/Src/ICM_20648.c **** 		write_byte(0x06,0x01);	//PWR_MGMT_1	スリープﾓｰﾄﾞ解除
   44:Core/Src/ICM_20648.c **** 		write_byte(0x03,0x10);	//USER_CTRL	諸々機能無効　SPIonly
   45:Core/Src/ICM_20648.c **** 		write_byte(0x7F,0x20);	//USER_BANK2
-  46:Core/Src/ICM_20648.c **** 		write_byte(0x01,0x00);	//レンジ±2000dps
+  46:Core/Src/ICM_20648.c **** 		write_byte(0x01,0x06);	//レンジ±2000dps
   47:Core/Src/ICM_20648.c **** 		//2:1 GYRO_FS_SEL[1:0] 00:±250	01:±500 10:±1000 11:±2000
-  48:Core/Src/ICM_20648.c **** 		write_byte(0x14,0x00);	//レンジ±16g
+  48:Core/Src/ICM_20648.c **** 		write_byte(0x14,0x02);	//レンジ±4g
   49:Core/Src/ICM_20648.c **** 		//2:1 ACCEL_FS_SEL[1:0] 00:±2	01:±4 10:±8 11:±16
   50:Core/Src/ICM_20648.c **** 		write_byte(0x7F,0x00);	//USER_BANK0
   51:Core/Src/ICM_20648.c **** 	}
@@ -298,11 +298,11 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
  230 0022 1021     		movs	r1, #16
  231 0024 0320     		movs	r0, #3
  232 0026 FFF7FEFF 		bl	write_byte
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 6
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 6
 
 
  233              	.LVL21:
-  45:Core/Src/ICM_20648.c **** 		write_byte(0x01,0x00);	//レンジ±2000dps
+  45:Core/Src/ICM_20648.c **** 		write_byte(0x01,0x06);	//レンジ±2000dps
  234              		.loc 1 45 3 view .LVU39
  235 002a 2021     		movs	r1, #32
  236 002c 7F20     		movs	r0, #127
@@ -310,13 +310,13 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
  238              	.LVL22:
   46:Core/Src/ICM_20648.c **** 		//2:1 GYRO_FS_SEL[1:0] 00:±250	01:±500 10:±1000 11:±2000
  239              		.loc 1 46 3 view .LVU40
- 240 0032 0021     		movs	r1, #0
+ 240 0032 0621     		movs	r1, #6
  241 0034 0120     		movs	r0, #1
  242 0036 FFF7FEFF 		bl	write_byte
  243              	.LVL23:
   48:Core/Src/ICM_20648.c **** 		//2:1 ACCEL_FS_SEL[1:0] 00:±2	01:±4 10:±8 11:±16
  244              		.loc 1 48 3 view .LVU41
- 245 003a 0021     		movs	r1, #0
+ 245 003a 0221     		movs	r1, #2
  246 003c 1420     		movs	r0, #20
  247 003e FFF7FEFF 		bl	write_byte
  248              	.LVL24:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
   56:Core/Src/ICM_20648.c **** 	xg = ((uint16_t)read_byte(0x33) << 8) | ((uint16_t)read_byte(0x34));
  282              		.loc 1 56 2 view .LVU45
  283              		.loc 1 56 18 is_stmt 0 view .LVU46
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 7
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 7
 
 
  284 0002 3320     		movs	r0, #51
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
   59:Core/Src/ICM_20648.c **** }
  336              		.loc 1 59 1 view .LVU63
  337 004a 10BD     		pop	{r4, pc}
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 8
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 8
 
 
  338              	.L19:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
  390              		.loc 1 63 53 view .LVU74
  391 0022 3020     		movs	r0, #48
  392 0024 FFF7FEFF 		bl	read_byte
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 9
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 9
 
 
  393              	.LVL35:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
  450              		.section	.bss.ya,"aw",%nobits
  451              		.align	1
  452              		.set	.LANCHOR4,. + 0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 10
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 10
 
 
  455              	ya:
@@ -570,39 +570,39 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 1
  487              		.file 9 "Core/Inc/ICM_20648.h"
  488              		.file 10 "Core/Inc/spi.h"
  489              		.file 11 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\stdio.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cckKTTle.s 			page 11
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s 			page 11
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 ICM_20648.c
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:20     .text.read_byte:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:26     .text.read_byte:00000000 read_byte
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:90     .text.read_byte:00000048 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:96     .text.write_byte:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:102    .text.write_byte:00000000 write_byte
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:166    .text.write_byte:00000048 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:172    .rodata.IMU_init.str1.4:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:176    .text.IMU_init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:182    .text.IMU_init:00000000 IMU_init
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:260    .text.IMU_init:00000050 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:265    .text.read_gyro_data:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:271    .text.read_gyro_data:00000000 read_gyro_data
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:341    .text.read_gyro_data:0000004c $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:348    .text.read_accel_data:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:354    .text.read_accel_data:00000000 read_accel_data
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:424    .text.read_accel_data:0000004c $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:476    .bss.zg:00000000 zg
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:462    .bss.yg:00000000 yg
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:448    .bss.xg:00000000 xg
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:469    .bss.za:00000000 za
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:455    .bss.ya:00000000 ya
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:441    .bss.xa:00000000 xa
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:437    .bss.xa:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:444    .bss.xg:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:451    .bss.ya:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:458    .bss.yg:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:465    .bss.za:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cckKTTle.s:472    .bss.zg:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:20     .text.read_byte:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:26     .text.read_byte:00000000 read_byte
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:90     .text.read_byte:00000048 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:96     .text.write_byte:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:102    .text.write_byte:00000000 write_byte
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:166    .text.write_byte:00000048 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:172    .rodata.IMU_init.str1.4:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:176    .text.IMU_init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:182    .text.IMU_init:00000000 IMU_init
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:260    .text.IMU_init:00000050 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:265    .text.read_gyro_data:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:271    .text.read_gyro_data:00000000 read_gyro_data
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:341    .text.read_gyro_data:0000004c $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:348    .text.read_accel_data:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:354    .text.read_accel_data:00000000 read_accel_data
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:424    .text.read_accel_data:0000004c $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:476    .bss.zg:00000000 zg
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:462    .bss.yg:00000000 yg
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:448    .bss.xg:00000000 xg
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:469    .bss.za:00000000 za
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:455    .bss.ya:00000000 ya
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:441    .bss.xa:00000000 xa
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:437    .bss.xa:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:444    .bss.xg:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:451    .bss.ya:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:458    .bss.yg:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:465    .bss.za:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc3ujEHI.s:472    .bss.zg:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin

@@ -65,15 +65,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//DMAの送信(L,FL,FR,R,VBAT/2)
-uint16_t adcval[5];
-uint16_t sensval[4];
-uint16_t offval[4];
-//0→FR,L 1→FL,R
-uint8_t senstype = 0;
-//Enc
-AS5047P_Instance encR;
-AS5047P_Instance encL;
 
 void SetLED(uint8_t led){
   HAL_GPIO_WritePin(D3_GPIO_Port,D3_Pin,!(led & 0b001));
@@ -110,10 +101,15 @@ void SetDutyRatio(int16_t motR,int16_t motL,int16_t motF){
   __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,motF);
 }
 
+//Enc
+AS5047P_Instance encR;
+AS5047P_Instance encL;
+//spd
 float spd = 0;
 int16_t b_encR_val=0,b_encL_val=0;
 float spdR = 0,spdL=0;
 float b_spdR = 0,b_spdL=0;
+
 void GetSpeed(){
   //エンコーダから値取る
   int16_t encR_val,encL_val;
@@ -123,8 +119,8 @@ void GetSpeed(){
 	if(AS5047P_ErrorPending(&encL)) AS5047P_ErrorAck(&encL);
 
   //差分取る
-  int16_t d_encR_val = -b_encR_val + encR_val;
-  int16_t d_encL_val = encL_val - b_encL_val;
+  int16_t d_encR_val = encR_val - b_encR_val;
+  int16_t d_encL_val = b_encL_val -  encL_val;
   //16383→0
   if((d_encR_val > ENC_HALF || d_encR_val < -ENC_HALF) && b_encR_val > ENC_HALF){
     d_encR_val = ((ENC_MAX - 1) - b_encR_val) + encR_val;
@@ -146,14 +142,22 @@ void GetSpeed(){
   float n_spdL = (float)d_encL_val * (float)PPMM;
   b_spdR = spdR;
   b_spdL = spdL;
+
   //ローパスフィルタ
   spdR = n_spdR * 0.1 + b_spdR * 0.9;
   spdL = n_spdL * 0.1 + b_spdL * 0.9;
 
-  spd = (spdR + spdL) / 2.0;
+  spd = (spdR + spdL) / 2.0;  //
   b_encR_val = encR_val;
   b_encL_val = encL_val;
 }
+
+//0→FR,L 1→FL,R
+uint8_t senstype = 0;
+//DMAの送信(L,FL,FR,R,VBAT/2)
+uint16_t adcval[5];
+uint16_t sensval[4];
+uint16_t offval[4];
 
 void GetWallSens(){
   if(senstype){
@@ -170,13 +174,30 @@ void GetWallSens(){
     senstype = 1-senstype;
 }
 
+float deg = 0;
+float angvel = 0,b_angvel = 0;
+float r_yaw = 0,r_yaw_new = 0,r_yaw_ref = 0;
+
+void GetYawDeg(){
+  read_gyro_data();
+
+  //LowPass Filter
+		r_yaw_new = (float)(zg & 0x0000FFFF);
+		r_yaw = (r_yaw_new - r_yaw_ref);
+		//角速度の更新
+		b_angvel = angvel;
+		angvel = ((2000.0*(zg)/32767.0))*PI/180.0;
+		
+		//ジャイロの値を角度に変換
+		deg += 2.0*r_yaw/32767.0;
+}
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   if(htim == &htim6){
     //1kHz
     GetWallSens();
     GetSpeed();
-    read_gyro_data();
-    read_accel_data();
+    GetYawDeg();
   }
 }
 
@@ -199,16 +220,8 @@ void init(){
   //StartDMA
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
 
-  //InitIMU
-  uint8_t errcnt = 0;
-  while(IMU_init() == 0){
-    HAL_Delay(100);
-    errcnt++;
-    if(errcnt >= MAXINITERR) DoPanic();
-  }
-  errcnt = 0;
-
   //InitEnc
+  uint8_t errcnt = 0;
   AS5047P_Init(&encL, 0);
   AS5047P_Init(&encR, 1);
   while(AS5047P_ErrorPending(&encR) || AS5047P_ErrorPending(&encL)){
@@ -221,6 +234,22 @@ void init(){
   AS5047P_SetZeroPosition(&encL);
   AS5047P_SetZeroPosition(&encR);
   errcnt = 0;
+
+  //InitIMU
+  while(IMU_init() == 0){
+    HAL_Delay(100);
+    errcnt++;
+    if(errcnt >= MAXINITERR) DoPanic();
+  }
+  errcnt = 0;
+
+  r_yaw_ref = 0;
+  for(uint16_t i = 0;i<GYROREFTIME;i++){
+    read_gyro_data();
+    r_yaw_ref += (float)(zg & 0x0000FFFF);
+    HAL_Delay(1);
+  }
+  r_yaw_ref /= GYROREFTIME;
 
   //Motor
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
@@ -285,10 +314,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     uint8_t mode = 1;
-    int dspd = spd * 1000;
     switch (mode){
       case 1:
-        printf("%d\r\n",dspd);
+        printf("%fm/s\t%fdeg/s\r\n",spd,angvel);
         HAL_Delay(100);
         break;
     

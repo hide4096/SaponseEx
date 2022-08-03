@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
   28:Core/Src/as5047p_hal.c **** #include "as5047p_hal.h"
   29:Core/Src/as5047p_hal.c **** 
   30:Core/Src/as5047p_hal.c **** /************************************************************************************
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 2
 
 
   31:Core/Src/as5047p_hal.c ****  * 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
   85:Core/Src/as5047p_hal.c ****  *
   86:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_SPI_TxRx(pTx, pRx)
   87:Core/Src/as5047p_hal.c ****  * 	Access:		private
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 3
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 3
 
 
   88:Core/Src/as5047p_hal.c ****  * 	Inputs:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  142:Core/Src/as5047p_hal.c ****  *		Nothing.
  143:Core/Src/as5047p_hal.c ****  *
  144:Core/Src/as5047p_hal.c ****  * 	Description:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 4
 
 
  145:Core/Src/as5047p_hal.c ****  * 	Function allows to clear/set digital output.
@@ -234,104 +234,103 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
   42              	.LVL2:
   43              	.L2:
  182:Core/Src/as5047p_hal.c ****    {
- 183:Core/Src/as5047p_hal.c ****       case 0:
- 184:Core/Src/as5047p_hal.c ****        // Currently selected CS pin = x
- 185:Core/Src/as5047p_hal.c **** 	   // Currently selected SPI = xx
- 186:Core/Src/as5047p_hal.c ****         gpioPort = GPIOB;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 5
+ 183:Core/Src/as5047p_hal.c ****      case 0:
+ 184:Core/Src/as5047p_hal.c ****       // Currently selected CS pin = x
+ 185:Core/Src/as5047p_hal.c **** 	    // Currently selected SPI = xx
+ 186:Core/Src/as5047p_hal.c ****       gpioPort = GPIOA;
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 5
 
 
-  44              		.loc 1 186 9 is_stmt 1 view .LVU3
-  45              		.loc 1 186 18 is_stmt 0 view .LVU4
+  44              		.loc 1 186 7 is_stmt 1 view .LVU3
+  45              		.loc 1 186 16 is_stmt 0 view .LVU4
   46 000a 0B4B     		ldr	r3, .L5
   47 000c 0B4A     		ldr	r2, .L5+4
   48 000e 1A60     		str	r2, [r3]
- 187:Core/Src/as5047p_hal.c ****     	  gpioPin = GPIO_PIN_2;
-  49              		.loc 1 187 8 is_stmt 1 view .LVU5
-  50              		.loc 1 187 16 is_stmt 0 view .LVU6
+ 187:Core/Src/as5047p_hal.c ****     	gpioPin = GPIO_PIN_0;
+  49              		.loc 1 187 6 is_stmt 1 view .LVU5
+  50              		.loc 1 187 14 is_stmt 0 view .LVU6
   51 0010 0B4B     		ldr	r3, .L5+8
-  52 0012 0422     		movs	r2, #4
+  52 0012 0122     		movs	r2, #1
   53 0014 1A80     		strh	r2, [r3]	@ movhi
- 188:Core/Src/as5047p_hal.c ****     	  handlerSPI = &hspi1;
-  54              		.loc 1 188 8 is_stmt 1 view .LVU7
-  55              		.loc 1 188 19 is_stmt 0 view .LVU8
+ 188:Core/Src/as5047p_hal.c ****       handlerSPI = &hspi1;
+  54              		.loc 1 188 7 is_stmt 1 view .LVU7
+  55              		.loc 1 188 18 is_stmt 0 view .LVU8
   56 0016 0B4B     		ldr	r3, .L5+12
   57 0018 0B4A     		ldr	r2, .L5+16
   58 001a 1A60     		str	r2, [r3]
- 189:Core/Src/as5047p_hal.c ****     	 
- 190:Core/Src/as5047p_hal.c ****       break;
-  59              		.loc 1 190 7 is_stmt 1 view .LVU9
- 191:Core/Src/as5047p_hal.c **** 
- 192:Core/Src/as5047p_hal.c ****      case 1:
- 193:Core/Src/as5047p_hal.c ****        // Currently selected CS pin = y
- 194:Core/Src/as5047p_hal.c **** 	   // Currently selected SPI = yy
- 195:Core/Src/as5047p_hal.c ****     	  gpioPort = GPIOA;
- 196:Core/Src/as5047p_hal.c ****     	  gpioPin = GPIO_PIN_0;
- 197:Core/Src/as5047p_hal.c ****     	  handlerSPI = &hspi1;
- 198:Core/Src/as5047p_hal.c ****        break;
- 199:Core/Src/as5047p_hal.c **** 
- 200:Core/Src/as5047p_hal.c ****        //...
- 201:Core/Src/as5047p_hal.c ****        //... other cases
- 202:Core/Src/as5047p_hal.c ****        //...
- 203:Core/Src/as5047p_hal.c **** 
- 204:Core/Src/as5047p_hal.c ****      //--- Slave with this id doesn't exist
- 205:Core/Src/as5047p_hal.c ****      default:
- 206:Core/Src/as5047p_hal.c ****        return -1;
- 207:Core/Src/as5047p_hal.c ****    }
- 208:Core/Src/as5047p_hal.c **** 
- 209:Core/Src/as5047p_hal.c ****   return 0;
-  60              		.loc 1 209 10 is_stmt 0 view .LVU10
+ 189:Core/Src/as5047p_hal.c ****       break;
+  59              		.loc 1 189 7 is_stmt 1 view .LVU9
+ 190:Core/Src/as5047p_hal.c **** 
+ 191:Core/Src/as5047p_hal.c ****      case 1:
+ 192:Core/Src/as5047p_hal.c ****       // Currently selected CS pin = y
+ 193:Core/Src/as5047p_hal.c **** 	    // Currently selected SPI = yy
+ 194:Core/Src/as5047p_hal.c ****       gpioPort = GPIOB;
+ 195:Core/Src/as5047p_hal.c ****     	gpioPin = GPIO_PIN_2;
+ 196:Core/Src/as5047p_hal.c ****     	handlerSPI = &hspi1; 
+ 197:Core/Src/as5047p_hal.c ****       break;
+ 198:Core/Src/as5047p_hal.c **** 
+ 199:Core/Src/as5047p_hal.c ****        //...
+ 200:Core/Src/as5047p_hal.c ****        //... other cases
+ 201:Core/Src/as5047p_hal.c ****        //...
+ 202:Core/Src/as5047p_hal.c **** 
+ 203:Core/Src/as5047p_hal.c ****      //--- Slave with this id doesn't exist
+ 204:Core/Src/as5047p_hal.c ****      default:
+ 205:Core/Src/as5047p_hal.c ****        return -1;
+ 206:Core/Src/as5047p_hal.c ****    }
+ 207:Core/Src/as5047p_hal.c **** 
+ 208:Core/Src/as5047p_hal.c ****   return 0;
+  60              		.loc 1 208 10 is_stmt 0 view .LVU10
   61 001c 0020     		movs	r0, #0
   62              	.LVL3:
- 190:Core/Src/as5047p_hal.c **** 
-  63              		.loc 1 190 7 view .LVU11
+ 189:Core/Src/as5047p_hal.c ****       break;
+  63              		.loc 1 189 7 view .LVU11
   64 001e 7047     		bx	lr
   65              	.LVL4:
   66              	.L3:
- 195:Core/Src/as5047p_hal.c ****     	  gpioPin = GPIO_PIN_0;
-  67              		.loc 1 195 8 is_stmt 1 view .LVU12
- 195:Core/Src/as5047p_hal.c ****     	  gpioPin = GPIO_PIN_0;
-  68              		.loc 1 195 17 is_stmt 0 view .LVU13
+ 194:Core/Src/as5047p_hal.c ****     	gpioPin = GPIO_PIN_2;
+  67              		.loc 1 194 7 is_stmt 1 view .LVU12
+ 194:Core/Src/as5047p_hal.c ****     	gpioPin = GPIO_PIN_2;
+  68              		.loc 1 194 16 is_stmt 0 view .LVU13
   69 0020 054B     		ldr	r3, .L5
   70 0022 0A4A     		ldr	r2, .L5+20
   71 0024 1A60     		str	r2, [r3]
- 196:Core/Src/as5047p_hal.c ****     	  handlerSPI = &hspi1;
-  72              		.loc 1 196 8 is_stmt 1 view .LVU14
- 196:Core/Src/as5047p_hal.c ****     	  handlerSPI = &hspi1;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 6
+ 195:Core/Src/as5047p_hal.c ****     	handlerSPI = &hspi1; 
+  72              		.loc 1 195 6 is_stmt 1 view .LVU14
+ 195:Core/Src/as5047p_hal.c ****     	handlerSPI = &hspi1; 
+  73              		.loc 1 195 14 is_stmt 0 view .LVU15
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 6
 
 
-  73              		.loc 1 196 16 is_stmt 0 view .LVU15
   74 0026 064B     		ldr	r3, .L5+8
-  75 0028 0122     		movs	r2, #1
+  75 0028 0422     		movs	r2, #4
   76 002a 1A80     		strh	r2, [r3]	@ movhi
- 197:Core/Src/as5047p_hal.c ****        break;
-  77              		.loc 1 197 8 is_stmt 1 view .LVU16
- 197:Core/Src/as5047p_hal.c ****        break;
-  78              		.loc 1 197 19 is_stmt 0 view .LVU17
+ 196:Core/Src/as5047p_hal.c ****       break;
+  77              		.loc 1 196 6 is_stmt 1 view .LVU16
+ 196:Core/Src/as5047p_hal.c ****       break;
+  78              		.loc 1 196 17 is_stmt 0 view .LVU17
   79 002c 054B     		ldr	r3, .L5+12
   80 002e 064A     		ldr	r2, .L5+16
   81 0030 1A60     		str	r2, [r3]
- 198:Core/Src/as5047p_hal.c **** 
-  82              		.loc 1 198 8 is_stmt 1 view .LVU18
-  83              		.loc 1 209 10 is_stmt 0 view .LVU19
+ 197:Core/Src/as5047p_hal.c **** 
+  82              		.loc 1 197 7 is_stmt 1 view .LVU18
+  83              		.loc 1 208 10 is_stmt 0 view .LVU19
   84 0032 0020     		movs	r0, #0
   85              	.LVL5:
- 210:Core/Src/as5047p_hal.c **** 
- 211:Core/Src/as5047p_hal.c **** 	//Remove this line after implementation!
- 212:Core/Src/as5047p_hal.c **** //#error "You must implement AS5047P_SelectSPIAndGPIO()"
- 213:Core/Src/as5047p_hal.c **** }
-  86              		.loc 1 213 1 view .LVU20
+ 209:Core/Src/as5047p_hal.c **** 
+ 210:Core/Src/as5047p_hal.c **** 	//Remove this line after implementation!
+ 211:Core/Src/as5047p_hal.c **** //#error "You must implement AS5047P_SelectSPIAndGPIO()"
+ 212:Core/Src/as5047p_hal.c **** }
+  86              		.loc 1 212 1 view .LVU20
   87 0034 7047     		bx	lr
   88              	.L6:
   89 0036 00BF     		.align	2
   90              	.L5:
   91 0038 00000000 		.word	.LANCHOR0
-  92 003c 00040240 		.word	1073873920
+  92 003c 00000240 		.word	1073872896
   93 0040 00000000 		.word	.LANCHOR1
   94 0044 00000000 		.word	.LANCHOR2
   95 0048 00000000 		.word	hspi1
-  96 004c 00000240 		.word	1073872896
+  96 004c 00040240 		.word	1073873920
   97              		.cfi_endproc
   98              	.LFE222:
  100              		.section	.text.AS5047P_HAL_GPIO_Write,"ax",%progbits
@@ -358,10 +357,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  151:Core/Src/as5047p_hal.c **** 
  120              		.loc 1 151 2 is_stmt 1 view .LVU23
  121 0004 034B     		ldr	r3, .L9
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 7
-
-
  122 0006 1988     		ldrh	r1, [r3]
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 7
+
+
  123 0008 034B     		ldr	r3, .L9+4
  124 000a 1868     		ldr	r0, [r3]
  125              	.LVL7:
@@ -387,136 +386,136 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  145              	AS5047P_DeselectSlave:
  146              	.LVL9:
  147              	.LFB225:
- 214:Core/Src/as5047p_hal.c **** 
- 215:Core/Src/as5047p_hal.c **** /************************************************************************************
- 216:Core/Src/as5047p_hal.c ****  * 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- 217:Core/Src/as5047p_hal.c ****  *	 	!!! !!! CAN BE IMPLEMENTED BY THE USER  !!! !!!
- 218:Core/Src/as5047p_hal.c ****  *	 	!!! !!! ONLY IF YOU WANT TO USE DEBUG	!!! !!!
- 219:Core/Src/as5047p_hal.c ****  *	 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- 220:Core/Src/as5047p_hal.c ****  *
- 221:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_Debug(id,errorCode,errMsg)
- 222:Core/Src/as5047p_hal.c ****  * 	Access:		public
- 223:Core/Src/as5047p_hal.c ****  * 	Inputs:
- 224:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
- 225:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
- 226:Core/Src/as5047p_hal.c ****  *		errCode: Error code for which debug is to take place.
- 227:Core/Src/as5047p_hal.c ****  *		errMsg: Error message for 'errCode'
- 228:Core/Src/as5047p_hal.c ****  *
- 229:Core/Src/as5047p_hal.c ****  * 	Returns:
- 230:Core/Src/as5047p_hal.c ****  *		Nothing.
- 231:Core/Src/as5047p_hal.c ****  *
- 232:Core/Src/as5047p_hal.c ****  * 	Description:
- 233:Core/Src/as5047p_hal.c ****  * 	Function handles debug tasks for a given encoder.
- 234:Core/Src/as5047p_hal.c ****  *
- 235:Core/Src/as5047p_hal.c ****  ************************************************************************************/
- 236:Core/Src/as5047p_hal.c **** void AS5047P_HAL_Debug(uint16_t id,int16_t errorCode,char * errMsg)
- 237:Core/Src/as5047p_hal.c **** {
- 238:Core/Src/as5047p_hal.c ****   //Print error
- 239:Core/Src/as5047p_hal.c ****   printf("Encoder ID[%d]> Error %d: %s\n",id,errorCode,errMsg);
- 240:Core/Src/as5047p_hal.c **** }
- 241:Core/Src/as5047p_hal.c **** 
- 242:Core/Src/as5047p_hal.c **** /************************************************************************************
- 243:Core/Src/as5047p_hal.c ****  *
- 244:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_SelectSlave(id)
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 8
+ 213:Core/Src/as5047p_hal.c **** 
+ 214:Core/Src/as5047p_hal.c **** /************************************************************************************
+ 215:Core/Src/as5047p_hal.c ****  * 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 216:Core/Src/as5047p_hal.c ****  *	 	!!! !!! CAN BE IMPLEMENTED BY THE USER  !!! !!!
+ 217:Core/Src/as5047p_hal.c ****  *	 	!!! !!! ONLY IF YOU WANT TO USE DEBUG	!!! !!!
+ 218:Core/Src/as5047p_hal.c ****  *	 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 219:Core/Src/as5047p_hal.c ****  *
+ 220:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_Debug(id,errorCode,errMsg)
+ 221:Core/Src/as5047p_hal.c ****  * 	Access:		public
+ 222:Core/Src/as5047p_hal.c ****  * 	Inputs:
+ 223:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
+ 224:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
+ 225:Core/Src/as5047p_hal.c ****  *		errCode: Error code for which debug is to take place.
+ 226:Core/Src/as5047p_hal.c ****  *		errMsg: Error message for 'errCode'
+ 227:Core/Src/as5047p_hal.c ****  *
+ 228:Core/Src/as5047p_hal.c ****  * 	Returns:
+ 229:Core/Src/as5047p_hal.c ****  *		Nothing.
+ 230:Core/Src/as5047p_hal.c ****  *
+ 231:Core/Src/as5047p_hal.c ****  * 	Description:
+ 232:Core/Src/as5047p_hal.c ****  * 	Function handles debug tasks for a given encoder.
+ 233:Core/Src/as5047p_hal.c ****  *
+ 234:Core/Src/as5047p_hal.c ****  ************************************************************************************/
+ 235:Core/Src/as5047p_hal.c **** void AS5047P_HAL_Debug(uint16_t id,int16_t errorCode,char * errMsg)
+ 236:Core/Src/as5047p_hal.c **** {
+ 237:Core/Src/as5047p_hal.c ****   //Print error
+ 238:Core/Src/as5047p_hal.c ****   printf("Encoder ID[%d]> Error %d: %s\n",id,errorCode,errMsg);
+ 239:Core/Src/as5047p_hal.c **** }
+ 240:Core/Src/as5047p_hal.c **** 
+ 241:Core/Src/as5047p_hal.c **** /************************************************************************************
+ 242:Core/Src/as5047p_hal.c ****  *
+ 243:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_SelectSlave(id)
+ 244:Core/Src/as5047p_hal.c ****  * 	Access:		private
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 8
 
 
- 245:Core/Src/as5047p_hal.c ****  * 	Access:		private
- 246:Core/Src/as5047p_hal.c ****  * 	Inputs:
- 247:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
- 248:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
- 249:Core/Src/as5047p_hal.c ****  *
- 250:Core/Src/as5047p_hal.c ****  * 	Returns:
- 251:Core/Src/as5047p_hal.c ****  *		-1 : Slave with this id doesn't exist
- 252:Core/Src/as5047p_hal.c ****  *		 0 : Success.
- 253:Core/Src/as5047p_hal.c ****  *
- 254:Core/Src/as5047p_hal.c ****  * 	Description:
- 255:Core/Src/as5047p_hal.c ****  * 	Function selects the slave by setting its CS line low.
- 256:Core/Src/as5047p_hal.c ****  *
- 257:Core/Src/as5047p_hal.c ****  ************************************************************************************/
- 258:Core/Src/as5047p_hal.c **** static uint8_t AS5047P_SelectSlave(uint16_t id)
- 259:Core/Src/as5047p_hal.c **** {
- 260:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
- 261:Core/Src/as5047p_hal.c ****   if ( AS5047P_SelectSPIAndGPIO (id) < 0 )
- 262:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
- 263:Core/Src/as5047p_hal.c ****       return -1;
- 264:Core/Src/as5047p_hal.c ****   }
- 265:Core/Src/as5047p_hal.c ****   //--- CS line set to low level (line occupied)
- 266:Core/Src/as5047p_hal.c ****   AS5047P_HAL_GPIO_Write(0x00);
- 267:Core/Src/as5047p_hal.c **** 
- 268:Core/Src/as5047p_hal.c ****   /************************************************************************************
- 269:Core/Src/as5047p_hal.c ****   *
- 270:Core/Src/as5047p_hal.c ****   *	 	!!! !!! CAUTION CAUTION CAUTION  !!! !!!
- 271:Core/Src/as5047p_hal.c ****   *
- 272:Core/Src/as5047p_hal.c ****   * AS5047P needs a minimum delay of 350ns between FALLING edge of CS and RISING
- 273:Core/Src/as5047p_hal.c ****   * edge of SCK signal. So fast CPUs (~180Mhz and more) may need a delay here.
- 274:Core/Src/as5047p_hal.c ****   *
- 275:Core/Src/as5047p_hal.c ****   ************************************************************************************/
- 276:Core/Src/as5047p_hal.c ****   //delay_us(1);
- 277:Core/Src/as5047p_hal.c **** 
- 278:Core/Src/as5047p_hal.c ****   return 0;
- 279:Core/Src/as5047p_hal.c **** }
- 280:Core/Src/as5047p_hal.c **** 
- 281:Core/Src/as5047p_hal.c **** /************************************************************************************
- 282:Core/Src/as5047p_hal.c ****  *
- 283:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_DeselectSlave(id)
- 284:Core/Src/as5047p_hal.c ****  * 	Access:		private
- 285:Core/Src/as5047p_hal.c ****  * 	Inputs:
- 286:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
- 287:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
- 288:Core/Src/as5047p_hal.c ****  *
- 289:Core/Src/as5047p_hal.c ****  * 	Returns:
- 290:Core/Src/as5047p_hal.c ****  *		-1 : Slave with this id doesn't exist
- 291:Core/Src/as5047p_hal.c ****  *		 0 : Success.
- 292:Core/Src/as5047p_hal.c ****  *
- 293:Core/Src/as5047p_hal.c ****  * 	Description:
- 294:Core/Src/as5047p_hal.c ****  * 	Function deselects the slave by setting its CS line high.
- 295:Core/Src/as5047p_hal.c ****  *
- 296:Core/Src/as5047p_hal.c ****  ************************************************************************************/
- 297:Core/Src/as5047p_hal.c **** static uint8_t AS5047P_DeselectSlave(uint16_t id)
- 298:Core/Src/as5047p_hal.c **** {
- 148              		.loc 1 298 1 is_stmt 1 view -0
+ 245:Core/Src/as5047p_hal.c ****  * 	Inputs:
+ 246:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
+ 247:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
+ 248:Core/Src/as5047p_hal.c ****  *
+ 249:Core/Src/as5047p_hal.c ****  * 	Returns:
+ 250:Core/Src/as5047p_hal.c ****  *		-1 : Slave with this id doesn't exist
+ 251:Core/Src/as5047p_hal.c ****  *		 0 : Success.
+ 252:Core/Src/as5047p_hal.c ****  *
+ 253:Core/Src/as5047p_hal.c ****  * 	Description:
+ 254:Core/Src/as5047p_hal.c ****  * 	Function selects the slave by setting its CS line low.
+ 255:Core/Src/as5047p_hal.c ****  *
+ 256:Core/Src/as5047p_hal.c ****  ************************************************************************************/
+ 257:Core/Src/as5047p_hal.c **** static uint8_t AS5047P_SelectSlave(uint16_t id)
+ 258:Core/Src/as5047p_hal.c **** {
+ 259:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
+ 260:Core/Src/as5047p_hal.c ****   if ( AS5047P_SelectSPIAndGPIO (id) < 0 )
+ 261:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
+ 262:Core/Src/as5047p_hal.c ****       return -1;
+ 263:Core/Src/as5047p_hal.c ****   }
+ 264:Core/Src/as5047p_hal.c ****   //--- CS line set to low level (line occupied)
+ 265:Core/Src/as5047p_hal.c ****   AS5047P_HAL_GPIO_Write(0x00);
+ 266:Core/Src/as5047p_hal.c **** 
+ 267:Core/Src/as5047p_hal.c ****   /************************************************************************************
+ 268:Core/Src/as5047p_hal.c ****   *
+ 269:Core/Src/as5047p_hal.c ****   *	 	!!! !!! CAUTION CAUTION CAUTION  !!! !!!
+ 270:Core/Src/as5047p_hal.c ****   *
+ 271:Core/Src/as5047p_hal.c ****   * AS5047P needs a minimum delay of 350ns between FALLING edge of CS and RISING
+ 272:Core/Src/as5047p_hal.c ****   * edge of SCK signal. So fast CPUs (~180Mhz and more) may need a delay here.
+ 273:Core/Src/as5047p_hal.c ****   *
+ 274:Core/Src/as5047p_hal.c ****   ************************************************************************************/
+ 275:Core/Src/as5047p_hal.c ****   //delay_us(1);
+ 276:Core/Src/as5047p_hal.c **** 
+ 277:Core/Src/as5047p_hal.c ****   return 0;
+ 278:Core/Src/as5047p_hal.c **** }
+ 279:Core/Src/as5047p_hal.c **** 
+ 280:Core/Src/as5047p_hal.c **** /************************************************************************************
+ 281:Core/Src/as5047p_hal.c ****  *
+ 282:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_DeselectSlave(id)
+ 283:Core/Src/as5047p_hal.c ****  * 	Access:		private
+ 284:Core/Src/as5047p_hal.c ****  * 	Inputs:
+ 285:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
+ 286:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
+ 287:Core/Src/as5047p_hal.c ****  *
+ 288:Core/Src/as5047p_hal.c ****  * 	Returns:
+ 289:Core/Src/as5047p_hal.c ****  *		-1 : Slave with this id doesn't exist
+ 290:Core/Src/as5047p_hal.c ****  *		 0 : Success.
+ 291:Core/Src/as5047p_hal.c ****  *
+ 292:Core/Src/as5047p_hal.c ****  * 	Description:
+ 293:Core/Src/as5047p_hal.c ****  * 	Function deselects the slave by setting its CS line high.
+ 294:Core/Src/as5047p_hal.c ****  *
+ 295:Core/Src/as5047p_hal.c ****  ************************************************************************************/
+ 296:Core/Src/as5047p_hal.c **** static uint8_t AS5047P_DeselectSlave(uint16_t id)
+ 297:Core/Src/as5047p_hal.c **** {
+ 148              		.loc 1 297 1 is_stmt 1 view -0
  149              		.cfi_startproc
  150              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 9
-
-
  151              		@ frame_needed = 0, uses_anonymous_args = 0
- 152              		.loc 1 298 1 is_stmt 0 view .LVU27
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 9
+
+
+ 152              		.loc 1 297 1 is_stmt 0 view .LVU27
  153 0000 08B5     		push	{r3, lr}
  154              	.LCFI1:
  155              		.cfi_def_cfa_offset 8
  156              		.cfi_offset 3, -8
  157              		.cfi_offset 14, -4
- 299:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
- 300:Core/Src/as5047p_hal.c ****   if ( AS5047P_SelectSPIAndGPIO (id) < 0 )
- 158              		.loc 1 300 3 is_stmt 1 view .LVU28
- 159              		.loc 1 300 8 is_stmt 0 view .LVU29
+ 298:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
+ 299:Core/Src/as5047p_hal.c ****   if ( AS5047P_SelectSPIAndGPIO (id) < 0 )
+ 158              		.loc 1 299 3 is_stmt 1 view .LVU28
+ 159              		.loc 1 299 8 is_stmt 0 view .LVU29
  160 0002 FFF7FEFF 		bl	AS5047P_SelectSPIAndGPIO
  161              	.LVL10:
- 301:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
- 302:Core/Src/as5047p_hal.c ****       return -1;
- 303:Core/Src/as5047p_hal.c ****   }
- 304:Core/Src/as5047p_hal.c ****   //--- CS line set to high level (line released)
- 305:Core/Src/as5047p_hal.c ****   AS5047P_HAL_GPIO_Write(0x01);
- 162              		.loc 1 305 3 is_stmt 1 view .LVU30
+ 300:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
+ 301:Core/Src/as5047p_hal.c ****       return -1;
+ 302:Core/Src/as5047p_hal.c ****   }
+ 303:Core/Src/as5047p_hal.c ****   //--- CS line set to high level (line released)
+ 304:Core/Src/as5047p_hal.c ****   AS5047P_HAL_GPIO_Write(0x01);
+ 162              		.loc 1 304 3 is_stmt 1 view .LVU30
  163 0006 0120     		movs	r0, #1
  164 0008 FFF7FEFF 		bl	AS5047P_HAL_GPIO_Write
  165              	.LVL11:
- 306:Core/Src/as5047p_hal.c **** 
- 307:Core/Src/as5047p_hal.c ****   /************************************************************************************
- 308:Core/Src/as5047p_hal.c ****   *
- 309:Core/Src/as5047p_hal.c ****   *	 	!!! !!! CAUTION CAUTION CAUTION  !!! !!!
- 310:Core/Src/as5047p_hal.c ****   * AS5047P needs a minimum delay of 350ns between RISING and FALLING endge of CS.
- 311:Core/Src/as5047p_hal.c ****   * So fast CPUs (~180Mhz and more) may need a delay here.
- 312:Core/Src/as5047p_hal.c ****   *
- 313:Core/Src/as5047p_hal.c ****   ************************************************************************************/
- 314:Core/Src/as5047p_hal.c ****   //delay_us(1);
- 315:Core/Src/as5047p_hal.c **** 
- 316:Core/Src/as5047p_hal.c ****   return 0;
- 166              		.loc 1 316 3 view .LVU31
- 317:Core/Src/as5047p_hal.c **** }
- 167              		.loc 1 317 1 is_stmt 0 view .LVU32
+ 305:Core/Src/as5047p_hal.c **** 
+ 306:Core/Src/as5047p_hal.c ****   /************************************************************************************
+ 307:Core/Src/as5047p_hal.c ****   *
+ 308:Core/Src/as5047p_hal.c ****   *	 	!!! !!! CAUTION CAUTION CAUTION  !!! !!!
+ 309:Core/Src/as5047p_hal.c ****   * AS5047P needs a minimum delay of 350ns between RISING and FALLING endge of CS.
+ 310:Core/Src/as5047p_hal.c ****   * So fast CPUs (~180Mhz and more) may need a delay here.
+ 311:Core/Src/as5047p_hal.c ****   *
+ 312:Core/Src/as5047p_hal.c ****   ************************************************************************************/
+ 313:Core/Src/as5047p_hal.c ****   //delay_us(1);
+ 314:Core/Src/as5047p_hal.c **** 
+ 315:Core/Src/as5047p_hal.c ****   return 0;
+ 166              		.loc 1 315 3 view .LVU31
+ 316:Core/Src/as5047p_hal.c **** }
+ 167              		.loc 1 316 1 is_stmt 0 view .LVU32
  168 000c 0020     		movs	r0, #0
  169 000e 08BD     		pop	{r3, pc}
  170              		.cfi_endproc
@@ -529,36 +528,36 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  179              	AS5047P_SelectSlave:
  180              	.LVL12:
  181              	.LFB224:
- 259:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
- 182              		.loc 1 259 1 is_stmt 1 view -0
+ 258:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
+ 182              		.loc 1 258 1 is_stmt 1 view -0
  183              		.cfi_startproc
  184              		@ args = 0, pretend = 0, frame = 0
  185              		@ frame_needed = 0, uses_anonymous_args = 0
- 259:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
- 186              		.loc 1 259 1 is_stmt 0 view .LVU34
+ 258:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
+ 186              		.loc 1 258 1 is_stmt 0 view .LVU34
  187 0000 08B5     		push	{r3, lr}
  188              	.LCFI2:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 10
-
-
  189              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 10
+
+
  190              		.cfi_offset 3, -8
  191              		.cfi_offset 14, -4
- 261:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
- 192              		.loc 1 261 3 is_stmt 1 view .LVU35
- 261:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
- 193              		.loc 1 261 8 is_stmt 0 view .LVU36
+ 260:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
+ 192              		.loc 1 260 3 is_stmt 1 view .LVU35
+ 260:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
+ 193              		.loc 1 260 8 is_stmt 0 view .LVU36
  194 0002 FFF7FEFF 		bl	AS5047P_SelectSPIAndGPIO
  195              	.LVL13:
- 266:Core/Src/as5047p_hal.c **** 
- 196              		.loc 1 266 3 is_stmt 1 view .LVU37
+ 265:Core/Src/as5047p_hal.c **** 
+ 196              		.loc 1 265 3 is_stmt 1 view .LVU37
  197 0006 0020     		movs	r0, #0
  198 0008 FFF7FEFF 		bl	AS5047P_HAL_GPIO_Write
  199              	.LVL14:
- 278:Core/Src/as5047p_hal.c **** }
- 200              		.loc 1 278 3 view .LVU38
- 279:Core/Src/as5047p_hal.c **** 
- 201              		.loc 1 279 1 is_stmt 0 view .LVU39
+ 277:Core/Src/as5047p_hal.c **** }
+ 200              		.loc 1 277 3 view .LVU38
+ 278:Core/Src/as5047p_hal.c **** 
+ 201              		.loc 1 278 1 is_stmt 0 view .LVU39
  202 000c 0020     		movs	r0, #0
  203 000e 08BD     		pop	{r3, pc}
  204              		.cfi_endproc
@@ -598,10 +597,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  235 000e 0146     		mov	r1, r0
  236              	.LVL16:
  113:Core/Src/as5047p_hal.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 11
-
-
  237              		.loc 1 113 14 view .LVU45
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 11
+
+
  238 0010 0448     		ldr	r0, .L20
  239              	.LVL17:
  113:Core/Src/as5047p_hal.c **** 
@@ -658,10 +657,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  286              		.cfi_offset 3, -8
  287              		.cfi_offset 14, -4
   74:Core/Src/as5047p_hal.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 12
-
-
  288              		.loc 1 74 2 is_stmt 1 view .LVU53
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 12
+
+
  289 0002 FFF7FEFF 		bl	HAL_Delay
  290              	.LVL20:
   79:Core/Src/as5047p_hal.c **** 
@@ -686,42 +685,42 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  307              	AS5047P_HAL_Debug:
  308              	.LVL21:
  309              	.LFB223:
- 237:Core/Src/as5047p_hal.c ****   //Print error
- 310              		.loc 1 237 1 is_stmt 1 view -0
+ 236:Core/Src/as5047p_hal.c ****   //Print error
+ 310              		.loc 1 236 1 is_stmt 1 view -0
  311              		.cfi_startproc
  312              		@ args = 0, pretend = 0, frame = 0
  313              		@ frame_needed = 0, uses_anonymous_args = 0
- 237:Core/Src/as5047p_hal.c ****   //Print error
- 314              		.loc 1 237 1 is_stmt 0 view .LVU56
+ 236:Core/Src/as5047p_hal.c ****   //Print error
+ 314              		.loc 1 236 1 is_stmt 0 view .LVU56
  315 0000 08B5     		push	{r3, lr}
  316              	.LCFI8:
  317              		.cfi_def_cfa_offset 8
  318              		.cfi_offset 3, -8
  319              		.cfi_offset 14, -4
  320 0002 1346     		mov	r3, r2
- 239:Core/Src/as5047p_hal.c **** }
- 321              		.loc 1 239 3 is_stmt 1 view .LVU57
+ 238:Core/Src/as5047p_hal.c **** }
+ 321              		.loc 1 238 3 is_stmt 1 view .LVU57
  322 0004 0A46     		mov	r2, r1
  323              	.LVL22:
- 239:Core/Src/as5047p_hal.c **** }
- 324              		.loc 1 239 3 is_stmt 0 view .LVU58
+ 238:Core/Src/as5047p_hal.c **** }
+ 324              		.loc 1 238 3 is_stmt 0 view .LVU58
  325 0006 0146     		mov	r1, r0
  326              	.LVL23:
- 239:Core/Src/as5047p_hal.c **** }
- 327              		.loc 1 239 3 view .LVU59
+ 238:Core/Src/as5047p_hal.c **** }
+ 327              		.loc 1 238 3 view .LVU59
  328 0008 0148     		ldr	r0, .L26
  329              	.LVL24:
- 239:Core/Src/as5047p_hal.c **** }
- 330              		.loc 1 239 3 view .LVU60
+ 238:Core/Src/as5047p_hal.c **** }
+ 330              		.loc 1 238 3 view .LVU60
  331 000a FFF7FEFF 		bl	printf
  332              	.LVL25:
- 240:Core/Src/as5047p_hal.c **** 
- 333              		.loc 1 240 1 view .LVU61
+ 239:Core/Src/as5047p_hal.c **** 
+ 333              		.loc 1 239 1 view .LVU61
  334 000e 08BD     		pop	{r3, pc}
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 13
-
-
  335              	.L27:
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 13
+
+
  336              		.align	2
  337              	.L26:
  338 0010 00000000 		.word	.LC0
@@ -736,52 +735,52 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  349              	AS5047P_HAL_Init:
  350              	.LVL26:
  351              	.LFB226:
- 318:Core/Src/as5047p_hal.c **** 
- 319:Core/Src/as5047p_hal.c **** /************************************************************************************
- 320:Core/Src/as5047p_hal.c ****  *
- 321:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_Init(void)
- 322:Core/Src/as5047p_hal.c ****  * 	Access:		public
- 323:Core/Src/as5047p_hal.c ****  * 	Inputs:
- 324:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
- 325:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
- 326:Core/Src/as5047p_hal.c ****  *
- 327:Core/Src/as5047p_hal.c ****  * 	Returns:
- 328:Core/Src/as5047p_hal.c ****  *		-1 : Execution with errors.
- 329:Core/Src/as5047p_hal.c ****  *		 0 : Success.
- 330:Core/Src/as5047p_hal.c ****  *
- 331:Core/Src/as5047p_hal.c ****  * 	Description:
- 332:Core/Src/as5047p_hal.c ****  * 	Function used to initialize low level hardware (CS lines, GPIO, etc).
- 333:Core/Src/as5047p_hal.c ****  *
- 334:Core/Src/as5047p_hal.c ****  ************************************************************************************/
- 335:Core/Src/as5047p_hal.c **** uint8_t AS5047P_HAL_Init(uint16_t id)
- 336:Core/Src/as5047p_hal.c **** {
- 352              		.loc 1 336 1 is_stmt 1 view -0
+ 317:Core/Src/as5047p_hal.c **** 
+ 318:Core/Src/as5047p_hal.c **** /************************************************************************************
+ 319:Core/Src/as5047p_hal.c ****  *
+ 320:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_Init(void)
+ 321:Core/Src/as5047p_hal.c ****  * 	Access:		public
+ 322:Core/Src/as5047p_hal.c ****  * 	Inputs:
+ 323:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
+ 324:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
+ 325:Core/Src/as5047p_hal.c ****  *
+ 326:Core/Src/as5047p_hal.c ****  * 	Returns:
+ 327:Core/Src/as5047p_hal.c ****  *		-1 : Execution with errors.
+ 328:Core/Src/as5047p_hal.c ****  *		 0 : Success.
+ 329:Core/Src/as5047p_hal.c ****  *
+ 330:Core/Src/as5047p_hal.c ****  * 	Description:
+ 331:Core/Src/as5047p_hal.c ****  * 	Function used to initialize low level hardware (CS lines, GPIO, etc).
+ 332:Core/Src/as5047p_hal.c ****  *
+ 333:Core/Src/as5047p_hal.c ****  ************************************************************************************/
+ 334:Core/Src/as5047p_hal.c **** uint8_t AS5047P_HAL_Init(uint16_t id)
+ 335:Core/Src/as5047p_hal.c **** {
+ 352              		.loc 1 335 1 is_stmt 1 view -0
  353              		.cfi_startproc
  354              		@ args = 0, pretend = 0, frame = 0
  355              		@ frame_needed = 0, uses_anonymous_args = 0
- 356              		.loc 1 336 1 is_stmt 0 view .LVU63
+ 356              		.loc 1 335 1 is_stmt 0 view .LVU63
  357 0000 08B5     		push	{r3, lr}
  358              	.LCFI9:
  359              		.cfi_def_cfa_offset 8
  360              		.cfi_offset 3, -8
  361              		.cfi_offset 14, -4
- 337:Core/Src/as5047p_hal.c ****   //--- Deselect SPI slave
- 338:Core/Src/as5047p_hal.c ****   if ( AS5047P_DeselectSlave (id) < 0 )
- 362              		.loc 1 338 3 is_stmt 1 view .LVU64
- 363              		.loc 1 338 8 is_stmt 0 view .LVU65
+ 336:Core/Src/as5047p_hal.c ****   //--- Deselect SPI slave
+ 337:Core/Src/as5047p_hal.c ****   if ( AS5047P_DeselectSlave (id) < 0 )
+ 362              		.loc 1 337 3 is_stmt 1 view .LVU64
+ 363              		.loc 1 337 8 is_stmt 0 view .LVU65
  364 0002 FFF7FEFF 		bl	AS5047P_DeselectSlave
  365              	.LVL27:
- 339:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
- 340:Core/Src/as5047p_hal.c ****       return -1;
- 341:Core/Src/as5047p_hal.c ****   }
- 342:Core/Src/as5047p_hal.c **** 
- 343:Core/Src/as5047p_hal.c ****   return 0;
- 366              		.loc 1 343 3 is_stmt 1 view .LVU66
- 344:Core/Src/as5047p_hal.c **** }
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 14
+ 338:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
+ 339:Core/Src/as5047p_hal.c ****       return -1;
+ 340:Core/Src/as5047p_hal.c ****   }
+ 341:Core/Src/as5047p_hal.c **** 
+ 342:Core/Src/as5047p_hal.c ****   return 0;
+ 366              		.loc 1 342 3 is_stmt 1 view .LVU66
+ 343:Core/Src/as5047p_hal.c **** }
+ 367              		.loc 1 343 1 is_stmt 0 view .LVU67
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 14
 
 
- 367              		.loc 1 344 1 is_stmt 0 view .LVU67
  368 0006 0020     		movs	r0, #0
  369 0008 08BD     		pop	{r3, pc}
  370              		.cfi_endproc
@@ -795,32 +794,32 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  380              	AS5047P_HAL_SPI_Transaction:
  381              	.LVL28:
  382              	.LFB227:
- 345:Core/Src/as5047p_hal.c **** 
- 346:Core/Src/as5047p_hal.c **** /************************************************************************************
- 347:Core/Src/as5047p_hal.c ****  *
- 348:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_SPI_TxRx(pTx,pRx)
- 349:Core/Src/as5047p_hal.c ****  * 	Access:		public
- 350:Core/Src/as5047p_hal.c ****  * 	Inputs:
- 351:Core/Src/as5047p_hal.c ****  *		pTx: Pointer to two-byte field containing data to put on SPI MOSI line.
- 352:Core/Src/as5047p_hal.c ****  *		pRx: Pointer to two-byte field to be filled with SPI MISO line data.
- 353:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
- 354:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
- 355:Core/Src/as5047p_hal.c ****  *
- 356:Core/Src/as5047p_hal.c ****  * 	Returns:
- 357:Core/Src/as5047p_hal.c ****  *		-1 : Execution with errors.
- 358:Core/Src/as5047p_hal.c ****  *		 0 : Success.
- 359:Core/Src/as5047p_hal.c ****  *
- 360:Core/Src/as5047p_hal.c ****  * 	Description:
- 361:Core/Src/as5047p_hal.c ****  * 	Function is used for full-duplex SPI transactions as well as slave selection.
- 362:Core/Src/as5047p_hal.c ****  *
- 363:Core/Src/as5047p_hal.c ****  ************************************************************************************/
- 364:Core/Src/as5047p_hal.c **** uint8_t AS5047P_HAL_SPI_Transaction(uint16_t * pTx, uint16_t * pRx, uint16_t id)
- 365:Core/Src/as5047p_hal.c **** {
- 383              		.loc 1 365 1 is_stmt 1 view -0
+ 344:Core/Src/as5047p_hal.c **** 
+ 345:Core/Src/as5047p_hal.c **** /************************************************************************************
+ 346:Core/Src/as5047p_hal.c ****  *
+ 347:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_SPI_TxRx(pTx,pRx)
+ 348:Core/Src/as5047p_hal.c ****  * 	Access:		public
+ 349:Core/Src/as5047p_hal.c ****  * 	Inputs:
+ 350:Core/Src/as5047p_hal.c ****  *		pTx: Pointer to two-byte field containing data to put on SPI MOSI line.
+ 351:Core/Src/as5047p_hal.c ****  *		pRx: Pointer to two-byte field to be filled with SPI MISO line data.
+ 352:Core/Src/as5047p_hal.c ****  *		id: ID number uniquely identifies an SPI's slave. Relation between
+ 353:Core/Src/as5047p_hal.c ****  *		slave's id and physical CS line is defined in AS5047P_SelectSPIAndGPIO.
+ 354:Core/Src/as5047p_hal.c ****  *
+ 355:Core/Src/as5047p_hal.c ****  * 	Returns:
+ 356:Core/Src/as5047p_hal.c ****  *		-1 : Execution with errors.
+ 357:Core/Src/as5047p_hal.c ****  *		 0 : Success.
+ 358:Core/Src/as5047p_hal.c ****  *
+ 359:Core/Src/as5047p_hal.c ****  * 	Description:
+ 360:Core/Src/as5047p_hal.c ****  * 	Function is used for full-duplex SPI transactions as well as slave selection.
+ 361:Core/Src/as5047p_hal.c ****  *
+ 362:Core/Src/as5047p_hal.c ****  ************************************************************************************/
+ 363:Core/Src/as5047p_hal.c **** uint8_t AS5047P_HAL_SPI_Transaction(uint16_t * pTx, uint16_t * pRx, uint16_t id)
+ 364:Core/Src/as5047p_hal.c **** {
+ 383              		.loc 1 364 1 is_stmt 1 view -0
  384              		.cfi_startproc
  385              		@ args = 0, pretend = 0, frame = 0
  386              		@ frame_needed = 0, uses_anonymous_args = 0
- 387              		.loc 1 365 1 is_stmt 0 view .LVU69
+ 387              		.loc 1 364 1 is_stmt 0 view .LVU69
  388 0000 70B5     		push	{r4, r5, r6, lr}
  389              	.LCFI10:
  390              		.cfi_def_cfa_offset 16
@@ -831,62 +830,62 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  395 0002 0546     		mov	r5, r0
  396 0004 0E46     		mov	r6, r1
  397 0006 1446     		mov	r4, r2
- 366:Core/Src/as5047p_hal.c ****   uint8_t err;
- 398              		.loc 1 366 3 is_stmt 1 view .LVU70
- 367:Core/Src/as5047p_hal.c **** 
- 368:Core/Src/as5047p_hal.c ****   //--- Select SPI slave
- 369:Core/Src/as5047p_hal.c ****   if ( AS5047P_SelectSlave (id) < 0 )
- 399              		.loc 1 369 3 view .LVU71
- 400              		.loc 1 369 8 is_stmt 0 view .LVU72
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 15
-
-
+ 365:Core/Src/as5047p_hal.c ****   uint8_t err;
+ 398              		.loc 1 365 3 is_stmt 1 view .LVU70
+ 366:Core/Src/as5047p_hal.c **** 
+ 367:Core/Src/as5047p_hal.c ****   //--- Select SPI slave
+ 368:Core/Src/as5047p_hal.c ****   if ( AS5047P_SelectSlave (id) < 0 )
+ 399              		.loc 1 368 3 view .LVU71
+ 400              		.loc 1 368 8 is_stmt 0 view .LVU72
  401 0008 1046     		mov	r0, r2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 15
+
+
  402              	.LVL29:
- 403              		.loc 1 369 8 view .LVU73
+ 403              		.loc 1 368 8 view .LVU73
  404 000a FFF7FEFF 		bl	AS5047P_SelectSlave
  405              	.LVL30:
- 370:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
- 371:Core/Src/as5047p_hal.c ****       return -1;
- 372:Core/Src/as5047p_hal.c ****   }
- 373:Core/Src/as5047p_hal.c **** 
- 374:Core/Src/as5047p_hal.c ****   err = AS5047P_HAL_SPI_TxRx(pTx,pRx);
- 406              		.loc 1 374 3 is_stmt 1 view .LVU74
- 407              		.loc 1 374 9 is_stmt 0 view .LVU75
+ 369:Core/Src/as5047p_hal.c ****   {   //--- Slave with this id doesn't exist
+ 370:Core/Src/as5047p_hal.c ****       return -1;
+ 371:Core/Src/as5047p_hal.c ****   }
+ 372:Core/Src/as5047p_hal.c **** 
+ 373:Core/Src/as5047p_hal.c ****   err = AS5047P_HAL_SPI_TxRx(pTx,pRx);
+ 406              		.loc 1 373 3 is_stmt 1 view .LVU74
+ 407              		.loc 1 373 9 is_stmt 0 view .LVU75
  408 000e 3146     		mov	r1, r6
  409 0010 2846     		mov	r0, r5
  410 0012 FFF7FEFF 		bl	AS5047P_HAL_SPI_TxRx
  411              	.LVL31:
- 375:Core/Src/as5047p_hal.c **** 
- 376:Core/Src/as5047p_hal.c ****   /************************************************************************************
- 377:Core/Src/as5047p_hal.c ****   *
- 378:Core/Src/as5047p_hal.c ****   *	 	!!! !!! CAUTION CAUTION CAUTION  !!! !!!
- 379:Core/Src/as5047p_hal.c ****   * AS5047P needs a minimum delay of 1/2*SPI_sck period between FALLING edge of last SCK
- 380:Core/Src/as5047p_hal.c ****   * and RISING edge of CS signal. So fast CPUs may need a delay here.
- 381:Core/Src/as5047p_hal.c ****   *
- 382:Core/Src/as5047p_hal.c ****   ************************************************************************************/
- 383:Core/Src/as5047p_hal.c ****   //delay_us(1);
- 384:Core/Src/as5047p_hal.c **** 
- 385:Core/Src/as5047p_hal.c ****   //--- Slave deselection
- 386:Core/Src/as5047p_hal.c ****   AS5047P_DeselectSlave(id);
- 412              		.loc 1 386 3 is_stmt 1 view .LVU76
+ 374:Core/Src/as5047p_hal.c **** 
+ 375:Core/Src/as5047p_hal.c ****   /************************************************************************************
+ 376:Core/Src/as5047p_hal.c ****   *
+ 377:Core/Src/as5047p_hal.c ****   *	 	!!! !!! CAUTION CAUTION CAUTION  !!! !!!
+ 378:Core/Src/as5047p_hal.c ****   * AS5047P needs a minimum delay of 1/2*SPI_sck period between FALLING edge of last SCK
+ 379:Core/Src/as5047p_hal.c ****   * and RISING edge of CS signal. So fast CPUs may need a delay here.
+ 380:Core/Src/as5047p_hal.c ****   *
+ 381:Core/Src/as5047p_hal.c ****   ************************************************************************************/
+ 382:Core/Src/as5047p_hal.c ****   //delay_us(1);
+ 383:Core/Src/as5047p_hal.c **** 
+ 384:Core/Src/as5047p_hal.c ****   //--- Slave deselection
+ 385:Core/Src/as5047p_hal.c ****   AS5047P_DeselectSlave(id);
+ 412              		.loc 1 385 3 is_stmt 1 view .LVU76
  413 0016 2046     		mov	r0, r4
  414 0018 FFF7FEFF 		bl	AS5047P_DeselectSlave
  415              	.LVL32:
- 387:Core/Src/as5047p_hal.c **** 
- 388:Core/Src/as5047p_hal.c ****   if( err < 0)
- 416              		.loc 1 388 3 view .LVU77
- 389:Core/Src/as5047p_hal.c ****   {
- 390:Core/Src/as5047p_hal.c ****       return -1;
- 391:Core/Src/as5047p_hal.c ****   }
- 392:Core/Src/as5047p_hal.c **** 
- 393:Core/Src/as5047p_hal.c ****   return 0;
- 417              		.loc 1 393 3 view .LVU78
- 394:Core/Src/as5047p_hal.c **** }
- 418              		.loc 1 394 1 is_stmt 0 view .LVU79
+ 386:Core/Src/as5047p_hal.c **** 
+ 387:Core/Src/as5047p_hal.c ****   if( err < 0)
+ 416              		.loc 1 387 3 view .LVU77
+ 388:Core/Src/as5047p_hal.c ****   {
+ 389:Core/Src/as5047p_hal.c ****       return -1;
+ 390:Core/Src/as5047p_hal.c ****   }
+ 391:Core/Src/as5047p_hal.c **** 
+ 392:Core/Src/as5047p_hal.c ****   return 0;
+ 417              		.loc 1 392 3 view .LVU78
+ 393:Core/Src/as5047p_hal.c **** }
+ 418              		.loc 1 393 1 is_stmt 0 view .LVU79
  419 001c 0020     		movs	r0, #0
  420 001e 70BD     		pop	{r4, r5, r6, pc}
- 421              		.loc 1 394 1 view .LVU80
+ 421              		.loc 1 393 1 view .LVU80
  422              		.cfi_endproc
  423              	.LFE227:
  425              		.section	.bss.gpioPin,"aw",%nobits
@@ -898,10 +897,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  433              		.align	2
  434              		.set	.LANCHOR0,. + 0
  437              	gpioPort:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 16
-
-
  438 0000 00000000 		.space	4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 16
+
+
  439              		.section	.bss.handlerSPI,"aw",%nobits
  440              		.align	2
  441              		.set	.LANCHOR2,. + 0
@@ -919,40 +918,40 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 1
  455              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
  456              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
  457              		.file 11 "Core/Inc/spi.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cchV774D.s 			page 17
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 17
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 as5047p_hal.c
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:20     .text.AS5047P_SelectSPIAndGPIO:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:25     .text.AS5047P_SelectSPIAndGPIO:00000000 AS5047P_SelectSPIAndGPIO
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:91     .text.AS5047P_SelectSPIAndGPIO:00000038 $d
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:101    .text.AS5047P_HAL_GPIO_Write:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:106    .text.AS5047P_HAL_GPIO_Write:00000000 AS5047P_HAL_GPIO_Write
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:134    .text.AS5047P_HAL_GPIO_Write:00000014 $d
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:140    .text.AS5047P_DeselectSlave:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:145    .text.AS5047P_DeselectSlave:00000000 AS5047P_DeselectSlave
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:174    .text.AS5047P_SelectSlave:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:179    .text.AS5047P_SelectSlave:00000000 AS5047P_SelectSlave
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:208    .text.AS5047P_HAL_SPI_TxRx:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:213    .text.AS5047P_HAL_SPI_TxRx:00000000 AS5047P_HAL_SPI_TxRx
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:264    .text.AS5047P_HAL_SPI_TxRx:00000024 $d
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:269    .text.AS5047P_HAL_Delay_ms:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:275    .text.AS5047P_HAL_Delay_ms:00000000 AS5047P_HAL_Delay_ms
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:297    .rodata.AS5047P_HAL_Debug.str1.4:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:301    .text.AS5047P_HAL_Debug:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:307    .text.AS5047P_HAL_Debug:00000000 AS5047P_HAL_Debug
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:338    .text.AS5047P_HAL_Debug:00000010 $d
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:343    .text.AS5047P_HAL_Init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:349    .text.AS5047P_HAL_Init:00000000 AS5047P_HAL_Init
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:374    .text.AS5047P_HAL_SPI_Transaction:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:380    .text.AS5047P_HAL_SPI_Transaction:00000000 AS5047P_HAL_SPI_Transaction
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:426    .bss.gpioPin:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:430    .bss.gpioPin:00000000 gpioPin
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:433    .bss.gpioPort:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:437    .bss.gpioPort:00000000 gpioPort
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:440    .bss.handlerSPI:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cchV774D.s:444    .bss.handlerSPI:00000000 handlerSPI
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:20     .text.AS5047P_SelectSPIAndGPIO:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:25     .text.AS5047P_SelectSPIAndGPIO:00000000 AS5047P_SelectSPIAndGPIO
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:91     .text.AS5047P_SelectSPIAndGPIO:00000038 $d
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:101    .text.AS5047P_HAL_GPIO_Write:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:106    .text.AS5047P_HAL_GPIO_Write:00000000 AS5047P_HAL_GPIO_Write
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:134    .text.AS5047P_HAL_GPIO_Write:00000014 $d
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:140    .text.AS5047P_DeselectSlave:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:145    .text.AS5047P_DeselectSlave:00000000 AS5047P_DeselectSlave
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:174    .text.AS5047P_SelectSlave:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:179    .text.AS5047P_SelectSlave:00000000 AS5047P_SelectSlave
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:208    .text.AS5047P_HAL_SPI_TxRx:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:213    .text.AS5047P_HAL_SPI_TxRx:00000000 AS5047P_HAL_SPI_TxRx
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:264    .text.AS5047P_HAL_SPI_TxRx:00000024 $d
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:269    .text.AS5047P_HAL_Delay_ms:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:275    .text.AS5047P_HAL_Delay_ms:00000000 AS5047P_HAL_Delay_ms
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:297    .rodata.AS5047P_HAL_Debug.str1.4:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:301    .text.AS5047P_HAL_Debug:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:307    .text.AS5047P_HAL_Debug:00000000 AS5047P_HAL_Debug
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:338    .text.AS5047P_HAL_Debug:00000010 $d
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:343    .text.AS5047P_HAL_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:349    .text.AS5047P_HAL_Init:00000000 AS5047P_HAL_Init
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:374    .text.AS5047P_HAL_SPI_Transaction:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:380    .text.AS5047P_HAL_SPI_Transaction:00000000 AS5047P_HAL_SPI_Transaction
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:426    .bss.gpioPin:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:430    .bss.gpioPin:00000000 gpioPin
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:433    .bss.gpioPort:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:437    .bss.gpioPort:00000000 gpioPort
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:440    .bss.handlerSPI:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:444    .bss.handlerSPI:00000000 handlerSPI
 
 UNDEFINED SYMBOLS
 hspi1
