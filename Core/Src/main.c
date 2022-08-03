@@ -30,8 +30,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include"param.h"
 #include"ICM_20648.h"
 #include"as5047p.h"
+#define ARM_MATH_CM4
+#include"arm_math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,8 +44,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define MAXINITERR  10
-#define MTPERIOD    2000 
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -73,9 +74,6 @@ uint8_t senstype = 0;
 //Enc
 AS5047P_Instance encR;
 AS5047P_Instance encL;
-//spd
-uint16_t spd = 0;
-AS5047P_Result encR_val=0,encL_val=0;
 
 void SetLED(uint8_t led){
   HAL_GPIO_WritePin(D3_GPIO_Port,D3_Pin,!(led & 0b001));
@@ -112,11 +110,49 @@ void SetDutyRatio(int16_t motR,int16_t motL,int16_t motF){
   __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,motF);
 }
 
+float spd = 0;
+int16_t b_encR_val=0,b_encL_val=0;
+float spdR = 0,spdL=0;
+float b_spdR = 0,b_spdL=0;
 void GetSpeed(){
+  //エンコーダから値取る
+  int16_t encR_val,encL_val;
   encR_val = AS5047P_ReadPosition(&encR, AS5047P_OPT_ENABLED);
   encL_val = AS5047P_ReadPosition(&encL, AS5047P_OPT_ENABLED);
 	if(AS5047P_ErrorPending(&encR)) AS5047P_ErrorAck(&encR);
 	if(AS5047P_ErrorPending(&encL)) AS5047P_ErrorAck(&encL);
+
+  //差分取る
+  int16_t d_encR_val = -b_encR_val + encR_val;
+  int16_t d_encL_val = encL_val - b_encL_val;
+  //16383→0
+  if((d_encR_val > ENC_HALF || d_encR_val < -ENC_HALF) && b_encR_val > ENC_HALF){
+    d_encR_val = ((ENC_MAX - 1) - b_encR_val) + encR_val;
+  }
+  //0→16383
+  else if((d_encR_val > ENC_HALF || d_encR_val < -ENC_HALF) && b_encR_val <= ENC_HALF){
+    d_encR_val = (b_encR_val + ((ENC_MAX -1)-encR_val));
+  }
+  //16383→0
+  if((d_encL_val > ENC_HALF || d_encL_val < -ENC_HALF) && b_encL_val > ENC_HALF){
+    d_encL_val = ((ENC_MAX - 1) - b_encL_val) + encL_val;
+  }
+  //0→16383
+  else if((d_encL_val > ENC_HALF || d_encL_val < -ENC_HALF) && b_encL_val <= ENC_HALF){
+    d_encL_val = (b_encL_val + ((ENC_MAX -1)-encL_val));
+  }
+
+  float n_spdR = (float)d_encR_val * (float)PPMM;
+  float n_spdL = (float)d_encL_val * (float)PPMM;
+  b_spdR = spdR;
+  b_spdL = spdL;
+  //ローパスフィルタ
+  spdR = n_spdR * 0.1 + b_spdR * 0.9;
+  spdL = n_spdL * 0.1 + b_spdL * 0.9;
+
+  spd = (spdR + spdL) / 2.0;
+  b_encR_val = encR_val;
+  b_encL_val = encL_val;
 }
 
 void GetWallSens(){
@@ -239,25 +275,28 @@ int main(void)
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
   init();
-  int16_t spd = 1000;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_Delay(1000);
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    //printf("%d,%d,%d,%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
-    //printf("%d,%d,%d\r\n",xa,ya,za);
-    //printf("%d,%d,%d\r\n",xg,yg,zg);
-    //printf("%d,%d\r\n",encL_val,encR_val);
-    HAL_Delay(100);
-    SetDutyRatio(spd,spd,0);
-    spd-=100;
-    if(spd <= -1000) DoPanic();
+    uint8_t mode = 1;
+    int dspd = spd * 1000;
+    switch (mode){
+      case 1:
+        printf("%d\r\n",dspd);
+        HAL_Delay(100);
+        break;
+    
+      default:
+        DoPanic();
+        break;
+    }
+
   }
   /* USER CODE END 3 */
 }

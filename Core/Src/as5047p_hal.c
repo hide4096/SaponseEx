@@ -181,20 +181,20 @@ static uint8_t AS5047P_SelectSPIAndGPIO(uint16_t id)
   switch (id)
    {
      case 0:
-       // Currently selected CS pin = x
-	   // Currently selected SPI = xx
-    	 gpioPort = GPIOA;
-    	 gpioPin = GPIO_PIN_0;
-    	 handlerSPI = &hspi1;
-       break;
+      // Currently selected CS pin = x
+	    // Currently selected SPI = xx
+      gpioPort = GPIOA;
+    	gpioPin = GPIO_PIN_0;
+      handlerSPI = &hspi1;
+      break;
 
      case 1:
-       // Currently selected CS pin = y
-	   // Currently selected SPI = yy
-    	 gpioPort = GPIOB;
-    	 gpioPin = GPIO_PIN_2;
-    	 handlerSPI = &hspi1;
-       break;
+      // Currently selected CS pin = y
+	    // Currently selected SPI = yy
+      gpioPort = GPIOB;
+    	gpioPin = GPIO_PIN_2;
+    	handlerSPI = &hspi1; 
+      break;
 
        //...
        //... other cases

@@ -9,6 +9,7 @@
                 "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy",
                 "${workspaceFolder}/Drivers/CMSIS/include",
                 "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+                "${workspaceFolder}/Middlewares/ST/ARM/DSP/Inc",
                 "C:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include**",
                 "C:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\lib\\gcc\\arm-none-eabi\\10.3.1\\include"
             ],
