@@ -144,8 +144,8 @@ void GetSpeed(){
   b_spdL = spdL;
 
   //ローパスフィルタ（係数はRTのパクリ）
-  spdR = n_spdR * 0.1 + b_spdR * 0.9;
-  spdL = n_spdL * 0.1 + b_spdL * 0.9;
+  spdR = n_spdR * IMULPF + b_spdR * (1.0 - IMULPF);
+  spdL = n_spdL * IMULPF + b_spdL * (1.0 - IMULPF);
 
   spd = (spdR + spdL) / 2.0;  //
   b_encR_val = encR_val;
@@ -177,7 +177,7 @@ void GetWallSens(){
 float vbat = 0; //バッテリ電圧[v]
 void GetBattVoltage(){
   vbat = 3.3 * (adcval[4] / 4096.0) * 2;
-  vbat *= VBATREF;
+  vbat += VBATREF;
 }
 
 float deg = 0;
@@ -240,6 +240,8 @@ void DoPanic(){
 }
 
 void init(){
+  HAL_Delay(500);
+  
   //StartDMA
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
 
@@ -372,6 +374,17 @@ int main(void)
           read_accel_data();
           printf("%d\t%d\t%d\r\n",xa,ya,za);
           HAL_Delay(10);
+          break;
+        case 5:
+          SetLED(0b000);
+          float avr_vbat = 0.0;
+          for(int i = 0;i<100;i++){
+            avr_vbat += vbat;
+            HAL_Delay(1);
+          }
+          avr_vbat /= 100;
+          printf("%.3fv\r\n",avr_vbat);
+          printf("%d\r\n",adcval[4]);
           break;
         default:
           DoPanic();
