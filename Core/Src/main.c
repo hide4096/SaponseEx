@@ -144,8 +144,8 @@ void GetSpeed(){
   b_spdL = spdL;
 
   //ローパスフィルタ（係数はRTのパクリ）
-  spdR = n_spdR * IMULPF + b_spdR * (1.0 - IMULPF);
-  spdL = n_spdL * IMULPF + b_spdL * (1.0 - IMULPF);
+  spdR = n_spdR * ENCLPF + b_spdR * (1.0 - ENCLPF);
+  spdL = n_spdL * ENCLPF + b_spdL * (1.0 - ENCLPF);
 
   spd = (spdR + spdL) / 2.0;  //
   b_encR_val = encR_val;
@@ -190,7 +190,7 @@ void GetYawDeg(){
   //ローパスフィルタ（係数はテキトー）
 	r_yaw_new = (float)zg - r_yaw_ref;
   r_b_yaw = r_yaw;
-  r_yaw = r_yaw_new * 0.4 + r_b_yaw * 0.6;
+  r_yaw = r_yaw_new * IMULPF + r_b_yaw * (1.0 - IMULPF);
 	//角速度の更新
 	b_angvel = angvel;
 	angvel = (2000.0*r_yaw/32767.0)*PI/180.0;
@@ -335,7 +335,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t mode = 1;
+  uint8_t mode = 2;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -356,13 +356,14 @@ int main(void)
           }
           break;
         case 2:
+          SetLED(0b000);
+          HAL_Delay(500);
           motpower = 1;
-          tgt_spd = 0.2;
+          tgt_spd = 0.3;
           tgt_deg = deg;
-          HAL_Delay(1000);
+          HAL_Delay(200);
           tgt_spd = 0.0;
           HAL_Delay(1000);
-          DoPanic();
           break;
         case 3:
           motpower = 1;
@@ -385,6 +386,12 @@ int main(void)
           avr_vbat /= 100;
           printf("%.3fv\r\n",avr_vbat);
           printf("%d\r\n",adcval[4]);
+          break;
+        case 6:
+          while(1){
+            printf("%.3f\r\n",deg);
+            HAL_Delay(100);
+          }
           break;
         default:
           DoPanic();
