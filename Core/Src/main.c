@@ -73,28 +73,28 @@ void SetLED(uint8_t led){
 }
 
 uint8_t motpower = 0;
-void SetDutyRatio(int16_t motR,int16_t motL,int16_t motF){
+void   SetDutyRatio(int16_t motL,int16_t motR,int16_t motF){
   if(motpower){
     if(motR > 0){
       if(motR > MTPERIOD) motR = MTPERIOD;
-     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);
+     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
     }else{
       motR*=-1;
       if(motR > MTPERIOD) motR = MTPERIOD;
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
     }
 
     if(motL > 0){
       if(motL > MTPERIOD) motL = MTPERIOD;
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
     }else{
       motL*=-1;
       if(motL > MTPERIOD) motL = MTPERIOD;
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
     }
 
     if(motF > MTPERIOD) motF = MTPERIOD;
@@ -111,29 +111,29 @@ int16_t b_encR_val=0,b_encL_val=0;
 float spdR = 0,spdL=0;
 float b_spdR = 0,b_spdL=0;
 void GetSpeed(){
-  //エンコーダから値取る
+  //エンコー�?から値取る
   int16_t encR_val,encL_val;
   encR_val = AS5047P_ReadPosition(&encR, AS5047P_OPT_ENABLED);
   encL_val = AS5047P_ReadPosition(&encL, AS5047P_OPT_ENABLED);
 	if(AS5047P_ErrorPending(&encR)) AS5047P_ErrorAck(&encR);
 	if(AS5047P_ErrorPending(&encL)) AS5047P_ErrorAck(&encL);
 
-  //差分取る
+  //差�?取る
   int16_t d_encR_val = encR_val - b_encR_val;
   int16_t d_encL_val = b_encL_val -  encL_val;
-  //16383→0
+  //16383�?0
   if((d_encR_val > ENC_HALF || d_encR_val < -ENC_HALF) && b_encR_val > ENC_HALF){
     d_encR_val = ((ENC_MAX - 1) - b_encR_val) + encR_val;
   }
-  //0→16383
+  //0�?16383
   else if((d_encR_val > ENC_HALF || d_encR_val < -ENC_HALF) && b_encR_val <= ENC_HALF){
     d_encR_val = (b_encR_val + ((ENC_MAX -1)-encR_val));
   }
-  //16383→0
+  //16383�?0
   if((d_encL_val > ENC_HALF || d_encL_val < -ENC_HALF) && b_encL_val > ENC_HALF){
     d_encL_val = ((ENC_MAX - 1) - b_encL_val) + encL_val;
   }
-  //0→16383
+  //0�?16383
   else if((d_encL_val > ENC_HALF || d_encL_val < -ENC_HALF) && b_encL_val <= ENC_HALF){
     d_encL_val = (b_encL_val + ((ENC_MAX -1)-encL_val));
   }
@@ -143,7 +143,7 @@ void GetSpeed(){
   b_spdR = spdR;
   b_spdL = spdL;
 
-  //ローパスフィルタ（係数はRTのパクリ）
+  //ローパスフィルタ?��係数はRTのパクリ?�?
   spdR = n_spdR * ENCLPF + b_spdR * (1.0 - ENCLPF);
   spdL = n_spdL * ENCLPF + b_spdL * (1.0 - ENCLPF);
 
@@ -174,7 +174,7 @@ void GetWallSens(){
     senstype = 1-senstype;
 }
 
-float vbat = 0; //バッテリ電圧[v]
+float vbat = 0; //バッ�?リ電圧[v]
 void GetBattVoltage(){
   vbat = 3.3 * (adcval[4] / 4096.0) * 2;
   vbat += VBATREF;
@@ -187,11 +187,11 @@ float r_yaw = 0,r_yaw_new = 0,r_yaw_ref = 0,r_b_yaw;
 void GetYawDeg(){
   read_gyro_data();
 
-  //ローパスフィルタ（係数はテキトー）
+  //ローパスフィルタ?��係数は�?キト�?�?�?
 	r_yaw_new = (float)zg - r_yaw_ref;
   r_b_yaw = r_yaw;
   r_yaw = r_yaw_new * IMULPF + r_b_yaw * (1.0 - IMULPF);
-	//角速度の更新
+	//角�?�度の更新
 	b_angvel = angvel;
 	angvel = (2000.0*r_yaw/32767.0)*PI/180.0;
 		
@@ -203,9 +203,10 @@ float tgt_spd = 0.0;
 float tgt_deg = 0.0;
 void ControlDuty(){
   float dutyR = 0.0,dutyL = 0.0;
-  dutyR = (tgt_spd - spd)*1.0 + (tgt_deg - deg)*0.01;
-  dutyL = (tgt_spd - spd)*1.0 - (tgt_deg - deg)*0.01;
-  SetDutyRatio(MTPERIOD*dutyR,MTPERIOD*dutyL,0);
+  dutyR = (tgt_spd - spd)*6.0 + (tgt_deg - deg)*0.015;
+  dutyL = (tgt_spd - spd)*6.0 - (tgt_deg - deg)*0.015;
+
+  //SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,0);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
@@ -273,7 +274,6 @@ void init(){
   for(uint16_t i = 0;i<GYROREFTIME;i++){
     read_gyro_data();
     r_yaw_ref_tmp += zg;
-    HAL_Delay(1);
   }
   r_yaw_ref = (float)(r_yaw_ref_tmp / GYROREFTIME);
 
@@ -335,7 +335,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t mode = 2;
+  uint8_t mode = 7;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -359,9 +359,9 @@ int main(void)
           SetLED(0b000);
           HAL_Delay(500);
           motpower = 1;
-          tgt_spd = 0.3;
+          tgt_spd = 0.2;
           tgt_deg = deg;
-          HAL_Delay(200);
+          HAL_Delay(1000);
           tgt_spd = 0.0;
           HAL_Delay(1000);
           break;
@@ -388,9 +388,19 @@ int main(void)
           printf("%d\r\n",adcval[4]);
           break;
         case 6:
+          motpower=1;
+          double cnt = 0;
           while(1){
-            printf("%.3f\r\n",deg);
-            HAL_Delay(100);
+            SetDutyRatio(1200*sin(cnt),1200*sin(cnt),0);
+            cnt+=PI/2000;
+            HAL_Delay(1);
+            if(cnt>2*PI) cnt = 0;
+          }
+          break;
+        case 7:
+          motpower = 1;
+          while(1){
+            SetDutyRatio(500,500,0);
           }
           break;
         default:

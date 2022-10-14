@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
   28:Core/Src/as5047p_hal.c **** #include "as5047p_hal.h"
   29:Core/Src/as5047p_hal.c **** 
   30:Core/Src/as5047p_hal.c **** /************************************************************************************
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 2
 
 
   31:Core/Src/as5047p_hal.c ****  * 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
   85:Core/Src/as5047p_hal.c ****  *
   86:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_SPI_TxRx(pTx, pRx)
   87:Core/Src/as5047p_hal.c ****  * 	Access:		private
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 3
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 3
 
 
   88:Core/Src/as5047p_hal.c ****  * 	Inputs:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  142:Core/Src/as5047p_hal.c ****  *		Nothing.
  143:Core/Src/as5047p_hal.c ****  *
  144:Core/Src/as5047p_hal.c ****  * 	Description:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 4
 
 
  145:Core/Src/as5047p_hal.c ****  * 	Function allows to clear/set digital output.
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  184:Core/Src/as5047p_hal.c ****       // Currently selected CS pin = x
  185:Core/Src/as5047p_hal.c **** 	    // Currently selected SPI = xx
  186:Core/Src/as5047p_hal.c ****       gpioPort = GPIOA;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 5
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 5
 
 
   44              		.loc 1 186 7 is_stmt 1 view .LVU3
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
   72              		.loc 1 195 6 is_stmt 1 view .LVU14
  195:Core/Src/as5047p_hal.c ****     	handlerSPI = &hspi1; 
   73              		.loc 1 195 14 is_stmt 0 view .LVU15
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 6
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 6
 
 
   74 0026 064B     		ldr	r3, .L5+8
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  120              		.loc 1 151 2 is_stmt 1 view .LVU23
  121 0004 034B     		ldr	r3, .L9
  122 0006 1988     		ldrh	r1, [r3]
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 7
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 7
 
 
  123 0008 034B     		ldr	r3, .L9+4
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  242:Core/Src/as5047p_hal.c ****  *
  243:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_SelectSlave(id)
  244:Core/Src/as5047p_hal.c ****  * 	Access:		private
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 8
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 8
 
 
  245:Core/Src/as5047p_hal.c ****  * 	Inputs:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  149              		.cfi_startproc
  150              		@ args = 0, pretend = 0, frame = 0
  151              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 9
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 9
 
 
  152              		.loc 1 297 1 is_stmt 0 view .LVU27
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  187 0000 08B5     		push	{r3, lr}
  188              	.LCFI2:
  189              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 10
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 10
 
 
  190              		.cfi_offset 3, -8
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  236              	.LVL16:
  113:Core/Src/as5047p_hal.c **** 
  237              		.loc 1 113 14 view .LVU45
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 11
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 11
 
 
  238 0010 0448     		ldr	r0, .L20
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  287              		.cfi_offset 14, -4
   74:Core/Src/as5047p_hal.c **** 
  288              		.loc 1 74 2 is_stmt 1 view .LVU53
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 12
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 12
 
 
  289 0002 FFF7FEFF 		bl	HAL_Delay
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  333              		.loc 1 239 1 view .LVU61
  334 000e 08BD     		pop	{r3, pc}
  335              	.L27:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 13
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 13
 
 
  336              		.align	2
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  366              		.loc 1 342 3 is_stmt 1 view .LVU66
  343:Core/Src/as5047p_hal.c **** }
  367              		.loc 1 343 1 is_stmt 0 view .LVU67
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 14
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 14
 
 
  368 0006 0020     		movs	r0, #0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  399              		.loc 1 368 3 view .LVU71
  400              		.loc 1 368 8 is_stmt 0 view .LVU72
  401 0008 1046     		mov	r0, r2
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 15
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 15
 
 
  402              	.LVL29:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  434              		.set	.LANCHOR0,. + 0
  437              	gpioPort:
  438 0000 00000000 		.space	4
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 16
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 16
 
 
  439              		.section	.bss.handlerSPI,"aw",%nobits
@@ -918,40 +918,40 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 1
  455              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
  456              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
  457              		.file 11 "Core/Inc/spi.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s 			page 17
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s 			page 17
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 as5047p_hal.c
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:20     .text.AS5047P_SelectSPIAndGPIO:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:25     .text.AS5047P_SelectSPIAndGPIO:00000000 AS5047P_SelectSPIAndGPIO
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:91     .text.AS5047P_SelectSPIAndGPIO:00000038 $d
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:101    .text.AS5047P_HAL_GPIO_Write:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:106    .text.AS5047P_HAL_GPIO_Write:00000000 AS5047P_HAL_GPIO_Write
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:134    .text.AS5047P_HAL_GPIO_Write:00000014 $d
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:140    .text.AS5047P_DeselectSlave:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:145    .text.AS5047P_DeselectSlave:00000000 AS5047P_DeselectSlave
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:174    .text.AS5047P_SelectSlave:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:179    .text.AS5047P_SelectSlave:00000000 AS5047P_SelectSlave
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:208    .text.AS5047P_HAL_SPI_TxRx:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:213    .text.AS5047P_HAL_SPI_TxRx:00000000 AS5047P_HAL_SPI_TxRx
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:264    .text.AS5047P_HAL_SPI_TxRx:00000024 $d
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:269    .text.AS5047P_HAL_Delay_ms:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:275    .text.AS5047P_HAL_Delay_ms:00000000 AS5047P_HAL_Delay_ms
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:297    .rodata.AS5047P_HAL_Debug.str1.4:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:301    .text.AS5047P_HAL_Debug:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:307    .text.AS5047P_HAL_Debug:00000000 AS5047P_HAL_Debug
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:338    .text.AS5047P_HAL_Debug:00000010 $d
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:343    .text.AS5047P_HAL_Init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:349    .text.AS5047P_HAL_Init:00000000 AS5047P_HAL_Init
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:374    .text.AS5047P_HAL_SPI_Transaction:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:380    .text.AS5047P_HAL_SPI_Transaction:00000000 AS5047P_HAL_SPI_Transaction
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:426    .bss.gpioPin:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:430    .bss.gpioPin:00000000 gpioPin
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:433    .bss.gpioPort:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:437    .bss.gpioPort:00000000 gpioPort
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:440    .bss.handlerSPI:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\cc8nePV4.s:444    .bss.handlerSPI:00000000 handlerSPI
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:20     .text.AS5047P_SelectSPIAndGPIO:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:25     .text.AS5047P_SelectSPIAndGPIO:00000000 AS5047P_SelectSPIAndGPIO
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:91     .text.AS5047P_SelectSPIAndGPIO:00000038 $d
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:101    .text.AS5047P_HAL_GPIO_Write:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:106    .text.AS5047P_HAL_GPIO_Write:00000000 AS5047P_HAL_GPIO_Write
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:134    .text.AS5047P_HAL_GPIO_Write:00000014 $d
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:140    .text.AS5047P_DeselectSlave:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:145    .text.AS5047P_DeselectSlave:00000000 AS5047P_DeselectSlave
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:174    .text.AS5047P_SelectSlave:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:179    .text.AS5047P_SelectSlave:00000000 AS5047P_SelectSlave
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:208    .text.AS5047P_HAL_SPI_TxRx:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:213    .text.AS5047P_HAL_SPI_TxRx:00000000 AS5047P_HAL_SPI_TxRx
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:264    .text.AS5047P_HAL_SPI_TxRx:00000024 $d
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:269    .text.AS5047P_HAL_Delay_ms:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:275    .text.AS5047P_HAL_Delay_ms:00000000 AS5047P_HAL_Delay_ms
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:297    .rodata.AS5047P_HAL_Debug.str1.4:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:301    .text.AS5047P_HAL_Debug:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:307    .text.AS5047P_HAL_Debug:00000000 AS5047P_HAL_Debug
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:338    .text.AS5047P_HAL_Debug:00000010 $d
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:343    .text.AS5047P_HAL_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:349    .text.AS5047P_HAL_Init:00000000 AS5047P_HAL_Init
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:374    .text.AS5047P_HAL_SPI_Transaction:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:380    .text.AS5047P_HAL_SPI_Transaction:00000000 AS5047P_HAL_SPI_Transaction
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:426    .bss.gpioPin:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:430    .bss.gpioPin:00000000 gpioPin
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:433    .bss.gpioPort:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:437    .bss.gpioPort:00000000 gpioPort
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:440    .bss.handlerSPI:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccv5igyW.s:444    .bss.handlerSPI:00000000 handlerSPI
 
 UNDEFINED SYMBOLS
 hspi1

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
   28:Core/Src/spi.c **** SPI_HandleTypeDef hspi2;
   29:Core/Src/spi.c **** 
   30:Core/Src/spi.c **** /* SPI1 init function */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 2
 
 
   31:Core/Src/spi.c **** void MX_SPI1_Init(void)
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
   48:Core/Src/spi.c ****   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
   66              		.loc 1 48 3 is_stmt 1 view .LVU15
   67              		.loc 1 48 32 is_stmt 0 view .LVU16
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 3
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 3
 
 
   68 0024 1822     		movs	r2, #24
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  109              		.syntax unified
  110              		.thumb
  111              		.thumb_func
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 4
 
 
  113              	MX_SPI2_Init:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  149              		.loc 1 79 18 is_stmt 0 view .LVU45
  150 001c 4FF40072 		mov	r2, #512
  151 0020 8261     		str	r2, [r0, #24]
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 5
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 5
 
 
   80:Core/Src/spi.c ****   hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  192              		.section	.text.HAL_SPI_MspInit,"ax",%progbits
  193              		.align	1
  194              		.global	HAL_SPI_MspInit
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 6
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 6
 
 
  195              		.syntax unified
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  115:Core/Src/spi.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
  116:Core/Src/spi.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
  117:Core/Src/spi.c ****     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 7
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 7
 
 
  118:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  249              		.loc 1 105 5 view .LVU73
  250 0024 0021     		movs	r1, #0
  251 0026 0191     		str	r1, [sp, #4]
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 8
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 8
 
 
  105:Core/Src/spi.c **** 
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  290              		.loc 1 116 5 view .LVU89
  116:Core/Src/spi.c ****     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
  291              		.loc 1 116 27 is_stmt 0 view .LVU90
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 9
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 9
 
 
  292 0058 0323     		movs	r3, #3
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  333 008a 1A63     		str	r2, [r3, #48]
  132:Core/Src/spi.c ****     /**SPI2 GPIO Configuration
  334              		.loc 1 132 5 view .LVU104
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 10
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 10
 
 
  335 008c 1B6B     		ldr	r3, [r3, #48]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  376              		.cfi_endproc
  377              	.LFE218:
  379              		.section	.text.HAL_SPI_MspDeInit,"ax",%progbits
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 11
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 11
 
 
  380              		.align	1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  411              	.LVL13:
  412              	.L21:
  174:Core/Src/spi.c ****   {
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 12
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 12
 
 
  175:Core/Src/spi.c ****   /* USER CODE BEGIN SPI2_MspDeInit 0 */
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  443              	.LVL19:
  444              		.loc 1 192 1 view .LVU133
  445 003e E7E7     		b	.L21
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 13
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 13
 
 
  446              	.L28:
@@ -761,27 +761,27 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 1
  480              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
  481              		.file 9 "Core/Inc/spi.h"
  482              		.file 10 "Core/Inc/main.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s 			page 14
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 spi.c
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:20     .text.MX_SPI1_Init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:26     .text.MX_SPI1_Init:00000000 MX_SPI1_Init
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:101    .text.MX_SPI1_Init:00000040 $d
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:107    .text.MX_SPI2_Init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:113    .text.MX_SPI2_Init:00000000 MX_SPI2_Init
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:187    .text.MX_SPI2_Init:00000040 $d
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:193    .text.HAL_SPI_MspInit:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:199    .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:371    .text.HAL_SPI_MspInit:000000b4 $d
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:380    .text.HAL_SPI_MspDeInit:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:386    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:449    .text.HAL_SPI_MspDeInit:00000040 $d
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:470    .bss.hspi2:00000000 hspi2
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:463    .bss.hspi1:00000000 hspi1
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:459    .bss.hspi1:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGbAcvP.s:466    .bss.hspi2:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:20     .text.MX_SPI1_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:26     .text.MX_SPI1_Init:00000000 MX_SPI1_Init
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:101    .text.MX_SPI1_Init:00000040 $d
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:107    .text.MX_SPI2_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:113    .text.MX_SPI2_Init:00000000 MX_SPI2_Init
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:187    .text.MX_SPI2_Init:00000040 $d
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:193    .text.HAL_SPI_MspInit:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:199    .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:371    .text.HAL_SPI_MspInit:000000b4 $d
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:380    .text.HAL_SPI_MspDeInit:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:386    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:449    .text.HAL_SPI_MspDeInit:00000040 $d
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:470    .bss.hspi2:00000000 hspi2
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:463    .bss.hspi1:00000000 hspi1
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:459    .bss.hspi1:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccvHtZng.s:466    .bss.hspi2:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_SPI_Init
