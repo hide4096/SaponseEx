@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
   27:Core/Src/main.c **** 
   28:Core/Src/main.c **** /* Private includes ----------------------------------------------------------*/
   29:Core/Src/main.c **** /* USER CODE BEGIN Includes */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 2
 
 
   30:Core/Src/main.c **** #include<stdio.h>
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
   43              		.loc 1 70 3 is_stmt 1 view .LVU2
   44 0004 80F00102 		eor	r2, r0, #1
   45 0008 0E4D     		ldr	r5, .L3
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 3
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 3
 
 
   46 000a 02F00102 		and	r2, r2, #1
@@ -166,8 +166,8 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
   87              	.LFB253:
   74:Core/Src/main.c **** 
   75:Core/Src/main.c **** uint8_t motpower = 0;
-  76:Core/Src/main.c **** void SetDutyRatio(int16_t motL,int16_t motR,int16_t motF){
-  88              		.loc 1 76 58 is_stmt 1 view -0
+  76:Core/Src/main.c **** void   SetDutyRatio(int16_t motL,int16_t motR,int16_t motF){
+  88              		.loc 1 76 60 is_stmt 1 view -0
   89              		.cfi_startproc
   90              		@ args = 0, pretend = 0, frame = 0
   91              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -178,13 +178,13 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
   95 0000 234B     		ldr	r3, .L25
   96 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
   97              		.loc 1 77 5 view .LVU10
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 4
 
 
   98 0004 002B     		cmp	r3, #0
   99 0006 41D0     		beq	.L22
   76:Core/Src/main.c ****   if(motpower){
- 100              		.loc 1 76 58 view .LVU11
+ 100              		.loc 1 76 60 view .LVU11
  101 0008 10B4     		push	{r4}
  102              	.LCFI1:
  103              		.cfi_def_cfa_offset 4
@@ -203,54 +203,53 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  114 0014 4FF4FA61 		mov	r1, #2000
  115              	.LVL6:
  116              	.L8:
-  80:Core/Src/main.c ****      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+  80:Core/Src/main.c ****      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
  117              		.loc 1 80 6 is_stmt 1 view .LVU17
  118 0018 1E4B     		ldr	r3, .L25+4
  119 001a 1B68     		ldr	r3, [r3]
- 120 001c 9963     		str	r1, [r3, #56]
-  81:Core/Src/main.c ****      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
- 121              		.loc 1 81 6 view .LVU18
- 122 001e 0021     		movs	r1, #0
- 123              	.LVL7:
- 124              		.loc 1 81 6 is_stmt 0 view .LVU19
- 125 0020 D963     		str	r1, [r3, #60]
- 126              	.L9:
+ 120 001c 0024     		movs	r4, #0
+ 121 001e 9C63     		str	r4, [r3, #56]
+  81:Core/Src/main.c ****      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);
+ 122              		.loc 1 81 6 view .LVU18
+ 123 0020 D963     		str	r1, [r3, #60]
+ 124              	.LVL7:
+ 125              	.L9:
   82:Core/Src/main.c ****     }else{
   83:Core/Src/main.c ****       motR*=-1;
   84:Core/Src/main.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
-  85:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-  86:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
+  85:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+  86:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
   87:Core/Src/main.c ****     }
   88:Core/Src/main.c **** 
   89:Core/Src/main.c ****     if(motL > 0){
- 127              		.loc 1 89 5 is_stmt 1 view .LVU20
- 128              		.loc 1 89 7 is_stmt 0 view .LVU21
- 129 0022 0028     		cmp	r0, #0
- 130 0024 23DD     		ble	.L11
+ 126              		.loc 1 89 5 view .LVU19
+ 127              		.loc 1 89 7 is_stmt 0 view .LVU20
+ 128 0022 0028     		cmp	r0, #0
+ 129 0024 23DD     		ble	.L11
   90:Core/Src/main.c ****       if(motL > MTPERIOD) motL = MTPERIOD;
- 131              		.loc 1 90 7 is_stmt 1 view .LVU22
- 132              		.loc 1 90 9 is_stmt 0 view .LVU23
- 133 0026 B0F5FA6F 		cmp	r0, #2000
- 134 002a 01DD     		ble	.L12
- 135              		.loc 1 90 32 view .LVU24
- 136 002c 4FF4FA60 		mov	r0, #2000
- 137              	.LVL8:
- 138              	.L12:
+ 130              		.loc 1 90 7 is_stmt 1 view .LVU21
+ 131              		.loc 1 90 9 is_stmt 0 view .LVU22
+ 132 0026 B0F5FA6F 		cmp	r0, #2000
+ 133 002a 01DD     		ble	.L12
+ 134              		.loc 1 90 32 view .LVU23
+ 135 002c 4FF4FA60 		mov	r0, #2000
+ 136              	.LVL8:
+ 137              	.L12:
   91:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
- 139              		.loc 1 91 7 is_stmt 1 view .LVU25
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 5
+ 138              		.loc 1 91 7 is_stmt 1 view .LVU24
+ 139 0030 184B     		ldr	r3, .L25+4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 5
 
 
- 140 0030 184B     		ldr	r3, .L25+4
- 141 0032 1B68     		ldr	r3, [r3]
- 142 0034 0021     		movs	r1, #0
- 143 0036 5963     		str	r1, [r3, #52]
+ 140 0032 1B68     		ldr	r3, [r3]
+ 141 0034 0021     		movs	r1, #0
+ 142 0036 5963     		str	r1, [r3, #52]
   92:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
- 144              		.loc 1 92 7 view .LVU26
- 145 0038 174B     		ldr	r3, .L25+8
- 146 003a 1B68     		ldr	r3, [r3]
- 147 003c D863     		str	r0, [r3, #60]
- 148              	.L13:
+ 143              		.loc 1 92 7 view .LVU25
+ 144 0038 174B     		ldr	r3, .L25+8
+ 145 003a 1B68     		ldr	r3, [r3]
+ 146 003c D863     		str	r0, [r3, #60]
+ 147              	.L13:
   93:Core/Src/main.c ****     }else{
   94:Core/Src/main.c ****       motL*=-1;
   95:Core/Src/main.c ****       if(motL > MTPERIOD) motL = MTPERIOD;
@@ -259,70 +258,72 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
   98:Core/Src/main.c ****     }
   99:Core/Src/main.c **** 
  100:Core/Src/main.c ****     if(motF > MTPERIOD) motF = MTPERIOD;
- 149              		.loc 1 100 5 view .LVU27
- 150              		.loc 1 100 7 is_stmt 0 view .LVU28
- 151 003e B2F5FA6F 		cmp	r2, #2000
- 152 0042 01DD     		ble	.L15
- 153              		.loc 1 100 30 view .LVU29
- 154 0044 4FF4FA62 		mov	r2, #2000
- 155              	.LVL9:
- 156              	.L15:
+ 148              		.loc 1 100 5 view .LVU26
+ 149              		.loc 1 100 7 is_stmt 0 view .LVU27
+ 150 003e B2F5FA6F 		cmp	r2, #2000
+ 151 0042 01DD     		ble	.L15
+ 152              		.loc 1 100 30 view .LVU28
+ 153 0044 4FF4FA62 		mov	r2, #2000
+ 154              	.LVL9:
+ 155              	.L15:
  101:Core/Src/main.c ****     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,motF);
- 157              		.loc 1 101 5 is_stmt 1 view .LVU30
- 158 0048 134B     		ldr	r3, .L25+8
- 159 004a 1B68     		ldr	r3, [r3]
- 160 004c 5A63     		str	r2, [r3, #52]
+ 156              		.loc 1 101 5 is_stmt 1 view .LVU29
+ 157 0048 134B     		ldr	r3, .L25+8
+ 158 004a 1B68     		ldr	r3, [r3]
+ 159 004c 5A63     		str	r2, [r3, #52]
  102:Core/Src/main.c ****   }
  103:Core/Src/main.c **** }
- 161              		.loc 1 103 1 is_stmt 0 view .LVU31
- 162 004e 5DF8044B 		ldr	r4, [sp], #4
- 163              	.LCFI2:
- 164              		.cfi_remember_state
- 165              		.cfi_restore 4
- 166              		.cfi_def_cfa_offset 0
- 167 0052 7047     		bx	lr
- 168              	.LVL10:
- 169              	.L7:
- 170              	.LCFI3:
- 171              		.cfi_restore_state
+ 160              		.loc 1 103 1 is_stmt 0 view .LVU30
+ 161 004e 5DF8044B 		ldr	r4, [sp], #4
+ 162              	.LCFI2:
+ 163              		.cfi_remember_state
+ 164              		.cfi_restore 4
+ 165              		.cfi_def_cfa_offset 0
+ 166 0052 7047     		bx	lr
+ 167              	.LVL10:
+ 168              	.L7:
+ 169              	.LCFI3:
+ 170              		.cfi_restore_state
   83:Core/Src/main.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
- 172              		.loc 1 83 7 is_stmt 1 view .LVU32
+ 171              		.loc 1 83 7 is_stmt 1 view .LVU31
   83:Core/Src/main.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
- 173              		.loc 1 83 11 is_stmt 0 view .LVU33
- 174 0054 4942     		rsbs	r1, r1, #0
- 175              	.LVL11:
+ 172              		.loc 1 83 11 is_stmt 0 view .LVU32
+ 173 0054 4942     		rsbs	r1, r1, #0
+ 174              	.LVL11:
   83:Core/Src/main.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
- 176              		.loc 1 83 11 view .LVU34
- 177 0056 09B2     		sxth	r1, r1
- 178              	.LVL12:
-  84:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
- 179              		.loc 1 84 7 is_stmt 1 view .LVU35
-  84:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 6
+ 175              		.loc 1 83 11 view .LVU33
+ 176 0056 09B2     		sxth	r1, r1
+ 177              	.LVL12:
+  84:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+ 178              		.loc 1 84 7 is_stmt 1 view .LVU34
+  84:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+ 179              		.loc 1 84 9 is_stmt 0 view .LVU35
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 6
 
 
- 180              		.loc 1 84 9 is_stmt 0 view .LVU36
- 181 0058 B1F5FA6F 		cmp	r1, #2000
- 182 005c 01DD     		ble	.L10
-  84:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
- 183              		.loc 1 84 32 view .LVU37
- 184 005e 4FF4FA61 		mov	r1, #2000
- 185              	.LVL13:
- 186              	.L10:
-  85:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
- 187              		.loc 1 85 7 is_stmt 1 view .LVU38
- 188 0062 0C4B     		ldr	r3, .L25+4
- 189 0064 1B68     		ldr	r3, [r3]
- 190 0066 0024     		movs	r4, #0
- 191 0068 9C63     		str	r4, [r3, #56]
+ 180 0058 B1F5FA6F 		cmp	r1, #2000
+ 181 005c 01DD     		ble	.L10
+  84:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+ 182              		.loc 1 84 32 view .LVU36
+ 183 005e 4FF4FA61 		mov	r1, #2000
+ 184              	.LVL13:
+ 185              	.L10:
+  85:Core/Src/main.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
+ 186              		.loc 1 85 7 is_stmt 1 view .LVU37
+ 187 0062 0C4B     		ldr	r3, .L25+4
+ 188 0064 1B68     		ldr	r3, [r3]
+ 189 0066 9963     		str	r1, [r3, #56]
   86:Core/Src/main.c ****     }
- 192              		.loc 1 86 7 view .LVU39
- 193 006a D963     		str	r1, [r3, #60]
- 194 006c D9E7     		b	.L9
- 195              	.LVL14:
+ 190              		.loc 1 86 7 view .LVU38
+ 191 0068 0021     		movs	r1, #0
+ 192              	.LVL14:
+  86:Core/Src/main.c ****     }
+ 193              		.loc 1 86 7 is_stmt 0 view .LVU39
+ 194 006a D963     		str	r1, [r3, #60]
+ 195 006c D9E7     		b	.L9
  196              	.L11:
   94:Core/Src/main.c ****       if(motL > MTPERIOD) motL = MTPERIOD;
- 197              		.loc 1 94 7 view .LVU40
+ 197              		.loc 1 94 7 is_stmt 1 view .LVU40
   94:Core/Src/main.c ****       if(motL > MTPERIOD) motL = MTPERIOD;
  198              		.loc 1 94 11 is_stmt 0 view .LVU41
  199 006e 4042     		rsbs	r0, r0, #0
@@ -357,10 +358,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  222              	.LVL18:
  223              	.L22:
  224              	.LCFI4:
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 7
+
+
  225              		.cfi_def_cfa_offset 0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 7
-
-
  226              		.cfi_restore 4
   97:Core/Src/main.c ****     }
  227              		.loc 1 97 7 is_stmt 0 view .LVU48
@@ -417,10 +418,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  270              		.cfi_def_cfa_offset 48
  271              		.cfi_offset 80, -48
  272              		.cfi_offset 81, -44
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 8
+
+
  114:Core/Src/main.c ****   //エンコー�?から値取る
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 8
-
-
  115:Core/Src/main.c ****   int16_t encR_val,encL_val;
  273              		.loc 1 115 3 view .LVU50
  116:Core/Src/main.c ****   encR_val = AS5047P_ReadPosition(&encR, AS5047P_OPT_ENABLED);
@@ -477,10 +478,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  318 004a 1AB2     		sxth	r2, r3
  319              	.LVL25:
  123:Core/Src/main.c ****   int16_t d_encL_val = b_encL_val -  encL_val;
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 9
+
+
  320              		.loc 1 123 3 is_stmt 1 view .LVU64
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 9
-
-
  321              		.loc 1 123 35 is_stmt 0 view .LVU65
  322 004c 674B     		ldr	r3, .L37+28
  323 004e B3F90060 		ldrsh	r6, [r3]
@@ -537,10 +538,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  363 0098 A0EB0803 		sub	r3, r0, r8
  364              	.LVL29:
  365              		.loc 1 134 47 view .LVU81
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 10
+
+
  366 009c 03F57F53 		add	r3, r3, #16320
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 10
-
-
  367 00a0 3F33     		adds	r3, r3, #63
  368              		.loc 1 134 16 view .LVU82
  369 00a2 1BB2     		sxth	r3, r3
@@ -597,10 +598,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  407 00e4 67EE877A 		vmul.f32	s15, s15, s14
  408              	.LVL34:
  409              		.loc 1 147 17 view .LVU98
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 11
+
+
  410 00e8 17EE900A 		vmov	r0, s15
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 11
-
-
  411 00ec FFF7FEFF 		bl	__aeabi_f2d
  412              	.LVL35:
  413              		.loc 1 147 17 view .LVU99
@@ -657,10 +658,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  463 0152 3946     		mov	r1, r7
  464 0154 FFF7FEFF 		bl	__aeabi_dadd
  465              	.LVL45:
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 12
+
+
  466 0158 FFF7FEFF 		bl	__aeabi_d2f
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 12
-
-
  467              	.LVL46:
  468 015c 07EE900A 		vmov	s15, r0
  469              		.loc 1 148 8 view .LVU107
@@ -717,10 +718,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  513              	.LVL51:
  514              	.L30:
  129:Core/Src/main.c ****     d_encR_val = (b_encR_val + ((ENC_MAX -1)-encR_val));
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 13
+
+
  515              		.loc 1 129 8 view .LVU120
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 13
-
-
  129:Core/Src/main.c ****     d_encR_val = (b_encR_val + ((ENC_MAX -1)-encR_val));
  516              		.loc 1 129 10 is_stmt 0 view .LVU121
  517 0196 BAF5804F 		cmp	r10, #16384
@@ -777,10 +778,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  554 01ce 00BF     		.align	3
  555              	.L37:
  556 01d0 9A999999 		.word	-1717986918
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 14
+
+
  557 01d4 9999B93F 		.word	1069128089
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 14
-
-
  558 01d8 CDCCCCCC 		.word	-858993459
  559 01dc CCCCEC3F 		.word	1072483532
  560 01e0 00000000 		.word	.LANCHOR1
@@ -837,10 +838,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  602              		.loc 1 164 16 view .LVU142
  603 000c 154B     		ldr	r3, .L43+8
  604 000e 1980     		strh	r1, [r3]	@ movhi
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 15
+
+
  165:Core/Src/main.c ****     sensval[2] = adcval[2];
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 15
-
-
  605              		.loc 1 165 5 is_stmt 1 view .LVU143
  606              		.loc 1 165 24 is_stmt 0 view .LVU144
  607 0010 9288     		ldrh	r2, [r2, #4]
@@ -897,10 +898,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  643 003e D288     		ldrh	r2, [r2, #6]
  170:Core/Src/main.c ****     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,1);
  644              		.loc 1 170 16 view .LVU157
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 16
+
+
  645 0040 DA80     		strh	r2, [r3, #6]	@ movhi
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 16
-
-
  171:Core/Src/main.c ****     HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
  646              		.loc 1 171 5 is_stmt 1 view .LVU158
  647 0042 094C     		ldr	r4, .L43+12
@@ -957,10 +958,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  695 000a 0022     		movs	r2, #0
  696 000c 134B     		ldr	r3, .L47+20
  697 000e FFF7FEFF 		bl	__aeabi_dmul
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 17
+
+
  698              	.LVL61:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 17
-
-
  699              		.loc 1 179 14 view .LVU163
  700 0012 0DA3     		adr	r3, .L47
  701 0014 D3E90023 		ldrd	r2, [r3]
@@ -1017,10 +1018,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  183:Core/Src/main.c **** float deg = 0;
  184:Core/Src/main.c **** float angvel = 0,b_angvel = 0;
  185:Core/Src/main.c **** float r_yaw = 0,r_yaw_new = 0,r_yaw_ref = 0,r_b_yaw;
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 18
+
+
  186:Core/Src/main.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 18
-
-
  187:Core/Src/main.c **** void GetYawDeg(){
  750              		.loc 1 187 17 is_stmt 1 view -0
  751              		.cfi_startproc
@@ -1077,10 +1078,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  796 0040 0D46     		mov	r5, r1
  797              		.loc 1 193 40 view .LVU179
  798 0042 3846     		mov	r0, r7	@ float
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 19
+
+
  799 0044 FFF7FEFF 		bl	__aeabi_f2d
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 19
-
-
  800              	.LVL71:
  801 0048 23A3     		adr	r3, .L51+8
  802 004a D3E90023 		ldrd	r2, [r3]
@@ -1137,10 +1138,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  850 009c 3060     		str	r0, [r6]	@ float
  197:Core/Src/main.c **** 		
  198:Core/Src/main.c **** 	//ジャイロの値を角度に変換
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 20
+
+
  199:Core/Src/main.c **** 	deg += 2.0*r_yaw/32767.0;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 20
-
-
  851              		.loc 1 199 2 is_stmt 1 view .LVU190
  852              		.loc 1 199 12 is_stmt 0 view .LVU191
  853 009e 2246     		mov	r2, r4
@@ -1197,10 +1198,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  904              		.section	.text.ControlDuty,"ax",%progbits
  905              		.align	1
  906              		.global	ControlDuty
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 21
+
+
  907              		.syntax unified
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 21
-
-
  908              		.thumb
  909              		.thumb_func
  911              	ControlDuty:
@@ -1257,10 +1258,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  951 0006 00D0     		beq	.L57
  952              	.LVL88:
  953              	.L54:
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 22
+
+
  214:Core/Src/main.c ****     //1kHz
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 22
-
-
  215:Core/Src/main.c ****     GetWallSens();
  216:Core/Src/main.c ****     GetSpeed();
  217:Core/Src/main.c ****     GetYawDeg();
@@ -1317,10 +1318,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  994              		.loc 1 224 25 is_stmt 0 view .LVU212
  995 0000 70B5     		push	{r4, r5, r6, lr}
  996              	.LCFI13:
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 23
+
+
  997              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 23
-
-
  998              		.cfi_offset 4, -16
  999              		.cfi_offset 5, -12
  1000              		.cfi_offset 6, -8
@@ -1377,10 +1378,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1041              		.loc 1 226 23 is_stmt 1 discriminator 1 view .LVU227
  226:Core/Src/main.c ****     l_sig = ~l_sig;
  1042              		.loc 1 226 3 is_stmt 0 discriminator 1 view .LVU228
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 24
+
+
  1043 001e B442     		cmp	r4, r6
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 24
-
-
  1044 0020 F3D3     		bcc	.L62
  1045              	.LBE5:
  230:Core/Src/main.c ****   }
@@ -1437,10 +1438,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  237:Core/Src/main.c ****   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
  1090              		.loc 1 237 3 view .LVU236
  1091 0018 0A4D     		ldr	r5, .L67+8
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 25
+
+
  1092 001a 2246     		mov	r2, r4
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 25
-
-
  1093 001c 1021     		movs	r1, #16
  1094 001e 2846     		mov	r0, r5
  1095 0020 FFF7FEFF 		bl	HAL_GPIO_WritePin
@@ -1497,10 +1498,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1142              		.cfi_offset 4, -12
  1143              		.cfi_offset 5, -8
  1144              		.cfi_offset 14, -4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 26
+
+
  244:Core/Src/main.c ****   HAL_Delay(500);
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 26
-
-
  1145              		.loc 1 244 3 view .LVU243
  1146 0002 4FF4FA70 		mov	r0, #500
  1147 0006 FFF7FEFF 		bl	HAL_Delay
@@ -1557,10 +1558,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1185 0030 0021     		movs	r1, #0
  1186 0032 3548     		ldr	r0, .L80+8
  1187 0034 FFF7FEFF 		bl	AS5047P_Init
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 27
+
+
  1188              	.LVL116:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 27
-
-
  257:Core/Src/main.c ****     AS5047P_Init(&encR, 1);
  1189              		.loc 1 257 5 view .LVU257
  1190 0038 0121     		movs	r1, #1
@@ -1617,10 +1618,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1227              	.L73:
  1228              		.loc 1 265 8 is_stmt 1 view .LVU269
  1229              		.loc 1 265 9 is_stmt 0 view .LVU270
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 28
+
+
  1230 0068 FFF7FEFF 		bl	IMU_init
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 28
-
-
  1231              	.LVL124:
  1232              		.loc 1 265 8 view .LVU271
  1233 006c 50B9     		cbnz	r0, .L79
@@ -1677,10 +1678,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1273              	.LBB7:
  1274              		.loc 1 274 3 view .LVU288
  1275 008e 07E0     		b	.L75
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 29
+
+
  1276              	.LVL131:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 29
-
-
  1277              	.L76:
  275:Core/Src/main.c ****     read_gyro_data();
  1278              		.loc 1 275 5 is_stmt 1 discriminator 3 view .LVU289
@@ -1737,10 +1738,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1318 00c2 0421     		movs	r1, #4
  1319 00c4 2046     		mov	r0, r4
  1320 00c6 FFF7FEFF 		bl	HAL_TIM_PWM_Start
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 30
+
+
  1321              	.LVL138:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 30
-
-
  282:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
  1322              		.loc 1 282 3 is_stmt 1 view .LVU304
  1323 00ca 0821     		movs	r1, #8
@@ -1797,10 +1798,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1363 010c 00000000 		.word	.LANCHOR1
  1364 0110 00000000 		.word	.LANCHOR14
  1365 0114 00000000 		.word	zg
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 31
+
+
  1366 0118 D34D6210 		.word	274877907
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 31
-
-
  1367 011c 00000000 		.word	htim1
  1368 0120 00000000 		.word	htim2
  1369 0124 00000000 		.word	.LANCHOR0
@@ -1857,13 +1858,13 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  332:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
  333:Core/Src/main.c ****   init();
  334:Core/Src/main.c ****   /* USER CODE END 2 */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 32
+
+
  335:Core/Src/main.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 32
-
-
  336:Core/Src/main.c ****   /* Infinite loop */
  337:Core/Src/main.c ****   /* USER CODE BEGIN WHILE */
- 338:Core/Src/main.c ****   uint8_t mode = 7;
+ 338:Core/Src/main.c ****   uint8_t mode = 6;
  339:Core/Src/main.c ****   while (1)
  340:Core/Src/main.c ****   {
  341:Core/Src/main.c ****     /* USER CODE END WHILE */
@@ -1917,12 +1918,12 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  389:Core/Src/main.c ****           break;
  390:Core/Src/main.c ****         case 6:
  391:Core/Src/main.c ****           motpower=1;
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 33
+
+
  392:Core/Src/main.c ****           double cnt = 0;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 33
-
-
  393:Core/Src/main.c ****           while(1){
- 394:Core/Src/main.c ****             SetDutyRatio(1200*sin(cnt),1200*sin(cnt),0);
+ 394:Core/Src/main.c ****             SetDutyRatio(700*sin(cnt),700*sin(cnt),0);
  395:Core/Src/main.c ****             cnt+=PI/2000;
  396:Core/Src/main.c ****             HAL_Delay(1);
  397:Core/Src/main.c ****             if(cnt>2*PI) cnt = 0;
@@ -1977,10 +1978,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  446:Core/Src/main.c **** 
  447:Core/Src/main.c ****   /** Initializes the CPU, AHB and APB buses clocks
  448:Core/Src/main.c ****   */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 34
+
+
  449:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 34
-
-
  450:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
  451:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
  452:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
@@ -2037,10 +2038,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
   18:Drivers/CMSIS/Include/core_cm4.h ****  * Unless required by applicable law or agreed to in writing, software
   19:Drivers/CMSIS/Include/core_cm4.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
   20:Drivers/CMSIS/Include/core_cm4.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 35
+
+
   21:Drivers/CMSIS/Include/core_cm4.h ****  * See the License for the specific language governing permissions and
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 35
-
-
   22:Drivers/CMSIS/Include/core_cm4.h ****  * limitations under the License.
   23:Drivers/CMSIS/Include/core_cm4.h ****  */
   24:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2097,10 +2098,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
   75:Drivers/CMSIS/Include/core_cm4.h **** */
   76:Drivers/CMSIS/Include/core_cm4.h **** #if defined ( __CC_ARM )
   77:Drivers/CMSIS/Include/core_cm4.h ****   #if defined __TARGET_FPU_VFP
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 36
+
+
   78:Drivers/CMSIS/Include/core_cm4.h ****     #if defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 36
-
-
   79:Drivers/CMSIS/Include/core_cm4.h ****       #define __FPU_USED       1U
   80:Drivers/CMSIS/Include/core_cm4.h ****     #else
   81:Drivers/CMSIS/Include/core_cm4.h ****       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
@@ -2157,10 +2158,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  132:Drivers/CMSIS/Include/core_cm4.h ****   #else
  133:Drivers/CMSIS/Include/core_cm4.h ****     #define __FPU_USED         0U
  134:Drivers/CMSIS/Include/core_cm4.h ****   #endif
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 37
+
+
  135:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 37
-
-
  136:Drivers/CMSIS/Include/core_cm4.h **** #elif defined ( __TASKING__ )
  137:Drivers/CMSIS/Include/core_cm4.h ****   #if defined __FPU_VFP__
  138:Drivers/CMSIS/Include/core_cm4.h ****     #if defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)
@@ -2217,10 +2218,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  189:Drivers/CMSIS/Include/core_cm4.h ****     #warning "__FPU_PRESENT not defined in device header file; using default!"
  190:Drivers/CMSIS/Include/core_cm4.h ****   #endif
  191:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 38
+
+
  192:Drivers/CMSIS/Include/core_cm4.h ****   #ifndef __MPU_PRESENT
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 38
-
-
  193:Drivers/CMSIS/Include/core_cm4.h ****     #define __MPU_PRESENT             0U
  194:Drivers/CMSIS/Include/core_cm4.h ****     #warning "__MPU_PRESENT not defined in device header file; using default!"
  195:Drivers/CMSIS/Include/core_cm4.h ****   #endif
@@ -2277,10 +2278,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  246:Drivers/CMSIS/Include/core_cm4.h ****   \brief Type definitions and defines for Cortex-M processor based devices.
  247:Drivers/CMSIS/Include/core_cm4.h **** */
  248:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 39
+
+
  249:Drivers/CMSIS/Include/core_cm4.h **** /**
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 39
-
-
  250:Drivers/CMSIS/Include/core_cm4.h ****   \ingroup    CMSIS_core_register
  251:Drivers/CMSIS/Include/core_cm4.h ****   \defgroup   CMSIS_CORE  Status and Control Registers
  252:Drivers/CMSIS/Include/core_cm4.h ****   \brief      Core Register type definitions.
@@ -2337,10 +2338,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  303:Drivers/CMSIS/Include/core_cm4.h ****     uint32_t _reserved0:23;              /*!< bit:  9..31  Reserved */
  304:Drivers/CMSIS/Include/core_cm4.h ****   } b;                                   /*!< Structure used for bit  access */
  305:Drivers/CMSIS/Include/core_cm4.h ****   uint32_t w;                            /*!< Type      used for word access */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 40
+
+
  306:Drivers/CMSIS/Include/core_cm4.h **** } IPSR_Type;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 40
-
-
  307:Drivers/CMSIS/Include/core_cm4.h **** 
  308:Drivers/CMSIS/Include/core_cm4.h **** /* IPSR Register Definitions */
  309:Drivers/CMSIS/Include/core_cm4.h **** #define IPSR_ISR_Pos                        0U                                            /*!< IPSR
@@ -2397,10 +2398,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  360:Drivers/CMSIS/Include/core_cm4.h **** 
  361:Drivers/CMSIS/Include/core_cm4.h **** #define xPSR_ICI_IT_1_Pos                  10U                                            /*!< xPSR
  362:Drivers/CMSIS/Include/core_cm4.h **** #define xPSR_ICI_IT_1_Msk                  (0x3FUL << xPSR_ICI_IT_1_Pos)                  /*!< xPSR
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 41
+
+
  363:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 41
-
-
  364:Drivers/CMSIS/Include/core_cm4.h **** #define xPSR_ISR_Pos                        0U                                            /*!< xPSR
  365:Drivers/CMSIS/Include/core_cm4.h **** #define xPSR_ISR_Msk                       (0x1FFUL /*<< xPSR_ISR_Pos*/)                  /*!< xPSR
  366:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2457,10 +2458,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  417:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED4[56U];
  418:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint8_t  IP[240U];               /*!< Offset: 0x300 (R/W)  Interrupt Priority Register (8Bi
  419:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED5[644U];
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 42
+
+
  420:Drivers/CMSIS/Include/core_cm4.h ****   __OM  uint32_t STIR;                   /*!< Offset: 0xE00 ( /W)  Software Trigger Interrupt Regis
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 42
-
-
  421:Drivers/CMSIS/Include/core_cm4.h **** }  NVIC_Type;
  422:Drivers/CMSIS/Include/core_cm4.h **** 
  423:Drivers/CMSIS/Include/core_cm4.h **** /* Software Triggered Interrupt Register Definitions */
@@ -2517,10 +2518,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  474:Drivers/CMSIS/Include/core_cm4.h **** 
  475:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CPUID_PARTNO_Pos                4U                                            /*!< SCB 
  476:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CPUID_PARTNO_Msk               (0xFFFUL << SCB_CPUID_PARTNO_Pos)              /*!< SCB 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 43
+
+
  477:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 43
-
-
  478:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CPUID_REVISION_Pos              0U                                            /*!< SCB 
  479:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CPUID_REVISION_Msk             (0xFUL /*<< SCB_CPUID_REVISION_Pos*/)          /*!< SCB 
  480:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2577,10 +2578,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  531:Drivers/CMSIS/Include/core_cm4.h **** 
  532:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_AIRCR_VECTCLRACTIVE_Pos         1U                                            /*!< SCB 
  533:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_AIRCR_VECTCLRACTIVE_Msk        (1UL << SCB_AIRCR_VECTCLRACTIVE_Pos)           /*!< SCB 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 44
+
+
  534:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 44
-
-
  535:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_AIRCR_VECTRESET_Pos             0U                                            /*!< SCB 
  536:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_AIRCR_VECTRESET_Msk            (1UL /*<< SCB_AIRCR_VECTRESET_Pos*/)           /*!< SCB 
  537:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2637,10 +2638,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  588:Drivers/CMSIS/Include/core_cm4.h **** 
  589:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_SYSTICKACT_Pos           11U                                            /*!< SCB 
  590:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_SYSTICKACT_Msk           (1UL << SCB_SHCSR_SYSTICKACT_Pos)              /*!< SCB 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 45
+
+
  591:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 45
-
-
  592:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_PENDSVACT_Pos            10U                                            /*!< SCB 
  593:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_PENDSVACT_Msk            (1UL << SCB_SHCSR_PENDSVACT_Pos)               /*!< SCB 
  594:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2697,10 +2698,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  645:Drivers/CMSIS/Include/core_cm4.h **** 
  646:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_STKERR_Pos               (SCB_CFSR_BUSFAULTSR_Pos + 4U)                  /*!< SCB 
  647:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_STKERR_Msk               (1UL << SCB_CFSR_STKERR_Pos)                    /*!< SCB 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 46
+
+
  648:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 46
-
-
  649:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_UNSTKERR_Pos             (SCB_CFSR_BUSFAULTSR_Pos + 3U)                  /*!< SCB 
  650:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_UNSTKERR_Msk             (1UL << SCB_CFSR_UNSTKERR_Pos)                  /*!< SCB 
  651:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2757,10 +2758,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  702:Drivers/CMSIS/Include/core_cm4.h **** 
  703:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_DFSR_HALTED_Pos                 0U                                            /*!< SCB 
  704:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_DFSR_HALTED_Msk                (1UL /*<< SCB_DFSR_HALTED_Pos*/)               /*!< SCB 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 47
+
+
  705:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 47
-
-
  706:Drivers/CMSIS/Include/core_cm4.h **** /*@} end of group CMSIS_SCB */
  707:Drivers/CMSIS/Include/core_cm4.h **** 
  708:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2817,10 +2818,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  759:Drivers/CMSIS/Include/core_cm4.h **** typedef struct
  760:Drivers/CMSIS/Include/core_cm4.h **** {
  761:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t CTRL;                   /*!< Offset: 0x000 (R/W)  SysTick Control and Status Regis
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 48
+
+
  762:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t LOAD;                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 48
-
-
  763:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t VAL;                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register *
  764:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t CALIB;                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
  765:Drivers/CMSIS/Include/core_cm4.h **** } SysTick_Type;
@@ -2877,10 +2878,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  816:Drivers/CMSIS/Include/core_cm4.h ****     __OM  uint16_t   u16;                /*!< Offset: 0x000 ( /W)  ITM Stimulus Port 16-bit */
  817:Drivers/CMSIS/Include/core_cm4.h ****     __OM  uint32_t   u32;                /*!< Offset: 0x000 ( /W)  ITM Stimulus Port 32-bit */
  818:Drivers/CMSIS/Include/core_cm4.h ****   }  PORT [32U];                         /*!< Offset: 0x000 ( /W)  ITM Stimulus Port Registers */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 49
+
+
  819:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED0[864U];
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 49
-
-
  820:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t TER;                    /*!< Offset: 0xE00 (R/W)  ITM Trace Enable Register */
  821:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED1[15U];
  822:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t TPR;                    /*!< Offset: 0xE40 (R/W)  ITM Trace Privilege Register */
@@ -2937,10 +2938,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  873:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_TCR_TSENA_Pos                   1U                                            /*!< ITM 
  874:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_TCR_TSENA_Msk                  (1UL << ITM_TCR_TSENA_Pos)                     /*!< ITM 
  875:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 50
+
+
  876:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_TCR_ITMENA_Pos                  0U                                            /*!< ITM 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 50
-
-
  877:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_TCR_ITMENA_Msk                 (1UL /*<< ITM_TCR_ITMENA_Pos*/)                /*!< ITM 
  878:Drivers/CMSIS/Include/core_cm4.h **** 
  879:Drivers/CMSIS/Include/core_cm4.h **** /* ITM Integration Write Register Definitions */
@@ -2997,10 +2998,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  930:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t FUNCTION1;              /*!< Offset: 0x038 (R/W)  Function Register 1 */
  931:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED1[1U];
  932:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t COMP2;                  /*!< Offset: 0x040 (R/W)  Comparator Register 2 */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 51
+
+
  933:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t MASK2;                  /*!< Offset: 0x044 (R/W)  Mask Register 2 */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 51
-
-
  934:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t FUNCTION2;              /*!< Offset: 0x048 (R/W)  Function Register 2 */
  935:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED2[1U];
  936:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t COMP3;                  /*!< Offset: 0x050 (R/W)  Comparator Register 3 */
@@ -3057,10 +3058,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  987:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_POSTINIT_Pos               5U                                         /*!< DWT CTR
  988:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_POSTINIT_Msk              (0xFUL << DWT_CTRL_POSTINIT_Pos)            /*!< DWT CTR
  989:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 52
+
+
  990:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_POSTPRESET_Pos             1U                                         /*!< DWT CTR
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 52
-
-
  991:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_POSTPRESET_Msk            (0xFUL << DWT_CTRL_POSTPRESET_Pos)          /*!< DWT CTR
  992:Drivers/CMSIS/Include/core_cm4.h **** 
  993:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_CYCCNTENA_Pos              0U                                         /*!< DWT CTR
@@ -3117,10 +3118,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1044:Drivers/CMSIS/Include/core_cm4.h **** 
 1045:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_FUNCTION_FUNCTION_Pos           0U                                         /*!< DWT FUN
 1046:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_FUNCTION_FUNCTION_Msk          (0xFUL /*<< DWT_FUNCTION_FUNCTION_Pos*/)    /*!< DWT FUN
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 53
+
+
 1047:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 53
-
-
 1048:Drivers/CMSIS/Include/core_cm4.h **** /*@}*/ /* end of group CMSIS_DWT */
 1049:Drivers/CMSIS/Include/core_cm4.h **** 
 1050:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -3177,10 +3178,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1101:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FFSR_TCPresent_Pos              2U                                         /*!< TPI FFS
 1102:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FFSR_TCPresent_Msk             (0x1UL << TPI_FFSR_TCPresent_Pos)           /*!< TPI FFS
 1103:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 54
+
+
 1104:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FFSR_FtStopped_Pos              1U                                         /*!< TPI FFS
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 54
-
-
 1105:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FFSR_FtStopped_Msk             (0x1UL << TPI_FFSR_FtStopped_Pos)           /*!< TPI FFS
 1106:Drivers/CMSIS/Include/core_cm4.h **** 
 1107:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FFSR_FlInProg_Pos               0U                                         /*!< TPI FFS
@@ -3237,10 +3238,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1158:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ETM_ATVALID_Msk          (0x3UL << TPI_FIFO1_ETM_ATVALID_Pos)        /*!< TPI FIF
 1159:Drivers/CMSIS/Include/core_cm4.h **** 
 1160:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ETM_bytecount_Pos        24U                                         /*!< TPI FIF
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 55
+
+
 1161:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ETM_bytecount_Msk        (0x3UL << TPI_FIFO1_ETM_bytecount_Pos)      /*!< TPI FIF
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 55
-
-
 1162:Drivers/CMSIS/Include/core_cm4.h **** 
 1163:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ITM2_Pos                 16U                                         /*!< TPI FIF
 1164:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO1_ITM2_Msk                 (0xFFUL << TPI_FIFO1_ITM2_Pos)              /*!< TPI FIF
@@ -3297,10 +3298,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1215:Drivers/CMSIS/Include/core_cm4.h ****   \defgroup CMSIS_MPU     Memory Protection Unit (MPU)
 1216:Drivers/CMSIS/Include/core_cm4.h ****   \brief    Type definitions for the Memory Protection Unit (MPU)
 1217:Drivers/CMSIS/Include/core_cm4.h ****   @{
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 56
+
+
 1218:Drivers/CMSIS/Include/core_cm4.h ****  */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 56
-
-
 1219:Drivers/CMSIS/Include/core_cm4.h **** 
 1220:Drivers/CMSIS/Include/core_cm4.h **** /**
 1221:Drivers/CMSIS/Include/core_cm4.h ****   \brief  Structure type to access the Memory Protection Unit (MPU).
@@ -3357,10 +3358,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1272:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RBAR_REGION_Msk                (0xFUL /*<< MPU_RBAR_REGION_Pos*/)             /*!< MPU 
 1273:Drivers/CMSIS/Include/core_cm4.h **** 
 1274:Drivers/CMSIS/Include/core_cm4.h **** /* MPU Region Attribute and Size Register Definitions */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 57
+
+
 1275:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_ATTRS_Pos                 16U                                            /*!< MPU 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 57
-
-
 1276:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_ATTRS_Msk                 (0xFFFFUL << MPU_RASR_ATTRS_Pos)               /*!< MPU 
 1277:Drivers/CMSIS/Include/core_cm4.h **** 
 1278:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_XN_Pos                    28U                                            /*!< MPU 
@@ -3417,10 +3418,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1329:Drivers/CMSIS/Include/core_cm4.h **** /* Floating-Point Context Control Register Definitions */
 1330:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_ASPEN_Pos                31U                                            /*!< FPCC
 1331:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_ASPEN_Msk                (1UL << FPU_FPCCR_ASPEN_Pos)                   /*!< FPCC
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 58
+
+
 1332:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 58
-
-
 1333:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_LSPEN_Pos                30U                                            /*!< FPCC
 1334:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_LSPEN_Msk                (1UL << FPU_FPCCR_LSPEN_Pos)                   /*!< FPCC
 1335:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -3477,10 +3478,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1386:Drivers/CMSIS/Include/core_cm4.h **** 
 1387:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR0_FP_excep_trapping_Pos    12U                                            /*!< MVFR
 1388:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR0_FP_excep_trapping_Msk    (0xFUL << FPU_MVFR0_FP_excep_trapping_Pos)     /*!< MVFR
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 59
+
+
 1389:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 59
-
-
 1390:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR0_Double_precision_Pos      8U                                            /*!< MVFR
 1391:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR0_Double_precision_Msk     (0xFUL << FPU_MVFR0_Double_precision_Pos)      /*!< MVFR
 1392:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -3537,10 +3538,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1443:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_LOCKUP_Pos       19U                                            /*!< Core
 1444:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_LOCKUP_Msk       (1UL << CoreDebug_DHCSR_S_LOCKUP_Pos)          /*!< Core
 1445:Drivers/CMSIS/Include/core_cm4.h **** 
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 60
+
+
 1446:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_SLEEP_Pos        18U                                            /*!< Core
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 60
-
-
 1447:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_SLEEP_Msk        (1UL << CoreDebug_DHCSR_S_SLEEP_Pos)           /*!< Core
 1448:Drivers/CMSIS/Include/core_cm4.h **** 
 1449:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_S_HALT_Pos         17U                                            /*!< Core
@@ -3597,10 +3598,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1500:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_BUSERR_Msk      (1UL << CoreDebug_DEMCR_VC_BUSERR_Pos)         /*!< Core
 1501:Drivers/CMSIS/Include/core_cm4.h **** 
 1502:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_STATERR_Pos      7U                                            /*!< Core
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 61
+
+
 1503:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_STATERR_Msk     (1UL << CoreDebug_DEMCR_VC_STATERR_Pos)        /*!< Core
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 61
-
-
 1504:Drivers/CMSIS/Include/core_cm4.h **** 
 1505:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_CHKERR_Pos       6U                                            /*!< Core
 1506:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DEMCR_VC_CHKERR_Msk      (1UL << CoreDebug_DEMCR_VC_CHKERR_Pos)         /*!< Core
@@ -3657,10 +3658,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1557:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_BASE            (0xE0040000UL)                            /*!< TPI Base Address */
 1558:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_BASE      (0xE000EDF0UL)                            /*!< Core Debug Base Address 
 1559:Drivers/CMSIS/Include/core_cm4.h **** #define SysTick_BASE        (SCS_BASE +  0x0010UL)                    /*!< SysTick Base Address */
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 62
+
+
 1560:Drivers/CMSIS/Include/core_cm4.h **** #define NVIC_BASE           (SCS_BASE +  0x0100UL)                    /*!< NVIC Base Address */
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 62
-
-
 1561:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_BASE            (SCS_BASE +  0x0D00UL)                    /*!< System Control Block Bas
 1562:Drivers/CMSIS/Include/core_cm4.h **** 
 1563:Drivers/CMSIS/Include/core_cm4.h **** #define SCnSCB              ((SCnSCB_Type    *)     SCS_BASE      )   /*!< System control Register 
@@ -3717,10 +3718,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1614:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_EnableIRQ              __NVIC_EnableIRQ
 1615:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_GetEnableIRQ           __NVIC_GetEnableIRQ
 1616:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_DisableIRQ             __NVIC_DisableIRQ
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 63
+
+
 1617:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_GetPendingIRQ          __NVIC_GetPendingIRQ
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 63
-
-
 1618:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_SetPendingIRQ          __NVIC_SetPendingIRQ
 1619:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_ClearPendingIRQ        __NVIC_ClearPendingIRQ
 1620:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_GetActive              __NVIC_GetActive
@@ -3777,10 +3778,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1671:Drivers/CMSIS/Include/core_cm4.h **** /**
 1672:Drivers/CMSIS/Include/core_cm4.h ****   \brief   Get Priority Grouping
 1673:Drivers/CMSIS/Include/core_cm4.h ****   \details Reads the priority grouping field from the NVIC Interrupt Controller.
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 64
+
+
 1674:Drivers/CMSIS/Include/core_cm4.h ****   \return                Priority grouping field (SCB->AIRCR [10:8] PRIGROUP field).
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 64
-
-
 1675:Drivers/CMSIS/Include/core_cm4.h ****  */
 1676:Drivers/CMSIS/Include/core_cm4.h **** __STATIC_INLINE uint32_t __NVIC_GetPriorityGrouping(void)
 1677:Drivers/CMSIS/Include/core_cm4.h **** {
@@ -3837,10 +3838,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1728:Drivers/CMSIS/Include/core_cm4.h ****     NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
 1729:Drivers/CMSIS/Include/core_cm4.h ****     __DSB();
 1730:Drivers/CMSIS/Include/core_cm4.h ****     __ISB();
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 65
+
+
 1731:Drivers/CMSIS/Include/core_cm4.h ****   }
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 65
-
-
 1732:Drivers/CMSIS/Include/core_cm4.h **** }
 1733:Drivers/CMSIS/Include/core_cm4.h **** 
 1734:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -3897,10 +3898,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1785:Drivers/CMSIS/Include/core_cm4.h **** 
 1786:Drivers/CMSIS/Include/core_cm4.h **** /**
 1787:Drivers/CMSIS/Include/core_cm4.h ****   \brief   Get Active Interrupt
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 66
+
+
 1788:Drivers/CMSIS/Include/core_cm4.h ****   \details Reads the active register in the NVIC and returns the active bit for the device specific
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 66
-
-
 1789:Drivers/CMSIS/Include/core_cm4.h ****   \param [in]      IRQn  Device specific interrupt number.
 1790:Drivers/CMSIS/Include/core_cm4.h ****   \return             0  Interrupt status is not active.
 1791:Drivers/CMSIS/Include/core_cm4.h ****   \return             1  Interrupt status is active.
@@ -3957,10 +3958,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1842:Drivers/CMSIS/Include/core_cm4.h ****   {
 1843:Drivers/CMSIS/Include/core_cm4.h ****     return(((uint32_t)NVIC->IP[((uint32_t)IRQn)]               >> (8U - __NVIC_PRIO_BITS)));
 1844:Drivers/CMSIS/Include/core_cm4.h ****   }
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 67
+
+
 1845:Drivers/CMSIS/Include/core_cm4.h ****   else
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 67
-
-
 1846:Drivers/CMSIS/Include/core_cm4.h ****   {
 1847:Drivers/CMSIS/Include/core_cm4.h ****     return(((uint32_t)SCB->SHP[(((uint32_t)IRQn) & 0xFUL)-4UL] >> (8U - __NVIC_PRIO_BITS)));
 1848:Drivers/CMSIS/Include/core_cm4.h ****   }
@@ -4017,10 +4018,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1899:Drivers/CMSIS/Include/core_cm4.h ****   *pPreemptPriority = (Priority >> SubPriorityBits) & (uint32_t)((1UL << (PreemptPriorityBits)) - 1
 1900:Drivers/CMSIS/Include/core_cm4.h ****   *pSubPriority     = (Priority                   ) & (uint32_t)((1UL << (SubPriorityBits    )) - 1
 1901:Drivers/CMSIS/Include/core_cm4.h **** }
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 68
+
+
 1902:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 68
-
-
 1903:Drivers/CMSIS/Include/core_cm4.h **** 
 1904:Drivers/CMSIS/Include/core_cm4.h **** /**
 1905:Drivers/CMSIS/Include/core_cm4.h ****   \brief   Set Interrupt Vector
@@ -4077,10 +4078,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 1956:Drivers/CMSIS/Include/core_cm4.h **** /* ##########################  MPU functions  #################################### */
 1957:Drivers/CMSIS/Include/core_cm4.h **** 
 1958:Drivers/CMSIS/Include/core_cm4.h **** #if defined (__MPU_PRESENT) && (__MPU_PRESENT == 1U)
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 69
+
+
 1959:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 69
-
-
 1960:Drivers/CMSIS/Include/core_cm4.h **** #include "mpu_armv7.h"
 1961:Drivers/CMSIS/Include/core_cm4.h **** 
 1962:Drivers/CMSIS/Include/core_cm4.h **** #endif
@@ -4137,10 +4138,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 2013:Drivers/CMSIS/Include/core_cm4.h ****   \details Initializes the System Timer and its interrupt, and starts the System Tick Timer.
 2014:Drivers/CMSIS/Include/core_cm4.h ****            Counter is in free running mode to generate periodic interrupts.
 2015:Drivers/CMSIS/Include/core_cm4.h ****   \param [in]  ticks  Number of ticks between two interrupts.
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 70
+
+
 2016:Drivers/CMSIS/Include/core_cm4.h ****   \return          0  Function succeeded.
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 70
-
-
 2017:Drivers/CMSIS/Include/core_cm4.h ****   \return          1  Function failed.
 2018:Drivers/CMSIS/Include/core_cm4.h ****   \note    When the variable <b>__Vendor_SysTickConfig</b> is set to 1, then the
 2019:Drivers/CMSIS/Include/core_cm4.h ****            function <b>SysTick_Config</b> is not included. In this case, the file <b><i>device</i>.
@@ -4197,10 +4198,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 2070:Drivers/CMSIS/Include/core_cm4.h ****     {
 2071:Drivers/CMSIS/Include/core_cm4.h ****       __NOP();
  1403              		.loc 2 2071 7 is_stmt 1 view .LVU319
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 71
+
+
  1404              		.syntax unified
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 71
-
-
  1405              	@ 2071 "Drivers/CMSIS/Include/core_cm4.h" 1
  1406 0008 00BF     		nop
  1407              	@ 0 "" 2
@@ -4257,10 +4258,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
 2066:Drivers/CMSIS/Include/core_cm4.h ****       ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
  1447              		.loc 2 2066 12 is_stmt 0 discriminator 3 view .LVU335
  1448 0026 4FF06043 		mov	r3, #-536870912
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 72
+
+
  1449 002a D3F8803E 		ldr	r3, [r3, #3712]
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 72
-
-
 2066:Drivers/CMSIS/Include/core_cm4.h ****       ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
  1450              		.loc 2 2066 6 discriminator 3 view .LVU336
  1451 002e 13F0010F 		tst	r3, #1
@@ -4317,10 +4318,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1487              	.LBB14:
  1488              	.LBI14:
  1489              		.file 3 "Drivers/CMSIS/Include/cmsis_gcc.h"
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 73
+
+
    1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 73
-
-
    2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
    3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
    4:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @version  V5.0.4
@@ -4377,10 +4378,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
   55:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __USED
   56:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
   57:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 74
+
+
   58:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __WEAK
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 74
-
-
   59:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
   60:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   61:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED
@@ -4437,10 +4438,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  112:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
  113:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __RESTRICT
  114:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 75
+
+
  115:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 75
-
-
  116:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  117:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  118:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
@@ -4497,10 +4498,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1513              		.thumb
  1514              		.thumb_func
  1516              	SystemClock_Config:
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 76
+
+
  1517              	.LFB264:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 76
-
-
  421:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
  1518              		.loc 1 421 1 view -0
  1519              		.cfi_startproc
@@ -4557,10 +4558,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1560              		.loc 1 427 3 view .LVU359
  428:Core/Src/main.c **** 
  1561              		.loc 1 428 3 view .LVU360
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 77
+
+
  1562              	.LBB17:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 77
-
-
  428:Core/Src/main.c **** 
  1563              		.loc 1 428 3 view .LVU361
  1564 0030 0193     		str	r3, [sp, #4]
@@ -4617,10 +4618,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1599              		.loc 1 438 30 is_stmt 0 view .LVU377
  1600 005e 6422     		movs	r2, #100
  1601 0060 1092     		str	r2, [sp, #64]
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 78
+
+
  439:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 78
-
-
  1602              		.loc 1 439 3 is_stmt 1 view .LVU378
  439:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
  1603              		.loc 1 439 30 is_stmt 0 view .LVU379
@@ -4677,10 +4678,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  456:Core/Src/main.c ****   {
  1637              		.loc 1 456 3 is_stmt 1 view .LVU397
  456:Core/Src/main.c ****   {
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 79
+
+
  1638              		.loc 1 456 7 is_stmt 0 view .LVU398
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 79
-
-
  1639 0084 0321     		movs	r1, #3
  1640 0086 02A8     		add	r0, sp, #8
  1641 0088 FFF7FEFF 		bl	HAL_RCC_ClockConfig
@@ -4737,10 +4738,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1682              		.align	2
  1683              	.LC4:
  1684 002c 25640D0A 		.ascii	"%d\015\012\000"
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 80
+
+
  1684      00
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 80
-
-
  1685              		.global	__aeabi_d2iz
  1686              		.section	.text.main,"ax",%progbits
  1687              		.align	1
@@ -4797,10 +4798,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  327:Core/Src/main.c ****   MX_USART6_UART_Init();
  1732              		.loc 1 327 3 view .LVU410
  1733 0020 FFF7FEFF 		bl	MX_SPI1_Init
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 81
+
+
  1734              	.LVL164:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 81
-
-
  328:Core/Src/main.c ****   MX_TIM1_Init();
  1735              		.loc 1 328 3 view .LVU411
  1736 0024 FFF7FEFF 		bl	MX_USART6_UART_Init
@@ -4825,7 +4826,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1750              		.loc 1 338 3 view .LVU416
  338:Core/Src/main.c ****   while (1)
  1751              		.loc 1 338 11 is_stmt 0 view .LVU417
- 1752 0038 0726     		movs	r6, #7
+ 1752 0038 0626     		movs	r6, #6
  1753 003a 07E0     		b	.L121
  1754              	.LVL170:
  1755              	.L128:
@@ -4857,10 +4858,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1774              		.loc 1 339 3 view .LVU424
  344:Core/Src/main.c ****       mode++;
  1775              		.loc 1 344 5 view .LVU425
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 82
+
+
  344:Core/Src/main.c ****       mode++;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 82
-
-
  1776              		.loc 1 344 12 is_stmt 0 view .LVU426
  1777 004c 784B     		ldr	r3, .L130+32
  1778 004e 1868     		ldr	r0, [r3]	@ float
@@ -4917,10 +4918,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1820 0095 4A       		.byte	(.L110-.L107)/2
  1821 0096 5C       		.byte	(.L109-.L107)/2
  1822 0097 81       		.byte	(.L108-.L107)/2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 83
+
+
  1823 0098 B0       		.byte	(.L106-.L107)/2
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 83
-
-
  1824 0099 00       		.p2align 1
  1825              	.L129:
  348:Core/Src/main.c ****       Blink(5);
@@ -4977,10 +4978,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1869              	.L112:
  357:Core/Src/main.c ****         case 2:
  1870              		.loc 1 357 11 view .LVU444
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 84
+
+
  359:Core/Src/main.c ****           HAL_Delay(500);
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 84
-
-
  1871              		.loc 1 359 11 view .LVU445
  1872 00dc 0020     		movs	r0, #0
  1873 00de FFF7FEFF 		bl	SetLED
@@ -5037,10 +5038,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  369:Core/Src/main.c ****           tgt_deg = 0.0;
  1911              		.loc 1 369 20 is_stmt 0 view .LVU459
  1912 0114 4B4B     		ldr	r3, .L130+52
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 85
+
+
  1913 0116 0122     		movs	r2, #1
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 85
-
-
  1914 0118 1A70     		strb	r2, [r3]
  370:Core/Src/main.c ****           tgt_spd = 0;
  1915              		.loc 1 370 11 is_stmt 1 view .LVU460
@@ -5097,10 +5098,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1954              		.loc 1 380 11 view .LVU472
  1955 014a 0020     		movs	r0, #0
  1956 014c FFF7FEFF 		bl	SetLED
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 86
+
+
  1957              	.LVL193:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 86
-
-
  381:Core/Src/main.c ****           for(int i = 0;i<100;i++){
  1958              		.loc 1 381 11 view .LVU473
  382:Core/Src/main.c ****             avr_vbat += vbat;
@@ -5157,10 +5158,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  1996 0172 C8EE277A 		vdiv.f32	s15, s16, s15
  1997              	.LVL199:
  387:Core/Src/main.c ****           printf("%d\r\n",adcval[4]);
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 87
+
+
  1998              		.loc 1 387 11 is_stmt 0 view .LVU488
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 87
-
-
  1999 0176 17EE900A 		vmov	r0, s15
  2000 017a FFF7FEFF 		bl	__aeabi_f2d
  2001              	.LVL200:
@@ -5209,21 +5210,21 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  2035 01a2 0025     		movs	r5, #0
  2036              	.L117:
  2037              	.LVL207:
- 393:Core/Src/main.c ****             SetDutyRatio(1200*sin(cnt),1200*sin(cnt),0);
+ 393:Core/Src/main.c ****             SetDutyRatio(700*sin(cnt),700*sin(cnt),0);
  2038              		.loc 1 393 11 is_stmt 1 view .LVU498
  394:Core/Src/main.c ****             cnt+=PI/2000;
  2039              		.loc 1 394 13 view .LVU499
  394:Core/Src/main.c ****             cnt+=PI/2000;
- 2040              		.loc 1 394 31 is_stmt 0 view .LVU500
+ 2040              		.loc 1 394 30 is_stmt 0 view .LVU500
  2041 01a4 45EC104B 		vmov	d0, r4, r5
  2042 01a8 FFF7FEFF 		bl	sin
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 88
+
+
  2043              	.LVL208:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 88
-
-
  2044 01ac 51EC100B 		vmov	r0, r1, d0
  394:Core/Src/main.c ****             cnt+=PI/2000;
- 2045              		.loc 1 394 30 view .LVU501
+ 2045              		.loc 1 394 29 view .LVU501
  2046 01b0 0022     		movs	r2, #0
  2047 01b2 324B     		ldr	r3, .L130+108
  2048 01b4 FFF7FEFF 		bl	__aeabi_dmul
@@ -5277,10 +5278,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  2088              		.loc 1 399 11 is_stmt 1 view .LVU509
  401:Core/Src/main.c ****           while(1){
  2089              		.loc 1 401 11 view .LVU510
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 89
+
+
  401:Core/Src/main.c ****           while(1){
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 89
-
-
  2090              		.loc 1 401 20 is_stmt 0 view .LVU511
  2091 01f2 144B     		ldr	r3, .L130+52
  2092 01f4 0122     		movs	r2, #1
@@ -5336,11 +5337,11 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  2136 0270 24000000 		.word	.LC3
  2137 0274 00000000 		.word	.LANCHOR11
  2138 0278 2C000000 		.word	.LC4
- 2139 027c 00C09240 		.word	1083359232
+ 2139 027c 00E08540 		.word	1082515456
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 90
+
+
  2140              	.LBE18:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 90
-
-
  2141              		.cfi_endproc
  2142              	.LFE263:
  2144              		.global	tgt_deg
@@ -5397,10 +5398,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  2203              		.section	.bss.b_spdL,"aw",%nobits
  2204              		.align	2
  2205              		.set	.LANCHOR8,. + 0
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 91
+
+
  2208              	b_spdL:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 91
-
-
  2209 0000 00000000 		.space	4
  2210              		.section	.bss.b_spdR,"aw",%nobits
  2211              		.align	2
@@ -5457,10 +5458,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  2273              		.set	.LANCHOR14,. + 0
  2276              	r_yaw_ref:
  2277 0000 00000000 		.space	4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 92
+
+
  2278              		.section	.bss.senstype,"aw",%nobits
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 92
-
-
  2279              		.set	.LANCHOR10,. + 0
  2282              	senstype:
  2283 0000 00       		.space	1
@@ -5517,10 +5518,10 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  2347              		.file 16 "Core/Inc/ICM_20648.h"
  2348              		.file 17 "Core/Inc/as5047p.h"
  2349              		.file 18 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 93
+
+
  2350              		.file 19 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\stdio.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 93
-
-
  2351              		.file 20 "Core/Inc/gpio.h"
  2352              		.file 21 "Core/Inc/dma.h"
  2353              		.file 22 "Core/Inc/spi.h"
@@ -5528,108 +5529,108 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 1
  2355              		.file 24 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
  2356              		.file 25 "<built-in>"
  2357              		.file 26 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\math.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 94
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 94
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:20     .text.SetLED:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:26     .text.SetLED:00000000 SetLED
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:74     .text.SetLED:00000044 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:79     .text.SetDutyRatio:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:85     .text.SetDutyRatio:00000000 SetDutyRatio
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:232    .text.SetDutyRatio:00000090 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:243    .text.GetSpeed:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:249    .text.GetSpeed:00000000 GetSpeed
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:556    .text.GetSpeed:000001d0 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:575    .text.GetWallSens:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:581    .text.GetWallSens:00000000 GetWallSens
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:663    .text.GetWallSens:0000005c $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:672    .text.GetBattVoltage:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:678    .text.GetBattVoltage:00000000 GetBattVoltage
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:730    .text.GetBattVoltage:00000048 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:742    .text.GetYawDeg:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:748    .text.GetYawDeg:00000000 GetYawDeg
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:883    .text.GetYawDeg:000000d0 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:905    .text.ControlDuty:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:911    .text.ControlDuty:00000000 ControlDuty
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:928    .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:934    .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:976    .text.HAL_TIM_PeriodElapsedCallback:0000001c $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:981    .text.Blink:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:987    .text.Blink:00000000 Blink
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1053   .rodata.DoPanic.str1.4:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1057   .text.DoPanic:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1063   .text.DoPanic:00000000 DoPanic
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1118   .text.DoPanic:0000003c $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1126   .text.init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1132   .text.init:00000000 init
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1360   .text.init:00000100 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1375   .text._write:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1381   .text._write:00000000 _write
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1472   .text.Error_Handler:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1478   .text.Error_Handler:00000000 Error_Handler
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1510   .text.SystemClock_Config:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1516   .text.SystemClock_Config:00000000 SystemClock_Config
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1665   .text.SystemClock_Config:0000009c $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1673   .rodata.main.str1.4:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1687   .text.main:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1693   .text.main:00000000 main
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1817   .text.main:00000092 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2112   .text.main:00000210 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2317   .bss.tgt_deg:00000000 tgt_deg
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2324   .bss.tgt_spd:00000000 tgt_spd
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2255   .bss.r_b_yaw:00000000 r_b_yaw
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2276   .bss.r_yaw_ref:00000000 r_yaw_ref
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2269   .bss.r_yaw_new:00000000 r_yaw_new
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2262   .bss.r_yaw:00000000 r_yaw
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2187   .bss.b_angvel:00000000 b_angvel
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2180   .bss.angvel:00000000 angvel
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2222   .bss.deg:00000000 deg
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2331   .bss.vbat:00000000 vbat
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2248   .bss.offval:00000000 offval
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 95
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:20     .text.SetLED:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:26     .text.SetLED:00000000 SetLED
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:74     .text.SetLED:00000044 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:79     .text.SetDutyRatio:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:85     .text.SetDutyRatio:00000000 SetDutyRatio
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:232    .text.SetDutyRatio:00000090 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:243    .text.GetSpeed:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:249    .text.GetSpeed:00000000 GetSpeed
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:556    .text.GetSpeed:000001d0 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:575    .text.GetWallSens:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:581    .text.GetWallSens:00000000 GetWallSens
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:663    .text.GetWallSens:0000005c $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:672    .text.GetBattVoltage:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:678    .text.GetBattVoltage:00000000 GetBattVoltage
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:730    .text.GetBattVoltage:00000048 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:742    .text.GetYawDeg:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:748    .text.GetYawDeg:00000000 GetYawDeg
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:883    .text.GetYawDeg:000000d0 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:905    .text.ControlDuty:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:911    .text.ControlDuty:00000000 ControlDuty
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:928    .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:934    .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:976    .text.HAL_TIM_PeriodElapsedCallback:0000001c $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:981    .text.Blink:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:987    .text.Blink:00000000 Blink
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1053   .rodata.DoPanic.str1.4:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1057   .text.DoPanic:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1063   .text.DoPanic:00000000 DoPanic
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1118   .text.DoPanic:0000003c $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1126   .text.init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1132   .text.init:00000000 init
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1360   .text.init:00000100 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1375   .text._write:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1381   .text._write:00000000 _write
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1472   .text.Error_Handler:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1478   .text.Error_Handler:00000000 Error_Handler
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1510   .text.SystemClock_Config:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1516   .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1665   .text.SystemClock_Config:0000009c $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1673   .rodata.main.str1.4:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1687   .text.main:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1693   .text.main:00000000 main
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1817   .text.main:00000092 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2112   .text.main:00000210 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2317   .bss.tgt_deg:00000000 tgt_deg
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2324   .bss.tgt_spd:00000000 tgt_spd
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2255   .bss.r_b_yaw:00000000 r_b_yaw
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2276   .bss.r_yaw_ref:00000000 r_yaw_ref
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2269   .bss.r_yaw_new:00000000 r_yaw_new
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2262   .bss.r_yaw:00000000 r_yaw
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2187   .bss.b_angvel:00000000 b_angvel
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2180   .bss.angvel:00000000 angvel
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2222   .bss.deg:00000000 deg
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2331   .bss.vbat:00000000 vbat
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2248   .bss.offval:00000000 offval
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 95
 
 
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2289   .bss.sensval:00000000 sensval
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2173   .bss.adcval:00000000 adcval
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2282   .bss.senstype:00000000 senstype
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2208   .bss.b_spdL:00000000 b_spdL
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2215   .bss.b_spdR:00000000 b_spdR
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2303   .bss.spdL:00000000 spdL
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2310   .bss.spdR:00000000 spdR
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2194   .bss.b_encL_val:00000000 b_encL_val
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2201   .bss.b_encR_val:00000000 b_encR_val
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2296   .bss.spd:00000000 spd
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2229   .bss.encL:00000000 encL
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2236   .bss.encR:00000000 encR
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2242   .bss.motpower:00000000 motpower
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2169   .bss.adcval:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2176   .bss.angvel:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2183   .bss.b_angvel:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2190   .bss.b_encL_val:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2197   .bss.b_encR_val:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2204   .bss.b_spdL:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2211   .bss.b_spdR:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2218   .bss.deg:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2225   .bss.encL:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2232   .bss.encR:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2243   .bss.motpower:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2245   .bss.offval:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2251   .bss.r_b_yaw:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2258   .bss.r_yaw:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2265   .bss.r_yaw_new:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2272   .bss.r_yaw_ref:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2283   .bss.senstype:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2285   .bss.sensval:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2292   .bss.spd:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2299   .bss.spdL:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2306   .bss.spdR:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2313   .bss.tgt_deg:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2320   .bss.tgt_spd:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:2327   .bss.vbat:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1824   .text.main:00000099 $d
-C:\Users\neko2\AppData\Local\Temp\ccGhROub.s:1824   .text.main:0000009a $t
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2289   .bss.sensval:00000000 sensval
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2173   .bss.adcval:00000000 adcval
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2282   .bss.senstype:00000000 senstype
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2208   .bss.b_spdL:00000000 b_spdL
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2215   .bss.b_spdR:00000000 b_spdR
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2303   .bss.spdL:00000000 spdL
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2310   .bss.spdR:00000000 spdR
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2194   .bss.b_encL_val:00000000 b_encL_val
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2201   .bss.b_encR_val:00000000 b_encR_val
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2296   .bss.spd:00000000 spd
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2229   .bss.encL:00000000 encL
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2236   .bss.encR:00000000 encR
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2242   .bss.motpower:00000000 motpower
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2169   .bss.adcval:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2176   .bss.angvel:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2183   .bss.b_angvel:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2190   .bss.b_encL_val:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2197   .bss.b_encR_val:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2204   .bss.b_spdL:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2211   .bss.b_spdR:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2218   .bss.deg:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2225   .bss.encL:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2232   .bss.encR:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2243   .bss.motpower:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2245   .bss.offval:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2251   .bss.r_b_yaw:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2258   .bss.r_yaw:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2265   .bss.r_yaw_new:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2272   .bss.r_yaw_ref:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2283   .bss.senstype:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2285   .bss.sensval:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2292   .bss.spd:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2299   .bss.spdL:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2306   .bss.spdR:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2313   .bss.tgt_deg:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2320   .bss.tgt_spd:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:2327   .bss.vbat:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1824   .text.main:00000099 $d
+C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s:1824   .text.main:0000009a $t
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin
@@ -5648,7 +5649,7 @@ read_gyro_data
 zg
 htim6
 HAL_Delay
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccGhROub.s 			page 96
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccwSx5je.s 			page 96
 
 
 HAL_TIM_Base_Stop_IT

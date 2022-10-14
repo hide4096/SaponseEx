@@ -77,13 +77,13 @@ void   SetDutyRatio(int16_t motL,int16_t motR,int16_t motF){
   if(motpower){
     if(motR > 0){
       if(motR > MTPERIOD) motR = MTPERIOD;
-     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
-     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
+     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);
     }else{
       motR*=-1;
       if(motR > MTPERIOD) motR = MTPERIOD;
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
     }
 
     if(motL > 0){
@@ -335,7 +335,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t mode = 7;
+  uint8_t mode = 6;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -391,7 +391,7 @@ int main(void)
           motpower=1;
           double cnt = 0;
           while(1){
-            SetDutyRatio(1200*sin(cnt),1200*sin(cnt),0);
+            SetDutyRatio(700*sin(cnt),700*sin(cnt),0);
             cnt+=PI/2000;
             HAL_Delay(1);
             if(cnt>2*PI) cnt = 0;
