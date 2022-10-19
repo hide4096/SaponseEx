@@ -31,7 +31,7 @@
 #include<stdlib.h>
 #include<math.h>
 #include"param.h"
-#include"ICM_20648.h"
+#include"icm20648.h"
 #include"as5047p.h"
 #define ARM_MATH_CM4
 #include"arm_math.h"
@@ -77,28 +77,28 @@ void   SetDutyRatio(int16_t motL,int16_t motR,int16_t motF){
   if(motpower){
     if(motR > 0){
       if(motR > MTPERIOD) motR = MTPERIOD;
-     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);
+     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
     }else{
       motR*=-1;
       if(motR > MTPERIOD) motR = MTPERIOD;
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
     }
 
     if(motL > 0){
       if(motL > MTPERIOD) motL = MTPERIOD;
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
     }else{
       motL*=-1;
       if(motL > MTPERIOD) motL = MTPERIOD;
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
     }
 
     if(motF > MTPERIOD) motF = MTPERIOD;
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,motF);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2000);
   }
 }
 
@@ -111,29 +111,22 @@ int16_t b_encR_val=0,b_encL_val=0;
 float spdR = 0,spdL=0;
 float b_spdR = 0,b_spdL=0;
 void GetSpeed(){
-  //エンコー�?から値取る
   int16_t encR_val,encL_val;
   encR_val = AS5047P_ReadPosition(&encR, AS5047P_OPT_ENABLED);
   encL_val = AS5047P_ReadPosition(&encL, AS5047P_OPT_ENABLED);
 	if(AS5047P_ErrorPending(&encR)) AS5047P_ErrorAck(&encR);
 	if(AS5047P_ErrorPending(&encL)) AS5047P_ErrorAck(&encL);
-
-  //差�?取る
   int16_t d_encR_val = encR_val - b_encR_val;
   int16_t d_encL_val = b_encL_val -  encL_val;
-  //16383�?0
   if((d_encR_val > ENC_HALF || d_encR_val < -ENC_HALF) && b_encR_val > ENC_HALF){
     d_encR_val = ((ENC_MAX - 1) - b_encR_val) + encR_val;
   }
-  //0�?16383
   else if((d_encR_val > ENC_HALF || d_encR_val < -ENC_HALF) && b_encR_val <= ENC_HALF){
     d_encR_val = (b_encR_val + ((ENC_MAX -1)-encR_val));
   }
-  //16383�?0
   if((d_encL_val > ENC_HALF || d_encL_val < -ENC_HALF) && b_encL_val > ENC_HALF){
     d_encL_val = ((ENC_MAX - 1) - b_encL_val) + encL_val;
   }
-  //0�?16383
   else if((d_encL_val > ENC_HALF || d_encL_val < -ENC_HALF) && b_encL_val <= ENC_HALF){
     d_encL_val = (b_encL_val + ((ENC_MAX -1)-encL_val));
   }
@@ -143,7 +136,6 @@ void GetSpeed(){
   b_spdR = spdR;
   b_spdL = spdL;
 
-  //ローパスフィルタ?��係数はRTのパクリ?�?
   spdR = n_spdR * ENCLPF + b_spdR * (1.0 - ENCLPF);
   spdL = n_spdL * ENCLPF + b_spdL * (1.0 - ENCLPF);
 
@@ -174,7 +166,7 @@ void GetWallSens(){
     senstype = 1-senstype;
 }
 
-float vbat = 0; //バッ�?リ電圧[v]
+float vbat = 0;
 void GetBattVoltage(){
   vbat = 3.3 * (adcval[4] / 4096.0) * 2;
   vbat += VBATREF;
@@ -185,17 +177,11 @@ float angvel = 0,b_angvel = 0;
 float r_yaw = 0,r_yaw_new = 0,r_yaw_ref = 0,r_b_yaw;
 
 void GetYawDeg(){
-  read_gyro_data();
-
-  //ローパスフィルタ?��係数は�?キト�?�?�?
-	r_yaw_new = (float)zg - r_yaw_ref;
+	r_yaw_new = gyroZ() - r_yaw_ref;
   r_b_yaw = r_yaw;
   r_yaw = r_yaw_new * IMULPF + r_b_yaw * (1.0 - IMULPF);
-	//角�?�度の更新
 	b_angvel = angvel;
 	angvel = (2000.0*r_yaw/32767.0)*PI/180.0;
-		
-	//ジャイロの値を角度に変換
 	deg += 2.0*r_yaw/32767.0;
 }
 
@@ -262,18 +248,12 @@ void init(){
   errcnt = 0;
 
   //InitIMU
-  while(IMU_init() == 0){
-    HAL_Delay(100);
-    errcnt++;
-    if(errcnt >= MAXINITERR) DoPanic();
-  }
-  errcnt = 0;
+  if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
 
   r_yaw_ref = 0;
-  int32_t r_yaw_ref_tmp = 0;
+  float r_yaw_ref_tmp = 0;
   for(uint16_t i = 0;i<GYROREFTIME;i++){
-    read_gyro_data();
-    r_yaw_ref_tmp += zg;
+    r_yaw_ref_tmp += gyroZ();
   }
   r_yaw_ref = (float)(r_yaw_ref_tmp / GYROREFTIME);
 
@@ -287,6 +267,7 @@ void init(){
 
   //LED
   SetLED(0b000);
+  
 
   //Interrupt 1kHz
   HAL_TIM_Base_Start_IT(&htim6);
@@ -335,7 +316,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t mode = 3;
+  uint8_t mode = 1;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -372,9 +353,9 @@ int main(void)
           while (1);
           break;
         case 4:
-          read_accel_data();
-          printf("%d\t%d\t%d\r\n",xa,ya,za);
-          HAL_Delay(10);
+          while(1){
+            printf("%f\r\n",accelX());
+          }
           break;
         case 5:
           SetLED(0b000);

@@ -103,8 +103,8 @@ void Error_Handler(void);
 #define UART_TX_GPIO_Port GPIOA
 #define UART_RX_Pin GPIO_PIN_12
 #define UART_RX_GPIO_Port GPIOA
-#define FAN_PWM_Pin GPIO_PIN_15
-#define FAN_PWM_GPIO_Port GPIOA
+#define FAN_Pin GPIO_PIN_15
+#define FAN_GPIO_Port GPIOA
 #define LED_FR_L_Pin GPIO_PIN_4
 #define LED_FR_L_GPIO_Port GPIOB
 #define LED_FL_R_Pin GPIO_PIN_5

@@ -10,7 +10,7 @@
 #define TIRE_DIAM   12.5
 #define PPMM        (TIRE_DIAM*M_PI)/ENC_MAX
 
-#define GYROREFTIME 1000
+#define GYROREFTIME 10000
 #define VBATREF 0.02
 #define IMULPF 0.01
 #define ENCLPF 0.1
