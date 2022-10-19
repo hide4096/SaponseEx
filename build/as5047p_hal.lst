@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -26,7 +26,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
   23              		.thumb_func
   25              	AS5047P_SelectSPIAndGPIO:
   26              	.LVL0:
-  27              	.LFB222:
+  27              	.LFB255:
   28              		.file 1 "Core/Src/as5047p_hal.c"
    1:Core/Src/as5047p_hal.c **** /************************************************************************************
    2:Core/Src/as5047p_hal.c **** *
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
   28:Core/Src/as5047p_hal.c **** #include "as5047p_hal.h"
   29:Core/Src/as5047p_hal.c **** 
   30:Core/Src/as5047p_hal.c **** /************************************************************************************
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 2
 
 
   31:Core/Src/as5047p_hal.c ****  * 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
   85:Core/Src/as5047p_hal.c ****  *
   86:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_HAL_SPI_TxRx(pTx, pRx)
   87:Core/Src/as5047p_hal.c ****  * 	Access:		private
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 3
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 3
 
 
   88:Core/Src/as5047p_hal.c ****  * 	Inputs:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  142:Core/Src/as5047p_hal.c ****  *		Nothing.
  143:Core/Src/as5047p_hal.c ****  *
  144:Core/Src/as5047p_hal.c ****  * 	Description:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 4
 
 
  145:Core/Src/as5047p_hal.c ****  * 	Function allows to clear/set digital output.
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  184:Core/Src/as5047p_hal.c ****       // Currently selected CS pin = x
  185:Core/Src/as5047p_hal.c **** 	    // Currently selected SPI = xx
  186:Core/Src/as5047p_hal.c ****       gpioPort = GPIOA;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 5
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 5
 
 
   44              		.loc 1 186 7 is_stmt 1 view .LVU3
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
   72              		.loc 1 195 6 is_stmt 1 view .LVU14
  195:Core/Src/as5047p_hal.c ****     	handlerSPI = &hspi1; 
   73              		.loc 1 195 14 is_stmt 0 view .LVU15
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 6
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 6
 
 
   74 0026 064B     		ldr	r3, .L5+8
@@ -332,7 +332,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
   95 0048 00000000 		.word	hspi1
   96 004c 00040240 		.word	1073873920
   97              		.cfi_endproc
-  98              	.LFE222:
+  98              	.LFE255:
  100              		.section	.text.AS5047P_HAL_GPIO_Write,"ax",%progbits
  101              		.align	1
  102              		.syntax unified
@@ -340,7 +340,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  104              		.thumb_func
  106              	AS5047P_HAL_GPIO_Write:
  107              	.LVL6:
- 108              	.LFB221:
+ 108              	.LFB254:
  149:Core/Src/as5047p_hal.c **** // Write state to currently selected output
  109              		.loc 1 149 1 is_stmt 1 view -0
  110              		.cfi_startproc
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  120              		.loc 1 151 2 is_stmt 1 view .LVU23
  121 0004 034B     		ldr	r3, .L9
  122 0006 1988     		ldrh	r1, [r3]
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 7
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 7
 
 
  123 0008 034B     		ldr	r3, .L9+4
@@ -377,7 +377,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  134 0014 00000000 		.word	.LANCHOR1
  135 0018 00000000 		.word	.LANCHOR0
  136              		.cfi_endproc
- 137              	.LFE221:
+ 137              	.LFE254:
  139              		.section	.text.AS5047P_DeselectSlave,"ax",%progbits
  140              		.align	1
  141              		.syntax unified
@@ -385,7 +385,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  143              		.thumb_func
  145              	AS5047P_DeselectSlave:
  146              	.LVL9:
- 147              	.LFB225:
+ 147              	.LFB258:
  213:Core/Src/as5047p_hal.c **** 
  214:Core/Src/as5047p_hal.c **** /************************************************************************************
  215:Core/Src/as5047p_hal.c ****  * 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  242:Core/Src/as5047p_hal.c ****  *
  243:Core/Src/as5047p_hal.c ****  * 	Function: 	AS5047P_SelectSlave(id)
  244:Core/Src/as5047p_hal.c ****  * 	Access:		private
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 8
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 8
 
 
  245:Core/Src/as5047p_hal.c ****  * 	Inputs:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  149              		.cfi_startproc
  150              		@ args = 0, pretend = 0, frame = 0
  151              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 9
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 9
 
 
  152              		.loc 1 297 1 is_stmt 0 view .LVU27
@@ -519,7 +519,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  168 000c 0020     		movs	r0, #0
  169 000e 08BD     		pop	{r3, pc}
  170              		.cfi_endproc
- 171              	.LFE225:
+ 171              	.LFE258:
  173              		.section	.text.AS5047P_SelectSlave,"ax",%progbits
  174              		.align	1
  175              		.syntax unified
@@ -527,7 +527,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  177              		.thumb_func
  179              	AS5047P_SelectSlave:
  180              	.LVL12:
- 181              	.LFB224:
+ 181              	.LFB257:
  258:Core/Src/as5047p_hal.c ****   //--- Select GPIO and SPI handler
  182              		.loc 1 258 1 is_stmt 1 view -0
  183              		.cfi_startproc
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  187 0000 08B5     		push	{r3, lr}
  188              	.LCFI2:
  189              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 10
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 10
 
 
  190              		.cfi_offset 3, -8
@@ -561,7 +561,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  202 000c 0020     		movs	r0, #0
  203 000e 08BD     		pop	{r3, pc}
  204              		.cfi_endproc
- 205              	.LFE224:
+ 205              	.LFE257:
  207              		.section	.text.AS5047P_HAL_SPI_TxRx,"ax",%progbits
  208              		.align	1
  209              		.syntax unified
@@ -569,7 +569,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  211              		.thumb_func
  213              	AS5047P_HAL_SPI_TxRx:
  214              	.LVL15:
- 215              	.LFB220:
+ 215              	.LFB253:
  109:Core/Src/as5047p_hal.c **** 
  216              		.loc 1 109 1 is_stmt 1 view -0
  217              		.cfi_startproc
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  236              	.LVL16:
  113:Core/Src/as5047p_hal.c **** 
  237              		.loc 1 113 14 view .LVU45
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 11
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 11
 
 
  238 0010 0448     		ldr	r0, .L20
@@ -634,7 +634,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  263              	.L20:
  264 0024 00000000 		.word	.LANCHOR2
  265              		.cfi_endproc
- 266              	.LFE220:
+ 266              	.LFE253:
  268              		.section	.text.AS5047P_HAL_Delay_ms,"ax",%progbits
  269              		.align	1
  270              		.global	AS5047P_HAL_Delay_ms
@@ -643,7 +643,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  273              		.thumb_func
  275              	AS5047P_HAL_Delay_ms:
  276              	.LVL19:
- 277              	.LFB219:
+ 277              	.LFB252:
   72:Core/Src/as5047p_hal.c **** 	//Delay in miliseconds
  278              		.loc 1 72 1 is_stmt 1 view -0
  279              		.cfi_startproc
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  287              		.cfi_offset 14, -4
   74:Core/Src/as5047p_hal.c **** 
  288              		.loc 1 74 2 is_stmt 1 view .LVU53
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 12
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 12
 
 
  289 0002 FFF7FEFF 		bl	HAL_Delay
@@ -667,7 +667,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  291              		.loc 1 79 1 is_stmt 0 view .LVU54
  292 0006 08BD     		pop	{r3, pc}
  293              		.cfi_endproc
- 294              	.LFE219:
+ 294              	.LFE252:
  296              		.section	.rodata.AS5047P_HAL_Debug.str1.4,"aMS",%progbits,1
  297              		.align	2
  298              	.LC0:
@@ -684,7 +684,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  305              		.thumb_func
  307              	AS5047P_HAL_Debug:
  308              	.LVL21:
- 309              	.LFB223:
+ 309              	.LFB256:
  236:Core/Src/as5047p_hal.c ****   //Print error
  310              		.loc 1 236 1 is_stmt 1 view -0
  311              		.cfi_startproc
@@ -718,14 +718,14 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  333              		.loc 1 239 1 view .LVU61
  334 000e 08BD     		pop	{r3, pc}
  335              	.L27:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 13
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 13
 
 
  336              		.align	2
  337              	.L26:
  338 0010 00000000 		.word	.LC0
  339              		.cfi_endproc
- 340              	.LFE223:
+ 340              	.LFE256:
  342              		.section	.text.AS5047P_HAL_Init,"ax",%progbits
  343              		.align	1
  344              		.global	AS5047P_HAL_Init
@@ -734,7 +734,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  347              		.thumb_func
  349              	AS5047P_HAL_Init:
  350              	.LVL26:
- 351              	.LFB226:
+ 351              	.LFB259:
  317:Core/Src/as5047p_hal.c **** 
  318:Core/Src/as5047p_hal.c **** /************************************************************************************
  319:Core/Src/as5047p_hal.c ****  *
@@ -778,13 +778,13 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  366              		.loc 1 342 3 is_stmt 1 view .LVU66
  343:Core/Src/as5047p_hal.c **** }
  367              		.loc 1 343 1 is_stmt 0 view .LVU67
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 14
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 14
 
 
  368 0006 0020     		movs	r0, #0
  369 0008 08BD     		pop	{r3, pc}
  370              		.cfi_endproc
- 371              	.LFE226:
+ 371              	.LFE259:
  373              		.section	.text.AS5047P_HAL_SPI_Transaction,"ax",%progbits
  374              		.align	1
  375              		.global	AS5047P_HAL_SPI_Transaction
@@ -793,7 +793,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  378              		.thumb_func
  380              	AS5047P_HAL_SPI_Transaction:
  381              	.LVL28:
- 382              	.LFB227:
+ 382              	.LFB260:
  344:Core/Src/as5047p_hal.c **** 
  345:Core/Src/as5047p_hal.c **** /************************************************************************************
  346:Core/Src/as5047p_hal.c ****  *
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  399              		.loc 1 368 3 view .LVU71
  400              		.loc 1 368 8 is_stmt 0 view .LVU72
  401 0008 1046     		mov	r0, r2
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 15
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 15
 
 
  402              	.LVL29:
@@ -887,7 +887,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  420 001e 70BD     		pop	{r4, r5, r6, pc}
  421              		.loc 1 393 1 view .LVU80
  422              		.cfi_endproc
- 423              	.LFE227:
+ 423              	.LFE260:
  425              		.section	.bss.gpioPin,"aw",%nobits
  426              		.align	1
  427              		.set	.LANCHOR1,. + 0
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  434              		.set	.LANCHOR0,. + 0
  437              	gpioPort:
  438 0000 00000000 		.space	4
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 16
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 16
 
 
  439              		.section	.bss.handlerSPI,"aw",%nobits
@@ -918,40 +918,40 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 1
  455              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
  456              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
  457              		.file 11 "Core/Inc/spi.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s 			page 17
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s 			page 17
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 as5047p_hal.c
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:20     .text.AS5047P_SelectSPIAndGPIO:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:25     .text.AS5047P_SelectSPIAndGPIO:00000000 AS5047P_SelectSPIAndGPIO
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:91     .text.AS5047P_SelectSPIAndGPIO:00000038 $d
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:101    .text.AS5047P_HAL_GPIO_Write:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:106    .text.AS5047P_HAL_GPIO_Write:00000000 AS5047P_HAL_GPIO_Write
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:134    .text.AS5047P_HAL_GPIO_Write:00000014 $d
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:140    .text.AS5047P_DeselectSlave:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:145    .text.AS5047P_DeselectSlave:00000000 AS5047P_DeselectSlave
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:174    .text.AS5047P_SelectSlave:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:179    .text.AS5047P_SelectSlave:00000000 AS5047P_SelectSlave
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:208    .text.AS5047P_HAL_SPI_TxRx:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:213    .text.AS5047P_HAL_SPI_TxRx:00000000 AS5047P_HAL_SPI_TxRx
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:264    .text.AS5047P_HAL_SPI_TxRx:00000024 $d
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:269    .text.AS5047P_HAL_Delay_ms:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:275    .text.AS5047P_HAL_Delay_ms:00000000 AS5047P_HAL_Delay_ms
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:297    .rodata.AS5047P_HAL_Debug.str1.4:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:301    .text.AS5047P_HAL_Debug:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:307    .text.AS5047P_HAL_Debug:00000000 AS5047P_HAL_Debug
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:338    .text.AS5047P_HAL_Debug:00000010 $d
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:343    .text.AS5047P_HAL_Init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:349    .text.AS5047P_HAL_Init:00000000 AS5047P_HAL_Init
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:374    .text.AS5047P_HAL_SPI_Transaction:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:380    .text.AS5047P_HAL_SPI_Transaction:00000000 AS5047P_HAL_SPI_Transaction
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:426    .bss.gpioPin:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:430    .bss.gpioPin:00000000 gpioPin
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:433    .bss.gpioPort:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:437    .bss.gpioPort:00000000 gpioPort
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:440    .bss.handlerSPI:00000000 $d
-C:\Users\neko2\AppData\Local\Temp\ccuYqllB.s:444    .bss.handlerSPI:00000000 handlerSPI
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:20     .text.AS5047P_SelectSPIAndGPIO:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:25     .text.AS5047P_SelectSPIAndGPIO:00000000 AS5047P_SelectSPIAndGPIO
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:91     .text.AS5047P_SelectSPIAndGPIO:00000038 $d
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:101    .text.AS5047P_HAL_GPIO_Write:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:106    .text.AS5047P_HAL_GPIO_Write:00000000 AS5047P_HAL_GPIO_Write
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:134    .text.AS5047P_HAL_GPIO_Write:00000014 $d
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:140    .text.AS5047P_DeselectSlave:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:145    .text.AS5047P_DeselectSlave:00000000 AS5047P_DeselectSlave
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:174    .text.AS5047P_SelectSlave:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:179    .text.AS5047P_SelectSlave:00000000 AS5047P_SelectSlave
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:208    .text.AS5047P_HAL_SPI_TxRx:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:213    .text.AS5047P_HAL_SPI_TxRx:00000000 AS5047P_HAL_SPI_TxRx
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:264    .text.AS5047P_HAL_SPI_TxRx:00000024 $d
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:269    .text.AS5047P_HAL_Delay_ms:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:275    .text.AS5047P_HAL_Delay_ms:00000000 AS5047P_HAL_Delay_ms
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:297    .rodata.AS5047P_HAL_Debug.str1.4:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:301    .text.AS5047P_HAL_Debug:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:307    .text.AS5047P_HAL_Debug:00000000 AS5047P_HAL_Debug
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:338    .text.AS5047P_HAL_Debug:00000010 $d
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:343    .text.AS5047P_HAL_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:349    .text.AS5047P_HAL_Init:00000000 AS5047P_HAL_Init
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:374    .text.AS5047P_HAL_SPI_Transaction:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:380    .text.AS5047P_HAL_SPI_Transaction:00000000 AS5047P_HAL_SPI_Transaction
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:426    .bss.gpioPin:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:430    .bss.gpioPin:00000000 gpioPin
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:433    .bss.gpioPort:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:437    .bss.gpioPort:00000000 gpioPort
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:440    .bss.handlerSPI:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\ccEFnoMU.s:444    .bss.handlerSPI:00000000 handlerSPI
 
 UNDEFINED SYMBOLS
 hspi1

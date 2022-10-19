@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -26,7 +26,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
   23              		.thumb
   24              		.thumb_func
   26              	MX_USART6_UART_Init:
-  27              	.LFB216:
+  27              	.LFB252:
   28              		.file 1 "Core/Src/usart.c"
    1:Core/Src/usart.c **** /* USER CODE BEGIN Header */
    2:Core/Src/usart.c **** /**
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
   28:Core/Src/usart.c **** 
   29:Core/Src/usart.c **** /* USART6 init function */
   30:Core/Src/usart.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 2
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 2
 
 
   31:Core/Src/usart.c **** void MX_USART6_UART_Init(void)
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
   65              		.loc 1 48 28 is_stmt 0 view .LVU16
   66 001c C361     		str	r3, [r0, #28]
   49:Core/Src/usart.c ****   if (HAL_UART_Init(&huart6) != HAL_OK)
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 3
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 3
 
 
   67              		.loc 1 49 3 is_stmt 1 view .LVU17
@@ -151,7 +151,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
   85 002c 00000000 		.word	.LANCHOR0
   86 0030 00140140 		.word	1073812480
   87              		.cfi_endproc
-  88              	.LFE216:
+  88              	.LFE252:
   90              		.section	.text.HAL_UART_MspInit,"ax",%progbits
   91              		.align	1
   92              		.global	HAL_UART_MspInit
@@ -160,7 +160,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
   95              		.thumb_func
   97              	HAL_UART_MspInit:
   98              	.LVL2:
-  99              	.LFB217:
+  99              	.LFB253:
   58:Core/Src/usart.c **** 
   59:Core/Src/usart.c **** void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
   60:Core/Src/usart.c **** {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
  111              		.cfi_def_cfa_offset 40
   61:Core/Src/usart.c **** 
   62:Core/Src/usart.c ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 4
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 4
 
 
  112              		.loc 1 62 3 is_stmt 1 view .LVU25
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
  140              		.loc 1 69 5 is_stmt 1 view .LVU31
  141              	.LBB2:
   69:Core/Src/usart.c **** 
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 5
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 5
 
 
  142              		.loc 1 69 5 view .LVU32
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
   78:Core/Src/usart.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
  182              		.loc 1 78 5 is_stmt 1 view .LVU47
   79:Core/Src/usart.c ****     GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 6
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 6
 
 
  183              		.loc 1 79 5 view .LVU48
@@ -329,7 +329,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
  203 0068 00140140 		.word	1073812480
  204 006c 00000240 		.word	1073872896
  205              		.cfi_endproc
- 206              	.LFE217:
+ 206              	.LFE253:
  208              		.section	.text.HAL_UART_MspDeInit,"ax",%progbits
  209              		.align	1
  210              		.global	HAL_UART_MspDeInit
@@ -338,7 +338,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
  213              		.thumb_func
  215              	HAL_UART_MspDeInit:
  216              	.LVL7:
- 217              	.LFB218:
+ 217              	.LFB254:
   88:Core/Src/usart.c **** 
   89:Core/Src/usart.c **** void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
   90:Core/Src/usart.c **** {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
  229              		.loc 1 92 16 is_stmt 0 view .LVU58
  230 0002 0268     		ldr	r2, [r0]
  231              		.loc 1 92 5 view .LVU59
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 7
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 7
 
 
  232 0004 074B     		ldr	r3, .L17
@@ -412,13 +412,13 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
  259 0028 00380240 		.word	1073887232
  260 002c 00000240 		.word	1073872896
  261              		.cfi_endproc
- 262              	.LFE218:
+ 262              	.LFE254:
  264              		.global	huart6
  265              		.section	.bss.huart6,"aw",%nobits
  266              		.align	2
  267              		.set	.LANCHOR0,. + 0
  270              	huart6:
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 8
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 8
 
 
  271 0000 00000000 		.space	68
@@ -437,22 +437,22 @@ ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 1
  280              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
  281              		.file 9 "Core/Inc/main.h"
  282              		.file 10 "Core/Inc/usart.h"
-ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s 			page 9
+ARM GAS  C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 usart.c
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:20     .text.MX_USART6_UART_Init:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:26     .text.MX_USART6_UART_Init:00000000 MX_USART6_UART_Init
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:85     .text.MX_USART6_UART_Init:0000002c $d
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:91     .text.HAL_UART_MspInit:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:97     .text.HAL_UART_MspInit:00000000 HAL_UART_MspInit
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:203    .text.HAL_UART_MspInit:00000068 $d
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:209    .text.HAL_UART_MspDeInit:00000000 $t
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:215    .text.HAL_UART_MspDeInit:00000000 HAL_UART_MspDeInit
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:258    .text.HAL_UART_MspDeInit:00000024 $d
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:270    .bss.huart6:00000000 huart6
-C:\Users\neko2\AppData\Local\Temp\cc1iohvb.s:266    .bss.huart6:00000000 $d
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:20     .text.MX_USART6_UART_Init:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:26     .text.MX_USART6_UART_Init:00000000 MX_USART6_UART_Init
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:85     .text.MX_USART6_UART_Init:0000002c $d
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:91     .text.HAL_UART_MspInit:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:97     .text.HAL_UART_MspInit:00000000 HAL_UART_MspInit
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:203    .text.HAL_UART_MspInit:00000068 $d
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:209    .text.HAL_UART_MspDeInit:00000000 $t
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:215    .text.HAL_UART_MspDeInit:00000000 HAL_UART_MspDeInit
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:258    .text.HAL_UART_MspDeInit:00000024 $d
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:270    .bss.huart6:00000000 huart6
+C:\Users\neko2\AppData\Local\Temp\cc5Ulkww.s:266    .bss.huart6:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_UART_Init

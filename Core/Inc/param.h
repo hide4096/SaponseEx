@@ -1,5 +1,5 @@
-#ifndef PARAMETER_H_
-#define PARAMETER_H_
+#ifndef PARAMETER_H
+#define PARAMETER_H
 
 #define MAXINITERR  10      //センサ初期化試行回数
 #define MTPERIOD    2000    //モータのCounterPeriod

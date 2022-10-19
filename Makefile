@@ -36,18 +36,7 @@ BUILD_DIR = build
 ######################################
 # C sources
 C_SOURCES =  \
-Core/Src/main.c \
-Core/Src/gpio.c \
-Core/Src/adc.c \
-Core/Src/dma.c \
-Core/Src/spi.c \
-Core/Src/tim.c \
-Core/Src/as5047p_hal.c \
-Core/Src/as5047p.c \
-Core/Src/usart.c \
-Core/Src/stm32f4xx_it.c \
-Core/Src/stm32f4xx_hal_msp.c \
-Core/Src/system_stm32f4xx.c \
+$(wildcard Core/Src/*.c) \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_adc.c \

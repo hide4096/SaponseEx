@@ -11,7 +11,7 @@
 #include<spi.h>
 #include<main.h>
 
-int IMU_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *_cs_port,uint16_t _cs_pin);
+int IMU_init(SPI_HandleTypeDef*,GPIO_TypeDef*,uint16_t);
 
 uint8_t  readWHO_AM_I();
 
