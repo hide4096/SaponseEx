@@ -1,5 +1,6 @@
-build/as5047p_hal.o: Core/Src/as5047p_hal.c Core/Inc/as5047p_hal.h \
- Core/Inc/main.h Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+build/as5047p_hal.o: Drivers/AS5047P/Src/as5047p_hal.c \
+ Drivers/AS5047P/Inc/as5047p_hal.h Core/Inc/main.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Core/Inc/stm32f4xx_hal_conf.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -30,7 +31,7 @@ build/as5047p_hal.o: Core/Src/as5047p_hal.c Core/Inc/as5047p_hal.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h Core/Inc/param.h \
  Middlewares/ST/ARM/DSP/Inc/arm_math.h Core/Inc/spi.h Core/Inc/main.h
-Core/Inc/as5047p_hal.h:
+Drivers/AS5047P/Inc/as5047p_hal.h:
 Core/Inc/main.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 Core/Inc/stm32f4xx_hal_conf.h:
