@@ -80,10 +80,32 @@ void GetSpeed(){
   b_encL_val = encL_val;
 }
 
+static float before_spd=0.;
+static float I_spd = 0.;
+static float before_deg=0.;
+static float I_deg = 0.;
+
 void ControlDuty(){
-  float dutyR = 0.0,dutyL = 0.0;
-  dutyR = (tgt_spd - spd)*6.0 + (tgt_deg - deg)*0.015;
-  dutyL = (tgt_spd - spd)*6.0 - (tgt_deg - deg)*0.015;
+  float dutyR = 0.,dutyL = 0.;
+
+  float diff_spd = tgt_spd - spd;
+  float duty_spd = diff_deg*SPD_KP+I_spd*SPD_KI+(before_spd-spd)*SPD_KD;
+  before_spd = spd;
+  I_spd+=diff_spd;
+
+  if(I_spd > SPD_I_MAX) I_spd = SPD_I_MAX;
+  else(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
+
+  float diff_deg = tgt_deg - deg;
+  float duty_deg = diff_deg*DEG_KP+I_deg*DEG_KI+(before_deg-deg)*DEG_KD;
+  before_deg = deg;
+  I_deg+=diff_deg;
+
+  if(I_deg > DEG_I_MAX) I_deg = DEG_I_MAX;
+  else(I_deg < -DEG_I_MAX) I_deg = -DEG_I_MAX;
+  
+  dutyR = duty_spd + duty_deg;
+  dutyL = duty_spd - duty_deg;
 
   SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR);
 }
