@@ -122,64 +122,29 @@ int main(void)
     }else if(sensval[0] + sensval[3] >= CONFIRM*2){
       switch (mode){
         case 1:
-          while(1){
-            printf("%fm/s\t%fdeg\r\n",spd,deg);
-            HAL_Delay(100);
-          }
+          I_spd = I_deg = 0.;
+          motpower = 1;
+          tgt_spd = 0.;
+          tgt_deg = deg;
+          while(1);
           break;
         case 2:
+          I_spd = I_deg = 0.;
           SetLED(0b000);
           HAL_Delay(500);
           motpower = 1;
           tgt_spd = 0.2;
           tgt_deg = deg;
-          HAL_Delay(1000);
+          HAL_Delay(2000);
           tgt_spd = 0.0;
           HAL_Delay(1000);
-          break;
-        case 3:
-          motpower = 1;
-          tgt_deg = 0.0;
-          tgt_spd = 0;
-          while (1);
-          break;
-        case 4:
-          while(1){
-            printf("%f\r\n",accelX());
-          }
-          break;
-        case 5:
-          SetLED(0b000);
-          float avr_vbat = 0.0;
-          for(int i = 0;i<100;i++){
-            avr_vbat += vbat;
-            HAL_Delay(1);
-          }
-          avr_vbat /= 100;
-          printf("%.3fv\r\n",avr_vbat);
-          printf("%d\r\n",adcval[4]);
-          break;
-        case 6:
-          motpower=1;
-          double cnt = 0;
-          while(1){
-            SetDutyRatio(700*sin(cnt),700*sin(cnt));
-            cnt+=PI/2000;
-            HAL_Delay(1);
-            if(cnt>2*PI) cnt = 0;
-          }
-          break;
-        case 7:
-          motpower = 1;
-          while(1){
-            SetDutyRatio(500,500);
-          }
           break;
         default:
           DoPanic();
           break;
       }
     }
+    motpower = 0;
     SetLED(mode);
   }
   /* USER CODE END 3 */

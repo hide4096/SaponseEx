@@ -81,9 +81,9 @@ void GetSpeed(){
 }
 
 static float before_spd=0.;
-static float I_spd = 0.;
+float I_spd = 0.;
 static float before_deg=0.;
-static float I_deg = 0.;
+float I_deg = 0.;
 
 void ControlDuty(){
   float dutyR = 0.,dutyL = 0.;
