@@ -22,13 +22,3 @@ void SetLED(uint8_t led){
   HAL_GPIO_WritePin(D4_GPIO_Port,D4_Pin,!(led & 0b010));
   HAL_GPIO_WritePin(D5_GPIO_Port,D5_Pin,!(led & 0b100));
 }
-
-void DoPanic(){
-  SetDutyRatio(0,0,0);
-  motpower = 0;
-  HAL_TIM_Base_Stop_IT(&htim6);
-  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
-  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
-  printf("Soiya!!\r\n");
-  while(1) Blink(100);
-}

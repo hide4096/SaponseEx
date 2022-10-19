@@ -31,6 +31,7 @@
 #include"show.h"
 #include"as5047p.h"
 #include"motor.h"
+#include"analog.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,96 +63,6 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-//Enc
-AS5047P_Instance encR;
-AS5047P_Instance encL;
-
-//0→FR,L 1→FL,R
-uint8_t senstype = 0;
-//DMAの送信(L,FL,FR,R,VBAT/2)
-uint16_t adcval[5];
-uint16_t sensval[4];
-uint16_t offval[4];
-
-void GetWallSens(){
-  if(senstype){
-    sensval[0] = adcval[0];
-    sensval[2] = adcval[2];
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,1);
-  }else{
-    sensval[1] = adcval[1];
-    sensval[3] = adcval[3];
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,1);
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
-  }
-    senstype = 1-senstype;
-}
-
-float vbat = 0;
-void GetBattVoltage(){
-  vbat = 3.3 * (adcval[4] / 4096.0) * 2;
-  vbat += VBATREF;
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-  if(htim == &htim6){
-    //1kHz
-    GetWallSens();
-    GetSpeed();
-    GetYawDeg();
-    GetBattVoltage();
-
-    ControlDuty();
-  }
-}
-
-void init(){
-  HAL_Delay(500);
-  
-  //StartDMA
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
-
-  //InitEnc
-  uint8_t errcnt = 0;
-  AS5047P_Init(&encL, 0);
-  AS5047P_Init(&encR, 1);
-  while(AS5047P_ErrorPending(&encR) || AS5047P_ErrorPending(&encL)){
-    errcnt++;
-    if(errcnt >= MAXINITERR) DoPanic();
-    AS5047P_Init(&encL, 0);
-    AS5047P_Init(&encR, 1);
-    HAL_Delay(100);
-  }
-  AS5047P_SetZeroPosition(&encL);
-  AS5047P_SetZeroPosition(&encR);
-  errcnt = 0;
-
-  //InitIMU
-  if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
-
-  r_yaw_ref = 0;
-  float r_yaw_ref_tmp = 0;
-  for(uint16_t i = 0;i<GYROREFTIME;i++){
-    r_yaw_ref_tmp += gyroZ();
-  }
-  r_yaw_ref = (float)(r_yaw_ref_tmp / GYROREFTIME);
-
-  //Motor
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-  SetDutyRatio(0,0,0);
-  motpower = 0;
-
-  //LED
-  SetLED(0b000);
-  
-
-  //Interrupt 1kHz
-  HAL_TIM_Base_Start_IT(&htim6);
-}
 /* USER CODE END 0 */
 
 /**
@@ -252,7 +163,7 @@ int main(void)
           motpower=1;
           double cnt = 0;
           while(1){
-            SetDutyRatio(700*sin(cnt),700*sin(cnt),0);
+            SetDutyRatio(700*sin(cnt),700*sin(cnt));
             cnt+=PI/2000;
             HAL_Delay(1);
             if(cnt>2*PI) cnt = 0;
@@ -261,7 +172,7 @@ int main(void)
         case 7:
           motpower = 1;
           while(1){
-            SetDutyRatio(500,500,0);
+            SetDutyRatio(500,500);
           }
           break;
         default:

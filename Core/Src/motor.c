@@ -6,11 +6,6 @@
 
 #include"motor.h"
 
-extern TIM_HandleTypeDef htim1;
-extern TIM_HandleTypeDef htim2;
-extern AS5047P_Instance encR;
-extern AS5047P_Instance encL;
-
 static int16_t b_encR_val=0,b_encL_val=0;
 static float spdR = 0,spdL=0;
 static float b_spdR = 0,b_spdL=0;
@@ -22,7 +17,10 @@ float spd,deg;
 float tgt_spd,tgt_deg;
 float angvel,r_yaw_ref;
 
-void SetDutyRatio(int16_t motL,int16_t motR,int16_t motF){
+AS5047P_Instance encR;
+AS5047P_Instance encL;
+
+void SetDutyRatio(int16_t motL,int16_t motR){
   if(motpower){
     if(motR > 0){
       if(motR > MTPERIOD) motR = MTPERIOD;
@@ -45,9 +43,6 @@ void SetDutyRatio(int16_t motL,int16_t motR,int16_t motF){
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
     }
-
-    if(motF > MTPERIOD) motF = MTPERIOD;
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,2000);
   }
 }
 
@@ -90,7 +85,7 @@ void ControlDuty(){
   dutyR = (tgt_spd - spd)*6.0 + (tgt_deg - deg)*0.015;
   dutyL = (tgt_spd - spd)*6.0 - (tgt_deg - deg)*0.015;
 
-  SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,0);
+  SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR);
 }
 
 void GetYawDeg(){
