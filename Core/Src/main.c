@@ -206,7 +206,7 @@ void ControlDuty(){
   dutyR = (tgt_spd - spd)*6.0 + (tgt_deg - deg)*0.015;
   dutyL = (tgt_spd - spd)*6.0 - (tgt_deg - deg)*0.015;
 
-  //SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,0);
+  SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,0);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
@@ -335,7 +335,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t mode = 6;
+  uint8_t mode = 3;
   while (1)
   {
     /* USER CODE END WHILE */
