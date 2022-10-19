@@ -12,6 +12,8 @@ extern uint16_t adcval[5];
 extern uint16_t sensval[4];
 extern float vbat;
 
+void InitADCDMA();
 void GetWallSens();
 void GetBattVoltage();
+
 #endif

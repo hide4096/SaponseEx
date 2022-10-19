@@ -35,10 +35,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 }
 
 void init(){
-  HAL_Delay(500);
-  
-  //StartDMA
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
 
   //InitEnc
   uint8_t errcnt = 0;

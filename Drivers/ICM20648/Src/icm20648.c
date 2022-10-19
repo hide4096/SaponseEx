@@ -59,6 +59,20 @@ static void IMU_writeRegister(uint8_t _adrs,uint8_t data){
 static int IMU_changeSensitivity(uint8_t _gyro,uint8_t _accel){
     if(_gyro > 0b11 || _accel > 0b11) return -1;
 
+    uint8_t gyro_config=_gyro << 1,accel_config=_accel<<1;
+
+    IMU_writeRegister(0x7F,0x20);   //バンク切り替え(バンク2)
+    
+    //レジスタに書き込む
+    IMU_writeRegister(0x01,gyro_config);
+    IMU_writeRegister(0x14,accel_config);
+    
+    //書き込まれたか確認
+    if(IMU_readRegister(0x01) & 0b0110 != gyro_config) return -1;
+    if(IMU_readRegister(0x14) & 0b0110 != accel_config) return -1;
+
+    IMU_writeRegister(0x7F,0x00);   //バンク切り替え(バンク0)
+
     switch(_gyro){
         case 0:
             gyro_sensitivity = 250.0 / 32768.0;
@@ -87,12 +101,6 @@ static int IMU_changeSensitivity(uint8_t _gyro,uint8_t _accel){
             accel_sensitivity = 16.0 / 32768.0;
             break;
     }
-    uint8_t gyro_config=_gyro << 1,accel_config=_accel<<1;
-
-    IMU_writeRegister(0x7F,0x20);   //バンク切り替え(バンク2)
-    IMU_writeRegister(0x01,gyro_config);
-    IMU_writeRegister(0x14,accel_config);
-    IMU_writeRegister(0x7F,0x00);   //バンク切り替え(バンク0)
 
     return 0;
 }

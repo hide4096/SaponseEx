@@ -9,10 +9,13 @@
 uint16_t adcval[5];
 uint16_t sensval[4];
 
-//0→FR,L 1→FL,R
+extern ADC_HandleTypeDef hadc1;
 static uint8_t senstype = 0;
-
 float vbat = 0;
+
+void InitADCDMA(){
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
+}
 
 void GetWallSens(){
   if(senstype){
