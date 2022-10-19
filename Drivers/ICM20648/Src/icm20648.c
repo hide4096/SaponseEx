@@ -68,8 +68,8 @@ static int IMU_changeSensitivity(uint8_t _gyro,uint8_t _accel){
     IMU_writeRegister(0x14,accel_config);
     
     //書き込まれたか確認
-    if(IMU_readRegister(0x01) & 0b0110 != gyro_config) return -1;
-    if(IMU_readRegister(0x14) & 0b0110 != accel_config) return -1;
+    if((IMU_readRegister(0x01) & 0b0110) != gyro_config) return -1;
+    if((IMU_readRegister(0x14) & 0b0110) != accel_config) return -1;
 
     IMU_writeRegister(0x7F,0x00);   //バンク切り替え(バンク0)
 

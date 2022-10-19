@@ -32,6 +32,7 @@
 #include"as5047p.h"
 #include"motor.h"
 #include"analog.h"
+#include"system.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -72,7 +73,6 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -102,12 +102,13 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
+  if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
   init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t mode = 1;
+  uint8_t mode = 2;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -138,6 +139,7 @@ int main(void)
           HAL_Delay(2000);
           tgt_spd = 0.0;
           HAL_Delay(1000);
+          motpower = 0;
           break;
         default:
           DoPanic();

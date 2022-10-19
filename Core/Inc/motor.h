@@ -26,5 +26,6 @@ void SetDutyRatio(int16_t,int16_t);
 void GetSpeed();
 void ControlDuty();
 void GetYawDeg();
+void FailSafe();
 
 #endif

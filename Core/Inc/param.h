@@ -15,8 +15,8 @@
 #define IMULPF 0.01
 #define ENCLPF 0.1
 
-#define SPD_KP 6.0
-#define SPD_KI 0.1
+#define SPD_KP 8.0
+#define SPD_KI 0.2
 #define SPD_KD 0.0
 #define DEG_KP 0.01
 #define DEG_KI 0.001
@@ -24,6 +24,8 @@
 
 #define SPD_I_MAX 10000
 #define DEG_I_MAX 10000
+
+#define FAILSAFE 8.0
 
 #define CONFIRM 3000
 #endif

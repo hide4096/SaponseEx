@@ -12,6 +12,9 @@ extern ADC_HandleTypeDef hadc1;
 extern AS5047P_Instance encR;
 extern AS5047P_Instance encL;
 
+extern uint8_t motpower;
+extern float r_yaw_ref;
+
 void DoPanic(){
   SetDutyRatio(0,0);
   motpower = 0;
@@ -31,10 +34,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetBattVoltage();
 
     ControlDuty();
+    FailSafe();
   }
 }
 
 void init(){
+
+  InitADCDMA();
 
   //InitEnc
   uint8_t errcnt = 0;
@@ -52,8 +58,8 @@ void init(){
   errcnt = 0;
 
   //InitIMU
-  if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
-
+  //if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
+  //IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin);
   r_yaw_ref = 0;
   float r_yaw_ref_tmp = 0;
   for(uint16_t i = 0;i<GYROREFTIME;i++){
@@ -72,7 +78,7 @@ void init(){
 
   //LED
   SetLED(0b000);
-  
+
   //Interrupt 1kHz
   HAL_TIM_Base_Start_IT(&htim6);
 }

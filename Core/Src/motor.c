@@ -89,12 +89,12 @@ void ControlDuty(){
   float dutyR = 0.,dutyL = 0.;
 
   float diff_spd = tgt_spd - spd;
-  float duty_spd = diff_deg*SPD_KP+I_spd*SPD_KI+(before_spd-spd)*SPD_KD;
+  float duty_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(before_spd-spd)*SPD_KD;
   before_spd = spd;
   I_spd+=diff_spd;
 
   if(I_spd > SPD_I_MAX) I_spd = SPD_I_MAX;
-  else(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
+  else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
 
   float diff_deg = tgt_deg - deg;
   float duty_deg = diff_deg*DEG_KP+I_deg*DEG_KI+(before_deg-deg)*DEG_KD;
@@ -102,12 +102,16 @@ void ControlDuty(){
   I_deg+=diff_deg;
 
   if(I_deg > DEG_I_MAX) I_deg = DEG_I_MAX;
-  else(I_deg < -DEG_I_MAX) I_deg = -DEG_I_MAX;
+  else if(I_deg < -DEG_I_MAX) I_deg = -DEG_I_MAX;
   
   dutyR = duty_spd + duty_deg;
   dutyL = duty_spd - duty_deg;
 
   SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR);
+}
+
+void FailSafe(){
+  if(spd > FAILSAFE || spd < -FAILSAFE) motpower = 0;
 }
 
 void GetYawDeg(){
