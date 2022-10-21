@@ -72,8 +72,8 @@ void GetSpeed(){
   b_spdR = spdR;
   b_spdL = spdL;
 
-  spdR = n_spdR * ENCLPF + b_spdR * (1.0 - ENCLPF);
-  spdL = n_spdL * ENCLPF + b_spdL * (1.0 - ENCLPF);
+  spdR = b_spdR * ENCLPF + n_spdR * (1.0 - ENCLPF);
+  spdL = b_spdL * ENCLPF + n_spdL * (1.0 - ENCLPF);
 
   spd = (spdR + spdL) / 2.0;  //
   b_encR_val = encR_val;
@@ -104,20 +104,21 @@ void ControlDuty(){
   if(I_deg > DEG_I_MAX) I_deg = DEG_I_MAX;
   else if(I_deg < -DEG_I_MAX) I_deg = -DEG_I_MAX;
   
-  dutyR = duty_spd + duty_deg;
-  dutyL = duty_spd - duty_deg;
+  dutyR = duty_spd - duty_deg;
+  dutyL = duty_spd + duty_deg;
 
   SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR);
 }
 
 void FailSafe(){
-  if(spd > FAILSAFE || spd < -FAILSAFE) motpower = 0;
+  if(spdL > FAILSAFE || spdL < -FAILSAFE) motpower = 0;
+  if(spdR > FAILSAFE || spdR < -FAILSAFE) motpower = 0;
 }
 
 void GetYawDeg(){
   r_yaw_new = gyroZ() - r_yaw_ref;
   r_b_yaw = r_yaw;
-  r_yaw = r_yaw_new * IMULPF + r_b_yaw * (1.0 - IMULPF);
+  r_yaw = r_b_yaw * IMULPF + r_yaw_new * (1.0 - IMULPF);
   b_angvel = angvel;
   angvel = (2000.0*r_yaw/32767.0)*PI/180.0;
   deg += 2.0*r_yaw/32767.0;

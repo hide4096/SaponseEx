@@ -119,6 +119,7 @@ int IMU_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
     while(whoami != WHO_AM_I){
         HAL_Delay(100);
         whoami = readWHO_AM_I();
+        printf("%x\r\n",whoami);
         errcnt++;
         if(errcnt >= RETRY_INIT) return -1;
     }

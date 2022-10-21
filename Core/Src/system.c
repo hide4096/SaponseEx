@@ -58,12 +58,12 @@ void init(){
   errcnt = 0;
 
   //InitIMU
-  //if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
-  //IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin);
+  if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
   r_yaw_ref = 0;
   float r_yaw_ref_tmp = 0;
   for(uint16_t i = 0;i<GYROREFTIME;i++){
     r_yaw_ref_tmp += gyroZ();
+    HAL_Delay(1);
   }
   r_yaw_ref = (float)(r_yaw_ref_tmp / GYROREFTIME);
 

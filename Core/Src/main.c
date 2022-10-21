@@ -102,13 +102,12 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
-  if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
   init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t mode = 2;
+  uint8_t mode = 1;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -122,6 +121,11 @@ int main(void)
       Blink(5);
     }else if(sensval[0] + sensval[3] >= CONFIRM*2){
       switch (mode){
+        case 0:
+          while(1){
+            printf("%.2f\t\r\n",deg);
+          }
+          break;
         case 1:
           I_spd = I_deg = 0.;
           motpower = 1;
@@ -134,9 +138,16 @@ int main(void)
           SetLED(0b000);
           HAL_Delay(500);
           motpower = 1;
-          tgt_spd = 0.2;
           tgt_deg = deg;
-          HAL_Delay(2000);
+          for(int i=0;i<200;i++){
+            tgt_spd+=0.01;
+            HAL_Delay(1);
+          }
+          HAL_Delay(1000);
+          for(int i=0;i<200;i++){
+            tgt_spd-=0.01;
+            HAL_Delay(1);
+          }
           tgt_spd = 0.0;
           HAL_Delay(1000);
           motpower = 0;
