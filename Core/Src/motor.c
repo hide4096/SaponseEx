@@ -43,6 +43,11 @@ void SetDutyRatio(int16_t motL,int16_t motR){
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
     }
+  }else{
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
   }
 }
 

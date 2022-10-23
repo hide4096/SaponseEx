@@ -120,13 +120,13 @@ int main(void)
       mode--;
       Blink(5);
     }else if(sensval[0] + sensval[3] >= CONFIRM*2){
+      Blink(2);
       switch (mode){
         case 0:
-          while(1){
-            printf("%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
-          }
+          while(1) printf("%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
           break;
         case 1:
+          r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
           I_spd = I_deg = 0.;
           motpower = 1;
           tgt_spd = 0.;
@@ -134,27 +134,23 @@ int main(void)
           while(1);
           break;
         case 2:
+          r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
           I_spd = I_deg = 0.;
           SetLED(0b000);
           HAL_Delay(500);
           motpower = 1;
           tgt_deg = deg;
-          for(int i=0;i<200;i++){
-            tgt_spd+=0.01;
+          for(int i=0;i<50;i++){
+            tgt_spd+=0.0025;
             HAL_Delay(1);
           }
           HAL_Delay(1000);
-          for(int i=0;i<200;i++){
-            tgt_spd-=0.01;
+          for(int i=0;i<50;i++){
+            tgt_spd-=0.0025;
             HAL_Delay(1);
           }
-          tgt_spd = 0.0;
-          HAL_Delay(1000);
+          tgt_spd = 0.;
           motpower = 0;
-          break;
-        case 3:
-          HAL_GPIO_WritePin(FAN_GPIO_Port,FAN_Pin,1);
-          while (1);
           break;
         default:
           DoPanic();

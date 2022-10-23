@@ -61,13 +61,7 @@ void init(){
 
   //InitIMU
   if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
-  r_yaw_ref = 0;
-  float r_yaw_ref_tmp = 0;
-  for(uint16_t i = 0;i<GYROREFTIME;i++){
-    r_yaw_ref_tmp += gyroZ();
-    HAL_Delay(1);
-  }
-  r_yaw_ref = (float)(r_yaw_ref_tmp / GYROREFTIME);
+  r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
 
   //Motor
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);

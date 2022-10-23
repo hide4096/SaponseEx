@@ -12,22 +12,22 @@
 
 #define GYROREFTIME 1000
 #define VBATREF 0.11
-#define LOWVOLT 3.6
+#define LOWVOLT 3.2
 
 #define IMULPF 0.1
 #define ENCLPF 0.1
 
-#define SPD_KP 2.0
+#define SPD_KP 4.0
 #define SPD_KI 0.1
-#define SPD_KD 0.01
-#define DEG_KP 2.5
+#define SPD_KD 0.0
+#define DEG_KP 0.1
 #define DEG_KI 0.0
-#define DEG_KD 0.0
+#define DEG_KD 0.01
 
 #define SPD_I_MAX 10000
 #define DEG_I_MAX 10000
 
 #define FAILSAFE 8.0
 
-#define CONFIRM 3000
+#define CONFIRM 2000
 #endif

@@ -132,6 +132,15 @@ int IMU_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
     return 0;
 }
 
+float IMU_SurveyBias(int _reftime,int _interval){
+    float r_yaw_ref_tmp = 0;
+    for(uint16_t i = 0;i<GYROREFTIME;i++){
+        r_yaw_ref_tmp += gyroZ();
+        HAL_Delay(_interval);
+    }
+  return (float)(r_yaw_ref_tmp / GYROREFTIME);
+}
+
 int16_t accelX_raw(){
     return IMU_readRegister_2Byte(0x2D,0x2E);
 }
