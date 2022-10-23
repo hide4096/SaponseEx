@@ -11,7 +11,9 @@
 #define PPMM        (TIRE_DIAM*M_PI)/ENC_MAX
 
 #define GYROREFTIME 1000
-#define VBATREF 0.02
+#define VBATREF 0.11
+#define LOWVOLT 3.6
+
 #define IMULPF 0.1
 #define ENCLPF 0.1
 

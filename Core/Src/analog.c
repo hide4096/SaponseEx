@@ -17,22 +17,31 @@ void InitADCDMA(){
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
 }
 
-void GetWallSens(){
+void TrigWallSens(){
+  if(senstype){
+    HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,1);
+    HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,0);
+  }else{
+    HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,0);
+    HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,1);
+  }
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
+}
+
+void FetchWallSens(){
   if(senstype){
     sensval[0] = adcval[0];
     sensval[2] = adcval[2];
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,1);
   }else{
     sensval[1] = adcval[1];
     sensval[3] = adcval[3];
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,1);
-    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
   }
-    senstype = 1-senstype;
+  HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,0);
+  HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,0);
+  senstype = 1-senstype;
 }
 
 void GetBattVoltage(){
-  vbat = 3.3 * (adcval[4] / 4096.0) * 2;
+  vbat = 3.3 * (adcval[4] / 4096.0) * 2.;
   vbat += VBATREF;
 }

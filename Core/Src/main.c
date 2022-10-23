@@ -107,7 +107,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t mode = 1;
+  uint8_t mode = 0;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -123,7 +123,7 @@ int main(void)
       switch (mode){
         case 0:
           while(1){
-            printf("%.2f\t\r\n",deg);
+            printf("%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
           }
           break;
         case 1:
@@ -151,6 +151,10 @@ int main(void)
           tgt_spd = 0.0;
           HAL_Delay(1000);
           motpower = 0;
+          break;
+        case 3:
+          HAL_GPIO_WritePin(FAN_GPIO_Port,FAN_Pin,1);
+          while (1);
           break;
         default:
           DoPanic();

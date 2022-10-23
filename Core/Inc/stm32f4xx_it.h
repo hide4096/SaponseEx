@@ -27,7 +27,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include"analog.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
