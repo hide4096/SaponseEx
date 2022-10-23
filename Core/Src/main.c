@@ -152,6 +152,9 @@ int main(void)
           tgt_spd = 0.;
           motpower = 0;
           break;
+        case 3:
+          HAL_GPIO_TogglePin(FAN_GPIO_Port,FAN_Pin);
+          break;
         default:
           DoPanic();
           break;

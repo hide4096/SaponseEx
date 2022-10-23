@@ -15,12 +15,15 @@
 extern AS5047P_Instance encR;
 extern AS5047P_Instance encL;
 
+//run
 extern float r_yaw_ref,angvel;
 extern uint8_t motpower;
 extern float spd,deg;
 extern float tgt_spd,tgt_deg;
 extern float angvel,r_yaw_ref;
 extern float I_spd,I_deg;
+
+extern uint8_t runmode;
 
 void SetDutyRatio(int16_t,int16_t);
 void GetSpeed();
