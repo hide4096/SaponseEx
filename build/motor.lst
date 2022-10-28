@@ -1,0 +1,1429 @@
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"motor.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.SetDutyRatio,"ax",%progbits
+  20              		.align	1
+  21              		.global	SetDutyRatio
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	SetDutyRatio:
+  27              	.LVL0:
+  28              	.LFB252:
+  29              		.file 1 "Main/Src/motor.c"
+   1:Main/Src/motor.c **** /* 
+   2:Main/Src/motor.c **** #####################################
+   3:Main/Src/motor.c ****     Motor Control & Encoder & IMU
+   4:Main/Src/motor.c **** #####################################
+   5:Main/Src/motor.c **** */
+   6:Main/Src/motor.c **** 
+   7:Main/Src/motor.c **** #include"motor.h"
+   8:Main/Src/motor.c **** 
+   9:Main/Src/motor.c **** static int16_t b_encR_val=0,b_encL_val=0;
+  10:Main/Src/motor.c **** static float spdR = 0,spdL=0;
+  11:Main/Src/motor.c **** static float b_spdR = 0,b_spdL=0;
+  12:Main/Src/motor.c **** static float r_yaw = 0,r_yaw_new = 0,r_b_yaw;
+  13:Main/Src/motor.c **** 
+  14:Main/Src/motor.c **** uint8_t motpower=0;
+  15:Main/Src/motor.c **** float spd,deg,len;
+  16:Main/Src/motor.c **** float tgt_spd,tgt_angvel;
+  17:Main/Src/motor.c **** float angvel,r_yaw_ref;
+  18:Main/Src/motor.c **** 
+  19:Main/Src/motor.c **** AS5047P_Instance encR;
+  20:Main/Src/motor.c **** AS5047P_Instance encL;
+  21:Main/Src/motor.c **** 
+  22:Main/Src/motor.c **** void SetDutyRatio(int16_t motL,int16_t motR){
+  30              		.loc 1 22 45 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  23:Main/Src/motor.c ****   if(motpower){
+  35              		.loc 1 23 3 view .LVU1
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 2
+
+
+  36              		.loc 1 23 6 is_stmt 0 view .LVU2
+  37 0000 224B     		ldr	r3, .L15
+  38 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  39              		.loc 1 23 5 view .LVU3
+  40 0004 002B     		cmp	r3, #0
+  41 0006 36D0     		beq	.L2
+  24:Main/Src/motor.c ****     if(motR > 0){
+  42              		.loc 1 24 5 is_stmt 1 view .LVU4
+  43              		.loc 1 24 7 is_stmt 0 view .LVU5
+  44 0008 0029     		cmp	r1, #0
+  45 000a 18DD     		ble	.L3
+  25:Main/Src/motor.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
+  46              		.loc 1 25 7 is_stmt 1 view .LVU6
+  47              		.loc 1 25 9 is_stmt 0 view .LVU7
+  48 000c B1F5FA6F 		cmp	r1, #2000
+  49 0010 01DD     		ble	.L4
+  50              		.loc 1 25 32 view .LVU8
+  51 0012 4FF4FA61 		mov	r1, #2000
+  52              	.LVL1:
+  53              	.L4:
+  26:Main/Src/motor.c ****      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+  54              		.loc 1 26 6 is_stmt 1 view .LVU9
+  55 0016 1E4B     		ldr	r3, .L15+4
+  56 0018 1B68     		ldr	r3, [r3]
+  57 001a 9963     		str	r1, [r3, #56]
+  27:Main/Src/motor.c ****      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
+  58              		.loc 1 27 6 view .LVU10
+  59 001c 0022     		movs	r2, #0
+  60 001e DA63     		str	r2, [r3, #60]
+  61              	.L5:
+  28:Main/Src/motor.c ****     }else{
+  29:Main/Src/motor.c ****       motR*=-1;
+  30:Main/Src/motor.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
+  31:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+  32:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
+  33:Main/Src/motor.c ****     }
+  34:Main/Src/motor.c **** 
+  35:Main/Src/motor.c ****     if(motL > 0){
+  62              		.loc 1 35 5 view .LVU11
+  63              		.loc 1 35 7 is_stmt 0 view .LVU12
+  64 0020 0028     		cmp	r0, #0
+  65 0022 19DD     		ble	.L7
+  36:Main/Src/motor.c ****       if(motL > MTPERIOD) motL = MTPERIOD;
+  66              		.loc 1 36 7 is_stmt 1 view .LVU13
+  67              		.loc 1 36 9 is_stmt 0 view .LVU14
+  68 0024 B0F5FA6F 		cmp	r0, #2000
+  69 0028 01DD     		ble	.L8
+  70              		.loc 1 36 32 view .LVU15
+  71 002a 4FF4FA60 		mov	r0, #2000
+  72              	.LVL2:
+  73              	.L8:
+  37:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
+  74              		.loc 1 37 7 is_stmt 1 view .LVU16
+  75 002e 184B     		ldr	r3, .L15+4
+  76 0030 1B68     		ldr	r3, [r3]
+  77 0032 5863     		str	r0, [r3, #52]
+  38:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 3
+
+
+  78              		.loc 1 38 7 view .LVU17
+  79 0034 174B     		ldr	r3, .L15+8
+  80 0036 1B68     		ldr	r3, [r3]
+  81 0038 0022     		movs	r2, #0
+  82 003a DA63     		str	r2, [r3, #60]
+  83 003c 7047     		bx	lr
+  84              	.L3:
+  29:Main/Src/motor.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
+  85              		.loc 1 29 7 view .LVU18
+  29:Main/Src/motor.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
+  86              		.loc 1 29 11 is_stmt 0 view .LVU19
+  87 003e 4942     		rsbs	r1, r1, #0
+  88              	.LVL3:
+  29:Main/Src/motor.c ****       if(motR > MTPERIOD) motR = MTPERIOD;
+  89              		.loc 1 29 11 view .LVU20
+  90 0040 09B2     		sxth	r1, r1
+  91              	.LVL4:
+  30:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+  92              		.loc 1 30 7 is_stmt 1 view .LVU21
+  30:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+  93              		.loc 1 30 9 is_stmt 0 view .LVU22
+  94 0042 B1F5FA6F 		cmp	r1, #2000
+  95 0046 01DD     		ble	.L6
+  30:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+  96              		.loc 1 30 32 view .LVU23
+  97 0048 4FF4FA61 		mov	r1, #2000
+  98              	.LVL5:
+  99              	.L6:
+  31:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
+ 100              		.loc 1 31 7 is_stmt 1 view .LVU24
+ 101 004c 104B     		ldr	r3, .L15+4
+ 102 004e 1B68     		ldr	r3, [r3]
+ 103 0050 0022     		movs	r2, #0
+ 104 0052 9A63     		str	r2, [r3, #56]
+  32:Main/Src/motor.c ****     }
+ 105              		.loc 1 32 7 view .LVU25
+ 106 0054 D963     		str	r1, [r3, #60]
+ 107 0056 E3E7     		b	.L5
+ 108              	.L7:
+  39:Main/Src/motor.c ****     }else{
+  40:Main/Src/motor.c ****       motL*=-1;
+ 109              		.loc 1 40 7 view .LVU26
+ 110              		.loc 1 40 11 is_stmt 0 view .LVU27
+ 111 0058 4042     		rsbs	r0, r0, #0
+ 112              	.LVL6:
+ 113              		.loc 1 40 11 view .LVU28
+ 114 005a 00B2     		sxth	r0, r0
+ 115              	.LVL7:
+  41:Main/Src/motor.c ****       if(motL > MTPERIOD) motL = MTPERIOD;
+ 116              		.loc 1 41 7 is_stmt 1 view .LVU29
+ 117              		.loc 1 41 9 is_stmt 0 view .LVU30
+ 118 005c B0F5FA6F 		cmp	r0, #2000
+ 119 0060 01DD     		ble	.L10
+ 120              		.loc 1 41 32 view .LVU31
+ 121 0062 4FF4FA60 		mov	r0, #2000
+ 122              	.LVL8:
+ 123              	.L10:
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 4
+
+
+  42:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+ 124              		.loc 1 42 7 is_stmt 1 view .LVU32
+ 125 0066 0A4B     		ldr	r3, .L15+4
+ 126 0068 1B68     		ldr	r3, [r3]
+ 127 006a 0022     		movs	r2, #0
+ 128 006c 5A63     		str	r2, [r3, #52]
+  43:Main/Src/motor.c ****       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
+ 129              		.loc 1 43 7 view .LVU33
+ 130 006e 094B     		ldr	r3, .L15+8
+ 131 0070 1B68     		ldr	r3, [r3]
+ 132 0072 D863     		str	r0, [r3, #60]
+ 133 0074 7047     		bx	lr
+ 134              	.L2:
+  44:Main/Src/motor.c ****     }
+  45:Main/Src/motor.c ****   }else{
+  46:Main/Src/motor.c ****     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+ 135              		.loc 1 46 5 view .LVU34
+ 136 0076 064B     		ldr	r3, .L15+4
+ 137 0078 1A68     		ldr	r2, [r3]
+ 138 007a 0023     		movs	r3, #0
+ 139 007c 5363     		str	r3, [r2, #52]
+  47:Main/Src/motor.c ****     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+ 140              		.loc 1 47 5 view .LVU35
+ 141 007e 0549     		ldr	r1, .L15+8
+ 142              	.LVL9:
+ 143              		.loc 1 47 5 is_stmt 0 view .LVU36
+ 144 0080 0968     		ldr	r1, [r1]
+ 145 0082 CB63     		str	r3, [r1, #60]
+  48:Main/Src/motor.c ****     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
+ 146              		.loc 1 48 5 is_stmt 1 view .LVU37
+ 147 0084 9363     		str	r3, [r2, #56]
+  49:Main/Src/motor.c ****     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
+ 148              		.loc 1 49 5 view .LVU38
+ 149 0086 D363     		str	r3, [r2, #60]
+  50:Main/Src/motor.c ****   }
+  51:Main/Src/motor.c **** }
+ 150              		.loc 1 51 1 is_stmt 0 view .LVU39
+ 151 0088 7047     		bx	lr
+ 152              	.L16:
+ 153 008a 00BF     		.align	2
+ 154              	.L15:
+ 155 008c 00000000 		.word	.LANCHOR0
+ 156 0090 00000000 		.word	htim1
+ 157 0094 00000000 		.word	htim2
+ 158              		.cfi_endproc
+ 159              	.LFE252:
+ 161              		.global	__aeabi_f2d
+ 162              		.global	__aeabi_dmul
+ 163              		.global	__aeabi_dadd
+ 164              		.global	__aeabi_d2f
+ 165              		.global	__aeabi_ddiv
+ 166              		.section	.text.GetSpeed,"ax",%progbits
+ 167              		.align	1
+ 168              		.global	GetSpeed
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 5
+
+
+ 173              	GetSpeed:
+ 174              	.LFB253:
+  52:Main/Src/motor.c **** 
+  53:Main/Src/motor.c **** void GetSpeed(){
+ 175              		.loc 1 53 16 is_stmt 1 view -0
+ 176              		.cfi_startproc
+ 177              		@ args = 0, pretend = 0, frame = 0
+ 178              		@ frame_needed = 0, uses_anonymous_args = 0
+ 179 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 180              	.LCFI0:
+ 181              		.cfi_def_cfa_offset 24
+ 182              		.cfi_offset 4, -24
+ 183              		.cfi_offset 5, -20
+ 184              		.cfi_offset 6, -16
+ 185              		.cfi_offset 7, -12
+ 186              		.cfi_offset 8, -8
+ 187              		.cfi_offset 14, -4
+ 188 0004 2DED028B 		vpush.64	{d8}
+ 189              	.LCFI1:
+ 190              		.cfi_def_cfa_offset 32
+ 191              		.cfi_offset 80, -32
+ 192              		.cfi_offset 81, -28
+  54:Main/Src/motor.c ****   int16_t encR_val,encL_val;
+ 193              		.loc 1 54 3 view .LVU41
+  55:Main/Src/motor.c **** 
+  56:Main/Src/motor.c ****   //エンコーダ読む
+  57:Main/Src/motor.c ****   encR_val = AS5047P_ReadPosition(&encR, AS5047P_OPT_ENABLED);
+ 194              		.loc 1 57 3 view .LVU42
+ 195              		.loc 1 57 14 is_stmt 0 view .LVU43
+ 196 0008 734E     		ldr	r6, .L27+24
+ 197 000a 0121     		movs	r1, #1
+ 198 000c 3046     		mov	r0, r6
+ 199 000e FFF7FEFF 		bl	AS5047P_ReadPosition
+ 200              	.LVL10:
+ 201 0012 0546     		mov	r5, r0
+ 202              	.LVL11:
+  58:Main/Src/motor.c ****   encL_val = AS5047P_ReadPosition(&encL, AS5047P_OPT_ENABLED);
+ 203              		.loc 1 58 3 is_stmt 1 view .LVU44
+ 204              		.loc 1 58 14 is_stmt 0 view .LVU45
+ 205 0014 0121     		movs	r1, #1
+ 206 0016 7148     		ldr	r0, .L27+28
+ 207 0018 FFF7FEFF 		bl	AS5047P_ReadPosition
+ 208              	.LVL12:
+ 209 001c 0446     		mov	r4, r0
+ 210              	.LVL13:
+  59:Main/Src/motor.c **** 	if(AS5047P_ErrorPending(&encR)) AS5047P_ErrorAck(&encR);
+ 211              		.loc 1 59 2 is_stmt 1 view .LVU46
+ 212              		.loc 1 59 5 is_stmt 0 view .LVU47
+ 213 001e 3046     		mov	r0, r6
+ 214 0020 FFF7FEFF 		bl	AS5047P_ErrorPending
+ 215              	.LVL14:
+ 216              		.loc 1 59 4 view .LVU48
+ 217 0024 0028     		cmp	r0, #0
+ 218 0026 40F0C280 		bne	.L25
+ 219              	.L18:
+  60:Main/Src/motor.c **** 	if(AS5047P_ErrorPending(&encL)) AS5047P_ErrorAck(&encL);
+ 220              		.loc 1 60 2 is_stmt 1 view .LVU49
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 6
+
+
+ 221              		.loc 1 60 5 is_stmt 0 view .LVU50
+ 222 002a 6C48     		ldr	r0, .L27+28
+ 223 002c FFF7FEFF 		bl	AS5047P_ErrorPending
+ 224              	.LVL15:
+ 225              		.loc 1 60 4 view .LVU51
+ 226 0030 0028     		cmp	r0, #0
+ 227 0032 40F0C080 		bne	.L26
+ 228              	.L19:
+  61:Main/Src/motor.c **** 
+  62:Main/Src/motor.c ****   //差分とる
+  63:Main/Src/motor.c ****   int16_t d_encR_val = encR_val - b_encR_val;
+ 229              		.loc 1 63 3 is_stmt 1 view .LVU52
+ 230              		.loc 1 63 33 is_stmt 0 view .LVU53
+ 231 0036 6A4F     		ldr	r7, .L27+32
+ 232 0038 3A88     		ldrh	r2, [r7]
+ 233 003a AA1A     		subs	r2, r5, r2
+ 234 003c 90B2     		uxth	r0, r2
+ 235              		.loc 1 63 11 view .LVU54
+ 236 003e 12B2     		sxth	r2, r2
+ 237              	.LVL16:
+  64:Main/Src/motor.c ****   int16_t d_encL_val = b_encL_val -  encL_val;
+ 238              		.loc 1 64 3 is_stmt 1 view .LVU55
+ 239              		.loc 1 64 35 is_stmt 0 view .LVU56
+ 240 0040 684E     		ldr	r6, .L27+36
+ 241 0042 3388     		ldrh	r3, [r6]
+ 242 0044 1B1B     		subs	r3, r3, r4
+ 243 0046 99B2     		uxth	r1, r3
+ 244              		.loc 1 64 11 view .LVU57
+ 245 0048 1BB2     		sxth	r3, r3
+ 246              	.LVL17:
+  65:Main/Src/motor.c ****   b_encR_val = encR_val;
+ 247              		.loc 1 65 3 is_stmt 1 view .LVU58
+ 248              		.loc 1 65 14 is_stmt 0 view .LVU59
+ 249 004a 3D80     		strh	r5, [r7]	@ movhi
+  66:Main/Src/motor.c ****   b_encL_val = encL_val;
+ 250              		.loc 1 66 3 is_stmt 1 view .LVU60
+ 251              		.loc 1 66 14 is_stmt 0 view .LVU61
+ 252 004c 3480     		strh	r4, [r6]	@ movhi
+  67:Main/Src/motor.c **** 
+  68:Main/Src/motor.c ****   //0と16383とかまたいだ時の処理
+  69:Main/Src/motor.c ****   //秒速98.2m/s超えるとバグる（笑）
+  70:Main/Src/motor.c ****   if(d_encR_val > ENC_HALF)   d_encR_val -= ENC_MAX-1;
+ 253              		.loc 1 70 3 is_stmt 1 view .LVU62
+ 254              		.loc 1 70 5 is_stmt 0 view .LVU63
+ 255 004e B2F5005F 		cmp	r2, #8192
+ 256 0052 03DD     		ble	.L20
+ 257              		.loc 1 70 31 is_stmt 1 discriminator 1 view .LVU64
+ 258              		.loc 1 70 42 is_stmt 0 discriminator 1 view .LVU65
+ 259 0054 A0F57F52 		sub	r2, r0, #16320
+ 260              	.LVL18:
+ 261              		.loc 1 70 42 discriminator 1 view .LVU66
+ 262 0058 3F3A     		subs	r2, r2, #63
+ 263 005a 12B2     		sxth	r2, r2
+ 264              	.LVL19:
+ 265              	.L20:
+  71:Main/Src/motor.c ****   if(d_encR_val < -ENC_HALF)  d_encR_val += ENC_MAX-1;
+ 266              		.loc 1 71 3 is_stmt 1 view .LVU67
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 7
+
+
+ 267              		.loc 1 71 5 is_stmt 0 view .LVU68
+ 268 005c 12F5005F 		cmn	r2, #8192
+ 269 0060 03DA     		bge	.L21
+ 270              		.loc 1 71 31 is_stmt 1 discriminator 1 view .LVU69
+ 271              		.loc 1 71 42 is_stmt 0 discriminator 1 view .LVU70
+ 272 0062 02F57F52 		add	r2, r2, #16320
+ 273              	.LVL20:
+ 274              		.loc 1 71 42 discriminator 1 view .LVU71
+ 275 0066 3F32     		adds	r2, r2, #63
+ 276 0068 12B2     		sxth	r2, r2
+ 277              	.LVL21:
+ 278              	.L21:
+  72:Main/Src/motor.c ****   if(d_encL_val > ENC_HALF)   d_encL_val -= ENC_MAX-1;
+ 279              		.loc 1 72 3 is_stmt 1 view .LVU72
+ 280              		.loc 1 72 5 is_stmt 0 view .LVU73
+ 281 006a B3F5005F 		cmp	r3, #8192
+ 282 006e 03DD     		ble	.L22
+ 283              		.loc 1 72 31 is_stmt 1 discriminator 1 view .LVU74
+ 284              		.loc 1 72 42 is_stmt 0 discriminator 1 view .LVU75
+ 285 0070 A1F57F53 		sub	r3, r1, #16320
+ 286              	.LVL22:
+ 287              		.loc 1 72 42 discriminator 1 view .LVU76
+ 288 0074 3F3B     		subs	r3, r3, #63
+ 289 0076 1BB2     		sxth	r3, r3
+ 290              	.LVL23:
+ 291              	.L22:
+  73:Main/Src/motor.c ****   if(d_encL_val < -ENC_HALF)  d_encL_val += ENC_MAX-1;
+ 292              		.loc 1 73 3 is_stmt 1 view .LVU77
+ 293              		.loc 1 73 5 is_stmt 0 view .LVU78
+ 294 0078 13F5005F 		cmn	r3, #8192
+ 295 007c 03DA     		bge	.L23
+ 296              		.loc 1 73 31 is_stmt 1 discriminator 1 view .LVU79
+ 297              		.loc 1 73 42 is_stmt 0 discriminator 1 view .LVU80
+ 298 007e 03F57F53 		add	r3, r3, #16320
+ 299              	.LVL24:
+ 300              		.loc 1 73 42 discriminator 1 view .LVU81
+ 301 0082 3F33     		adds	r3, r3, #63
+ 302 0084 1BB2     		sxth	r3, r3
+ 303              	.LVL25:
+ 304              	.L23:
+  74:Main/Src/motor.c **** 
+  75:Main/Src/motor.c ****   //進んだ距離計算する
+  76:Main/Src/motor.c ****   float lenR = (float)d_encR_val * (float)PPMM;
+ 305              		.loc 1 76 3 is_stmt 1 view .LVU82
+ 306              		.loc 1 76 16 is_stmt 0 view .LVU83
+ 307 0086 07EE902A 		vmov	s15, r2	@ int
+ 308 008a F8EEE78A 		vcvt.f32.s32	s17, s15
+ 309              		.loc 1 76 34 view .LVU84
+ 310 008e 9FED567A 		vldr.32	s14, .L27+40
+ 311 0092 68EE878A 		vmul.f32	s17, s17, s14
+ 312              		.loc 1 76 9 view .LVU85
+ 313 0096 DFED557A 		vldr.32	s15, .L27+44
+ 314 009a 68EEA78A 		vmul.f32	s17, s17, s15
+ 315              	.LVL26:
+  77:Main/Src/motor.c ****   float lenL = (float)d_encL_val * (float)PPMM;
+ 316              		.loc 1 77 3 is_stmt 1 view .LVU86
+ 317              		.loc 1 77 16 is_stmt 0 view .LVU87
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 8
+
+
+ 318 009e 06EE903A 		vmov	s13, r3	@ int
+ 319 00a2 B8EEE68A 		vcvt.f32.s32	s16, s13
+ 320              		.loc 1 77 34 view .LVU88
+ 321 00a6 28EE078A 		vmul.f32	s16, s16, s14
+ 322              		.loc 1 77 9 view .LVU89
+ 323 00aa 28EE278A 		vmul.f32	s16, s16, s15
+ 324              	.LVL27:
+  78:Main/Src/motor.c ****   //走行距離に入れる
+  79:Main/Src/motor.c ****   len += (lenR + lenL) / 2.0;
+ 325              		.loc 1 79 3 is_stmt 1 view .LVU90
+ 326              		.loc 1 79 16 is_stmt 0 view .LVU91
+ 327 00ae 78EE887A 		vadd.f32	s15, s17, s16
+ 328 00b2 17EE900A 		vmov	r0, s15
+ 329 00b6 FFF7FEFF 		bl	__aeabi_f2d
+ 330              	.LVL28:
+ 331              		.loc 1 79 24 view .LVU92
+ 332 00ba 0022     		movs	r2, #0
+ 333 00bc 4C4B     		ldr	r3, .L27+48
+ 334 00be FFF7FEFF 		bl	__aeabi_dmul
+ 335              	.LVL29:
+ 336 00c2 0446     		mov	r4, r0
+ 337              	.LVL30:
+ 338              		.loc 1 79 24 view .LVU93
+ 339 00c4 0D46     		mov	r5, r1
+ 340              	.LVL31:
+ 341              		.loc 1 79 7 view .LVU94
+ 342 00c6 4B4E     		ldr	r6, .L27+52
+ 343 00c8 3068     		ldr	r0, [r6]	@ float
+ 344 00ca FFF7FEFF 		bl	__aeabi_f2d
+ 345              	.LVL32:
+ 346 00ce 2246     		mov	r2, r4
+ 347 00d0 2B46     		mov	r3, r5
+ 348 00d2 FFF7FEFF 		bl	__aeabi_dadd
+ 349              	.LVL33:
+ 350 00d6 FFF7FEFF 		bl	__aeabi_d2f
+ 351              	.LVL34:
+ 352 00da 3060     		str	r0, [r6]	@ float
+  80:Main/Src/motor.c **** 
+  81:Main/Src/motor.c ****   //進んだ距離から速度計算する
+  82:Main/Src/motor.c ****   float n_spdR = lenR / DELTA_T;
+ 353              		.loc 1 82 3 is_stmt 1 view .LVU95
+ 354              		.loc 1 82 23 is_stmt 0 view .LVU96
+ 355 00dc 18EE900A 		vmov	r0, s17
+ 356 00e0 FFF7FEFF 		bl	__aeabi_f2d
+ 357              	.LVL35:
+ 358 00e4 36A3     		adr	r3, .L27
+ 359 00e6 D3E90023 		ldrd	r2, [r3]
+ 360 00ea FFF7FEFF 		bl	__aeabi_ddiv
+ 361              	.LVL36:
+ 362              		.loc 1 82 9 view .LVU97
+ 363 00ee FFF7FEFF 		bl	__aeabi_d2f
+ 364              	.LVL37:
+ 365 00f2 8046     		mov	r8, r0	@ float
+ 366              	.LVL38:
+  83:Main/Src/motor.c ****   float n_spdL = lenL / DELTA_T;
+ 367              		.loc 1 83 3 is_stmt 1 view .LVU98
+ 368              		.loc 1 83 23 is_stmt 0 view .LVU99
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 9
+
+
+ 369 00f4 18EE100A 		vmov	r0, s16
+ 370              	.LVL39:
+ 371              		.loc 1 83 23 view .LVU100
+ 372 00f8 FFF7FEFF 		bl	__aeabi_f2d
+ 373              	.LVL40:
+ 374 00fc 30A3     		adr	r3, .L27
+ 375 00fe D3E90023 		ldrd	r2, [r3]
+ 376 0102 FFF7FEFF 		bl	__aeabi_ddiv
+ 377              	.LVL41:
+ 378              		.loc 1 83 9 view .LVU101
+ 379 0106 FFF7FEFF 		bl	__aeabi_d2f
+ 380              	.LVL42:
+ 381 010a 0646     		mov	r6, r0	@ float
+ 382              	.LVL43:
+  84:Main/Src/motor.c ****   
+  85:Main/Src/motor.c ****   spdR = b_spdR * ENCLPF + n_spdR * (1.0 - ENCLPF);
+ 383              		.loc 1 85 3 is_stmt 1 view .LVU102
+ 384              		.loc 1 85 17 is_stmt 0 view .LVU103
+ 385 010c 3A4F     		ldr	r7, .L27+56
+ 386 010e 3868     		ldr	r0, [r7]	@ float
+ 387              	.LVL44:
+ 388              		.loc 1 85 17 view .LVU104
+ 389 0110 FFF7FEFF 		bl	__aeabi_f2d
+ 390              	.LVL45:
+ 391 0114 2CA3     		adr	r3, .L27+8
+ 392 0116 D3E90023 		ldrd	r2, [r3]
+ 393 011a FFF7FEFF 		bl	__aeabi_dmul
+ 394              	.LVL46:
+ 395 011e 0446     		mov	r4, r0
+ 396 0120 0D46     		mov	r5, r1
+ 397              		.loc 1 85 35 view .LVU105
+ 398 0122 4046     		mov	r0, r8	@ float
+ 399 0124 FFF7FEFF 		bl	__aeabi_f2d
+ 400              	.LVL47:
+ 401 0128 29A3     		adr	r3, .L27+16
+ 402 012a D3E90023 		ldrd	r2, [r3]
+ 403 012e FFF7FEFF 		bl	__aeabi_dmul
+ 404              	.LVL48:
+ 405 0132 0246     		mov	r2, r0
+ 406 0134 0B46     		mov	r3, r1
+ 407              		.loc 1 85 26 view .LVU106
+ 408 0136 2046     		mov	r0, r4
+ 409 0138 2946     		mov	r1, r5
+ 410 013a FFF7FEFF 		bl	__aeabi_dadd
+ 411              	.LVL49:
+ 412 013e FFF7FEFF 		bl	__aeabi_d2f
+ 413              	.LVL50:
+ 414 0142 08EE100A 		vmov	s16, r0
+ 415              	.LVL51:
+ 416              		.loc 1 85 8 view .LVU107
+ 417 0146 2D4B     		ldr	r3, .L27+60
+ 418 0148 1860     		str	r0, [r3]	@ float
+  86:Main/Src/motor.c ****   spdL = b_spdL * ENCLPF + n_spdL * (1.0 - ENCLPF);
+ 419              		.loc 1 86 3 is_stmt 1 view .LVU108
+ 420              		.loc 1 86 17 is_stmt 0 view .LVU109
+ 421 014a DFF8BC80 		ldr	r8, .L27+72
+ 422              	.LVL52:
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 10
+
+
+ 423              		.loc 1 86 17 view .LVU110
+ 424 014e D8F80000 		ldr	r0, [r8]	@ float
+ 425 0152 FFF7FEFF 		bl	__aeabi_f2d
+ 426              	.LVL53:
+ 427 0156 1CA3     		adr	r3, .L27+8
+ 428 0158 D3E90023 		ldrd	r2, [r3]
+ 429 015c FFF7FEFF 		bl	__aeabi_dmul
+ 430              	.LVL54:
+ 431 0160 0446     		mov	r4, r0
+ 432 0162 0D46     		mov	r5, r1
+ 433              		.loc 1 86 35 view .LVU111
+ 434 0164 3046     		mov	r0, r6	@ float
+ 435 0166 FFF7FEFF 		bl	__aeabi_f2d
+ 436              	.LVL55:
+ 437 016a 19A3     		adr	r3, .L27+16
+ 438 016c D3E90023 		ldrd	r2, [r3]
+ 439 0170 FFF7FEFF 		bl	__aeabi_dmul
+ 440              	.LVL56:
+ 441 0174 0246     		mov	r2, r0
+ 442 0176 0B46     		mov	r3, r1
+ 443              		.loc 1 86 26 view .LVU112
+ 444 0178 2046     		mov	r0, r4
+ 445 017a 2946     		mov	r1, r5
+ 446 017c FFF7FEFF 		bl	__aeabi_dadd
+ 447              	.LVL57:
+ 448 0180 FFF7FEFF 		bl	__aeabi_d2f
+ 449              	.LVL58:
+ 450 0184 07EE900A 		vmov	s15, r0
+ 451              		.loc 1 86 8 view .LVU113
+ 452 0188 1D4B     		ldr	r3, .L27+64
+ 453 018a 1860     		str	r0, [r3]	@ float
+  87:Main/Src/motor.c ****   b_spdR = spdR;
+ 454              		.loc 1 87 3 is_stmt 1 view .LVU114
+ 455              		.loc 1 87 10 is_stmt 0 view .LVU115
+ 456 018c 87ED008A 		vstr.32	s16, [r7]
+  88:Main/Src/motor.c ****   b_spdL = spdL;
+ 457              		.loc 1 88 3 is_stmt 1 view .LVU116
+ 458              		.loc 1 88 10 is_stmt 0 view .LVU117
+ 459 0190 C8F80000 		str	r0, [r8]	@ float
+  89:Main/Src/motor.c **** 
+  90:Main/Src/motor.c ****   //機体全体の速度を計算する
+  91:Main/Src/motor.c ****   spd = (spdR + spdL) / 2.0;
+ 460              		.loc 1 91 3 is_stmt 1 view .LVU118
+ 461              		.loc 1 91 15 is_stmt 0 view .LVU119
+ 462 0194 38EE278A 		vadd.f32	s16, s16, s15
+ 463              		.loc 1 91 23 view .LVU120
+ 464 0198 F6EE007A 		vmov.f32	s15, #5.0e-1
+ 465 019c 28EE278A 		vmul.f32	s16, s16, s15
+ 466              		.loc 1 91 7 view .LVU121
+ 467 01a0 184B     		ldr	r3, .L27+68
+ 468 01a2 83ED008A 		vstr.32	s16, [r3]
+  92:Main/Src/motor.c **** }
+ 469              		.loc 1 92 1 view .LVU122
+ 470 01a6 BDEC028B 		vldm	sp!, {d8}
+ 471              	.LCFI2:
+ 472              		.cfi_remember_state
+ 473              		.cfi_restore 80
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 11
+
+
+ 474              		.cfi_restore 81
+ 475              		.cfi_def_cfa_offset 24
+ 476 01aa BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 477              	.LVL59:
+ 478              	.L25:
+ 479              	.LCFI3:
+ 480              		.cfi_restore_state
+  59:Main/Src/motor.c **** 	if(AS5047P_ErrorPending(&encL)) AS5047P_ErrorAck(&encL);
+ 481              		.loc 1 59 34 is_stmt 1 discriminator 1 view .LVU123
+ 482 01ae 3046     		mov	r0, r6
+ 483 01b0 FFF7FEFF 		bl	AS5047P_ErrorAck
+ 484              	.LVL60:
+ 485 01b4 39E7     		b	.L18
+ 486              	.L26:
+  60:Main/Src/motor.c **** 
+ 487              		.loc 1 60 34 discriminator 1 view .LVU124
+ 488 01b6 0948     		ldr	r0, .L27+28
+ 489 01b8 FFF7FEFF 		bl	AS5047P_ErrorAck
+ 490              	.LVL61:
+ 491 01bc 3BE7     		b	.L19
+ 492              	.L28:
+ 493 01be 00BF     		.align	3
+ 494              	.L27:
+ 495 01c0 2D431CEB 		.word	-350469331
+ 496 01c4 E2362A3F 		.word	1059731170
+ 497 01c8 9A999999 		.word	-1717986918
+ 498 01cc 9999B93F 		.word	1069128089
+ 499 01d0 CDCCCCCC 		.word	-858993459
+ 500 01d4 CCCCEC3F 		.word	1072483532
+ 501 01d8 00000000 		.word	.LANCHOR1
+ 502 01dc 00000000 		.word	.LANCHOR2
+ 503 01e0 00000000 		.word	.LANCHOR3
+ 504 01e4 00000000 		.word	.LANCHOR4
+ 505 01e8 63141D42 		.word	1109202019
+ 506 01ec 00008038 		.word	947912704
+ 507 01f0 0000E03F 		.word	1071644672
+ 508 01f4 00000000 		.word	.LANCHOR5
+ 509 01f8 00000000 		.word	.LANCHOR6
+ 510 01fc 00000000 		.word	.LANCHOR7
+ 511 0200 00000000 		.word	.LANCHOR9
+ 512 0204 00000000 		.word	.LANCHOR10
+ 513 0208 00000000 		.word	.LANCHOR8
+ 514              		.cfi_endproc
+ 515              	.LFE253:
+ 517              		.section	.text.ControlDuty,"ax",%progbits
+ 518              		.align	1
+ 519              		.global	ControlDuty
+ 520              		.syntax unified
+ 521              		.thumb
+ 522              		.thumb_func
+ 524              	ControlDuty:
+ 525              	.LFB254:
+  93:Main/Src/motor.c **** 
+  94:Main/Src/motor.c **** static float before_spd=0.;
+  95:Main/Src/motor.c **** float I_spd = 0.;
+  96:Main/Src/motor.c **** static float before_angvel=0.;
+  97:Main/Src/motor.c **** float I_angvel = 0.;
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 12
+
+
+  98:Main/Src/motor.c **** 
+  99:Main/Src/motor.c **** void ControlDuty(){
+ 526              		.loc 1 99 19 view -0
+ 527              		.cfi_startproc
+ 528              		@ args = 0, pretend = 0, frame = 0
+ 529              		@ frame_needed = 0, uses_anonymous_args = 0
+ 530 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 531              	.LCFI4:
+ 532              		.cfi_def_cfa_offset 24
+ 533              		.cfi_offset 4, -24
+ 534              		.cfi_offset 5, -20
+ 535              		.cfi_offset 6, -16
+ 536              		.cfi_offset 7, -12
+ 537              		.cfi_offset 8, -8
+ 538              		.cfi_offset 14, -4
+ 539 0004 2DED048B 		vpush.64	{d8, d9}
+ 540              	.LCFI5:
+ 541              		.cfi_def_cfa_offset 40
+ 542              		.cfi_offset 80, -40
+ 543              		.cfi_offset 81, -36
+ 544              		.cfi_offset 82, -32
+ 545              		.cfi_offset 83, -28
+ 100:Main/Src/motor.c ****   float dutyR = 0.,dutyL = 0.;
+ 546              		.loc 1 100 3 view .LVU126
+ 547              	.LVL62:
+ 101:Main/Src/motor.c **** 
+ 102:Main/Src/motor.c ****   float diff_spd = tgt_spd - spd;
+ 548              		.loc 1 102 3 view .LVU127
+ 549              		.loc 1 102 28 is_stmt 0 view .LVU128
+ 550 0008 694B     		ldr	r3, .L45+16
+ 551 000a D3ED007A 		vldr.32	s15, [r3]
+ 552 000e 694B     		ldr	r3, .L45+20
+ 553 0010 D3ED009A 		vldr.32	s19, [r3]
+ 554              		.loc 1 102 9 view .LVU129
+ 555 0014 37EEE99A 		vsub.f32	s18, s15, s19
+ 556              	.LVL63:
+ 103:Main/Src/motor.c ****   float duty_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(before_spd-spd)*SPD_KD;
+ 557              		.loc 1 103 3 is_stmt 1 view .LVU130
+ 558              		.loc 1 103 28 is_stmt 0 view .LVU131
+ 559 0018 19EE100A 		vmov	r0, s18
+ 560 001c FFF7FEFF 		bl	__aeabi_f2d
+ 561              	.LVL64:
+ 562 0020 0022     		movs	r2, #0
+ 563 0022 654B     		ldr	r3, .L45+24
+ 564 0024 FFF7FEFF 		bl	__aeabi_dmul
+ 565              	.LVL65:
+ 566 0028 0446     		mov	r4, r0
+ 567 002a 0D46     		mov	r5, r1
+ 568              		.loc 1 103 41 view .LVU132
+ 569 002c DFF8AC81 		ldr	r8, .L45+60
+ 570 0030 D8ED008A 		vldr.32	s17, [r8]
+ 571 0034 18EE900A 		vmov	r0, s17
+ 572 0038 FFF7FEFF 		bl	__aeabi_f2d
+ 573              	.LVL66:
+ 574 003c 58A3     		adr	r3, .L45
+ 575 003e D3E90023 		ldrd	r2, [r3]
+ 576 0042 FFF7FEFF 		bl	__aeabi_dmul
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 13
+
+
+ 577              	.LVL67:
+ 578 0046 0246     		mov	r2, r0
+ 579 0048 0B46     		mov	r3, r1
+ 580              		.loc 1 103 35 view .LVU133
+ 581 004a 2046     		mov	r0, r4
+ 582 004c 2946     		mov	r1, r5
+ 583 004e FFF7FEFF 		bl	__aeabi_dadd
+ 584              	.LVL68:
+ 585 0052 0646     		mov	r6, r0
+ 586 0054 0F46     		mov	r7, r1
+ 587              		.loc 1 103 60 view .LVU134
+ 588 0056 594C     		ldr	r4, .L45+28
+ 589 0058 D4ED007A 		vldr.32	s15, [r4]
+ 590 005c 77EEE97A 		vsub.f32	s15, s15, s19
+ 591 0060 17EE900A 		vmov	r0, s15
+ 592 0064 FFF7FEFF 		bl	__aeabi_f2d
+ 593              	.LVL69:
+ 594              		.loc 1 103 65 view .LVU135
+ 595 0068 0022     		movs	r2, #0
+ 596 006a 0023     		movs	r3, #0
+ 597 006c FFF7FEFF 		bl	__aeabi_dmul
+ 598              	.LVL70:
+ 599 0070 0246     		mov	r2, r0
+ 600 0072 0B46     		mov	r3, r1
+ 601              		.loc 1 103 48 view .LVU136
+ 602 0074 3046     		mov	r0, r6
+ 603 0076 3946     		mov	r1, r7
+ 604 0078 FFF7FEFF 		bl	__aeabi_dadd
+ 605              	.LVL71:
+ 606              		.loc 1 103 9 view .LVU137
+ 607 007c FFF7FEFF 		bl	__aeabi_d2f
+ 608              	.LVL72:
+ 609 0080 08EE100A 		vmov	s16, r0
+ 610              	.LVL73:
+ 104:Main/Src/motor.c ****   before_spd = spd;
+ 611              		.loc 1 104 3 is_stmt 1 view .LVU138
+ 612              		.loc 1 104 14 is_stmt 0 view .LVU139
+ 613 0084 C4ED009A 		vstr.32	s19, [r4]
+ 105:Main/Src/motor.c ****   I_spd+=diff_spd;
+ 614              		.loc 1 105 3 is_stmt 1 view .LVU140
+ 615              		.loc 1 105 8 is_stmt 0 view .LVU141
+ 616 0088 78EE897A 		vadd.f32	s15, s17, s18
+ 617 008c C8ED007A 		vstr.32	s15, [r8]
+ 106:Main/Src/motor.c **** 
+ 107:Main/Src/motor.c ****   if(I_spd > SPD_I_MAX) I_spd = SPD_I_MAX;
+ 618              		.loc 1 107 3 is_stmt 1 view .LVU142
+ 619              		.loc 1 107 5 is_stmt 0 view .LVU143
+ 620 0090 9FED4B7A 		vldr.32	s14, .L45+32
+ 621 0094 F4EEC77A 		vcmpe.f32	s15, s14
+ 622 0098 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 623 009c 68DD     		ble	.L42
+ 624              		.loc 1 107 25 is_stmt 1 discriminator 1 view .LVU144
+ 625              		.loc 1 107 31 is_stmt 0 discriminator 1 view .LVU145
+ 626 009e 88ED007A 		vstr.32	s14, [r8]
+ 627              	.L32:
+ 108:Main/Src/motor.c ****   else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
+ 109:Main/Src/motor.c **** 
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 14
+
+
+ 110:Main/Src/motor.c ****   float diff_angvel = tgt_angvel - angvel;
+ 628              		.loc 1 110 3 is_stmt 1 view .LVU146
+ 629              		.loc 1 110 34 is_stmt 0 view .LVU147
+ 630 00a2 484B     		ldr	r3, .L45+36
+ 631 00a4 D3ED007A 		vldr.32	s15, [r3]
+ 632 00a8 474B     		ldr	r3, .L45+40
+ 633 00aa D3ED009A 		vldr.32	s19, [r3]
+ 634              		.loc 1 110 9 view .LVU148
+ 635 00ae 37EEE99A 		vsub.f32	s18, s15, s19
+ 636              	.LVL74:
+ 111:Main/Src/motor.c ****   float duty_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(before_angvel-angvel)*ANGVEL_KD;
+ 637              		.loc 1 111 3 is_stmt 1 view .LVU149
+ 638              		.loc 1 111 34 is_stmt 0 view .LVU150
+ 639 00b2 19EE100A 		vmov	r0, s18
+ 640              	.LVL75:
+ 641              		.loc 1 111 34 view .LVU151
+ 642 00b6 FFF7FEFF 		bl	__aeabi_f2d
+ 643              	.LVL76:
+ 644 00ba 39A3     		adr	r3, .L45
+ 645 00bc D3E90023 		ldrd	r2, [r3]
+ 646 00c0 FFF7FEFF 		bl	__aeabi_dmul
+ 647              	.LVL77:
+ 648 00c4 0446     		mov	r4, r0
+ 649 00c6 0D46     		mov	r5, r1
+ 650              		.loc 1 111 53 view .LVU152
+ 651 00c8 404E     		ldr	r6, .L45+44
+ 652 00ca D6ED008A 		vldr.32	s17, [r6]
+ 653 00ce 18EE900A 		vmov	r0, s17
+ 654 00d2 FFF7FEFF 		bl	__aeabi_f2d
+ 655              	.LVL78:
+ 656 00d6 0022     		movs	r2, #0
+ 657 00d8 0023     		movs	r3, #0
+ 658 00da FFF7FEFF 		bl	__aeabi_dmul
+ 659              	.LVL79:
+ 660 00de 0246     		mov	r2, r0
+ 661 00e0 0B46     		mov	r3, r1
+ 662              		.loc 1 111 44 view .LVU153
+ 663 00e2 2046     		mov	r0, r4
+ 664 00e4 2946     		mov	r1, r5
+ 665 00e6 FFF7FEFF 		bl	__aeabi_dadd
+ 666              	.LVL80:
+ 667 00ea 0446     		mov	r4, r0
+ 668 00ec 0D46     		mov	r5, r1
+ 669              		.loc 1 111 78 view .LVU154
+ 670 00ee 384F     		ldr	r7, .L45+48
+ 671 00f0 D7ED007A 		vldr.32	s15, [r7]
+ 672 00f4 77EEE97A 		vsub.f32	s15, s15, s19
+ 673 00f8 17EE900A 		vmov	r0, s15
+ 674 00fc FFF7FEFF 		bl	__aeabi_f2d
+ 675              	.LVL81:
+ 676              		.loc 1 111 86 view .LVU155
+ 677 0100 29A3     		adr	r3, .L45+8
+ 678 0102 D3E90023 		ldrd	r2, [r3]
+ 679 0106 FFF7FEFF 		bl	__aeabi_dmul
+ 680              	.LVL82:
+ 681 010a 0246     		mov	r2, r0
+ 682 010c 0B46     		mov	r3, r1
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 15
+
+
+ 683              		.loc 1 111 63 view .LVU156
+ 684 010e 2046     		mov	r0, r4
+ 685 0110 2946     		mov	r1, r5
+ 686 0112 FFF7FEFF 		bl	__aeabi_dadd
+ 687              	.LVL83:
+ 688              		.loc 1 111 9 view .LVU157
+ 689 0116 FFF7FEFF 		bl	__aeabi_d2f
+ 690              	.LVL84:
+ 691 011a 07EE100A 		vmov	s14, r0
+ 692              	.LVL85:
+ 112:Main/Src/motor.c ****   before_angvel = angvel;
+ 693              		.loc 1 112 3 is_stmt 1 view .LVU158
+ 694              		.loc 1 112 17 is_stmt 0 view .LVU159
+ 695 011e C7ED009A 		vstr.32	s19, [r7]
+ 113:Main/Src/motor.c ****   I_angvel+=diff_angvel;
+ 696              		.loc 1 113 3 is_stmt 1 view .LVU160
+ 697              		.loc 1 113 11 is_stmt 0 view .LVU161
+ 698 0122 78EE897A 		vadd.f32	s15, s17, s18
+ 699 0126 C6ED007A 		vstr.32	s15, [r6]
+ 114:Main/Src/motor.c **** 
+ 115:Main/Src/motor.c ****   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
+ 700              		.loc 1 115 3 is_stmt 1 view .LVU162
+ 701              		.loc 1 115 5 is_stmt 0 view .LVU163
+ 702 012a DFED256A 		vldr.32	s13, .L45+32
+ 703 012e F4EEE67A 		vcmpe.f32	s15, s13
+ 704 0132 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 705 0136 26DD     		ble	.L43
+ 706              		.loc 1 115 31 is_stmt 1 discriminator 1 view .LVU164
+ 707              		.loc 1 115 40 is_stmt 0 discriminator 1 view .LVU165
+ 708 0138 C6ED006A 		vstr.32	s13, [r6]
+ 709              	.L36:
+ 116:Main/Src/motor.c ****   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;
+ 117:Main/Src/motor.c ****   
+ 118:Main/Src/motor.c ****   dutyR = duty_spd - duty_angvel;
+ 710              		.loc 1 118 3 is_stmt 1 view .LVU166
+ 711              		.loc 1 118 9 is_stmt 0 view .LVU167
+ 712 013c 78EE477A 		vsub.f32	s15, s16, s14
+ 713              	.LVL86:
+ 119:Main/Src/motor.c ****   dutyL = duty_spd + duty_angvel;
+ 714              		.loc 1 119 3 is_stmt 1 view .LVU168
+ 715              		.loc 1 119 9 is_stmt 0 view .LVU169
+ 716 0140 38EE078A 		vadd.f32	s16, s16, s14
+ 717              	.LVL87:
+ 120:Main/Src/motor.c **** 
+ 121:Main/Src/motor.c ****   SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR);
+ 718              		.loc 1 121 3 is_stmt 1 view .LVU170
+ 719              		.loc 1 121 24 is_stmt 0 view .LVU171
+ 720 0144 9FED237A 		vldr.32	s14, .L45+52
+ 721 0148 28EE078A 		vmul.f32	s16, s16, s14
+ 722              	.LVL88:
+ 723              		.loc 1 121 39 view .LVU172
+ 724 014c 67EE877A 		vmul.f32	s15, s15, s14
+ 725              	.LVL89:
+ 726              		.loc 1 121 3 view .LVU173
+ 727 0150 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 728 0154 BDEEC88A 		vcvt.s32.f32	s16, s16
+ 729 0158 17EE903A 		vmov	r3, s15	@ int
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 16
+
+
+ 730 015c 19B2     		sxth	r1, r3
+ 731 015e 18EE103A 		vmov	r3, s16	@ int
+ 732 0162 18B2     		sxth	r0, r3
+ 733              	.LVL90:
+ 734              		.loc 1 121 3 view .LVU174
+ 735 0164 FFF7FEFF 		bl	SetDutyRatio
+ 736              	.LVL91:
+ 122:Main/Src/motor.c **** }
+ 737              		.loc 1 122 1 view .LVU175
+ 738 0168 BDEC048B 		vldm	sp!, {d8-d9}
+ 739              	.LCFI6:
+ 740              		.cfi_remember_state
+ 741              		.cfi_restore 82
+ 742              		.cfi_restore 83
+ 743              		.cfi_restore 80
+ 744              		.cfi_restore 81
+ 745              		.cfi_def_cfa_offset 24
+ 746              	.LVL92:
+ 747              		.loc 1 122 1 view .LVU176
+ 748 016c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 749              	.LVL93:
+ 750              	.L42:
+ 751              	.LCFI7:
+ 752              		.cfi_restore_state
+ 108:Main/Src/motor.c **** 
+ 753              		.loc 1 108 8 is_stmt 1 view .LVU177
+ 108:Main/Src/motor.c **** 
+ 754              		.loc 1 108 10 is_stmt 0 view .LVU178
+ 755 0170 9FED197A 		vldr.32	s14, .L45+56
+ 756 0174 F4EEC77A 		vcmpe.f32	s15, s14
+ 757 0178 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 758 017c 91D5     		bpl	.L32
+ 108:Main/Src/motor.c **** 
+ 759              		.loc 1 108 31 is_stmt 1 discriminator 1 view .LVU179
+ 108:Main/Src/motor.c **** 
+ 760              		.loc 1 108 37 is_stmt 0 discriminator 1 view .LVU180
+ 761 017e 174B     		ldr	r3, .L45+60
+ 762 0180 83ED007A 		vstr.32	s14, [r3]
+ 763 0184 8DE7     		b	.L32
+ 764              	.LVL94:
+ 765              	.L43:
+ 116:Main/Src/motor.c ****   
+ 766              		.loc 1 116 8 is_stmt 1 view .LVU181
+ 116:Main/Src/motor.c ****   
+ 767              		.loc 1 116 10 is_stmt 0 view .LVU182
+ 768 0186 DFED146A 		vldr.32	s13, .L45+56
+ 769 018a F4EEE67A 		vcmpe.f32	s15, s13
+ 770 018e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 771 0192 D3D5     		bpl	.L36
+ 116:Main/Src/motor.c ****   
+ 772              		.loc 1 116 37 is_stmt 1 discriminator 1 view .LVU183
+ 116:Main/Src/motor.c ****   
+ 773              		.loc 1 116 46 is_stmt 0 discriminator 1 view .LVU184
+ 774 0194 0D4B     		ldr	r3, .L45+44
+ 775 0196 C3ED006A 		vstr.32	s13, [r3]
+ 776 019a CFE7     		b	.L36
+ 777              	.L46:
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 17
+
+
+ 778 019c AFF30080 		.align	3
+ 779              	.L45:
+ 780 01a0 9A999999 		.word	-1717986918
+ 781 01a4 9999B93F 		.word	1069128089
+ 782 01a8 7B14AE47 		.word	1202590843
+ 783 01ac E17A843F 		.word	1065646817
+ 784 01b0 00000000 		.word	.LANCHOR11
+ 785 01b4 00000000 		.word	.LANCHOR10
+ 786 01b8 00001040 		.word	1074790400
+ 787 01bc 00000000 		.word	.LANCHOR13
+ 788 01c0 00401C46 		.word	1176256512
+ 789 01c4 00000000 		.word	.LANCHOR14
+ 790 01c8 00000000 		.word	.LANCHOR15
+ 791 01cc 00000000 		.word	.LANCHOR16
+ 792 01d0 00000000 		.word	.LANCHOR17
+ 793 01d4 0000FA44 		.word	1157234688
+ 794 01d8 00401CC6 		.word	-971227136
+ 795 01dc 00000000 		.word	.LANCHOR12
+ 796              		.cfi_endproc
+ 797              	.LFE254:
+ 799              		.section	.text.FailSafe,"ax",%progbits
+ 800              		.align	1
+ 801              		.global	FailSafe
+ 802              		.syntax unified
+ 803              		.thumb
+ 804              		.thumb_func
+ 806              	FailSafe:
+ 807              	.LFB255:
+ 123:Main/Src/motor.c **** 
+ 124:Main/Src/motor.c **** void FailSafe(){
+ 808              		.loc 1 124 16 is_stmt 1 view -0
+ 809              		.cfi_startproc
+ 810              		@ args = 0, pretend = 0, frame = 0
+ 811              		@ frame_needed = 0, uses_anonymous_args = 0
+ 812              		@ link register save eliminated.
+ 125:Main/Src/motor.c ****   if(spdL > FAILSAFE || spdL < -FAILSAFE) motpower = 0;
+ 813              		.loc 1 125 3 view .LVU186
+ 814              		.loc 1 125 11 is_stmt 0 view .LVU187
+ 815 0000 144B     		ldr	r3, .L54
+ 816 0002 D3ED007A 		vldr.32	s15, [r3]
+ 817              		.loc 1 125 5 view .LVU188
+ 818 0006 B2EE047A 		vmov.f32	s14, #1.0e+1
+ 819 000a F4EEC77A 		vcmpe.f32	s15, s14
+ 820 000e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 821 0012 06DC     		bgt	.L48
+ 822              		.loc 1 125 22 discriminator 2 view .LVU189
+ 823 0014 BAEE047A 		vmov.f32	s14, #-1.0e+1
+ 824 0018 F4EEC77A 		vcmpe.f32	s15, s14
+ 825 001c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 826 0020 02D5     		bpl	.L49
+ 827              	.L48:
+ 828              		.loc 1 125 43 is_stmt 1 discriminator 3 view .LVU190
+ 829              		.loc 1 125 52 is_stmt 0 discriminator 3 view .LVU191
+ 830 0022 0D4B     		ldr	r3, .L54+4
+ 831 0024 0022     		movs	r2, #0
+ 832 0026 1A70     		strb	r2, [r3]
+ 833              	.L49:
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 18
+
+
+ 126:Main/Src/motor.c ****   if(spdR > FAILSAFE || spdR < -FAILSAFE) motpower = 0;
+ 834              		.loc 1 126 3 is_stmt 1 view .LVU192
+ 835              		.loc 1 126 11 is_stmt 0 view .LVU193
+ 836 0028 0C4B     		ldr	r3, .L54+8
+ 837 002a D3ED007A 		vldr.32	s15, [r3]
+ 838              		.loc 1 126 5 view .LVU194
+ 839 002e B2EE047A 		vmov.f32	s14, #1.0e+1
+ 840 0032 F4EEC77A 		vcmpe.f32	s15, s14
+ 841 0036 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 842 003a 06DC     		bgt	.L51
+ 843              		.loc 1 126 22 discriminator 2 view .LVU195
+ 844 003c BAEE047A 		vmov.f32	s14, #-1.0e+1
+ 845 0040 F4EEC77A 		vcmpe.f32	s15, s14
+ 846 0044 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 847 0048 02D5     		bpl	.L47
+ 848              	.L51:
+ 849              		.loc 1 126 43 is_stmt 1 discriminator 3 view .LVU196
+ 850              		.loc 1 126 52 is_stmt 0 discriminator 3 view .LVU197
+ 851 004a 034B     		ldr	r3, .L54+4
+ 852 004c 0022     		movs	r2, #0
+ 853 004e 1A70     		strb	r2, [r3]
+ 854              	.L47:
+ 127:Main/Src/motor.c **** }
+ 855              		.loc 1 127 1 view .LVU198
+ 856 0050 7047     		bx	lr
+ 857              	.L55:
+ 858 0052 00BF     		.align	2
+ 859              	.L54:
+ 860 0054 00000000 		.word	.LANCHOR9
+ 861 0058 00000000 		.word	.LANCHOR0
+ 862 005c 00000000 		.word	.LANCHOR7
+ 863              		.cfi_endproc
+ 864              	.LFE255:
+ 866              		.section	.text.GetYawDeg,"ax",%progbits
+ 867              		.align	1
+ 868              		.global	GetYawDeg
+ 869              		.syntax unified
+ 870              		.thumb
+ 871              		.thumb_func
+ 873              	GetYawDeg:
+ 874              	.LFB256:
+ 128:Main/Src/motor.c **** 
+ 129:Main/Src/motor.c **** void GetYawDeg(){
+ 875              		.loc 1 129 17 is_stmt 1 view -0
+ 876              		.cfi_startproc
+ 877              		@ args = 0, pretend = 0, frame = 0
+ 878              		@ frame_needed = 0, uses_anonymous_args = 0
+ 879 0000 70B5     		push	{r4, r5, r6, lr}
+ 880              	.LCFI8:
+ 881              		.cfi_def_cfa_offset 16
+ 882              		.cfi_offset 4, -16
+ 883              		.cfi_offset 5, -12
+ 884              		.cfi_offset 6, -8
+ 885              		.cfi_offset 14, -4
+ 886 0002 2DED028B 		vpush.64	{d8}
+ 887              	.LCFI9:
+ 888              		.cfi_def_cfa_offset 24
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 19
+
+
+ 889              		.cfi_offset 80, -24
+ 890              		.cfi_offset 81, -20
+ 130:Main/Src/motor.c ****   r_yaw_new = gyroZ() - r_yaw_ref;
+ 891              		.loc 1 130 3 view .LVU200
+ 892              		.loc 1 130 15 is_stmt 0 view .LVU201
+ 893 0006 FFF7FEFF 		bl	gyroZ
+ 894              	.LVL95:
+ 895              		.loc 1 130 23 view .LVU202
+ 896 000a 274B     		ldr	r3, .L58+24
+ 897 000c 93ED008A 		vldr.32	s16, [r3]
+ 898 0010 30EE488A 		vsub.f32	s16, s0, s16
+ 899              		.loc 1 130 13 view .LVU203
+ 900 0014 254B     		ldr	r3, .L58+28
+ 901 0016 83ED008A 		vstr.32	s16, [r3]
+ 131:Main/Src/motor.c **** 
+ 132:Main/Src/motor.c ****   r_yaw = r_b_yaw * IMULPF + r_yaw_new * (1.0 - IMULPF);
+ 902              		.loc 1 132 3 is_stmt 1 view .LVU204
+ 903              		.loc 1 132 19 is_stmt 0 view .LVU205
+ 904 001a 254E     		ldr	r6, .L58+32
+ 905 001c 3068     		ldr	r0, [r6]	@ float
+ 906 001e FFF7FEFF 		bl	__aeabi_f2d
+ 907              	.LVL96:
+ 908 0022 1BA3     		adr	r3, .L58
+ 909 0024 D3E90023 		ldrd	r2, [r3]
+ 910 0028 FFF7FEFF 		bl	__aeabi_dmul
+ 911              	.LVL97:
+ 912 002c 0446     		mov	r4, r0
+ 913 002e 0D46     		mov	r5, r1
+ 914              		.loc 1 132 40 view .LVU206
+ 915 0030 18EE100A 		vmov	r0, s16
+ 916 0034 FFF7FEFF 		bl	__aeabi_f2d
+ 917              	.LVL98:
+ 918 0038 17A3     		adr	r3, .L58+8
+ 919 003a D3E90023 		ldrd	r2, [r3]
+ 920 003e FFF7FEFF 		bl	__aeabi_dmul
+ 921              	.LVL99:
+ 922 0042 0246     		mov	r2, r0
+ 923 0044 0B46     		mov	r3, r1
+ 924              		.loc 1 132 28 view .LVU207
+ 925 0046 2046     		mov	r0, r4
+ 926 0048 2946     		mov	r1, r5
+ 927 004a FFF7FEFF 		bl	__aeabi_dadd
+ 928              	.LVL100:
+ 929 004e FFF7FEFF 		bl	__aeabi_d2f
+ 930              	.LVL101:
+ 931              		.loc 1 132 9 view .LVU208
+ 932 0052 184A     		ldr	r2, .L58+36
+ 933 0054 1060     		str	r0, [r2]	@ float
+ 133:Main/Src/motor.c ****   r_b_yaw = r_yaw;
+ 934              		.loc 1 133 3 is_stmt 1 view .LVU209
+ 935              		.loc 1 133 11 is_stmt 0 view .LVU210
+ 936 0056 3060     		str	r0, [r6]	@ float
+ 134:Main/Src/motor.c **** 
+ 135:Main/Src/motor.c ****   angvel = r_yaw;
+ 937              		.loc 1 135 3 is_stmt 1 view .LVU211
+ 938              		.loc 1 135 10 is_stmt 0 view .LVU212
+ 939 0058 174A     		ldr	r2, .L58+40
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 20
+
+
+ 940 005a 1060     		str	r0, [r2]	@ float
+ 136:Main/Src/motor.c **** 
+ 137:Main/Src/motor.c ****   deg += r_yaw * DELTA_T;
+ 941              		.loc 1 137 3 is_stmt 1 view .LVU213
+ 942              		.loc 1 137 16 is_stmt 0 view .LVU214
+ 943 005c FFF7FEFF 		bl	__aeabi_f2d
+ 944              	.LVL102:
+ 945 0060 0FA3     		adr	r3, .L58+16
+ 946 0062 D3E90023 		ldrd	r2, [r3]
+ 947 0066 FFF7FEFF 		bl	__aeabi_dmul
+ 948              	.LVL103:
+ 949 006a 0446     		mov	r4, r0
+ 950 006c 0D46     		mov	r5, r1
+ 951              		.loc 1 137 7 view .LVU215
+ 952 006e 134E     		ldr	r6, .L58+44
+ 953 0070 3068     		ldr	r0, [r6]	@ float
+ 954 0072 FFF7FEFF 		bl	__aeabi_f2d
+ 955              	.LVL104:
+ 956 0076 2246     		mov	r2, r4
+ 957 0078 2B46     		mov	r3, r5
+ 958 007a FFF7FEFF 		bl	__aeabi_dadd
+ 959              	.LVL105:
+ 960 007e FFF7FEFF 		bl	__aeabi_d2f
+ 961              	.LVL106:
+ 962 0082 3060     		str	r0, [r6]	@ float
+ 138:Main/Src/motor.c **** }...
+ 963              		.loc 1 138 1 view .LVU216
+ 964 0084 BDEC028B 		vldm	sp!, {d8}
+ 965              	.LCFI10:
+ 966              		.cfi_restore 80
+ 967              		.cfi_restore 81
+ 968              		.cfi_def_cfa_offset 16
+ 969 0088 70BD     		pop	{r4, r5, r6, pc}
+ 970              	.L59:
+ 971 008a 00BFAFF3 		.align	3
+ 971      0080
+ 972              	.L58:
+ 973 0090 9A999999 		.word	-1717986918
+ 974 0094 9999B93F 		.word	1069128089
+ 975 0098 CDCCCCCC 		.word	-858993459
+ 976 009c CCCCEC3F 		.word	1072483532
+ 977 00a0 2D431CEB 		.word	-350469331
+ 978 00a4 E2362A3F 		.word	1059731170
+ 979 00a8 00000000 		.word	.LANCHOR18
+ 980 00ac 00000000 		.word	.LANCHOR19
+ 981 00b0 00000000 		.word	.LANCHOR20
+ 982 00b4 00000000 		.word	.LANCHOR21
+ 983 00b8 00000000 		.word	.LANCHOR15
+ 984 00bc 00000000 		.word	.LANCHOR22
+ 985              		.cfi_endproc
+ 986              	.LFE256:
+ 988              		.global	I_angvel
+ 989              		.global	I_spd
+ 990              		.global	encL
+ 991              		.global	encR
+ 992              		.global	r_yaw_ref
+ 993              		.global	angvel
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 21
+
+
+ 994              		.global	tgt_angvel
+ 995              		.global	tgt_spd
+ 996              		.global	len
+ 997              		.global	deg
+ 998              		.global	spd
+ 999              		.global	motpower
+ 1000              		.section	.bss.I_angvel,"aw",%nobits
+ 1001              		.align	2
+ 1002              		.set	.LANCHOR16,. + 0
+ 1005              	I_angvel:
+ 1006 0000 00000000 		.space	4
+ 1007              		.section	.bss.I_spd,"aw",%nobits
+ 1008              		.align	2
+ 1009              		.set	.LANCHOR12,. + 0
+ 1012              	I_spd:
+ 1013 0000 00000000 		.space	4
+ 1014              		.section	.bss.angvel,"aw",%nobits
+ 1015              		.align	2
+ 1016              		.set	.LANCHOR15,. + 0
+ 1019              	angvel:
+ 1020 0000 00000000 		.space	4
+ 1021              		.section	.bss.b_encL_val,"aw",%nobits
+ 1022              		.align	1
+ 1023              		.set	.LANCHOR4,. + 0
+ 1026              	b_encL_val:
+ 1027 0000 0000     		.space	2
+ 1028              		.section	.bss.b_encR_val,"aw",%nobits
+ 1029              		.align	1
+ 1030              		.set	.LANCHOR3,. + 0
+ 1033              	b_encR_val:
+ 1034 0000 0000     		.space	2
+ 1035              		.section	.bss.b_spdL,"aw",%nobits
+ 1036              		.align	2
+ 1037              		.set	.LANCHOR8,. + 0
+ 1040              	b_spdL:
+ 1041 0000 00000000 		.space	4
+ 1042              		.section	.bss.b_spdR,"aw",%nobits
+ 1043              		.align	2
+ 1044              		.set	.LANCHOR6,. + 0
+ 1047              	b_spdR:
+ 1048 0000 00000000 		.space	4
+ 1049              		.section	.bss.before_angvel,"aw",%nobits
+ 1050              		.align	2
+ 1051              		.set	.LANCHOR17,. + 0
+ 1054              	before_angvel:
+ 1055 0000 00000000 		.space	4
+ 1056              		.section	.bss.before_spd,"aw",%nobits
+ 1057              		.align	2
+ 1058              		.set	.LANCHOR13,. + 0
+ 1061              	before_spd:
+ 1062 0000 00000000 		.space	4
+ 1063              		.section	.bss.deg,"aw",%nobits
+ 1064              		.align	2
+ 1065              		.set	.LANCHOR22,. + 0
+ 1068              	deg:
+ 1069 0000 00000000 		.space	4
+ 1070              		.section	.bss.encL,"aw",%nobits
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 22
+
+
+ 1071              		.align	2
+ 1072              		.set	.LANCHOR2,. + 0
+ 1075              	encL:
+ 1076 0000 00000000 		.space	16
+ 1076      00000000 
+ 1076      00000000 
+ 1076      00000000 
+ 1077              		.section	.bss.encR,"aw",%nobits
+ 1078              		.align	2
+ 1079              		.set	.LANCHOR1,. + 0
+ 1082              	encR:
+ 1083 0000 00000000 		.space	16
+ 1083      00000000 
+ 1083      00000000 
+ 1083      00000000 
+ 1084              		.section	.bss.len,"aw",%nobits
+ 1085              		.align	2
+ 1086              		.set	.LANCHOR5,. + 0
+ 1089              	len:
+ 1090 0000 00000000 		.space	4
+ 1091              		.section	.bss.motpower,"aw",%nobits
+ 1092              		.set	.LANCHOR0,. + 0
+ 1095              	motpower:
+ 1096 0000 00       		.space	1
+ 1097              		.section	.bss.r_b_yaw,"aw",%nobits
+ 1098              		.align	2
+ 1099              		.set	.LANCHOR20,. + 0
+ 1102              	r_b_yaw:
+ 1103 0000 00000000 		.space	4
+ 1104              		.section	.bss.r_yaw,"aw",%nobits
+ 1105              		.align	2
+ 1106              		.set	.LANCHOR21,. + 0
+ 1109              	r_yaw:
+ 1110 0000 00000000 		.space	4
+ 1111              		.section	.bss.r_yaw_new,"aw",%nobits
+ 1112              		.align	2
+ 1113              		.set	.LANCHOR19,. + 0
+ 1116              	r_yaw_new:
+ 1117 0000 00000000 		.space	4
+ 1118              		.section	.bss.r_yaw_ref,"aw",%nobits
+ 1119              		.align	2
+ 1120              		.set	.LANCHOR18,. + 0
+ 1123              	r_yaw_ref:
+ 1124 0000 00000000 		.space	4
+ 1125              		.section	.bss.spd,"aw",%nobits
+ 1126              		.align	2
+ 1127              		.set	.LANCHOR10,. + 0
+ 1130              	spd:
+ 1131 0000 00000000 		.space	4
+ 1132              		.section	.bss.spdL,"aw",%nobits
+ 1133              		.align	2
+ 1134              		.set	.LANCHOR9,. + 0
+ 1137              	spdL:
+ 1138 0000 00000000 		.space	4
+ 1139              		.section	.bss.spdR,"aw",%nobits
+ 1140              		.align	2
+ 1141              		.set	.LANCHOR7,. + 0
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 23
+
+
+ 1144              	spdR:
+ 1145 0000 00000000 		.space	4
+ 1146              		.section	.bss.tgt_angvel,"aw",%nobits
+ 1147              		.align	2
+ 1148              		.set	.LANCHOR14,. + 0
+ 1151              	tgt_angvel:
+ 1152 0000 00000000 		.space	4
+ 1153              		.section	.bss.tgt_spd,"aw",%nobits
+ 1154              		.align	2
+ 1155              		.set	.LANCHOR11,. + 0
+ 1158              	tgt_spd:
+ 1159 0000 00000000 		.space	4
+ 1160              		.text
+ 1161              	.Letext0:
+ 1162              		.file 2 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_default_type
+ 1163              		.file 3 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1164              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f412cx.h"
+ 1165              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 1166              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 1167              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 1168              		.file 8 "Core/Inc/tim.h"
+ 1169              		.file 9 "Drivers/AS5047P/Inc/as5047p.h"
+ 1170              		.file 10 "Main/Inc/motor.h"
+ 1171              		.file 11 "Drivers/ICM20648/Inc/icm20648.h"
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 24
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 motor.c
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:20     .text.SetDutyRatio:00000000 $t
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:26     .text.SetDutyRatio:00000000 SetDutyRatio
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:155    .text.SetDutyRatio:0000008c $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:167    .text.GetSpeed:00000000 $t
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:173    .text.GetSpeed:00000000 GetSpeed
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:495    .text.GetSpeed:000001c0 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:518    .text.ControlDuty:00000000 $t
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:524    .text.ControlDuty:00000000 ControlDuty
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:780    .text.ControlDuty:000001a0 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:800    .text.FailSafe:00000000 $t
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:806    .text.FailSafe:00000000 FailSafe
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:860    .text.FailSafe:00000054 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:867    .text.GetYawDeg:00000000 $t
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:873    .text.GetYawDeg:00000000 GetYawDeg
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:973    .text.GetYawDeg:00000090 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1005   .bss.I_angvel:00000000 I_angvel
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1012   .bss.I_spd:00000000 I_spd
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1075   .bss.encL:00000000 encL
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1082   .bss.encR:00000000 encR
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1123   .bss.r_yaw_ref:00000000 r_yaw_ref
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1019   .bss.angvel:00000000 angvel
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1151   .bss.tgt_angvel:00000000 tgt_angvel
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1158   .bss.tgt_spd:00000000 tgt_spd
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1089   .bss.len:00000000 len
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1068   .bss.deg:00000000 deg
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1130   .bss.spd:00000000 spd
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1095   .bss.motpower:00000000 motpower
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1001   .bss.I_angvel:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1008   .bss.I_spd:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1015   .bss.angvel:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1022   .bss.b_encL_val:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1026   .bss.b_encL_val:00000000 b_encL_val
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1029   .bss.b_encR_val:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1033   .bss.b_encR_val:00000000 b_encR_val
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1036   .bss.b_spdL:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1040   .bss.b_spdL:00000000 b_spdL
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1043   .bss.b_spdR:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1047   .bss.b_spdR:00000000 b_spdR
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1050   .bss.before_angvel:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1054   .bss.before_angvel:00000000 before_angvel
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1057   .bss.before_spd:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1061   .bss.before_spd:00000000 before_spd
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1064   .bss.deg:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1071   .bss.encL:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1078   .bss.encR:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1085   .bss.len:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1096   .bss.motpower:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1098   .bss.r_b_yaw:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1102   .bss.r_b_yaw:00000000 r_b_yaw
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1105   .bss.r_yaw:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1109   .bss.r_yaw:00000000 r_yaw
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1112   .bss.r_yaw_new:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1116   .bss.r_yaw_new:00000000 r_yaw_new
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1119   .bss.r_yaw_ref:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1126   .bss.spd:00000000 $d
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s 			page 25
+
+
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1133   .bss.spdL:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1137   .bss.spdL:00000000 spdL
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1140   .bss.spdR:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1144   .bss.spdR:00000000 spdR
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1147   .bss.tgt_angvel:00000000 $d
+C:\Users\hide\AppData\Local\Temp\cc4zD4sX.s:1154   .bss.tgt_spd:00000000 $d
+
+UNDEFINED SYMBOLS
+htim1
+htim2
+__aeabi_f2d
+__aeabi_dmul
+__aeabi_dadd
+__aeabi_d2f
+__aeabi_ddiv
+AS5047P_ReadPosition
+AS5047P_ErrorPending
+AS5047P_ErrorAck
+gyroZ

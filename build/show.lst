@@ -1,0 +1,259 @@
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4er20n.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"show.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.SetLED,"ax",%progbits
+  20              		.align	1
+  21              		.global	SetLED
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	SetLED:
+  27              	.LVL0:
+  28              	.LFB253:
+  29              		.file 1 "Main/Src/show.c"
+   1:Main/Src/show.c **** /* 
+   2:Main/Src/show.c **** ########################
+   3:Main/Src/show.c ****     Show Information
+   4:Main/Src/show.c **** ########################
+   5:Main/Src/show.c **** */
+   6:Main/Src/show.c **** 
+   7:Main/Src/show.c **** #include"show.h"
+   8:Main/Src/show.c **** 
+   9:Main/Src/show.c **** extern TIM_HandleTypeDef htim6;
+  10:Main/Src/show.c **** 
+  11:Main/Src/show.c **** void Blink(uint16_t val){
+  12:Main/Src/show.c ****   uint8_t l_sig = 0b111;
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+  14:Main/Src/show.c ****     l_sig = ~l_sig;
+  15:Main/Src/show.c ****     SetLED(l_sig);
+  16:Main/Src/show.c ****     //HAL_Delay(50);
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+  18:Main/Src/show.c ****   }
+  19:Main/Src/show.c **** }
+  20:Main/Src/show.c **** 
+  21:Main/Src/show.c **** void SetLED(uint8_t led){
+  30              		.loc 1 21 25 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 21 25 is_stmt 0 view .LVU1
+  35 0000 38B5     		push	{r3, r4, r5, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4er20n.s 			page 2
+
+
+  38              		.cfi_offset 3, -16
+  39              		.cfi_offset 4, -12
+  40              		.cfi_offset 5, -8
+  41              		.cfi_offset 14, -4
+  42 0002 0446     		mov	r4, r0
+  22:Main/Src/show.c ****   HAL_GPIO_WritePin(D3_GPIO_Port,D3_Pin,!(led & 0b001));
+  43              		.loc 1 22 3 is_stmt 1 view .LVU2
+  44 0004 80F00102 		eor	r2, r0, #1
+  45 0008 0E4D     		ldr	r5, .L3
+  46 000a 02F00102 		and	r2, r2, #1
+  47 000e 4FF40051 		mov	r1, #8192
+  48 0012 2846     		mov	r0, r5
+  49              	.LVL1:
+  50              		.loc 1 22 3 is_stmt 0 view .LVU3
+  51 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  52              	.LVL2:
+  23:Main/Src/show.c ****   HAL_GPIO_WritePin(D4_GPIO_Port,D4_Pin,!(led & 0b010));
+  53              		.loc 1 23 3 is_stmt 1 view .LVU4
+  54 0018 6208     		lsrs	r2, r4, #1
+  55 001a 82F00102 		eor	r2, r2, #1
+  56 001e 02F00102 		and	r2, r2, #1
+  57 0022 4FF48041 		mov	r1, #16384
+  58 0026 2846     		mov	r0, r5
+  59 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  60              	.LVL3:
+  24:Main/Src/show.c ****   HAL_GPIO_WritePin(D5_GPIO_Port,D5_Pin,!(led & 0b100));
+  61              		.loc 1 24 3 view .LVU5
+  62 002c A208     		lsrs	r2, r4, #2
+  63 002e 82F00102 		eor	r2, r2, #1
+  64 0032 02F00102 		and	r2, r2, #1
+  65 0036 4FF40041 		mov	r1, #32768
+  66 003a 2846     		mov	r0, r5
+  67 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+  68              	.LVL4:
+  25:Main/Src/show.c **** }...
+  69              		.loc 1 25 1 is_stmt 0 view .LVU6
+  70 0040 38BD     		pop	{r3, r4, r5, pc}
+  71              	.L4:
+  72 0042 00BF     		.align	2
+  73              	.L3:
+  74 0044 00080240 		.word	1073874944
+  75              		.cfi_endproc
+  76              	.LFE253:
+  78              		.section	.text.Blink,"ax",%progbits
+  79              		.align	1
+  80              		.global	Blink
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  85              	Blink:
+  86              	.LVL5:
+  87              	.LFB252:
+  11:Main/Src/show.c **** void Blink(uint16_t val){
+  88              		.loc 1 11 25 is_stmt 1 view -0
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4er20n.s 			page 3
+
+
+  11:Main/Src/show.c **** void Blink(uint16_t val){
+  92              		.loc 1 11 25 is_stmt 0 view .LVU8
+  93 0000 70B5     		push	{r4, r5, r6, lr}
+  94              	.LCFI1:
+  95              		.cfi_def_cfa_offset 16
+  96              		.cfi_offset 4, -16
+  97              		.cfi_offset 5, -12
+  98              		.cfi_offset 6, -8
+  99              		.cfi_offset 14, -4
+ 100 0002 0646     		mov	r6, r0
+  12:Main/Src/show.c ****   uint8_t l_sig = 0b111;
+ 101              		.loc 1 12 3 is_stmt 1 view .LVU9
+ 102              	.LVL6:
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 103              		.loc 1 13 3 view .LVU10
+ 104              	.LBB2:
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 105              		.loc 1 13 7 view .LVU11
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 106              		.loc 1 13 16 is_stmt 0 view .LVU12
+ 107 0004 0024     		movs	r4, #0
+ 108              	.LBE2:
+  12:Main/Src/show.c ****   uint8_t l_sig = 0b111;
+ 109              		.loc 1 12 11 view .LVU13
+ 110 0006 0725     		movs	r5, #7
+ 111              	.LBB5:
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 112              		.loc 1 13 3 view .LVU14
+ 113 0008 05E0     		b	.L6
+ 114              	.LVL7:
+ 115              	.L8:
+ 116              	.LBB3:
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 117              		.loc 1 17 37 is_stmt 1 discriminator 3 view .LVU15
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 118              		.loc 1 17 33 discriminator 3 view .LVU16
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 119              		.loc 1 17 34 is_stmt 0 discriminator 3 view .LVU17
+ 120 000a 0133     		adds	r3, r3, #1
+ 121              	.LVL8:
+ 122              	.L7:
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 123              		.loc 1 17 24 is_stmt 1 discriminator 1 view .LVU18
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 124              		.loc 1 17 5 is_stmt 0 discriminator 1 view .LVU19
+ 125 000c 074A     		ldr	r2, .L12
+ 126 000e 9342     		cmp	r3, r2
+ 127 0010 FBD9     		bls	.L8
+ 128              	.LBE3:
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 129              		.loc 1 13 31 is_stmt 1 discriminator 2 view .LVU20
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 130              		.loc 1 13 32 is_stmt 0 discriminator 2 view .LVU21
+ 131 0012 0134     		adds	r4, r4, #1
+ 132              	.LVL9:
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 133              		.loc 1 13 32 discriminator 2 view .LVU22
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4er20n.s 			page 4
+
+
+ 134 0014 A4B2     		uxth	r4, r4
+ 135              	.LVL10:
+ 136              	.L6:
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 137              		.loc 1 13 23 is_stmt 1 discriminator 1 view .LVU23
+  13:Main/Src/show.c ****   for(uint16_t i = 0; i < val;i++){
+ 138              		.loc 1 13 3 is_stmt 0 discriminator 1 view .LVU24
+ 139 0016 B442     		cmp	r4, r6
+ 140 0018 06D2     		bcs	.L11
+  14:Main/Src/show.c ****     l_sig = ~l_sig;
+ 141              		.loc 1 14 5 is_stmt 1 view .LVU25
+  14:Main/Src/show.c ****     l_sig = ~l_sig;
+ 142              		.loc 1 14 11 is_stmt 0 view .LVU26
+ 143 001a ED43     		mvns	r5, r5
+ 144              	.LVL11:
+  14:Main/Src/show.c ****     l_sig = ~l_sig;
+ 145              		.loc 1 14 11 view .LVU27
+ 146 001c EDB2     		uxtb	r5, r5
+ 147              	.LVL12:
+  15:Main/Src/show.c ****     SetLED(l_sig);
+ 148              		.loc 1 15 5 is_stmt 1 view .LVU28
+ 149 001e 2846     		mov	r0, r5
+ 150 0020 FFF7FEFF 		bl	SetLED
+ 151              	.LVL13:
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 152              		.loc 1 17 5 view .LVU29
+ 153              	.LBB4:
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 154              		.loc 1 17 9 view .LVU30
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 155              		.loc 1 17 18 is_stmt 0 view .LVU31
+ 156 0024 0023     		movs	r3, #0
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 157              		.loc 1 17 5 view .LVU32
+ 158 0026 F1E7     		b	.L7
+ 159              	.LVL14:
+ 160              	.L11:
+  17:Main/Src/show.c ****     for(uint32_t i = 0;i<750000;i++);
+ 161              		.loc 1 17 5 view .LVU33
+ 162              	.LBE4:
+ 163              	.LBE5:
+  19:Main/Src/show.c **** }
+ 164              		.loc 1 19 1 view .LVU34
+ 165 0028 70BD     		pop	{r4, r5, r6, pc}
+ 166              	.LVL15:
+ 167              	.L13:
+  19:Main/Src/show.c **** }
+ 168              		.loc 1 19 1 view .LVU35
+ 169 002a 00BF     		.align	2
+ 170              	.L12:
+ 171 002c AF710B00 		.word	749999
+ 172              		.cfi_endproc
+ 173              	.LFE252:
+ 175              		.text
+ 176              	.Letext0:
+ 177              		.file 2 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_default_type
+ 178              		.file 3 "c:\\tools\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4er20n.s 			page 5
+
+
+ 179              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f412cx.h"
+ 180              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ARM GAS  C:\Users\hide\AppData\Local\Temp\cc4er20n.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 show.c
+C:\Users\hide\AppData\Local\Temp\cc4er20n.s:20     .text.SetLED:00000000 $t
+C:\Users\hide\AppData\Local\Temp\cc4er20n.s:26     .text.SetLED:00000000 SetLED
+C:\Users\hide\AppData\Local\Temp\cc4er20n.s:74     .text.SetLED:00000044 $d
+C:\Users\hide\AppData\Local\Temp\cc4er20n.s:79     .text.Blink:00000000 $t
+C:\Users\hide\AppData\Local\Temp\cc4er20n.s:85     .text.Blink:00000000 Blink
+C:\Users\hide\AppData\Local\Temp\cc4er20n.s:171    .text.Blink:0000002c $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
