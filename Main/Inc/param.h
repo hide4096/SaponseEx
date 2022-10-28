@@ -24,7 +24,7 @@
 #define ANGVEL_KP 0.0011
 #define ANGVEL_KI 0.00008
 #define ANGVEL_KD 0.0
-#define WALL_KP 0.1
+#define WALL_KP 0.05
 
 #define SPD_I_MAX 10000
 #define ANGVEL_I_MAX 10000

@@ -118,7 +118,7 @@ void mainmenu(){
         motpower = 1;
         tgt_angvel = 0.;
         for(int i=0;i<100;i++){
-          tgt_spd+=0.003;
+          tgt_spd+=0.005;
           HAL_Delay(1);
         }
         while(len < 450);
