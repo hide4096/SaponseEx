@@ -154,6 +154,7 @@ int main(void)
           break;
         case 3:
           HAL_GPIO_TogglePin(FAN_GPIO_Port,FAN_Pin);
+          HAL_Delay(1000);
           break;
         default:
           DoPanic();

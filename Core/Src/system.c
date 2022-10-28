@@ -39,8 +39,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetBattVoltage();
 
     ControlDuty();
+    
     FailSafe();
-
     if(vbat < LOWVOLT) while(1) DoPanic();
   }
 }
