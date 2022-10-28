@@ -117,8 +117,8 @@ void ControlDuty(){
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;
   
-  dutyR = duty_spd - duty_deg;
-  dutyL = duty_spd + duty_deg;
+  dutyR = duty_spd - duty_angvel;
+  dutyL = duty_spd + duty_angvel;
 
   SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR);
 

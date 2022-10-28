@@ -28,7 +28,7 @@
 #define SPD_I_MAX 10000
 #define ANGVEL_I_MAX 10000
 
-#define FAILSAFE 8.0
+#define FAILSAFE 10.0
 
 #define CONFIRM 2000
 #endif

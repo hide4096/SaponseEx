@@ -127,19 +127,19 @@ int main(void)
           break;
         case 1:
           r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
-          I_spd = I_deg = 0.;
+          I_spd = I_angvel = 0.;
           motpower = 1;
           tgt_spd = 0.;
-          tgt_deg = deg;
+          tgt_angvel = 0.;
           while(1);
           break;
         case 2:
           r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
-          I_spd = I_deg = 0.;
+          I_spd = I_angvel = 0.;
           SetLED(0b000);
           HAL_Delay(500);
           motpower = 1;
-          tgt_deg = deg;
+          tgt_angvel = 0.;
           for(int i=0;i<50;i++){
             tgt_spd+=0.0025;
             HAL_Delay(1);
