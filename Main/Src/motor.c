@@ -5,6 +5,7 @@
 */
 
 #include"motor.h"
+#include"analog.h"
 
 static int16_t b_encR_val=0,b_encL_val=0;
 static float spdR = 0,spdL=0;
@@ -108,7 +109,8 @@ void ControlDuty(){
   if(I_spd > SPD_I_MAX) I_spd = SPD_I_MAX;
   else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
 
-  float diff_angvel = tgt_angvel - angvel;
+
+  float diff_angvel = (tgt_angvel - angvel) + (sensval[2] - sensval[1])*WALL_KP;
   float duty_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(before_angvel-angvel)*ANGVEL_KD;
   before_angvel = angvel;
   I_angvel+=diff_angvel;
