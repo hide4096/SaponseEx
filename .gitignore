@@ -1,1 +1,3 @@
-./build
+build
+PCB/SaponseEx-Backups
+.gitignore

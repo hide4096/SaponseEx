@@ -14,7 +14,7 @@ void Blink(uint16_t val){
     l_sig = ~l_sig;
     SetLED(l_sig);
     //HAL_Delay(50);
-    for(uint32_t i = 0;i<750000;i++);
+    for(uint32_t i = 0;i<500000;i++);
   }
 }
 

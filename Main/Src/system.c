@@ -15,7 +15,7 @@ extern AS5047P_Instance encL;
 extern uint8_t motpower;
 extern float r_yaw_ref;
 
-static uint8_t mode = 0;
+static uint8_t mode = 1;
 
 void DoPanic(){
   SetDutyRatio(0,0);
@@ -87,8 +87,6 @@ void init(){
 }
 
 void mainmenu(){
-  //while(1);
-  while(1) printf("%f\t%f\r\n",spd,angvel);
   if(spd > 0.1){
     mode++;
     Blink(5);
@@ -96,11 +94,11 @@ void mainmenu(){
     mode--;
     Blink(5);
   }
-  if(sensval[0] + sensval[3] >= CONFIRM*2 || 1){
+  if(sensval[0] + sensval[3] >= CONFIRM*2){
     Blink(2);
     switch (mode){
       case 0:
-        //while(1) printf("%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
+        while(1) printf("%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
         break;
       case 1:
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
