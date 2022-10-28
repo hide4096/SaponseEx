@@ -25,9 +25,14 @@ void DoPanic(){
   while(1) Blink(100);
 }
 
+/* HM-SterterKitの場合
+  モータ制御  1kHz
+  AD変換      4kHz
+  センサ取得  2kHz
+*/
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   if(htim == &htim6){
-    //1kHz
+    //5kHz(?!)
     TrigWallSens();
     GetSpeed();
     GetYawDeg();
