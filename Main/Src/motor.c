@@ -16,8 +16,6 @@ float spd,deg,len;
 float tgt_spd,tgt_angvel;
 float angvel,r_yaw_ref;
 
-uint8_t runmode = 0;
-
 AS5047P_Instance encR;
 AS5047P_Instance encL;
 
@@ -121,9 +119,6 @@ void ControlDuty(){
   dutyL = duty_spd + duty_angvel;
 
   SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR);
-
-  if(runmode){
-  }
 }
 
 void FailSafe(){

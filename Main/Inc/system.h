@@ -14,5 +14,6 @@
 
 void DoPanic();
 void init();
+void mainmenu();
 
 #endif

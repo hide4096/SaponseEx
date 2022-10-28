@@ -15,6 +15,8 @@ extern AS5047P_Instance encL;
 extern uint8_t motpower;
 extern float r_yaw_ref;
 
+static uint8_t mode = 0;
+
 void DoPanic(){
   SetDutyRatio(0,0);
   motpower = 0;
@@ -82,4 +84,57 @@ void init(){
 
   //Interrupt 1kHz
   HAL_TIM_Base_Start_IT(&htim6);
+}
+
+void mainmenu(){
+  if(spd > 0.1){
+    mode++;
+    Blink(5);
+  }else if(spd < -0.1){
+    mode--;
+    Blink(5);
+  }else if(sensval[0] + sensval[3] >= CONFIRM*2){
+    Blink(2);
+    switch (mode){
+      case 0:
+        while(1) printf("%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
+        break;
+      case 1:
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
+        I_spd = I_angvel = 0.;
+        motpower = 1;
+        tgt_spd = 0.;
+        tgt_angvel = 0.;
+        while(1);
+        break;
+      case 2:
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
+        I_spd = I_angvel = 0.;
+        SetLED(0b000);
+        HAL_Delay(500);
+        motpower = 1;
+        tgt_angvel = 0.;
+        for(int i=0;i<50;i++){
+          tgt_spd+=0.0025;
+          HAL_Delay(1);
+        }
+        HAL_Delay(1000);
+        for(int i=0;i<50;i++){
+          tgt_spd-=0.0025;
+          HAL_Delay(1);
+        }
+        tgt_spd = 0.;
+        motpower = 0;
+        break;
+      case 3:
+        HAL_GPIO_TogglePin(FAN_GPIO_Port,FAN_Pin);
+        HAL_Delay(1000);
+        break;
+      default:
+        DoPanic();
+        break;
+    }
+  }
+  motpower = 0;
+  SetLED(mode);
 }
