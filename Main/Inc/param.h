@@ -19,10 +19,10 @@
 #define ENCLPF 0.1
 
 #define SPD_KP 5.0
-#define SPD_KI 1.5
-#define SPD_KD 0.0
-#define ANGVEL_KP 0.0012
-#define ANGVEL_KI 0.00018
+#define SPD_KI 0.8
+#define SPD_KD 0.01
+#define ANGVEL_KP 0.00008
+#define ANGVEL_KI 0.00015
 #define ANGVEL_KD 0.0
 #define WALL_KP 0.1
 

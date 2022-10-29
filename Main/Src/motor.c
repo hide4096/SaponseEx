@@ -101,7 +101,8 @@ float I_angvel = 0.;
 void ControlDuty(){
   float dutyR = 0.,dutyL = 0.;
 
-  float diff_spd = tgt_spd - spd;
+  //float diff_spd = tgt_spd - spd;
+  float diff_spd = (tgt_spd - spd) + (5000 - (sensval[1] + sensval[2]))*0.00005;
   float duty_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(before_spd-spd)*SPD_KD;
   before_spd = spd;
   I_spd+=diff_spd;
@@ -110,7 +111,8 @@ void ControlDuty(){
   else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
 
 
-  float diff_angvel = (tgt_angvel - angvel) + (sensval[2] - sensval[1])*WALL_KP;
+  //float diff_angvel = (tgt_angvel - angvel) + (sensval[2] - sensval[1])*WALL_KP;
+  float diff_angvel = (tgt_angvel - angvel) + (sensval[0] - sensval[2])*WALL_KP;
   //float diff_angvel = (tgt_angvel - angvel);
   float duty_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(before_angvel-angvel)*ANGVEL_KD;
   before_angvel = angvel;
