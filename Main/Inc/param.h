@@ -21,10 +21,10 @@
 #define SPD_KP 5.0
 #define SPD_KI 1.5
 #define SPD_KD 0.0
-#define ANGVEL_KP 0.0011
-#define ANGVEL_KI 0.00008
+#define ANGVEL_KP 0.0012
+#define ANGVEL_KI 0.00018
 #define ANGVEL_KD 0.0
-#define WALL_KP 0.05
+#define WALL_KP 0.1
 
 #define SPD_I_MAX 10000
 #define ANGVEL_I_MAX 10000

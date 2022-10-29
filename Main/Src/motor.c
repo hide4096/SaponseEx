@@ -111,6 +111,7 @@ void ControlDuty(){
 
 
   float diff_angvel = (tgt_angvel - angvel) + (sensval[2] - sensval[1])*WALL_KP;
+  //float diff_angvel = (tgt_angvel - angvel);
   float duty_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(before_angvel-angvel)*ANGVEL_KD;
   before_angvel = angvel;
   I_angvel+=diff_angvel;

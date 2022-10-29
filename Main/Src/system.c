@@ -41,7 +41,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetBattVoltage();
 
     ControlDuty();
-    
     FailSafe();
     if(vbat < LOWVOLT) while(1) DoPanic();
   }
@@ -86,7 +85,10 @@ void init(){
   HAL_TIM_Base_Start_IT(&htim6);
 }
 
+uint16_t time =0;
+
 void mainmenu(){
+  
   if(spd > 0.1){
     mode++;
     Blink(5);
@@ -135,8 +137,8 @@ void mainmenu(){
         SetLED(0b010);
         I_spd = I_angvel = 0.;
         motpower = 1;
-        tgt_spd = 0.1;
-        tgt_angvel = 72.;
+        tgt_spd = 0.0;
+        tgt_angvel = 360./ 15.;
         while(1);
         break;
     }
