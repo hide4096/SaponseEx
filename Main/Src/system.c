@@ -34,7 +34,7 @@ void DoPanic(){
 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   if(htim == &htim6){
-    //5kHz(?!)
+    //2kHz(?!)
     TrigWallSens();
     GetSpeed();
     GetYawDeg();

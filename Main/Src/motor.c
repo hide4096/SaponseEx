@@ -102,7 +102,7 @@ void ControlDuty(){
   float dutyR = 0.,dutyL = 0.;
 
   //float diff_spd = tgt_spd - spd;
-  float diff_spd = (tgt_spd - spd) + (5000 - (sensval[1] + sensval[2]))*0.00005;
+  float diff_spd = (tgt_spd - spd) + (5000 - (sensval[1] + sensval[2]))*0.0002;
   float duty_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(before_spd-spd)*SPD_KD;
   before_spd = spd;
   I_spd+=diff_spd;

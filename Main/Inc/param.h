@@ -18,12 +18,12 @@
 #define IMULPF 0.1
 #define ENCLPF 0.1
 
-#define SPD_KP 5.0
-#define SPD_KI 0.8
-#define SPD_KD 0.01
-#define ANGVEL_KP 0.00008
-#define ANGVEL_KI 0.00015
-#define ANGVEL_KD 0.0
+#define SPD_KP 3.0
+#define SPD_KI 0.05
+#define SPD_KD 0.1
+#define ANGVEL_KP 0.001
+#define ANGVEL_KI 0.0001
+#define ANGVEL_KD 0.001
 #define WALL_KP 0.1
 
 #define SPD_I_MAX 10000
