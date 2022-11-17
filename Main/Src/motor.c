@@ -128,8 +128,10 @@ void ControlDuty(){
 }
 
 void FailSafe(){
-  if(spdL > FAILSAFE || spdL < -FAILSAFE) motpower = 0;
-  if(spdR > FAILSAFE || spdR < -FAILSAFE) motpower = 0;
+  if(spdL < FAILSAFE && spdL > -FAILSAFE) return;
+  if(spdR < FAILSAFE && spdR > -FAILSAFE) return;
+  if(vbat > LOWVOLT) return;
+  while(1) DoPanic();
 }
 
 void GetYawDeg(){

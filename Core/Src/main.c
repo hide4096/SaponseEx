@@ -96,6 +96,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_TIM6_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
   init();
   /* USER CODE END 2 */
@@ -105,8 +106,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    mainmenu();
+    
     /* USER CODE BEGIN 3 */
+    mainmenu();
   }
   /* USER CODE END 3 */
 }

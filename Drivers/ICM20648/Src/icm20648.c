@@ -38,6 +38,9 @@ static uint16_t IMU_readRegister_2Byte(uint8_t _Hadrs,uint8_t _Ladrs){
 
 static void IMU_writeRegister(uint8_t _adrs,uint8_t data){
     uint8_t adrs = _adrs & 0x7F;
+
+    HAL_Delay(1);   //ちょっと待ってみる
+
     HAL_GPIO_WritePin(_port_cs,_pin_cs,GPIO_PIN_RESET);
     HAL_SPI_Transmit(himu,&adrs,1,HAL_MAX_DELAY);
     HAL_SPI_Transmit(himu,&data,1,HAL_MAX_DELAY);
@@ -124,8 +127,11 @@ int IMU_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
         if(errcnt >= RETRY_INIT) return -1;
     }
 
-    //スリープ解除
-    IMU_writeRegister(0x06,0x01);
+    //IMUリセット
+    IMU_writeRegister(0x06,0b10000000);
+    HAL_Delay(10);
+    //スリープモード無効&温度センサ無効
+    IMU_writeRegister(0x06,0b00001001);
     //レンジの調整
     IMU_changeSensitivity(2,1);
 

@@ -34,15 +34,16 @@ void DoPanic(){
 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   if(htim == &htim6){
-    //2kHz(?!)
-    TrigWallSens();
+    //2kHz
     GetSpeed();
     GetYawDeg();
     GetBattVoltage();
-
     ControlDuty();
     FailSafe();
-    if(vbat < LOWVOLT) while(1) DoPanic();
+  }
+  else if(htim == &htim7){
+    //4kHz
+    TrigWallSens();
   }
 }
 
