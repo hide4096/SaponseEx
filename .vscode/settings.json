@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.h": "c",
         "main.h": "c",
         "stm32f4xx_hal.h": "c",
         "stm32f4xx_hal_conf.h": "c",
@@ -7,7 +8,8 @@
         "stm32f4xx_hal_def.h": "c",
         "stm32f4xx.h": "c",
         "stm32f412cx.h": "c",
-        "MOTOR.H": "c"
+        "MOTOR.H": "c",
+        "ICM20648.H": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "C_Cpp.dimInactiveRegions": false
