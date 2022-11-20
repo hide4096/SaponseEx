@@ -12,6 +12,7 @@ static float b_spdR = 0,b_spdL=0;
 static float r_yaw = 0,r_yaw_new = 0,r_b_yaw;
 
 uint8_t runmode=DISABLE_MODE;
+uint8_t wallfix_is = DISABLE_MODE;
 float spd,deg,len;
 float tgt_spd,tgt_angvel;
 float angvel,r_yaw_ref;
@@ -92,15 +93,40 @@ static float before_spd=0.;
 float I_spd = 0.;
 static float before_angvel=0.;
 float I_angvel = 0.;
+static int I_error = 0.;
 
 void ControlDuty(){
   float vR = 0.,vL = 0.;
 
   //壁制御
   if(runmode == STRAIGHT_MODE){
-    if(0){
+    if(wallfix_is == ENABLE_MODE){
+      //壁あるか確認
+      uint8_t fl_wall_is = 0,fr_wall_is = 0;
+      if(sensval[FL] >= WALL_TH_FL) fl_wall_is = 1;
+      if(sensval[FR] >= WALL_TH_FR) fr_wall_is = 1;
+
+      /*
+        壁との距離から目標コースとのずれを測る
+        壁の有無に応じて切り替えるよ
+      */
+      int error = 0;
+      if(fl_wall_is && fr_wall_is){
+        error = (sensval[FL] - REF_FL) - (sensval[FR] - REF_FR); 
+      }else if(fl_wall_is){
+        error = (sensval[FL] - REF_FL)*2;
+      }else if(fr_wall_is){
+        error = (sensval[FR] - REF_FR)*2;
+      }
+
+      //PIDして目標角速度に出力
+      I_error += error;
+      if(I_error > WALLERROR_I_MAX) I_error = WALLERROR_I_MAX;
+      if(I_error < -WALLERROR_I_MAX) I_error = -WALLERROR_I_MAX;
+      tgt_angvel = error * WALL_KP + I_error * WALL_KI;
     }else{
       tgt_angvel = 0.;
+      I_error = 0.;
     }
   }
 

@@ -94,7 +94,7 @@ void mainmenu(){
   I_angvel = 0;
   angvel = 0;
 
-  if(sensval[0] + sensval[3] >= CONFIRM*2){
+  if(sensval[SL] + sensval[SR] >= CONFIRM*2){
     Blink(2);
     switch (mode){
       case 1:
