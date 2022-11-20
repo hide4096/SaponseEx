@@ -24,7 +24,8 @@ void DoPanic(){
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
   printf("Soiya!!\r\n");
-  while(1) Blink(100);
+  SetLED(0b000);
+  while(1);
 }
 
 /* HM-SterterKitの場合
@@ -68,7 +69,7 @@ void init(){
 
   //InitIMU
   if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
-  r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
+  r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
 
   //Motor
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
@@ -82,8 +83,8 @@ void init(){
   //LED
   SetLED(0b000);
 
-  //Interrupt 1kHz
-  HAL_TIM_Base_Start_IT(&htim6);
+  HAL_TIM_Base_Start_IT(&htim6);  //interrupt 2kHz
+  HAL_TIM_Base_Start_IT(&htim7);  //interrupt 1kHz
 }
 
 uint16_t time =0;
@@ -105,7 +106,7 @@ void mainmenu(){
         //while(1) printf("%.2f\r\n",len);
         break;
       case 1:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         SetLED(0b010);
         I_spd = I_angvel = len = 0.;
         motpower = 1;
@@ -114,7 +115,7 @@ void mainmenu(){
         while(1);
         break;
       case 2:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         I_spd = I_angvel = len = 0.;
         SetLED(0b000);
         HAL_Delay(500);
@@ -134,7 +135,7 @@ void mainmenu(){
         HAL_Delay(1000);
         break;
       default:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME,1);
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         SetLED(0b010);
         I_spd = I_angvel = 0.;
         motpower = 1;
