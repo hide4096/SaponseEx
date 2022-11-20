@@ -32,4 +32,9 @@
 #define FAILSAFE 10.0   //単位はm/s
 
 #define CONFIRM 2000
+
+#define DISABLE_MODE 0
+#define STRAIGHT_MODE 1
+#define TURN_MODE 2
+
 #endif

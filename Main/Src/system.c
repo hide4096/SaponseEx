@@ -12,7 +12,7 @@ extern ADC_HandleTypeDef hadc1;
 extern AS5047P_Instance encR;
 extern AS5047P_Instance encL;
 
-extern uint8_t motpower;
+extern uint8_t runmode;
 extern float r_yaw_ref;
 
 static uint8_t mode = 0;
@@ -20,8 +20,7 @@ static uint8_t mode = 0;
 unsigned int timer = 0;
 
 void DoPanic(){
-  SetDutyRatio(0,0);
-  motpower = 0;
+  runmode = DISABLE_MODE;
   HAL_TIM_Base_Stop_IT(&htim6);
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
@@ -79,9 +78,8 @@ void init(){
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-  SetDutyRatio(0,0);
   HAL_GPIO_WritePin(FAN_GPIO_Port,FAN_Pin,0);
-  motpower = 0;
+  runmode = DISABLE_MODE;
 
   //LED
   SetLED(0b000);
@@ -130,5 +128,5 @@ void mainmenu(){
   }
   SetLED(mode);
 
-  motpower = 0;
+  runmode = DISABLE_MODE;
 }

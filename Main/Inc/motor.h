@@ -19,13 +19,13 @@ extern AS5047P_Instance encL;
 
 //run
 extern float r_yaw_ref,angvel;
-extern uint8_t motpower;
+extern uint8_t runmode;
 extern float spd,deg,len;
 extern float tgt_spd,tgt_angvel;
 extern float angvel,r_yaw_ref;
 extern float I_spd,I_angvel;
 
-void SetDutyRatio(int16_t,int16_t);
+void SetDutyRatio(uint16_t,uint16_t,uint8_t,uint8_t);
 void GetSpeed();
 void ControlDuty();
 void GetYawDeg();

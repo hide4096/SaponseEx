@@ -11,7 +11,7 @@ static float spdR = 0,spdL=0;
 static float b_spdR = 0,b_spdL=0;
 static float r_yaw = 0,r_yaw_new = 0,r_b_yaw;
 
-uint8_t motpower=0;
+uint8_t runmode=DISABLE_MODE;
 float spd,deg,len;
 float tgt_spd,tgt_angvel;
 float angvel,r_yaw_ref;
@@ -19,26 +19,22 @@ float angvel,r_yaw_ref;
 AS5047P_Instance encR;
 AS5047P_Instance encL;
 
-void SetDutyRatio(int16_t motL,int16_t motR){
-  if(motpower){
-    if(motR > 0){
-      if(motR > MTPERIOD) motR = MTPERIOD;
-     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
-     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
+void SetDutyRatio(uint16_t motL,uint16_t motR,uint8_t motR_isCW,uint8_t motL_isCW){
+  if(runmode != DISABLE_MODE){
+    if(motR > MTPERIOD) motR = MTPERIOD;
+    if(motR_isCW){
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
     }else{
-      motR*=-1;
-      if(motR > MTPERIOD) motR = MTPERIOD;
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
     }
 
-    if(motL > 0){
-      if(motL > MTPERIOD) motL = MTPERIOD;
+    if(motL > MTPERIOD) motL = MTPERIOD;
+    if(motL_isCW){
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
     }else{
-      motL*=-1;
-      if(motL > MTPERIOD) motL = MTPERIOD;
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
     }
@@ -98,36 +94,52 @@ static float before_angvel=0.;
 float I_angvel = 0.;
 
 void ControlDuty(){
-  float dutyR = 0.,dutyL = 0.;
+  float vR = 0.,vL = 0.;
 
-  //曲芸用のやーつ
-  //float diff_spd = (tgt_spd - spd) + (5000 - (sensval[1] + sensval[2]))*0.0002;
+  //壁制御
+  if(runmode == STRAIGHT_MODE){
+    if(0){
+    }else{
+      tgt_angvel = 0.;
+    }
+  }
 
+  //速度フィードバック
   float diff_spd = tgt_spd - spd;
-  float duty_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(before_spd-spd)*SPD_KD;
+  float v_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(before_spd-spd)*SPD_KD;
   before_spd = spd;
   I_spd+=diff_spd;
-
   if(I_spd > SPD_I_MAX) I_spd = SPD_I_MAX;
   else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
 
-
-  //曲芸用のやつ
-  //float diff_angvel = (tgt_angvel - angvel) + (sensval[2] - sensval[1])*WALL_KP;
-  //float diff_angvel = (tgt_angvel - angvel) + (sensval[0] - sensval[2])*WALL_KP;
-
+  //角速度フィードバック
   float diff_angvel = tgt_angvel - angvel;
-  float duty_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(before_angvel-angvel)*ANGVEL_KD;
+  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(before_angvel-angvel)*ANGVEL_KD;
   before_angvel = angvel;
   I_angvel+=diff_angvel;
-
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;
-  
-  dutyR = duty_spd - duty_angvel;
-  dutyL = duty_spd + duty_angvel;
 
-  SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR);
+  //合算
+  vR = v_spd - v_angvel;
+  vL = v_spd + v_angvel;
+
+  //電圧をデューティ比に変換
+  uint8_t motL_isCW = 0;
+  uint8_t motR_isCW = 0;
+  if(vL < 0){
+    motL_isCW = 1;
+    vL*=-1.;
+  }
+  if(vR < 0){
+    motR_isCW = 1;
+    vR*=-1.;
+  }
+  float dutyR = vR/vbat;
+  float dutyL = vL/vbat;
+
+  //デューティ比を設定
+  SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,motL_isCW,motR_isCW);
 }
 
 void FailSafe(){
