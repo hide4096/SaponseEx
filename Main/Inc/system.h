@@ -16,4 +16,6 @@ void DoPanic();
 void init();
 void mainmenu();
 
+extern unsigned int timer;
+
 #endif

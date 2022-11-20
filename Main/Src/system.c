@@ -17,6 +17,8 @@ extern float r_yaw_ref;
 
 static uint8_t mode = 0;
 
+unsigned int timer = 0;
+
 void DoPanic(){
   SetDutyRatio(0,0);
   motpower = 0;
@@ -45,6 +47,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetBattVoltage();
     ControlDuty();
     FailSafe();
+    timer++;
   }
 }
 
@@ -96,47 +99,19 @@ void mainmenu(){
   if(sensval[0] + sensval[3] >= CONFIRM*2){
     Blink(2);
     switch (mode){
-      case 0:
-        while(1) printf("%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
-        //while(1) printf("%.2f\r\n",len);
-        break;
       case 1:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        SetLED(0b010);
-        I_spd = I_angvel = len = 0.;
-        motpower = 1;
-        tgt_spd = 0.;
-        tgt_angvel = 0.;
-        while(1);
-        break;
-      case 2:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        I_spd = I_angvel = len = 0.;
+        Blink(100);
+        SetLED(0b111);
+        IMU_SurveyBias(GYROREFTIME);
+        deg = 0;
+        timer = 0;
         SetLED(0b000);
-        HAL_Delay(500);
-        motpower = 1;
-        tgt_angvel = 0.;
-        for(int i=0;i<100;i++){
-          tgt_spd+=0.005;
-          HAL_Delay(1);
-        }
-        while(len < 450);
-        tgt_spd = 0.;
-        while(spd <= 0);
-        motpower = 0;
-        break;
-      case 3:
-        HAL_GPIO_TogglePin(FAN_GPIO_Port,FAN_Pin);
-        HAL_Delay(1000);
+
+
+
         break;
       default:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        SetLED(0b010);
-        I_spd = I_angvel = 0.;
-        motpower = 1;
-        tgt_spd = 0.0;
-        tgt_angvel = 360./ 15.;
-        while(1);
+        DoPanic();
         break;
     }
   }

@@ -10,6 +10,8 @@
 #include"tim.h"
 #include"as5047p.h"
 #include"icm20648.h"
+#include"analog.h"
+#include"show.h"
 
 //Enc
 extern AS5047P_Instance encR;

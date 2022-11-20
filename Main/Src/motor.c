@@ -5,8 +5,6 @@
 */
 
 #include"motor.h"
-#include"analog.h"
-#include"show.h"
 
 static int16_t b_encR_val=0,b_encL_val=0;
 static float spdR = 0,spdL=0;
