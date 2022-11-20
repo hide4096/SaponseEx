@@ -29,7 +29,7 @@ void DoPanic(){
 
 /* HM-SterterKitの場合
   モータ制御  1kHz
-  AD変換      4kHz
+  AD変換      4kHz(一度に見るのは1個なので実質1KHz)
   センサ取得  2kHz
 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
@@ -37,13 +37,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //2kHz
     GetSpeed();
     GetYawDeg();
+    TrigWallSens();
+  }
+  else if(htim == &htim7){
+    //1kHz
     GetBattVoltage();
     ControlDuty();
     FailSafe();
-  }
-  else if(htim == &htim7){
-    //4kHz
-    TrigWallSens();
   }
 }
 

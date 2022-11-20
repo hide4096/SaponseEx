@@ -104,10 +104,6 @@ void Error_Handler(void);
 #define MOT_L_IN2_GPIO_Port GPIOA
 #define MOT_L_IN1_Pin GPIO_PIN_10
 #define MOT_L_IN1_GPIO_Port GPIOA
-#define UART_TX_Pin GPIO_PIN_11
-#define UART_TX_GPIO_Port GPIOA
-#define UART_RX_Pin GPIO_PIN_12
-#define UART_RX_GPIO_Port GPIOA
 #define FAN_Pin GPIO_PIN_15
 #define FAN_GPIO_Port GPIOA
 #define LED_FR_L_Pin GPIO_PIN_4

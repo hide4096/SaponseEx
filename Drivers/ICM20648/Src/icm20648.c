@@ -133,7 +133,7 @@ int IMU_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
     //スリープモード無効&温度センサ無効
     IMU_writeRegister(0x06,0b00001001);
     //レンジの調整
-    IMU_changeSensitivity(2,1);
+    IMU_changeSensitivity(3,1);
 
     return 0;
 }

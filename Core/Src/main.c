@@ -22,7 +22,6 @@
 #include "dma.h"
 #include "spi.h"
 #include "tim.h"
-#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -92,7 +91,6 @@ int main(void)
   MX_SPI2_Init();
   MX_ADC1_Init();
   MX_SPI1_Init();
-  MX_USART6_UART_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_TIM6_Init();
@@ -106,7 +104,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    
+
     /* USER CODE BEGIN 3 */
     mainmenu();
   }
