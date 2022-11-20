@@ -21,10 +21,11 @@
 #define ENCLPF 0.1
 
 //機体情報
-#define TIRE_DIAM   13.23   //タイヤ直径
+#define TIRE_DIAM   13.23   //タイヤ直径[mm]
 #define PPMM        (TIRE_DIAM*M_PI)/ENC_MAX
 #define DELTA_T     0.0005
-#define FAILSAFE 8.0   //単位はm/s
+#define FAILSAFE    8.0   //単位はm/s
+#define MIN_SPEED   0.1
 
 //閾値
 #define WALL_TH_R   50

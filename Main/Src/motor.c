@@ -10,12 +10,21 @@ static int16_t b_encR_val=0,b_encL_val=0;
 static float spdR = 0,spdL=0;
 static float b_spdR = 0,b_spdL=0;
 static float r_yaw = 0,r_yaw_new = 0,r_b_yaw;
+static float before_spd=0.;
+static float before_angvel=0.;
 
 uint8_t runmode=DISABLE_MODE;
 uint8_t wallfix_is = DISABLE_MODE;
 float spd,deg,len;
-float tgt_spd,tgt_angvel;
+float accel = 0.;
+float max_spd = 0.;
 float angvel,r_yaw_ref;
+float tgt_spd=0.,tgt_angvel=0.;
+
+float I_spd = 0.;
+float I_angvel = 0.;
+int I_error = 0.;
+
 
 AS5047P_Instance encR;
 AS5047P_Instance encL;
@@ -89,14 +98,12 @@ void GetSpeed(){
   spd = (spdR + spdL) / 2.0;
 }
 
-static float before_spd=0.;
-float I_spd = 0.;
-static float before_angvel=0.;
-float I_angvel = 0.;
-static int I_error = 0.;
-
 void ControlDuty(){
   float vR = 0.,vL = 0.;
+
+  //速度生成
+  tgt_spd += accel/1000.;
+  if(tgt_spd > max_spd) tgt_spd = max_spd;
 
   //壁制御
   if(runmode == STRAIGHT_MODE){
