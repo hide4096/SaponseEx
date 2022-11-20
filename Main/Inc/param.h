@@ -26,14 +26,19 @@
 #define DELTA_T     0.0005
 #define FAILSAFE    8.0   //単位はm/s
 #define MIN_SPEED   0.1
+#define SEARCH_ACCEL 1.0
+#define SEARCH_SPEED 0.5
+
+//迷路情報
+#define HALF_SECTION 45
 
 //閾値
 #define WALL_TH_R   50
 #define WALL_TH_L   50
 #define WALL_TH_FR  50
 #define WALL_TH_FL  50
-#define REF_FR  1200
-#define REF_FL  1200 
+#define REF_FR  1600
+#define REF_FL  400 
 #define REF_R   1200
 #define REF_L   1200 
 #define CONFIRM 2000
@@ -45,7 +50,7 @@
 #define ANGVEL_KP 0.001
 #define ANGVEL_KI 0.0001
 #define ANGVEL_KD 0.001
-#define WALL_KP 0.001
+#define WALL_KP 0.1
 #define WALL_KI 0.0
 
 //Iゲイン上限

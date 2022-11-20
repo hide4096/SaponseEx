@@ -32,21 +32,22 @@ AS5047P_Instance encL;
 void SetDutyRatio(uint16_t motL,uint16_t motR,uint8_t motR_isCW,uint8_t motL_isCW){
   if(runmode != DISABLE_MODE){
     if(motR > MTPERIOD) motR = MTPERIOD;
-    if(motR_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motR);
+    if(motL > MTPERIOD) motL = MTPERIOD;
+
+    if(motL_isCW){
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motL);
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
     }else{
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motR);  
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motL);  
     }
 
-    if(motL > MTPERIOD) motL = MTPERIOD;
-    if(motL_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motL);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
-    }else{
+    if(motR_isCW){
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motL);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motR);
+    }else{
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motR);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
     }
   }else{
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
@@ -119,9 +120,9 @@ void ControlDuty(){
       */
       int error = 0;
       if(fl_wall_is && fr_wall_is){
-        error = (sensval[FL] - REF_FL) - (sensval[FR] - REF_FR); 
+        error = (sensval[FR] - REF_FR) - (sensval[FL] - REF_FL); 
       }else if(fl_wall_is){
-        error = (sensval[FL] - REF_FL)*2;
+        error = 0. - (sensval[FL] - REF_FL)*2;
       }else if(fr_wall_is){
         error = (sensval[FR] - REF_FR)*2;
       }
@@ -159,13 +160,13 @@ void ControlDuty(){
 
   //電圧をデューティ比に変換
   uint8_t motL_isCW = 0;
-  uint8_t motR_isCW = 0;
+  uint8_t motR_isCW = 1;
   if(vL < 0){
     motL_isCW = 1;
     vL*=-1.;
   }
   if(vR < 0){
-    motR_isCW = 1;
+    motR_isCW = 0;
     vR*=-1.;
   }
   float dutyR = vR/vbat;

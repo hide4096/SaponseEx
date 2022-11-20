@@ -11,6 +11,7 @@
 #include"motor.h"
 #include"tim.h"
 #include"show.h"
+#include"run.h"
 
 void DoPanic();
 void init();

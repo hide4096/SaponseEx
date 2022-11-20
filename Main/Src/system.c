@@ -15,7 +15,7 @@ extern AS5047P_Instance encL;
 extern uint8_t runmode;
 extern float r_yaw_ref;
 
-static uint8_t mode = 0;
+static uint8_t mode = 1;
 
 unsigned int timer = 0;
 
@@ -39,13 +39,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //2kHz
     GetSpeed();
     GetYawDeg();
-    TrigWallSens();
   }
   else if(htim == &htim7){
     //1kHz
     GetBattVoltage();
     ControlDuty();
     FailSafe();
+    TrigWallSens();
     timer++;
   }
 }
@@ -98,15 +98,19 @@ void mainmenu(){
     Blink(2);
     switch (mode){
       case 1:
-        Blink(100);
+        Blink(2);
         SetLED(0b111);
-        IMU_SurveyBias(GYROREFTIME);
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
         timer = 0;
         SetLED(0b000);
-
-
-
+        straight(HALF_SECTION*9,SEARCH_ACCEL,SEARCH_SPEED,0);
+        runmode = DISABLE_MODE;
+        break;
+      case 2:
+        while(1){
+          printf("%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SR]);
+        }
         break;
       default:
         DoPanic();

@@ -6,7 +6,7 @@
 #include"run.h"
 
 extern float I_angvel,I_spd;
-extern float spd,deg,accel,max_spd;
+extern float spd,deg,accel,max_spd,len;
 extern uint8_t runmode,wallfix_is;
 
 void straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
@@ -14,13 +14,16 @@ void straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     I_spd = 0.;
     I_error = 0;
     len = 0.;
+    tgt_angvel = 0.;
     max_spd = _max_spd;
     accel = _accel;
-    wallfix_is = ENABLE_MODE;
+    wallfix_is = DISABLE_MODE;
     runmode = STRAIGHT_MODE;
 
     //加速して巡行する
-    while((tgt_len - len) > 1000.*((tgt_spd * tgt_spd) - (_end_spd*_end_spd) - (2,0*tgt_spd*_end_spd))/(2.0*accel));
+    while((tgt_len - len) > 1000.*((tgt_spd * tgt_spd) - (_end_spd*_end_spd) - (2.0*tgt_spd*_end_spd))/(2.0*accel)){
+        printf("a");
+    }
 
     //ゴールギリ手前まで減速する
     accel = -_accel;

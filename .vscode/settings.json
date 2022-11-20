@@ -9,8 +9,10 @@
         "stm32f4xx.h": "c",
         "stm32f412cx.h": "c",
         "MOTOR.H": "c",
-        "ICM20648.H": "cpp"
+        "ICM20648.H": "cpp",
+        "limits": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled",
-    "C_Cpp.dimInactiveRegions": false
+    "C_Cpp.dimInactiveRegions": false,
+    "cortex-debug.variableUseNaturalFormat": true
 }
