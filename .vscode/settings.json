@@ -6,7 +6,8 @@
         "stm32f4xx_hal_rcc.h": "c",
         "stm32f4xx_hal_def.h": "c",
         "stm32f4xx.h": "c",
-        "stm32f412cx.h": "c"
+        "stm32f412cx.h": "c",
+        "MOTOR.H": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "C_Cpp.dimInactiveRegions": false

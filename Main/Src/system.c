@@ -90,14 +90,9 @@ void init(){
 uint16_t time =0;
 
 void mainmenu(){
-  
-  if(spd > 0.1){
-    mode++;
-    Blink(5);
-  }else if(spd < -0.1){
-    mode--;
-    Blink(5);
-  }
+  I_angvel = 0;
+  angvel = 0;
+
   if(sensval[0] + sensval[3] >= CONFIRM*2){
     Blink(2);
     switch (mode){
@@ -145,6 +140,20 @@ void mainmenu(){
         break;
     }
   }
-  motpower = 0;
+
+  //モード選択
+  if(spd > 0.1){
+    if(mode < 0b111){
+      mode++;
+      Blink(5);
+    }
+  }else if(spd < -0.1){
+    if(mode > 0b000){
+      mode--;
+      Blink(5);
+    }
+  }
   SetLED(mode);
+
+  motpower = 0;
 }
