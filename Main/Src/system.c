@@ -39,13 +39,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //2kHz
     GetSpeed();
     GetYawDeg();
+    TrigWallSens();
   }
   else if(htim == &htim7){
     //1kHz
     GetBattVoltage();
     ControlDuty();
     FailSafe();
-    TrigWallSens();
     timer++;
   }
 }
@@ -125,7 +125,7 @@ void mainmenu(){
       Blink(5);
     }
   }else if(spd < -0.1){
-    if(mode > 0b000){
+    if(mode > 0b001){
       mode--;
       Blink(5);
     }

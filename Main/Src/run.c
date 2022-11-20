@@ -17,12 +17,12 @@ void straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     tgt_angvel = 0.;
     max_spd = _max_spd;
     accel = _accel;
-    wallfix_is = DISABLE_MODE;
+    wallfix_is = ENABLE_MODE;
     runmode = STRAIGHT_MODE;
 
     //加速して巡行する
     while((tgt_len - len) > 1000.*((tgt_spd * tgt_spd) - (_end_spd*_end_spd) - (2.0*tgt_spd*_end_spd))/(2.0*accel)){
-        printf("a");
+        printf("%f\r\n",angvel);
     }
 
     //ゴールギリ手前まで減速する

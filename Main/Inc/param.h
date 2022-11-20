@@ -35,10 +35,10 @@
 //閾値
 #define WALL_TH_R   50
 #define WALL_TH_L   50
-#define WALL_TH_FR  50
-#define WALL_TH_FL  50
-#define REF_FR  1600
-#define REF_FL  400 
+#define WALL_TH_FR  150
+#define WALL_TH_FL  100
+#define REF_FR  2000
+#define REF_FL  1800 
 #define REF_R   1200
 #define REF_L   1200 
 #define CONFIRM 2000
@@ -47,9 +47,9 @@
 #define SPD_KP 3.0
 #define SPD_KI 0.05
 #define SPD_KD 0.1
-#define ANGVEL_KP 0.001
-#define ANGVEL_KI 0.0001
-#define ANGVEL_KD 0.001
+#define ANGVEL_KP 0.002
+#define ANGVEL_KI 0.0002
+#define ANGVEL_KD 0.002
 #define WALL_KP 0.1
 #define WALL_KI 0.0
 
