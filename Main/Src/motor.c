@@ -15,9 +15,11 @@ static float before_angvel=0.;
 
 uint8_t runmode=DISABLE_MODE;
 uint8_t wallfix_is = DISABLE_MODE;
+uint8_t turndir = LEFT;
 float spd,deg,len;
-float accel = 0.;
+float accel = 0.,ang_accel = 0.;
 float max_spd = 0.;
+float max_angvel = 0.;
 float angvel,r_yaw_ref;
 float tgt_spd=0.,tgt_angvel=0.;
 
@@ -105,6 +107,12 @@ void ControlDuty(){
   //速度生成
   tgt_spd += accel/1000.;
   if(tgt_spd > max_spd) tgt_spd = max_spd;
+  if(runmode == TURN_MODE){
+    tgt_angvel += ang_accel/1000.0;
+    if(tgt_angvel*turndir > max_angvel) tgt_angvel = max_angvel*turndir;
+  }else{
+      tgt_angvel = 0.;
+  }
 
   //壁制御
   if(runmode == STRAIGHT_MODE){
@@ -120,11 +128,11 @@ void ControlDuty(){
       */
       int error = 0;
       if(fl_wall_is && fr_wall_is){
-        error = (sensval[FR] - REF_FR) - (sensval[FL] - REF_FL); 
+        error = (sensval[FL] - REF_FL) - (sensval[FR] - REF_FR); 
       }else if(fl_wall_is){
-        error = 0. - (sensval[FL] - REF_FL)*2;
+        error = (sensval[FL] - REF_FL)*2;
       }else if(fr_wall_is){
-        error = (sensval[FR] - REF_FR)*2;
+        error = 0. - (sensval[FR] - REF_FR)*2;
       }
 
       //PIDして目標角速度に出力
@@ -155,8 +163,8 @@ void ControlDuty(){
   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;
 
   //合算
-  vR = v_spd - v_angvel;
-  vL = v_spd + v_angvel;
+  vR = v_spd + v_angvel;
+  vL = v_spd - v_angvel;
 
   //電圧をデューティ比に変換
   uint8_t motL_isCW = 0;
@@ -190,7 +198,7 @@ void GetYawDeg(){
   r_b_yaw = r_yaw;
   r_yaw = r_b_yaw * IMULPF + r_yaw_new * (1.0 - IMULPF);
 
-  angvel = r_yaw;
+  angvel = r_yaw*-1.;
 
-  deg += r_yaw * DELTA_T;
+  deg += angvel * DELTA_T;
 }

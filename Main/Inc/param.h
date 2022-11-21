@@ -28,6 +28,9 @@
 #define MIN_SPEED   0.1
 #define SEARCH_ACCEL 0.8
 #define SEARCH_SPEED 1.0
+#define MIN_ANGVEL (M_PI/10.0)
+#define TURN_ACCEL (M_PI*2.0)
+#define TURN_SPEED (M_PI)
 
 //迷路情報
 #define HALF_SECTION 45
@@ -63,6 +66,8 @@
 #define ENABLE_MODE 1
 #define STRAIGHT_MODE 1
 #define TURN_MODE 2
+#define LEFT    -1
+#define RIGHT   1
 #define SL 0
 #define FL 1
 #define FR 2

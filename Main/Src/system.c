@@ -104,12 +104,18 @@ void mainmenu(){
         deg = 0;
         timer = 0;
         SetLED(0b000);
-        straight(HALF_SECTION*9,SEARCH_ACCEL,SEARCH_SPEED,0);
+        //straight(HALF_SECTION*9,SEARCH_ACCEL,SEARCH_SPEED,0);
+        turn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
         runmode = DISABLE_MODE;
         break;
       case 2:
         while(1){
           printf("%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SR]);
+        }
+        break;
+      case 3:
+        while(1){
+          printf("%.3f\t%.3f\r\n",deg,angvel);
         }
         break;
       default:
