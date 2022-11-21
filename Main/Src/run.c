@@ -21,8 +21,12 @@ void straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     runmode = STRAIGHT_MODE;
 
     //加速して巡行する
-    while((tgt_len - len) > 1000.*((tgt_spd * tgt_spd) - (_end_spd*_end_spd) - (2.0*tgt_spd*_end_spd))/(2.0*accel)){
-        printf("%f\r\n",angvel);
+    
+    while(1){
+        float remain = tgt_len - len;
+        float len_brake = ((tgt_spd*tgt_spd) - (_end_spd*_end_spd) - 2.0*(tgt_spd*_end_spd))/(2.0*accel);
+        if(remain <= len_brake*1000.) break;
+
     }
 
     //ゴールギリ手前まで減速する
