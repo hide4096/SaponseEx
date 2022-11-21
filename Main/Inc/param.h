@@ -26,8 +26,8 @@
 #define DELTA_T     0.0005
 #define FAILSAFE    8.0   //単位はm/s
 #define MIN_SPEED   0.1
-#define SEARCH_ACCEL 1.0
-#define SEARCH_SPEED 0.5
+#define SEARCH_ACCEL 0.8
+#define SEARCH_SPEED 1.0
 
 //迷路情報
 #define HALF_SECTION 45
@@ -44,9 +44,9 @@
 #define CONFIRM 2000
 
 //PIDゲイン
-#define SPD_KP 3.0
-#define SPD_KI 0.05
-#define SPD_KD 0.1
+#define SPD_KP 2.0
+#define SPD_KI 0.01
+#define SPD_KD 0.01
 #define ANGVEL_KP 0.002
 #define ANGVEL_KI 0.0002
 #define ANGVEL_KD 0.002
