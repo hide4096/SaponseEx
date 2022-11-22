@@ -5,10 +5,6 @@
 */
 #include"run.h"
 
-extern float I_angvel,I_spd;
-extern float spd,deg,accel,max_spd,len;
-extern uint8_t runmode,wallfix_is;
-
 void straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     I_angvel = 0.;
     I_spd = 0.;

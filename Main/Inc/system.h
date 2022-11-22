@@ -7,16 +7,16 @@
 #define SYSTEM_H
 
 #include"main.h"
+#include"tim.h"
 #include"analog.h"
 #include"motor.h"
-#include"tim.h"
 #include"show.h"
 #include"run.h"
+
+extern unsigned int timer;
 
 void DoPanic();
 void init();
 void mainmenu();
-
-extern unsigned int timer;
 
 #endif

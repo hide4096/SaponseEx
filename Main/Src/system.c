@@ -5,16 +5,6 @@
 */
 #include"system.h"
 
-extern TIM_HandleTypeDef htim6;
-extern SPI_HandleTypeDef hspi1;
-extern SPI_HandleTypeDef hspi2;
-extern ADC_HandleTypeDef hadc1;
-extern AS5047P_Instance encR;
-extern AS5047P_Instance encL;
-
-extern uint8_t runmode;
-extern float r_yaw_ref;
-
 static uint8_t mode = 1;
 
 unsigned int timer = 0;
@@ -87,8 +77,6 @@ void init(){
   HAL_TIM_Base_Start_IT(&htim6);  //interrupt 2kHz
   HAL_TIM_Base_Start_IT(&htim7);  //interrupt 1kHz
 }
-
-uint16_t time =0;
 
 void mainmenu(){
   I_angvel = 0;

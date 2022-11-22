@@ -8,8 +8,8 @@
 #ifndef ICM20648_H
 #define ICM20648_H
 
-#include<spi.h>
-#include<main.h>
+#include"spi.h"
+#include"main.h"
 
 int IMU_init(SPI_HandleTypeDef*,GPIO_TypeDef*,uint16_t);
 float IMU_SurveyBias(int);

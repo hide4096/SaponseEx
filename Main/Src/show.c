@@ -6,8 +6,6 @@
 
 #include"show.h"
 
-extern TIM_HandleTypeDef htim6;
-
 void Blink(uint16_t val){
   uint8_t l_sig = 0b111;
   for(uint16_t i = 0; i < val;i++){

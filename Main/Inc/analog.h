@@ -7,6 +7,7 @@
 #define ANALOG_H
 
 #include"main.h"
+#include"adc.h"
 
 extern uint16_t adcval[5];
 extern uint16_t sensval[4];
