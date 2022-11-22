@@ -50,6 +50,7 @@ void turn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
     accel = 0;
     tgt_spd = 0;
     tgt_angvel = 0;
+    max_spd = 0.;
     turndir = _dir;
     float start_deg = deg;
 
@@ -59,7 +60,7 @@ void turn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
     max_angvel = _max_angvel * turndir;
     float tgt_deg = _deg * turndir;
 
-    while( (float)(tgt_deg - (deg - start_deg))*turndir > ((tgt_angvel*tgt_angvel)/(2.0*ang_accel*turndir)) ){
+    while( (float)(tgt_deg - (deg - start_deg))*turndir > (tgt_angvel*tgt_angvel/ang_accel)*turndir){
         HAL_Delay(1);
     }
 

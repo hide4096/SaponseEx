@@ -104,7 +104,7 @@ void mainmenu(){
         deg = 0;
         timer = 0;
         SetLED(0b000);
-        //straight(HALF_SECTION*9,SEARCH_ACCEL,SEARCH_SPEED,0);
+        straight(HALF_SECTION*2,SEARCH_ACCEL,SEARCH_SPEED,0);
         turn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
         runmode = DISABLE_MODE;
         break;
