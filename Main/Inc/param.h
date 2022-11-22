@@ -28,9 +28,9 @@
 #define MIN_SPEED   0.1
 #define SEARCH_ACCEL 0.8
 #define SEARCH_SPEED 1.0
-#define MIN_ANGVEL (M_PI/10.0)
-#define TURN_ACCEL (M_PI*2.0)
-#define TURN_SPEED (M_PI)
+#define MIN_ANGVEL 90.
+#define TURN_ACCEL 90.
+#define TURN_SPEED 360.
 
 //迷路情報
 #define HALF_SECTION 45
@@ -47,12 +47,12 @@
 #define CONFIRM 2000
 
 //PIDゲイン
-#define SPD_KP 2.0
-#define SPD_KI 0.01
-#define SPD_KD 0.01
-#define ANGVEL_KP 0.002
-#define ANGVEL_KI 0.0002
-#define ANGVEL_KD 0.002
+#define SPD_KP 4.0
+#define SPD_KI 0.03
+#define SPD_KD 0.0
+#define ANGVEL_KP 0.02
+#define ANGVEL_KI 0.0
+#define ANGVEL_KD 0.0
 #define WALL_KP 0.1
 #define WALL_KI 0.0
 

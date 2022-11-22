@@ -59,13 +59,14 @@ void turn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
     max_angvel = _max_angvel * turndir;
     float tgt_deg = _deg * turndir;
 
-    while( (float)(tgt_deg - (deg - start_deg))*turndir*M_PI/180.0 > ((tgt_angvel*tgt_angvel)/(2.0*ang_accel*turndir)) ){
+    while( (float)(tgt_deg - (deg - start_deg))*turndir > ((tgt_angvel*tgt_angvel)/(2.0*ang_accel*turndir)) ){
         HAL_Delay(1);
     }
+
     SetLED(0b101);
 
     ang_accel*=-1;
-    while((deg - start_deg) > tgt_deg){
+    while(tgt_deg*turndir > (deg-start_deg)*turndir){
         if(tgt_angvel*turndir < MIN_ANGVEL){
             ang_accel = 0.;
             tgt_angvel = MIN_ANGVEL * turndir;
