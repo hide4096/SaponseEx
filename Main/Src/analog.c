@@ -12,10 +12,6 @@ float vbat = 0;
 
 static uint8_t senstype = 0;
 
-void InitADCDMA(){
-  //HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
-}
-
 void TrigWallSens(){
   if(senstype){
     HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,1);

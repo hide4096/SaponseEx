@@ -12,6 +12,7 @@
 #include"motor.h"
 #include"show.h"
 #include"run.h"
+#include"search.h"
 
 extern unsigned int timer;
 

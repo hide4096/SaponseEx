@@ -9,7 +9,7 @@
 #include"main.h"
 #include"motor.h"
 
-void straight(float,float,float,float);
-void turn(float,float,float,uint8_t);
+void Straight(float,float,float,float);
+void SpinTurn(float,float,float,uint8_t);
 
 #endif

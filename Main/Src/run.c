@@ -5,7 +5,7 @@
 */
 #include"run.h"
 
-void straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
+void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     I_angvel = 0.;
     I_spd = 0.;
     I_error = 0;
@@ -38,7 +38,7 @@ void straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     accel = 0;
 }
 
-void turn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
+void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
     I_angvel = 0.;
     I_spd = 0.;
     I_error = 0;

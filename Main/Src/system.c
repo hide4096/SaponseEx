@@ -41,9 +41,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 }
 
 void init(){
-
-  InitADCDMA();
-
   //InitEnc
   uint8_t errcnt = 0;
   AS5047P_Init(&encL, 0);
@@ -74,6 +71,9 @@ void init(){
   //LED
   SetLED(0b000);
 
+  //迷路情報を初期化
+  InitMaze();
+
   HAL_TIM_Base_Start_IT(&htim6);  //interrupt 2kHz
   HAL_TIM_Base_Start_IT(&htim7);  //interrupt 1kHz
 }
@@ -92,8 +92,7 @@ void mainmenu(){
         deg = 0;
         timer = 0;
         SetLED(0b000);
-        straight(HALF_SECTION*2,SEARCH_ACCEL,SEARCH_SPEED,0);
-        turn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
+        SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;
         break;
       case 2:

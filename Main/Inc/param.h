@@ -33,6 +33,10 @@
 #define TURN_SPEED      3600.    //旋回の最高速度[deg/s]
 
 //迷路情報
+#define GOAL_X 5
+#define GOAL_Y 5
+#define MAZESIZE_X 16
+#define MAZESIZE_Y 16
 #define HALF_SECTION 45
 
 //閾値
@@ -72,5 +76,8 @@
 #define FL 1
 #define FR 2
 #define SR 3
+#define NOWALL  0
+#define ISWALL  1
+#define UNKNOWN 2
 
 #endif
