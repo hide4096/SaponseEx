@@ -8,6 +8,8 @@
 static uint8_t mode = 1;
 
 unsigned int timer = 0;
+uint8_t x_mypos;
+
 
 void DoPanic(){
   runmode = DISABLE_MODE;

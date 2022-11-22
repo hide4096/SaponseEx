@@ -15,6 +15,8 @@
 #include"search.h"
 
 extern unsigned int timer;
+extern uint8_t x_mypos;
+extern uint8_t y_mypos;
 
 void DoPanic();
 void init();

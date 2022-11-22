@@ -33,12 +33,13 @@ typedef enum{
 extern wall_azim wall[MAZESIZE_X][MAZESIZE_Y];
 extern uint8_t step[MAZESIZE_X][MAZESIZE_Y];
 
+
 void InitMaze();
 void InitStep(uint8_t gx,uint8_t gy);
-void CreateMap();
+void CreateMap(uint8_t gx,uint8_t gy,uint8_t mask);
 void SetWall();
 void SearchAdachi(uint8_t gx,uint8_t gy);
-dire_local GetNextDire();
+dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* _dir);
 
 
 #endif
