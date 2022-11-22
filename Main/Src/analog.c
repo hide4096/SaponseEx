@@ -13,6 +13,7 @@ float vbat = 0;
 static uint8_t senstype = 0;
 
 void TrigWallSens(){
+  senstype = !senstype;
   if(senstype){
     HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,1);
     HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,0);
@@ -21,16 +22,15 @@ void TrigWallSens(){
     HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,1);
   }
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
-  senstype = !senstype;
 }
 
 void FetchWallSens(){
-  if(senstype == 0){
-    sensval[0] = adcval[0];
-    sensval[2] = adcval[2];
+  if(senstype){
+    sensval[SL] = adcval[SL];
+    sensval[FR] = adcval[FR];
   }else{
-    sensval[1] = adcval[1];
-    sensval[3] = adcval[3];
+    sensval[SR] = adcval[SR];
+    sensval[FL] = adcval[FL];
   }
   HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,0);
   HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,0);

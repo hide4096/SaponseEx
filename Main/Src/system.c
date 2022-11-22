@@ -8,8 +8,6 @@
 static uint8_t mode = 1;
 
 unsigned int timer = 0;
-uint8_t x_mypos;
-
 
 void DoPanic(){
   runmode = DISABLE_MODE;
@@ -93,6 +91,9 @@ void mainmenu(){
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
         timer = 0;
+        x_mypos = 0;
+        y_mypos = 0;
+        dire_mypos = north;
         SetLED(0b000);
         SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;

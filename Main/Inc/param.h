@@ -37,6 +37,7 @@
 #define GOAL_Y 5
 #define MAZESIZE_X 16
 #define MAZESIZE_Y 16
+#define FULL_SECTION 90
 #define HALF_SECTION 45
 
 //閾値
@@ -79,5 +80,6 @@
 #define NOWALL  0
 #define ISWALL  1
 #define UNKNOWN 2
+#define SEARCH_MASK 0b01
 
 #endif
