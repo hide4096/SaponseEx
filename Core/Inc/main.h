@@ -34,9 +34,10 @@ extern "C" {
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#include"param.h"
 #define ARM_MATH_CM4
 #include"arm_math.h"
+#include"system.h"
+#include"param.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
