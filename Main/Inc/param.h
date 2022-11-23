@@ -25,16 +25,16 @@
 #define PPMM        (TIRE_DIAM*M_PI)/ENC_MAX
 #define DELTA_T     0.0005
 #define FAILSAFE    8.0   //単位はm/s
-#define MIN_SPEED   0.1
+#define MIN_SPEED   0.3
 #define SEARCH_ACCEL    2.0     //探索走行の加速度[m/s^2]
 #define SEARCH_SPEED    1.0     //探索走行の速度[m/s]
-#define MIN_ANGVEL      90.     //旋回の最低速度[deg/s]
+#define MIN_ANGVEL      900.     //旋回の最低速度[deg/s]
 #define TURN_ACCEL      1260.     //旋回加速度[deg/s^2]
 #define TURN_SPEED      3600.    //旋回の最高速度[deg/s]
 
 //迷路情報
-#define GOAL_X 5
-#define GOAL_Y 5
+#define GOAL_X 1
+#define GOAL_Y 1
 #define MAZESIZE_X 16
 #define MAZESIZE_Y 16
 #define FULL_SECTION 90
@@ -52,11 +52,11 @@
 #define CONFIRM 2000
 
 //PIDゲイン
-#define SPD_KP 20.0
-#define SPD_KI 0.5
+#define SPD_KP 40.0
+#define SPD_KI 0.
 #define SPD_KD 0.
-#define ANGVEL_KP 20.0
-#define ANGVEL_KI 5.0
+#define ANGVEL_KP 40.0
+#define ANGVEL_KI 0.
 #define ANGVEL_KD 0.
 #define WALL_KP 0.1
 #define WALL_KI 0.0

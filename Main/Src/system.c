@@ -71,6 +71,7 @@ void init(){
   //LED
   SetLED(0b000);
 
+
   //迷路情報を初期化
   InitMaze();
 
@@ -105,8 +106,14 @@ void mainmenu(){
         break;
       case 3:
         while(1){
-          printf("%.3f\t%.3f\r\n",deg,angvel);
+          printf("%.3f\t%.3f\r\n",deg,len);
         }
+        break;
+      case 4:
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        //SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
+        runmode = DISABLE_MODE;
         break;
       default:
         DoPanic();

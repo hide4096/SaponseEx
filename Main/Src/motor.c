@@ -182,6 +182,8 @@ void ControlDuty(){
     motR_isCW = 0;
     vR*=-1.;
   }
+  if(vR > 2.0) vR = 2.0;
+  if(vL > 2.0) vL = 2.0;
   float dutyR = vR/vbat;
   float dutyL = vL/vbat;
 

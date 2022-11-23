@@ -148,7 +148,6 @@ void SetWall(uint8_t x,uint8_t y){
 }
 
 dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
-
     CreateMap(gx,gy,mask);
     uint8_t tmp_priority,priority = 0;
     uint8_t little = 255;
@@ -251,7 +250,7 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
             break;
     }
 
-    while((x_mypos == gx) && (y_mypos == gy)){
+    while((x_mypos != gx) || (y_mypos != gy)){
         SetWall(x_mypos,y_mypos);
         switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
             case front:

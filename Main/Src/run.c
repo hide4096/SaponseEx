@@ -17,14 +17,17 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     runmode = STRAIGHT_MODE;
 
     //加速して巡行する
-    
+    SetLED(0b010);
+
     while( (tgt_len - len) > 1000*(((tgt_spd*tgt_spd) - (_end_spd*_end_spd) - 2.0*(tgt_spd*_end_spd))/(2.0*accel)) ){
-        HAL_Delay(1);   //ここ消すと無限に走っちゃう（RTOSかよ）
+        //HAL_Delay(1);   //ここ消すと無限に走っちゃう（RTOSかよ）
+        printf("%f\r\n",tgt_spd);
     }
+
 
     //ゴールギリ手前まで減速する
     accel = -_accel;
-    while(tgt_len < len - 1){
+    while(len < tgt_len - 1){
         //最低速度に達したら定速走行
         if(tgt_spd <= MIN_SPEED){
             accel = 0.;
