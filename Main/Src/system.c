@@ -98,6 +98,7 @@ void mainmenu(){
         SetLED(0b000);
         SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;
+        while(sensval[SL] + sensval[SR] < CONFIRM*2);
         break;
       case 2:
         while(1){
@@ -111,8 +112,8 @@ void mainmenu(){
         break;
       case 4:
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-        //SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
+        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
         runmode = DISABLE_MODE;
         break;
       default:

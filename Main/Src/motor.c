@@ -32,6 +32,7 @@ AS5047P_Instance encR;
 AS5047P_Instance encL;
 
 void SetDutyRatio(uint16_t motL,uint16_t motR,uint8_t motR_isCW,uint8_t motL_isCW){
+
   if(runmode != DISABLE_MODE){
     if(motR > MTPERIOD) motR = MTPERIOD;
     if(motL > MTPERIOD) motL = MTPERIOD;
@@ -114,7 +115,7 @@ void ControlDuty(){
 
   if(runmode == TURN_MODE){
     tgt_angvel += ang_accel/1000.0;
-    if(tgt_angvel*turndir > max_angvel) tgt_angvel = max_angvel*turndir;
+    if(tgt_angvel*turndir > max_angvel*turndir) tgt_angvel = max_angvel*turndir;
   }else{
       tgt_angvel = 0.;
   }
@@ -161,7 +162,7 @@ void ControlDuty(){
 
   //角速度フィードバック
   float diff_angvel = tgt_angvel - angvel;
-  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(before_angvel-angvel)*ANGVEL_KD;
+  float v_angvel = diff_angvel*(ANGVEL_KP/100.)+I_angvel*(ANGVEL_KI/100.)+(before_angvel-angvel)*(ANGVEL_KD/100.);
   before_angvel = angvel;
   I_angvel+=diff_angvel;
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
@@ -182,8 +183,8 @@ void ControlDuty(){
     motR_isCW = 0;
     vR*=-1.;
   }
-  if(vR > 2.0) vR = 2.0;
-  if(vL > 2.0) vL = 2.0;
+  if(vR > 3.0) vR = 3.0;
+  if(vL > 3.0) vL = 3.0;
   float dutyR = vR/vbat;
   float dutyL = vL/vbat;
 
