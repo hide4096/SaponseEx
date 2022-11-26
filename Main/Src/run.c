@@ -9,39 +9,47 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     I_angvel = 0.;
     I_spd = 0.;
     I_error = 0;
-    len = 0.;
     tgt_angvel = 0.;
     max_spd = _max_spd;
     accel = _accel;
     wallfix_is = DISABLE_MODE;
     runmode = STRAIGHT_MODE;
 
-    //加速して巡行する
-    SetLED(0b010);
-    while( (tgt_len - 10. - len) > 1000*(((float)(tgt_spd*tgt_spd) - (float)(_end_spd*_end_spd))/(float)(2.0*accel)) );
-    SetLED(0b101);
-
-    //ゴールギリ手前まで減速する
-    accel = -_accel;
     if(_end_spd == 0){
-        while(len < tgt_len - 1){
-            //最低速度に達したら定速走行
+        while( (tgt_len - 10. - len) > 1000*(((float)(tgt_spd*tgt_spd) - (float)(_end_spd*_end_spd))/(float)(2.0*accel)) );
+        accel = -_accel;
+        while(len < tgt_len -1){
             if(tgt_spd <= MIN_SPEED){
-                accel = 0.;
+                accel = 0;
                 tgt_spd = MIN_SPEED;
             }
         }
-        while(spd >= 0.);
+        accel = 0;
+        tgt_spd = 0;
+        while (spd >= 0.0);
+    }else{
+        //加速して巡行する
+        while( (tgt_len - 10. - len) > 1000*(((float)(tgt_spd*tgt_spd) - (float)(_end_spd*_end_spd))/(float)(2.0*accel)) );
+
+        //ゴールギリ手前まで減速する
+        accel = -_accel;
+        while(len < tgt_len){
+            //最低速度に達したら定速走行
+            if(tgt_spd <= _end_spd){
+                    accel = 0.;
+            }
+        }
+        while(spd >= 0
     }else{
         while(len < tgt_len){
             //最低速度に達したら定速走行
             if(tgt_spd <= _end_spd){
                 accel = 0.;
-                tgt_spd = _end_spd;
             }
         }
     }
     accel = 0;
+    len = 0.;
 }
 
 void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){

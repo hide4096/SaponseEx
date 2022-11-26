@@ -206,7 +206,7 @@ void GetYawDeg(){
   r_b_yaw = r_yaw;
   r_yaw = r_b_yaw * IMULPF + r_yaw_new * (1.0 - IMULPF);
 
-  angvel = r_yaw*-1.;
+  angvel = r_yaw*(M_PI/180.)*-1.;
 
   deg += angvel * DELTA_T;
 }
