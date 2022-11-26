@@ -108,6 +108,10 @@ void mainmenu(){
           printf("%.3f\t%.3f\r\n",deg,angvel);
         }
         break;
+      case 4:
+        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        runmode = DISABLE_MODE;
+        break;
       default:
         DoPanic();
         break;

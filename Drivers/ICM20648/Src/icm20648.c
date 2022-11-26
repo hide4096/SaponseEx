@@ -78,30 +78,30 @@ static int IMU_changeSensitivity(uint8_t _gyro,uint8_t _accel){
 
     switch(_gyro){
         case 0:
-            gyro_sensitivity = 250.0 / 32768.0;
+            gyro_sensitivity = 250.0 / 32767.;
             break;
         case 1:
-            gyro_sensitivity = 500.0 / 32768.0;
+            gyro_sensitivity = 500.0 / 32767.;
             break;
         case 2:
-            gyro_sensitivity = 1000.0 / 32768.0;
+            gyro_sensitivity = 1000.0 / 32767.;
             break;
         case 3:
-            gyro_sensitivity = 2000.0 / 32768.0;
+            gyro_sensitivity = 2000.0 / 32767.;
             break;
     }
     switch(_accel){
         case 0:
-            accel_sensitivity = 2.0 / 32768.0;
+            accel_sensitivity = 2.0 / 32767.;
             break;
         case 1:
-            accel_sensitivity = 4.0 / 32768.0;
+            accel_sensitivity = 4.0 / 32767.;
             break;
         case 2:
-            accel_sensitivity = 8.0 / 32768.0;
+            accel_sensitivity = 8.0 / 32767.;
             break;
         case 3:
-            accel_sensitivity = 16.0 / 32768.0;
+            accel_sensitivity = 16.0 / 32767.;
             break;
     }
 
