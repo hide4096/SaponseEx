@@ -32,7 +32,7 @@
 #define TURN_ACCEL      (M_PI)     //旋回加速度[rad/s^2]
 #define TURN_SPEED      (M_PI*4.)    //旋回の最高速度[rad/s]
 #define DELAY 100
-#define ADCWAIT 100
+#define ADCWAIT 10
 
 //迷路情報
 #define GOAL_X 9

@@ -5,7 +5,7 @@
 */
 #include"system.h"
 
-static uint8_t mode = 1;
+static uint8_t mode = 2;
 
 unsigned int timer = 0;
 
@@ -26,7 +26,7 @@ void DoPanic(){
 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   if(htim == &htim6){
-    //3.33kHz
+    //2kHz
     GetSpeed();
     GetYawDeg();
     TrigWallSens();
@@ -103,6 +103,7 @@ void mainmenu(){
         break;
       case 2:
         while(1){
+          //printf("%d\t%d\t%d\t%d\r\n",darkval[SL],darkval[FL],darkval[FR],darkval[SR]);
           printf("%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SR]);
         }
         break;
@@ -133,6 +134,7 @@ void mainmenu(){
       Blink(5);
     }
   }
+  spd = 0.;
   SetLED(mode);
 
   runmode = DISABLE_MODE;
