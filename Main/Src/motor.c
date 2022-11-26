@@ -176,8 +176,6 @@ void ControlDuty(){
   vR = v_spd + v_angvel;
   vL = v_spd - v_angvel;
 
-  printf("%.2f\t%.2f\r\n",vR,vL);
-
   //電圧をデューティ比に変換
   uint8_t motL_isCW = 1;
   uint8_t motR_isCW = 0;

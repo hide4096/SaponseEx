@@ -5,7 +5,7 @@
 */
 #include"system.h"
 
-static uint8_t mode = 1;
+static uint8_t mode = 3;
 
 unsigned int timer = 0;
 
@@ -107,7 +107,7 @@ void mainmenu(){
         break;
       case 3:
         while(1){
-          printf("%.3f\t%.3f\r\n",deg,angvel);
+          printf("%.3f\r\n",vbat);
         }
         break;
       case 4:
@@ -132,7 +132,7 @@ void mainmenu(){
       Blink(5);
     }
   }
-  SetLED(mode);
+  SetLED((uint8_t)deg%0b1000);
 
   runmode = DISABLE_MODE;
 }
