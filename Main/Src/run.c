@@ -59,6 +59,7 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
     float tgt_deg;
 
     runmode = TURN_MODE;
+    SetLED(0b010);
 
     if(turndir == LEFT){
         ang_accel = _ang_accel;
@@ -72,9 +73,11 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
         while(-(float)(tgt_deg - (deg - start_deg))*M_PI/180. > (float)(tgt_angvel*tgt_angvel/(2.0*-ang_accel)) );
     }
 
+    SetLED(0b101);
+
     if(turndir == LEFT){
         ang_accel = -_ang_accel;
-        while((deg = start_deg) < tgt_deg){
+        while((deg - start_deg) < tgt_deg){
             if(tgt_angvel < MIN_ANGVEL){
                 ang_accel = 0.;
                 tgt_angvel = MIN_ANGVEL;
@@ -85,7 +88,7 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
         tgt_angvel = 0.;
     }else if(turndir == RIGHT){
         ang_accel = +_ang_accel;
-        while((deg = start_deg) > tgt_deg){
+        while((deg - start_deg) > tgt_deg){
             if(tgt_angvel < MIN_ANGVEL){
                 ang_accel = 0.;
                 tgt_angvel = -MIN_ANGVEL;

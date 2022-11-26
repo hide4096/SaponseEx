@@ -108,6 +108,12 @@ void mainmenu(){
       case 3:
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
+        runmode = DISABLE_MODE;
+        break;
+      case 4:
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
         SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
         runmode = DISABLE_MODE;
         break;
