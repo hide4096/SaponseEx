@@ -83,7 +83,7 @@ void mainmenu(){
   I_angvel = 0;
   angvel = 0;
 
-  if(sensval[SL] + sensval[SR] >= CONFIRM*2){
+  if(sensval[FL] + sensval[FR] >= CONFIRM*2){
     Blink(2);
     switch (mode){
       case 1:
@@ -98,7 +98,8 @@ void mainmenu(){
         SetLED(0b000);
         SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;
-        while(sensval[SL] + sensval[SR] < CONFIRM*2);
+        HAL_Delay(1000);
+        while(sensval[FL] + sensval[FR] < CONFIRM*2);
         break;
       case 2:
         while(1){
@@ -106,16 +107,9 @@ void mainmenu(){
         }
         break;
       case 3:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-        SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-        runmode = DISABLE_MODE;
-        break;
-      case 4:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-        SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-        runmode = DISABLE_MODE;
+        while(1){
+          printf("%.3f\r\n",vbat);
+        }
         break;
       default:
         DoPanic();

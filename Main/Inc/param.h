@@ -8,7 +8,7 @@
 #define MAXINITERR  10      //センサ初期化試行回数
 
 //電圧
-#define VBATREF 0.11
+#define VBATREF 0.03
 #define LOWVOLT 3.3
 
 //ジャイロ
@@ -48,7 +48,7 @@
 #define WALL_TH_FL  430
 #define REF_FR  1230
 #define REF_FL  1540 
-#define CONFIRM 2000
+#define CONFIRM 3500
 
 //PIDゲイン
 #define SPD_KP 20.0
