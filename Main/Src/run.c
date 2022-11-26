@@ -17,28 +17,35 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     runmode = STRAIGHT_MODE;
 
     //加速して巡行する
-    
-    while( (tgt_len - len) > 1000*(((tgt_spd*tgt_spd) - (_end_spd*_end_spd) - 2.0*(tgt_spd*_end_spd))/(2.0*accel)) ){
-        HAL_Delay(1);   //ここ消すと無限に走っちゃう（RTOSかよ）
-    }
+    SetLED(0b010);
+    while( (tgt_len - 10. - len) > 1000*(((float)(tgt_spd*tgt_spd) - (float)(_end_spd*_end_spd))/(float)(2.0*accel)) );
+    SetLED(0b101);
 
     //ゴールギリ手前まで減速する
     accel = -_accel;
-    while(tgt_len < len - 1){
-        //最低速度に達したら定速走行
-        if(tgt_spd <= MIN_SPEED){
-            accel = 0.;
-            tgt_spd = MIN_SPEED;
+    if(_end_spd == 0){
+        while(len < tgt_len - 1){
+            //最低速度に達したら定速走行
+            if(tgt_spd <= MIN_SPEED){
+                accel = 0.;
+                tgt_spd = MIN_SPEED;
+            }
+        }
+        while(spd >= 0.);
+    }else{
+        while(len < tgt_len){
+            //最低速度に達したら定速走行
+            if(tgt_spd <= _end_spd){
+                accel = 0.;
+                tgt_spd = _end_spd;
+            }
         }
     }
-
-    tgt_spd = _end_spd;
-    while(spd >= _end_spd);
-
     accel = 0;
 }
 
 void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
+    HAL_Delay(DELAY);
     I_angvel = 0.;
     I_spd = 0.;
     I_error = 0;
@@ -55,11 +62,8 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
     ang_accel = _ang_accel * turndir;
     max_angvel = _max_angvel * turndir;
     float tgt_deg = _deg * turndir;
-
-    while( (float)(tgt_deg - (deg - start_deg))*turndir > (tgt_angvel*tgt_angvel/ang_accel)*turndir){
-        HAL_Delay(1);
-    }
-
+    SetLED(0b010);
+    while( (float)(tgt_deg - (deg - start_deg))*turndir > (tgt_angvel*tgt_angvel/(2.0*ang_accel))*turndir );
     SetLED(0b101);
 
     ang_accel*=-1;
@@ -70,6 +74,9 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
         }
     }
 
+    while(angvel >= 2.5 || angvel <= -2.5);
+
     ang_accel = 0.;
     tgt_angvel = 0.;
+    HAL_Delay(DELAY);
 }

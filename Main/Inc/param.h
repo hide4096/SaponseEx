@@ -9,7 +9,7 @@
 
 //電圧
 #define VBATREF 0.11
-#define LOWVOLT 3.2
+#define LOWVOLT 3.3
 
 //ジャイロ
 #define GYROREFTIME 1000
@@ -26,40 +26,39 @@
 #define DELTA_T     0.0005
 #define FAILSAFE    8.0   //単位はm/s
 #define MIN_SPEED   0.1
-#define SEARCH_ACCEL    2.0     //探索走行の加速度[m/s^2]
-#define SEARCH_SPEED    1.0     //探索走行の速度[m/s]
-#define MIN_ANGVEL      90.     //旋回の最低速度[deg/s]
-#define TURN_ACCEL      1260.     //旋回加速度[deg/s^2]
+#define SEARCH_ACCEL    4.0     //探索走行の加速度[m/s^2]
+#define SEARCH_SPEED    0.2     //探索走行の速度[m/s]
+#define MIN_ANGVEL      45.     //旋回の最低速度[deg/s]
+#define TURN_ACCEL      180.     //旋回加速度[deg/s^2]
 #define TURN_SPEED      3600.    //旋回の最高速度[deg/s]
+#define DELAY 100
 
 //迷路情報
-#define GOAL_X 5
-#define GOAL_Y 5
+#define GOAL_X 1
+#define GOAL_Y 0
 #define MAZESIZE_X 16
 #define MAZESIZE_Y 16
 #define FULL_SECTION 90
 #define HALF_SECTION 45
 
 //閾値
-#define WALL_TH_R   50
-#define WALL_TH_L   50
-#define WALL_TH_FR  150
-#define WALL_TH_FL  100
-#define REF_FR  2000
-#define REF_FL  1800 
-#define REF_R   1200
-#define REF_L   1200 
+#define WALL_TH_R   320
+#define WALL_TH_L   120
+#define WALL_TH_FR  390
+#define WALL_TH_FL  430
+#define REF_FR  1230
+#define REF_FL  1540 
 #define CONFIRM 2000
 
 //PIDゲイン
 #define SPD_KP 20.0
-#define SPD_KI 0.5
-#define SPD_KD 0.
-#define ANGVEL_KP 20.0
-#define ANGVEL_KI 5.0
-#define ANGVEL_KD 0.
-#define WALL_KP 0.1
-#define WALL_KI 0.0
+#define SPD_KI 10.0
+#define SPD_KD 0.0
+#define ANGVEL_KP 2.0
+#define ANGVEL_KI 0.4
+#define ANGVEL_KD 0.1
+#define WALL_KP 0.0
+#define WALL_KI 0.001
 
 //Iゲイン上限
 #define SPD_I_MAX       10000

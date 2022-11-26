@@ -71,6 +71,7 @@ void init(){
   //LED
   SetLED(0b000);
 
+
   //迷路情報を初期化
   InitMaze();
 
@@ -97,6 +98,7 @@ void mainmenu(){
         SetLED(0b000);
         SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;
+        while(sensval[SL] + sensval[SR] < CONFIRM*2);
         break;
       case 2:
         while(1){
@@ -105,11 +107,13 @@ void mainmenu(){
         break;
       case 3:
         while(1){
-          printf("%.3f\t%.3f\r\n",deg,angvel);
+          printf("%.3f\t%.3f\r\n",deg,len);
         }
         break;
       case 4:
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
         runmode = DISABLE_MODE;
         break;
       default:

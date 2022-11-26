@@ -148,7 +148,6 @@ void SetWall(uint8_t x,uint8_t y){
 }
 
 dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
-
     CreateMap(gx,gy,mask);
     uint8_t tmp_priority,priority = 0;
     uint8_t little = 255;
@@ -217,6 +216,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
 
 void SearchAdachi(uint8_t gx,uint8_t gy){
     dire_global nextdire;
+    SetLED(0b010);
     switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
         case front:
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
@@ -224,6 +224,7 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
         case right:
             SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+            break;
         case left:
             SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
@@ -251,8 +252,9 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
             break;
     }
 
-    while((x_mypos == gx) && (y_mypos == gy)){
+    while((x_mypos != gx) || (y_mypos != gy)){
         SetWall(x_mypos,y_mypos);
+        SetLED(0b101);
         switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
             case front:
                 Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
@@ -261,6 +263,7 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                break;
             case left:
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
