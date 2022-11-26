@@ -38,19 +38,19 @@ void SetDutyRatio(uint16_t motL,uint16_t motR,uint8_t motR_isCW,uint8_t motL_isC
     if(motL > MTPERIOD) motL = MTPERIOD;
 
     if(motL_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motL);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
-    }else{
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motL);  
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motL);
+    }else{
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motL);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
     }
 
     if(motR_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motR);
-    }else{
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motR);
       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
+    }else{
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motR);
     }
   }else{
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
@@ -162,7 +162,7 @@ void ControlDuty(){
   else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
 
   //角速度フィードバック
-  float diff_angvel = -angvel;
+  float diff_angvel = tgt_angvel-angvel;
   float v_angvel = diff_angvel*(ANGVEL_KP/100.)+I_angvel*(ANGVEL_KI/100.)+(before_angvel-angvel)*(ANGVEL_KD/100.);
   before_angvel = angvel;
   I_angvel+=diff_angvel;
@@ -174,14 +174,14 @@ void ControlDuty(){
   vL = v_spd - v_angvel;
 
   //電圧をデューティ比に変換
-  uint8_t motL_isCW = 1;
-  uint8_t motR_isCW = 0;
+  uint8_t motL_isCW = 0;
+  uint8_t motR_isCW = 1;
   if(vL < 0){
-    motL_isCW = 0;
+    motL_isCW = 1;
     vL*=-1.;
   }
   if(vR < 0){
-    motR_isCW = 1;
+    motR_isCW = 0;
     vR*=-1.;
   }
   if(vR > 3.0) vR = 3.0;
@@ -190,7 +190,7 @@ void ControlDuty(){
   float dutyL = vL/vbat;
 
   //デューティ比を設定
-  SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,motL_isCW,motR_isCW);
+  SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,motR_isCW,motL_isCW);
 }
 
 void FailSafe(){

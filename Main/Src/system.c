@@ -106,13 +106,10 @@ void mainmenu(){
         }
         break;
       case 3:
-        while(1){
-          printf("%.3f\t%.3f\r\n",deg,angvel);
-        }
-        break;
-      case 4:
-        runmode = STRAIGHT_MODE;
-        while(1);
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
+        runmode = DISABLE_MODE;
         break;
       default:
         DoPanic();
@@ -132,7 +129,7 @@ void mainmenu(){
       Blink(5);
     }
   }
-  SetLED((uint8_t)deg%0b1000);
+  SetLED(mode);
 
   runmode = DISABLE_MODE;
 }
