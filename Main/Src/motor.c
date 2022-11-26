@@ -169,9 +169,6 @@ void ControlDuty(){
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;
 
-  v_spd = 0.0;
-  v_angvel = 1.5;
-
   //合算
   vR = v_spd + v_angvel;
   vL = v_spd - v_angvel;
@@ -210,7 +207,7 @@ void GetYawDeg(){
   r_b_yaw = r_yaw;
   r_yaw = r_b_yaw * IMULPF + r_yaw_new * (1.0 - IMULPF);
 
-  angvel = -r_yaw*(M_PI/180.);
+  angvel = r_yaw*(M_PI/180.);
 
-  deg += -r_yaw * DELTA_T;
+  deg += r_yaw * DELTA_T;
 }

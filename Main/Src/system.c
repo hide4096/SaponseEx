@@ -5,7 +5,7 @@
 */
 #include"system.h"
 
-static uint8_t mode = 3;
+static uint8_t mode = 1;
 
 unsigned int timer = 0;
 
@@ -107,7 +107,7 @@ void mainmenu(){
         break;
       case 3:
         while(1){
-          printf("%.3f\r\n",vbat);
+          printf("%.3f\t%.3f\r\n",deg,angvel);
         }
         break;
       case 4:
