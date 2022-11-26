@@ -57,34 +57,54 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
     I_angvel = 0.;
     I_spd = 0.;
     I_error = 0;
-    len = 0.;
     accel = 0;
     tgt_spd = 0;
     tgt_angvel = 0;
     max_spd = 0.;
     turndir = _dir;
     float start_deg = deg;
+    float tgt_deg;
 
     runmode = TURN_MODE;
 
-    ang_accel = _ang_accel * turndir;
-    max_angvel = _max_angvel * turndir;
-    float tgt_deg = _deg * turndir;
-    SetLED(0b010);
-    while( (float)(tgt_deg - (deg - start_deg))*turndir > (tgt_angvel*tgt_angvel/(2.0*ang_accel))*turndir );
-    SetLED(0b101);
+    if(turndir == LEFT){
+        ang_accel = _ang_accel;
+        max_angvel = _max_angvel;
+        while((tgt_deg - (deg - start_deg))*M_PI/180. > (tgt_angvel*tgt_angvel/(2.0*ang_accel)) );
+    }else if(turndir == RIGHT){
+        ang_accel = -_ang_accel;
+        max_angvel = -_max_angvel;
+        while(-(float)(tgt_deg - (deg - start_deg))*M_PI/180. > (float)(tgt_angvel*tgt_angvel/(2.0*-ang_accel)) );
+    }
 
-    ang_accel*=-1;
-    while(tgt_deg*turndir > (deg-start_deg)*turndir){
-        if(tgt_angvel*turndir < MIN_ANGVEL){
-            ang_accel = 0.;
-            tgt_angvel = MIN_ANGVEL * turndir;
+    if(dir == LEFT){
+        ang_accel = -_ang_accel;
+        while((deg = start_deg) < tgt_deg){
+            if(tgt_angvel < MIN_ANGVEL){
+                ang_accel = 0.;
+                tgt_angvel = MIN_ANGVEL;
+            }
         }
+
+        ang_accel = 0.;
+        tgt_angvel = 0.;
+    }else if(dir == RIGHT){
+        ang_accel = +_ang_accel;
+        while((deg = start_deg) > tgt_deg){
+            if(tgt_angvel < MIN_ANGVEL){
+                ang_accel = 0.;
+                tgt_angvel = -MIN_ANGVEL;
+            }
+        }
+
+        ang_accel = 0.;
+        tgt_angvel = 0.;
     }
 
     while(angvel >= 2.5 || angvel <= -2.5);
 
     ang_accel = 0.;
     tgt_angvel = 0.;
+    len = 0.;
     HAL_Delay(DELAY);
 }

@@ -109,15 +109,16 @@ void ControlDuty(){
   if(runmode == STRAIGHT_MODE){
     tgt_spd += accel/1000.;
     if(tgt_spd > max_spd) tgt_spd = max_spd;
-  }else{
-    tgt_spd =0.;
-  }
+  }else if(runmode == TURN_MODE){
+    tgt_spd += accel/1000.;
+    if(tgt_spd > max_spd) tgt_spd = max_spd;
 
-  if(runmode == TURN_MODE){
     tgt_angvel += ang_accel/1000.0;
-    if(tgt_angvel*turndir > max_angvel*turndir) tgt_angvel = max_angvel*turndir;
-  }else{
-      tgt_angvel = 0.;
+    if(turndir == LEFT){
+      if(tgt_angvel > max_angvel) tgt_angvel = max_angvel;
+    }else if(turndir = RIGHT){
+      if(tgt_angvel < max_angvel) tgt_angvel = max_angvel;
+    }
   }
 
   //壁制御
