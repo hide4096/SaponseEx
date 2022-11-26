@@ -29,7 +29,7 @@ extern float tgt_spd,tgt_angvel;
 extern int I_error;
 extern uint8_t wallfix_is;
 
-void SetDutyRatio(uint16_t,uint16_t,uint8_t,uint8_t);
+void SetDutyRatio(uint16_t motL,uint16_t motR,uint8_t motR_isCW,uint8_t motL_isCW);
 void GetSpeed();
 void ControlDuty();
 void GetYawDeg();
