@@ -10,6 +10,6 @@
 #include"motor.h"
 
 void Straight(float,float,float,float);
-void SpinTurn(float,float,float,uint8_t);
+void SpinTurn(float,float,float,int8_t);
 
 #endif

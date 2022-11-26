@@ -20,7 +20,7 @@ extern AS5047P_Instance encL;
 //run
 extern float r_yaw_ref,angvel;
 extern uint8_t runmode;
-extern uint8_t turndir;
+extern int8_t turndir;
 extern float spd,deg,len,accel,max_spd,ang_accel;
 extern float max_angvel;
 extern float angvel,r_yaw_ref;

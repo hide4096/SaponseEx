@@ -39,20 +39,13 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
                     accel = 0.;
             }
         }
-        while(spd >= 0
-    }else{
-        while(len < tgt_len){
-            //最低速度に達したら定速走行
-            if(tgt_spd <= _end_spd){
-                accel = 0.;
-            }
-        }
+        while(spd >= 0);
     }
     accel = 0;
     len = 0.;
 }
 
-void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
+void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
     HAL_Delay(DELAY);
     I_angvel = 0.;
     I_spd = 0.;
@@ -70,14 +63,16 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
     if(turndir == LEFT){
         ang_accel = _ang_accel;
         max_angvel = _max_angvel;
+        tgt_deg = _deg;
         while((tgt_deg - (deg - start_deg))*M_PI/180. > (tgt_angvel*tgt_angvel/(2.0*ang_accel)) );
     }else if(turndir == RIGHT){
         ang_accel = -_ang_accel;
         max_angvel = -_max_angvel;
+        tgt_deg = -_deg;
         while(-(float)(tgt_deg - (deg - start_deg))*M_PI/180. > (float)(tgt_angvel*tgt_angvel/(2.0*-ang_accel)) );
     }
 
-    if(dir == LEFT){
+    if(turndir == LEFT){
         ang_accel = -_ang_accel;
         while((deg = start_deg) < tgt_deg){
             if(tgt_angvel < MIN_ANGVEL){
@@ -88,7 +83,7 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,uint8_t _dir){
 
         ang_accel = 0.;
         tgt_angvel = 0.;
-    }else if(dir == RIGHT){
+    }else if(turndir == RIGHT){
         ang_accel = +_ang_accel;
         while((deg = start_deg) > tgt_deg){
             if(tgt_angvel < MIN_ANGVEL){

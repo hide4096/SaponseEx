@@ -15,7 +15,7 @@ static float before_angvel=0.;
 
 uint8_t runmode=DISABLE_MODE;
 uint8_t wallfix_is = DISABLE_MODE;
-uint8_t turndir = LEFT;
+int8_t turndir = LEFT;
 float spd,deg,len;
 float accel = 0.,ang_accel = 0.;
 float max_spd = 0.;
@@ -116,7 +116,7 @@ void ControlDuty(){
     tgt_angvel += ang_accel/1000.0;
     if(turndir == LEFT){
       if(tgt_angvel > max_angvel) tgt_angvel = max_angvel;
-    }else if(turndir = RIGHT){
+    }else if(turndir == RIGHT){
       if(tgt_angvel < max_angvel) tgt_angvel = max_angvel;
     }
   }
@@ -162,26 +162,31 @@ void ControlDuty(){
   else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
 
   //角速度フィードバック
-  float diff_angvel = tgt_angvel - angvel;
+  float diff_angvel = -angvel;
   float v_angvel = diff_angvel*(ANGVEL_KP/100.)+I_angvel*(ANGVEL_KI/100.)+(before_angvel-angvel)*(ANGVEL_KD/100.);
   before_angvel = angvel;
   I_angvel+=diff_angvel;
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;
 
+  v_spd = 0.0;
+  v_angvel = 1.5;
+
   //合算
   vR = v_spd + v_angvel;
   vL = v_spd - v_angvel;
 
+  printf("%.2f\t%.2f\r\n",vR,vL);
+
   //電圧をデューティ比に変換
-  uint8_t motL_isCW = 0;
-  uint8_t motR_isCW = 1;
+  uint8_t motL_isCW = 1;
+  uint8_t motR_isCW = 0;
   if(vL < 0){
-    motL_isCW = 1;
+    motL_isCW = 0;
     vL*=-1.;
   }
   if(vR < 0){
-    motR_isCW = 0;
+    motR_isCW = 1;
     vR*=-1.;
   }
   if(vR > 3.0) vR = 3.0;
@@ -207,7 +212,7 @@ void GetYawDeg(){
   r_b_yaw = r_yaw;
   r_yaw = r_b_yaw * IMULPF + r_yaw_new * (1.0 - IMULPF);
 
-  angvel = r_yaw*(M_PI/180.)*-1.;
+  angvel = -r_yaw*(M_PI/180.);
 
-  deg += angvel * DELTA_T;
+  deg += -r_yaw * DELTA_T;
 }

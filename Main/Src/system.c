@@ -107,14 +107,12 @@ void mainmenu(){
         break;
       case 3:
         while(1){
-          printf("%.3f\t%.3f\r\n",deg,len);
+          printf("%.3f\t%.3f\r\n",deg,angvel);
         }
         break;
       case 4:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-        SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-        runmode = DISABLE_MODE;
+        runmode = STRAIGHT_MODE;
+        while(1);
         break;
       default:
         DoPanic();
