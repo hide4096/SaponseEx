@@ -99,7 +99,7 @@ void mainmenu(){
         SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;
         HAL_Delay(1000);
-        while(sensval[FL] + sensval[FR] < CONFIRM*2);
+        while(sensval[FL] + sensval[FR] >= CONFIRM*2);
         break;
       case 2:
         while(1){
@@ -108,8 +108,12 @@ void mainmenu(){
         break;
       case 3:
         while(1){
-          printf("%.3f\r\n",vbat);
+          printf("%.3f\r\n",len);
         }
+        break;
+      case 4:
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        Straight(FULL_SECTION,0,0,0);
         break;
       default:
         DoPanic();

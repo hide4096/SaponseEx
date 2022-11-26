@@ -27,10 +27,10 @@
 #define FAILSAFE    8.0   //単位はm/s
 #define MIN_SPEED   0.1
 #define SEARCH_ACCEL    1.0     //探索走行の加速度[m/s^2]
-#define SEARCH_SPEED    0.5     //探索走行の速度[m/s]
-#define MIN_ANGVEL      (M_PI/10.)     //旋回の最低速度[rad/s]
-#define TURN_ACCEL      (M_PI*2.)     //旋回加速度[rad/s^2]
-#define TURN_SPEED      (M_PI)    //旋回の最高速度[rad/s]
+#define SEARCH_SPEED    0.2     //探索走行の速度[m/s]
+#define MIN_ANGVEL      (M_PI/2.)     //旋回の最低速度[rad/s]
+#define TURN_ACCEL      (M_PI)     //旋回加速度[rad/s^2]
+#define TURN_SPEED      (M_PI*4.)    //旋回の最高速度[rad/s]
 #define DELAY 100
 
 //迷路情報
@@ -51,12 +51,12 @@
 #define CONFIRM 3500
 
 //PIDゲイン
-#define SPD_KP 20.0
+#define SPD_KP 30.0
 #define SPD_KI 10.0
-#define SPD_KD 0.0
+#define SPD_KD 0.01
 #define ANGVEL_KP 20.0
-#define ANGVEL_KI 0.4
-#define ANGVEL_KD 0.0
+#define ANGVEL_KI 25.0
+#define ANGVEL_KD 0.01
 #define WALL_KP 0.0
 #define WALL_KI 0.001
 

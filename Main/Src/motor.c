@@ -184,10 +184,11 @@ void ControlDuty(){
     motR_isCW = 0;
     vR*=-1.;
   }
-  if(vR > 3.0) vR = 3.0;
-  if(vL > 3.0) vL = 3.0;
+
   float dutyR = vR/vbat;
   float dutyL = vL/vbat;
+  if(dutyL >= MTPERIOD) dutyL = MTPERIOD;
+  if(dutyR >= MTPERIOD) dutyR = MTPERIOD;
 
   //デューティ比を設定
   SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,motR_isCW,motL_isCW);
