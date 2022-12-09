@@ -8,6 +8,7 @@
 
 #include"main.h"
 #include"tim.h"
+#include"usart.h"
 #include"analog.h"
 #include"motor.h"
 #include"show.h"

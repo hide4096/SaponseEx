@@ -6,6 +6,7 @@
 #include"system.h"
 
 static uint8_t mode = 1;
+static char msg[64];
 
 unsigned int timer = 0;
 
@@ -103,7 +104,9 @@ void mainmenu(){
         break;
       case 2:
         while(1){
-          printf("%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SR]);
+         sprintf(&msg,"%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SR]);
+         HAL_UART_Transmit(&huart6,msg,strlen(msg),100);
+         HAL_Delay(500);
         }
         break;
       case 3:
