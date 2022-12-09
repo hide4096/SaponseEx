@@ -6,7 +6,6 @@
 #include"system.h"
 
 static uint8_t mode = 1;
-static char msg[64];
 
 unsigned int timer = 0;
 
