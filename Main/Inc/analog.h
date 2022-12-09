@@ -10,7 +10,8 @@
 #include"adc.h"
 
 extern uint16_t adcval[5];
-extern uint16_t sensval[4];
+extern int16_t sensval[4];
+extern int16_t darkval[4];
 extern float vbat;
 
 void TrigWallSens();

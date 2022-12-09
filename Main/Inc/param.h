@@ -32,10 +32,11 @@
 #define TURN_ACCEL      (M_PI)     //旋回加速度[rad/s^2]
 #define TURN_SPEED      (M_PI*4.)    //旋回の最高速度[rad/s]
 #define DELAY 100
+#define ADCWAIT 10
 
 //迷路情報
-#define GOAL_X 1
-#define GOAL_Y 0
+#define GOAL_X 9
+#define GOAL_Y 9
 #define MAZESIZE_X 16
 #define MAZESIZE_Y 16
 #define FULL_SECTION 90
@@ -56,7 +57,7 @@
 #define SPD_KD 0.01
 #define ANGVEL_KP 20.0
 #define ANGVEL_KI 25.0
-#define ANGVEL_KD 0.01
+#define ANGVEL_KD 0.5
 #define WALL_KP 0.0
 #define WALL_KI 0.001
 

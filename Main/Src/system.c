@@ -104,9 +104,7 @@ void mainmenu(){
         break;
       case 2:
         while(1){
-         sprintf(&msg,"%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SR]);
-         HAL_UART_Transmit(&huart6,msg,strlen(msg),100);
-         HAL_Delay(500);
+          printf("%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SR]);
         }
         break;
       case 3:
@@ -136,6 +134,7 @@ void mainmenu(){
       Blink(5);
     }
   }
+  spd = 0.;
   SetLED(mode);
 
   runmode = DISABLE_MODE;
