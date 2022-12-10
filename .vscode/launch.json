@@ -22,7 +22,7 @@
                     {
                         "label": "SWO output",
                         "type": "console",
-                        "port": 0,
+                        "port": 1,
                         "showOnStartup": true,
                         "encoding": "ascii"
                     }

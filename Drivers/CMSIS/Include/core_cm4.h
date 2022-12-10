@@ -2061,16 +2061,16 @@ extern volatile int32_t ITM_RxBuffer;                              /*!< External
   \param [in]     ch  Character to transmit.
   \returns            Character to transmit.
  */
-__STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch)
+__STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch,uint8_t const port)
 {
   if (((ITM->TCR & ITM_TCR_ITMENA_Msk) != 0UL) &&      /* ITM enabled */
-      ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
+      ((ITM->TER & (port+1)          ) != 0UL)   )     /* ITM Port #0 enabled */
   {
-    while (ITM->PORT[0U].u32 == 0UL)
+    while (ITM->PORT[port].u32 == 0UL)
     {
       __NOP();
     }
-    ITM->PORT[0U].u8 = (uint8_t)ch;
+    ITM->PORT[port].u8 = (uint8_t)ch;
   }
   return (ch);
 }
