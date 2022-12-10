@@ -109,6 +109,7 @@ void mainmenu(){
       case 3:
         while(1){
           ITM_SendChar((uint8_t)(sensval[SL]>>4),1);
+          ITM_SendChar((uint8_t)(sensval[SR]>>4),2);
           HAL_Delay(10);
         }
         break;

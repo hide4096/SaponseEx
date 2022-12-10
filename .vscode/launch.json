@@ -27,24 +27,24 @@
                         "encoding": "ascii"
                     },
                     {
-                        "label": "graph output",
-                        "type": "binary",
-                        "port": 1,
-                        "showOnStartup": true,
-                        "encoding": "unsigned"
-                    },
-                    {
                         "type": "graph",
                         "port": 1,
                         "encoding": "unsigned",
-                        "scale": 1,
-                        "graphId": "1"
+                        "graphId": "2",
+                        "scale": 1
+                    },
+                    {
+                        "type": "graph",
+                        "port": 2,
+                        "encoding": "unsigned",
+                        "graphId": "1",
+                        "scale": 1
                     }
                 ]
             },
             "graphConfig": [
                 {
-                    "label": "Graph",
+                    "label": "Graph 1",
                     "timespan": 30,
                     "type": "realtime",
                     "annotate": false,
@@ -53,8 +53,13 @@
                     "plots": [
                         {
                             "graphId": "1",
-                            "label": "adcvalue",
+                            "label": "data 1",
                             "color": "#53753c"
+                        },
+                        {
+                            "graphId": "2",
+                            "label": "data 2",
+                            "color": "#3c5375"
                         }
                     ]
                 }
