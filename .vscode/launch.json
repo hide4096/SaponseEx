@@ -22,12 +22,43 @@
                     {
                         "label": "SWO output",
                         "type": "console",
-                        "port": 1,
+                        "port": 0,
                         "showOnStartup": true,
                         "encoding": "ascii"
+                    },
+                    {
+                        "label": "graph output",
+                        "type": "binary",
+                        "port": 1,
+                        "showOnStartup": true,
+                        "encoding": "unsigned"
+                    },
+                    {
+                        "type": "graph",
+                        "port": 1,
+                        "encoding": "unsigned",
+                        "scale": 1,
+                        "graphId": "1"
                     }
                 ]
-            }
+            },
+            "graphConfig": [
+                {
+                    "label": "Graph",
+                    "timespan": 30,
+                    "type": "realtime",
+                    "annotate": false,
+                    "maximum": 256,
+                    "minimum": 0,
+                    "plots": [
+                        {
+                            "graphId": "1",
+                            "label": "adcvalue",
+                            "color": "#53753c"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

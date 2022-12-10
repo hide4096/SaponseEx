@@ -108,7 +108,8 @@ void mainmenu(){
         break;
       case 3:
         while(1){
-          printf("%.3f\r\n",len);
+          ITM_SendChar((uint8_t)(sensval[SL]>>4),1);
+          HAL_Delay(10);
         }
         break;
       case 4:
