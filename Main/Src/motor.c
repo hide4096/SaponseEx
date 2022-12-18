@@ -42,6 +42,22 @@ void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
     ITM_SendChar((uint8_t)(motR*255.),1);
     ITM_SendChar((uint8_t)(spd*10.),2);
 
+    if(motL <= 0.4 || motR <= 0.4){
+      __HAL_TIM_SET_PRESCALER(&htim1,100-1);
+      __HAL_TIM_SET_PRESCALER(&htim2,100-1);
+    }else if(motL <= 0.6 || motR <= 0.6){
+      __HAL_TIM_SET_PRESCALER(&htim1,50-1);
+      __HAL_TIM_SET_PRESCALER(&htim2,50-1);
+    }else if(motL <= 0.8 || motR <= 0.8){
+      __HAL_TIM_SET_PRESCALER(&htim1,10-1);
+      __HAL_TIM_SET_PRESCALER(&htim2,10-1);
+    }else if(motL <= 0.9 || motR <= 0.9){
+      __HAL_TIM_SET_PRESCALER(&htim1,5-1);
+      __HAL_TIM_SET_PRESCALER(&htim2,5-1);
+    }else{                                 
+      __HAL_TIM_SET_PRESCALER(&htim1,4-1);
+      __HAL_TIM_SET_PRESCALER(&htim2,4-1);
+    }
     #ifdef PWM_MODE_LAP
 
     if(motL_isCW) motL*=-1.;
