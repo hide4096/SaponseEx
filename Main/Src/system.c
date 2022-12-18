@@ -124,6 +124,11 @@ void mainmenu(){
           tdutyR=i;
           HAL_Delay(10);
         }
+        for(float i=1.0;i>=0.0;i-=0.001){
+          tdutyL=i;
+          tdutyR=i;
+          HAL_Delay(10);
+        }
         runmode = DISABLE_MODE;
         break;
       default:

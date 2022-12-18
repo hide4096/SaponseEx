@@ -6,7 +6,7 @@
 
 #include"motor.h"
 
-#define PWM_MODE_LAP 0
+#define PWM_MODE_LAP
 
 static int16_t b_encR_val=0,b_encL_val=0;
 static float spdR = 0,spdL=0;
@@ -39,22 +39,18 @@ void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
   if(runmode != DISABLE_MODE){
     if(motR > 1.0) motR = 1.0;
     if(motL > 1.0) motL = 1.0;
-
-    #ifdef PWM_MODE_LAP
-    float tmp1 = MTPERIOD*(0.5+(motL/2.));
-    float tmp2 = MTPERIOD*(0.5-(motL/2.));
-    ITM_SendChar((uint8_t)(tmp1/MTPERIOD*255.),1);
+    ITM_SendChar((uint8_t)(motR*255.),1);
     ITM_SendChar((uint8_t)(spd*10.),2);
 
+    #ifdef PWM_MODE_LAP
 
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,tmp1);
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,tmp2);
+    if(motL_isCW) motL*=-1.;
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD*(0.5+(motL/2.)));
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD*(0.5-(motL/2.)));
 
     if(motR_isCW) motR*=-1.;
-
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MTPERIOD*(0.5-(motR/2.)));
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,MTPERIOD*(0.5+(motR/2.)));
-    if(motL_isCW) motL*=-1.;
 
     #else
     
@@ -74,14 +70,6 @@ void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motR*MTPERIOD);
     }
     #endif
-
-  }else{
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
-  }
-
 
   }else{
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
