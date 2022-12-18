@@ -31,27 +31,22 @@ int I_error = 0.;
 AS5047P_Instance encR;
 AS5047P_Instance encL;
 
-void SetDutyRatio(uint16_t motL,uint16_t motR,uint8_t motR_isCW,uint8_t motL_isCW){
+void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
 
   if(runmode != DISABLE_MODE){
-    if(motR > MTPERIOD) motR = MTPERIOD;
-    if(motL > MTPERIOD) motL = MTPERIOD;
+    if(motR > 1.0) motR = 1.0;
+    if(motL > 1.0) motL = 1.0;
 
-    if(motL_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motL);
-    }else{
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motL);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
-    }
+    if(motL_isCW) motL*=-1.;
 
-    if(motR_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motR);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
-    }else{
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motR);
-    }
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD*(0.5+(motL/2.)));
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD*(0.5-(motL/2.)));
+
+    if(motR_isCW) motR*=-1.;
+
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MTPERIOD*(0.5-(motR/2.)));
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,MTPERIOD*(0.5+(motR/2.)));
+
   }else{
     __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
@@ -191,7 +186,7 @@ void ControlDuty(){
   if(dutyR >= MTPERIOD) dutyR = MTPERIOD;
 
   //デューティ比を設定
-  SetDutyRatio(MTPERIOD*dutyL,MTPERIOD*dutyR,motR_isCW,motL_isCW);
+  SetDutyRatio(dutyL,dutyR,motR_isCW,motL_isCW);
 }
 
 void FailSafe(){
