@@ -23,6 +23,7 @@ extern uint8_t runmode;
 extern int8_t turndir;
 extern float spd,deg,len,accel,max_spd,ang_accel;
 extern float max_angvel;
+extern float tdutyR,tdutyL;
 extern float angvel,r_yaw_ref;
 extern float I_spd,I_angvel;
 extern float tgt_spd,tgt_angvel;

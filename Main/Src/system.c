@@ -117,6 +117,15 @@ void mainmenu(){
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         Straight(FULL_SECTION,0,0,0);
         break;
+      case 5:
+        runmode = TEST_MODE;
+        for(float i=0.0;i<=1.0;i+=0.001){
+          tdutyL=i;
+          tdutyR=i;
+          HAL_Delay(10);
+        }
+        runmode = DISABLE_MODE;
+        break;
       default:
         DoPanic();
         break;

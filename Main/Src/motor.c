@@ -22,6 +22,7 @@ float max_spd = 0.;
 float max_angvel = 0.;
 float angvel,r_yaw_ref;
 float tgt_spd=0.,tgt_angvel=0.;
+float tdutyR = 0.,tdutyL=0.;
 
 float I_spd = 0.;
 float I_angvel = 0.;
@@ -39,8 +40,14 @@ void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
 
     if(motL_isCW) motL*=-1.;
 
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD*(0.5+(motL/2.)));
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD*(0.5-(motL/2.)));
+    float tmp1 = MTPERIOD*(0.5+(motL/2.));
+    float tmp2 = MTPERIOD*(0.5-(motL/2.));
+    ITM_SendChar((uint8_t)(tmp1/MTPERIOD*255.),1);
+    ITM_SendChar((uint8_t)(spd*10.),2);
+
+
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,tmp1);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,tmp2);
 
     if(motR_isCW) motR*=-1.;
 
@@ -182,8 +189,13 @@ void ControlDuty(){
 
   float dutyR = vR/vbat;
   float dutyL = vL/vbat;
-  if(dutyL >= MTPERIOD) dutyL = MTPERIOD;
-  if(dutyR >= MTPERIOD) dutyR = MTPERIOD;
+  if(runmode == TEST_MODE){
+    dutyL = tdutyL;
+    dutyR = tdutyR;
+    motR_isCW = 1;
+    motL_isCW = 0;
+  }
+
 
   //デューティ比を設定
   SetDutyRatio(dutyL,dutyR,motR_isCW,motL_isCW);

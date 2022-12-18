@@ -2,7 +2,7 @@
 #define PARAMETER_H
 
 //モータ
-#define MTPERIOD    2000    //モータのCounterPeriod
+#define MTPERIOD    1000    //モータのCounterPeriod
 
 //センサ全般
 #define MAXINITERR  10      //センサ初期化試行回数
@@ -71,6 +71,7 @@
 #define ENABLE_MODE 1
 #define STRAIGHT_MODE 1
 #define TURN_MODE 2
+#define TEST_MODE 4
 #define LEFT    -1
 #define RIGHT   1
 #define SL 0
