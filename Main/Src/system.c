@@ -29,7 +29,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //2kHz
     GetSpeed();
     GetYawDeg();
-    TrigWallSens();
   }
   else if(htim == &htim7){
     //1kHz
@@ -37,6 +36,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     ControlDuty();
     FailSafe();
     timer++;
+  }
+  else if(htim == &htim10){
+    //4kHz
+    TrigWallSens();
   }
 }
 
@@ -77,11 +80,13 @@ void init(){
 
   HAL_TIM_Base_Start_IT(&htim6);  //interrupt 2kHz
   HAL_TIM_Base_Start_IT(&htim7);  //interrupt 1kHz
+  HAL_TIM_Base_Start_IT(&htim10);  //interrupt 4kHz
 
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 9);
 }
 
 void mainmenu(){
+  ITM_SendChar((uint8_t)(adcval[1]>>4),1);
   I_angvel = 0;
   angvel = 0;
 

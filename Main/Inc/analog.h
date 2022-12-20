@@ -11,7 +11,6 @@
 
 extern uint16_t adcval[9];
 extern int16_t sensval[4];
-extern int16_t darkval[4];
 extern float vbat;
 
 void TrigWallSens();
