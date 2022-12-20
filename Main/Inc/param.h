@@ -77,7 +77,7 @@
 #define SL 0
 #define FL 1
 #define FR 2
-#define SR 3
+#define SSR 3
 #define NOWALL  0
 #define ISWALL  1
 #define UNKNOWN 2

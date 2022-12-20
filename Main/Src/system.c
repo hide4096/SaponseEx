@@ -77,6 +77,8 @@ void init(){
 
   HAL_TIM_Base_Start_IT(&htim6);  //interrupt 2kHz
   HAL_TIM_Base_Start_IT(&htim7);  //interrupt 1kHz
+
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 9);
 }
 
 void mainmenu(){
@@ -103,13 +105,13 @@ void mainmenu(){
         break;
       case 2:
         while(1){
-          printf("%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SR]);
+          printf("%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SSR]);
         }
         break;
       case 3:
         while(1){
           ITM_SendChar((uint8_t)(sensval[SL]>>4),1);
-          ITM_SendChar((uint8_t)(sensval[SR]>>4),2);
+          ITM_SendChar((uint8_t)(sensval[SSR]>>4),2);
           HAL_Delay(10);
         }
         break;
