@@ -10,49 +10,55 @@ uint16_t adcval[9];
 int16_t sensval[4];
 float vbat = 0;
 
-volatile uint8_t sensseq = 0;
 volatile int16_t offval[4];
+static int adcrank = -1;
+
+static void _SETIR(uint8_t FRL,uint8_t FLR){
+  HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,FRL);
+  HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,FLR);
+}
 
 void TrigWallSens(){
+  adcrank=(adcrank+1)%9;
+  switch(adcrank){
+    case 0:
+      _SETIR(0,0);
+      break;
+    case 2:
+    case 4:
+      _SETIR(1,0);
+      for(int i=0;i<300;i++);
+      break;
+    case 6:
+    case 8:
+      _SETIR(0,1);
+      for(int i=0;i<300;i++);
+      break;
+    default:
+      _SETIR(0,0);
+      for(int i=0;i<300;i++);
+      break;
+  }
+
   hadc1.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
+
+  switch(adcrank){
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+      TrigWallSens();
+      break;
+  }
 }
 
 void FetchWallSens(){
-/*
-  switch(sensseq){
-    case 1:
-    case 5:
-      if(sensseq == 1)  offval[0] = adcval[sensseq];
-      else              offval[2] = adcval[sensseq];
-      HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,1);
-      for(int i=0;i<1000;i++);
-      hadc1.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
-      break;
-    case 3:
-    case 7:
-      if(sensseq == 3)  offval[1] = adcval[sensseq];
-      else              offval[3] = adcval[sensseq];
-      HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,1);
-      for(int i=0;i<1000;i++);
-      hadc1.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
-      break;
-    case 2:
-    case 6:
-      if(sensseq == 1)  sensval[0] = adcval[sensseq] - offval[0];
-      else              sensval[2] = adcval[sensseq] - offval[2];
-      HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,0);
-      break;
-    case 4:
-    case 8:
-      if(sensseq == 4)  sensval[1] = adcval[sensseq] - offval[1];
-      else              sensval[3] = adcval[sensseq] - offval[3];
-      HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,0);
-      break;
+  if(adcrank == 8){
+    sensval[0] = (adcval[2] - adcval[1])*(adcval[2] > adcval[1]);
+    sensval[1] = (adcval[6] - adcval[5])*(adcval[6] > adcval[5]);
+    sensval[2] = (adcval[4] - adcval[3])*(adcval[4] > adcval[3]);
+    sensval[3] = (adcval[8] - adcval[7])*(adcval[8] > adcval[7]);
   }
-*/
-
-  __HAL_ADC_CLEAR_FLAG(&hadc1, ADC_FLAG_EOC);
-  //sensseq++;
 }
 
 void GetBattVoltage(){

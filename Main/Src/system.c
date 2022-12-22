@@ -6,6 +6,7 @@
 #include"system.h"
 
 static uint8_t mode = 1;
+static uint8_t txbuf[64];
 
 unsigned int timer = 0;
 
@@ -86,7 +87,6 @@ void init(){
 }
 
 void mainmenu(){
-  ITM_SendChar((uint8_t)(adcval[1]>>4),1);
   I_angvel = 0;
   angvel = 0;
 
@@ -110,7 +110,9 @@ void mainmenu(){
         break;
       case 2:
         while(1){
-          printf("%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SSR]);
+          sprintf(txbuf,"%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SSR]);
+          HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
+          HAL_Delay(1000);
         }
         break;
       case 3:

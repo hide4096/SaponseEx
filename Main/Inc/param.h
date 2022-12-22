@@ -43,13 +43,13 @@
 #define HALF_SECTION 45
 
 //閾値
-#define WALL_TH_R   320
-#define WALL_TH_L   120
-#define WALL_TH_FR  390
-#define WALL_TH_FL  430
-#define REF_FR  1230
-#define REF_FL  1540 
-#define CONFIRM 3500
+#define WALL_TH_R   11
+#define WALL_TH_L   7
+#define WALL_TH_FR  65
+#define WALL_TH_FL  45
+#define REF_FR  417
+#define REF_FL  268 
+#define CONFIRM 1500
 
 //PIDゲイン
 #define SPD_KP 30.0
