@@ -9,7 +9,6 @@ static uint8_t mode = 4;
 static uint8_t txbuf[64];
 
 unsigned int timer = 0;
-
 volatile uint32_t writeadrs = 0;
 
 void DoPanic(){
@@ -46,7 +45,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     TrigWallSens();
   }
   else if(htim == &htim11){
-    if(writeadrs <= 0x080FFFFF){
+    if(writeadrs >= 0x080E0000 && writeadrs <= 0x080FFFFF){
       HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(spd*1000));
       writeadrs+=sizeof(int32_t);
       HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(angvel*1000));
@@ -140,8 +139,8 @@ void mainmenu(){
       case 5:
 
         HAL_FLASH_Unlock();
-        HAL_TIM_Base_Start_IT(&htim11);  //interrupt 100Hz
         writeadrs = 0x080E0000;
+        HAL_TIM_Base_Start_IT(&htim11);  //interrupt 100Hz
 
         HAL_Delay(10);
 
@@ -164,11 +163,18 @@ void mainmenu(){
         Blink(10);
         break;
       case 7:
-        for(uint32_t i=0;i<1000;i+=sizeof(int)*2){
-          uint32_t adrs = i + 0x080E0000;
-          printf("%ld,",*(uint32_t*)adrs);
-          adrs+=sizeof(int);
-          printf("%ld\r\n",*(uint32_t*)adrs);
+        {
+          uint32_t _adrs = 0x080E0000;
+
+          while(_adrs<=0x080FFFFF){
+            printf("%ld,",*(uint32_t*)_adrs);
+            _adrs+=sizeof(int);
+            led=(_adrs&0b111000)>>3;
+            printf("%ld\r\n",*(uint32_t*)_adrs);
+            _adrs+=sizeof(int);
+            break;
+            led=(_adrs&0b111000)>>3;
+          } 
         }
         break;
       default:
