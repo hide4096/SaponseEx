@@ -10,6 +10,8 @@ static uint8_t txbuf[64];
 
 unsigned int timer = 0;
 
+volatile uint32_t writeadrs = 0;
+
 void DoPanic(){
   runmode = DISABLE_MODE;
   HAL_TIM_Base_Stop_IT(&htim6);
@@ -43,6 +45,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //4kHz
     TrigWallSens();
   }
+  else if(htim == &htim11){
+    if(writeadrs <= 0x080FFFFF){
+      HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(spd*1000));
+      writeadrs+=sizeof(int32_t);
+      HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(angvel*1000));
+      writeadrs+=sizeof(int32_t);
+    }
+  }
 }
 
 void init(){
@@ -74,7 +84,7 @@ void init(){
   runmode = DISABLE_MODE;
 
   //LED
-  led = 0b000);
+  led = 0b000;
 
 
   //迷路情報を初期化
@@ -96,14 +106,14 @@ void mainmenu(){
     switch (mode){
       case 1:
         Blink(2);
-        led = 0b111);
+        led = 0b111;
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
         timer = 0;
         x_mypos = 0;
         y_mypos = 0;
         dire_mypos = north;
-        led = 0b000);
+        led = 0b000;
         SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;
         HAL_Delay(1000);
@@ -111,7 +121,7 @@ void mainmenu(){
         break;
       case 2:
         while(1){
-          sprintf(txbuf,"%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SSR]);
+          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SSR]);
           HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
           HAL_Delay(1000);
         }
@@ -128,13 +138,22 @@ void mainmenu(){
         Straight(FULL_SECTION,0,0,0);
         break;
       case 5:
+
+        HAL_FLASH_Unlock();
+        HAL_TIM_Base_Start_IT(&htim11);  //interrupt 100Hz
+        writeadrs = 0x080E0000;
+
+        HAL_Delay(10);
+
         tvL = tvR = 1.0;
         runmode = TEST_MODE;
-        for(int i=0;i<100;i++){
-          ITM_SendChar((uint8_t)vbat*100.,1);
-          HAL_Delay(10);
-        }
+        HAL_Delay(3000);
         runmode = DISABLE_MODE;
+
+        HAL_Delay(10);
+
+        HAL_TIM_Base_Stop_IT(&htim11);
+        HAL_FLASH_Lock();
         break;
       case 6:
         led = 0b000;
@@ -143,6 +162,14 @@ void mainmenu(){
           break;
         }
         Blink(10);
+        break;
+      case 7:
+        for(uint32_t i=0;i<1000;i+=sizeof(int)*2){
+          uint32_t adrs = i + 0x080E0000;
+          printf("%ld,",*(uint32_t*)adrs);
+          adrs+=sizeof(int);
+          printf("%ld\r\n",*(uint32_t*)adrs);
+        }
         break;
       default:
         DoPanic();
