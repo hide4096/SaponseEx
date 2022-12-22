@@ -196,7 +196,7 @@ void ControlDuty(){
 
   //角速度フィードバック
   float diff_angvel = tgt_angvel-angvel;
-  float v_angvel = diff_angvel*(ANGVEL_KP/100.)+I_angvel*(ANGVEL_KI/100.)+(before_angvel-angvel)*(ANGVEL_KD/100.);
+  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(before_angvel-angvel)*ANGVEL_KD;
   before_angvel = angvel;
   I_angvel+=diff_angvel;
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;

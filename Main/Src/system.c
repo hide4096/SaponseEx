@@ -10,6 +10,7 @@ static uint8_t txbuf[64];
 
 unsigned int timer = 0;
 volatile uint32_t writeadrs = 0;
+volatile uint32_t cnt = 0;
 
 void DoPanic(){
   runmode = DISABLE_MODE;
@@ -46,10 +47,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   }
   else if(htim == &htim11){
     if(writeadrs >= 0x080E0000 && writeadrs <= 0x080FFFFF){
-      HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(spd*1000));
+      HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(spd*1000.));
       writeadrs+=sizeof(int32_t);
-      HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(angvel*1000));
+      HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(angvel*1000.));
       writeadrs+=sizeof(int32_t);
+      cnt++;
     }
   }
 }
@@ -140,18 +142,20 @@ void mainmenu(){
 
         HAL_FLASH_Unlock();
         writeadrs = 0x080E0000;
+        cnt=0;
         HAL_TIM_Base_Start_IT(&htim11);  //interrupt 100Hz
 
-        HAL_Delay(10);
+        HAL_Delay(500);
 
-        tvL = tvR = 1.0;
+        tvL = -2.5,tvR = 2.5;
         runmode = TEST_MODE;
         HAL_Delay(3000);
         runmode = DISABLE_MODE;
 
-        HAL_Delay(10);
+        HAL_Delay(500);
 
         HAL_TIM_Base_Stop_IT(&htim11);
+        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,(uint32_t)(0x080FFFF0),cnt);
         HAL_FLASH_Lock();
         break;
       case 6:
@@ -165,16 +169,18 @@ void mainmenu(){
       case 7:
         {
           uint32_t _adrs = 0x080E0000;
+          cnt = *(uint32_t*)(0x080FFFF0);
+          printf("%ld\r\n",cnt);
 
-          while(_adrs<=0x080FFFFF){
+          while(_adrs<0x080E0000+sizeof(int32_t)*2*cnt){
             printf("%ld,",*(uint32_t*)_adrs);
-            _adrs+=sizeof(int);
+            _adrs+=sizeof(int32_t);
             led=(_adrs&0b111000)>>3;
             printf("%ld\r\n",*(uint32_t*)_adrs);
-            _adrs+=sizeof(int);
-            break;
+            _adrs+=sizeof(int32_t);
             led=(_adrs&0b111000)>>3;
           } 
+          Blink(50);
         }
         break;
       default:
