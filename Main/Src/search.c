@@ -216,7 +216,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
 
 void SearchAdachi(uint8_t gx,uint8_t gy){
     dire_global nextdire;
-    SetLED(0b010);
+    led = 0b010;
     switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
         case front:
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
@@ -254,7 +254,7 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
 
     while((x_mypos != gx) || (y_mypos != gy)){
         SetWall(x_mypos,y_mypos);
-        SetLED(0b101);
+        led = 0b101;
         switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
             case front:
                 Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);

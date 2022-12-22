@@ -16,7 +16,7 @@ void DoPanic(){
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
   printf("Soiya!!\r\n");
-  SetLED(0b000);
+  led = 0b000;
   while(1);
 }
 
@@ -36,6 +36,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetBattVoltage();
     ControlDuty();
     FailSafe();
+    SetLED();
     timer++;
   }
   else if(htim == &htim10){
@@ -73,7 +74,7 @@ void init(){
   runmode = DISABLE_MODE;
 
   //LED
-  SetLED(0b000);
+  led = 0b000);
 
 
   //迷路情報を初期化
@@ -95,14 +96,14 @@ void mainmenu(){
     switch (mode){
       case 1:
         Blink(2);
-        SetLED(0b111);
+        led = 0b111);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
         timer = 0;
         x_mypos = 0;
         y_mypos = 0;
         dire_mypos = north;
-        SetLED(0b000);
+        led = 0b000);
         SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;
         HAL_Delay(1000);
@@ -135,6 +136,14 @@ void mainmenu(){
         }
         runmode = DISABLE_MODE;
         break;
+      case 6:
+        led = 0b000;
+        if(FlashMemory() != 0){
+          printf("Sector Initialize Failed.\r\n");
+          break;
+        }
+        Blink(10);
+        break;
       default:
         DoPanic();
         break;
@@ -154,7 +163,7 @@ void mainmenu(){
     }
   }
   spd = 0.;
-  SetLED(mode);
+  led = mode;
 
   runmode = DISABLE_MODE;
 }

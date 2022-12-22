@@ -247,7 +247,7 @@ void FailSafe(){
   if(spdL < FAILSAFE && spdL > -FAILSAFE) return;
   if(spdR < FAILSAFE && spdR > -FAILSAFE) return;
   if(vbat > LOWVOLT) return;
-  SetLED(0b000);
+  led=0;
   while(1);
 }
 

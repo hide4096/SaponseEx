@@ -14,6 +14,7 @@
 #include"show.h"
 #include"run.h"
 #include"search.h"
+#include"memory.h"
 
 extern unsigned int timer;
 

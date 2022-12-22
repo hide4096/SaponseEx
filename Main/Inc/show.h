@@ -9,8 +9,10 @@
 #include"main.h"
 #include"motor.h"
 
+extern uint8_t led;
+
 void Blink(uint16_t val);
-void SetLED(uint8_t led);
+void SetLED();
 void DoPanic();
 
 #endif
