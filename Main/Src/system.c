@@ -5,7 +5,7 @@
 */
 #include"system.h"
 
-static uint8_t mode = 1;
+static uint8_t mode = 4;
 static uint8_t txbuf[64];
 
 unsigned int timer = 0;
@@ -127,15 +127,10 @@ void mainmenu(){
         Straight(FULL_SECTION,0,0,0);
         break;
       case 5:
+        tvL = tvR = 1.0;
         runmode = TEST_MODE;
-        for(float i=0.0;i<=1.0;i+=0.001){
-          tdutyL=i;
-          tdutyR=i;
-          HAL_Delay(10);
-        }
-        for(float i=1.0;i>=0.0;i-=0.001){
-          tdutyL=i;
-          tdutyR=i;
+        for(int i=0;i<100;i++){
+          ITM_SendChar((uint8_t)vbat*100.,1);
           HAL_Delay(10);
         }
         runmode = DISABLE_MODE;

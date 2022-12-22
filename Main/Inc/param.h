@@ -52,12 +52,12 @@
 #define CONFIRM 1500
 
 //PIDゲイン
-#define SPD_KP 30.0
-#define SPD_KI 10.0
-#define SPD_KD 0.01
-#define ANGVEL_KP 10.0
-#define ANGVEL_KI 20.0
-#define ANGVEL_KD 0.75
+#define SPD_KP 10.0
+#define SPD_KI 5.0
+#define SPD_KD 0.0
+#define ANGVEL_KP 1.0
+#define ANGVEL_KI 5.0
+#define ANGVEL_KD 0.0
 #define WALL_KP 0.0
 #define WALL_KI 0.001
 
