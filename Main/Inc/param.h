@@ -33,6 +33,7 @@
 #define TURN_SPEED      (M_PI*4.)    //旋回の最高速度[rad/s]
 #define DELAY 100
 #define ADCWAIT 10
+#define LOOPFREQ 1000
 
 //迷路情報
 #define GOAL_X 9
@@ -52,12 +53,12 @@
 #define CONFIRM 1500
 
 //PIDゲイン
-#define SPD_KP 5.9873
-#define SPD_KI 30.7087
-#define SPD_KD 0.22442
-#define ANGVEL_KP 0.0
-#define ANGVEL_KI 0.0
-#define ANGVEL_KD 0.0
+#define SPD_KP 12.9744
+#define SPD_KI 136.3349
+#define SPD_KD 0.089958
+#define ANGVEL_KP 12.1858
+#define ANGVEL_KI 86.0724
+#define ANGVEL_KD 0.1075
 #define WALL_KP 0.0
 #define WALL_KI 0.001
 
