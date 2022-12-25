@@ -147,7 +147,7 @@ void mainmenu(){
 
         HAL_Delay(500);
 
-        tvL = -2.5,tvR = 2.5;
+        tvL = 2.5,tvR = -2.5;
         runmode = TEST_MODE;
         HAL_Delay(3000);
         runmode = DISABLE_MODE;
