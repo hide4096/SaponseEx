@@ -48,8 +48,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   else if(htim == &htim11){
       save[0][cnt] = (int32_t)(spd*100000);
       save[1][cnt] = (int32_t)(angvel*100000);
-      save[2][cnt] = (int32_t)(d_encL_val);
-      save[3][cnt] = (int32_t)(d_encR_val);
+      save[2][cnt] = (int32_t)(deg*100);
+      save[3][cnt] = (int32_t)(0);
       cnt++;
   }
 }
@@ -126,20 +126,25 @@ void mainmenu(){
         }
         break;
       case 3:
+        HAL_Delay(100);
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        Straight(FULL_SECTION,0,0,0);
+        /*
         while(1){
           ITM_SendChar((uint8_t)(spd*1000),1);
           HAL_Delay(10);
         }
+        */
         break;
       case 4:
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         cnt=0;
         HAL_TIM_Base_Start_IT(&htim11);  //interrupt 100Hz
 
-        tvL=0.7;
-        tvR=1.3;
+        tvL=-1.5;
+        tvR=2.5;
         runmode=TEST_MODE;
-        HAL_Delay(1000);
+        HAL_Delay(2000);
 
         //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
         runmode = DISABLE_MODE;

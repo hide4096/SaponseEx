@@ -203,9 +203,14 @@ void ControlDuty(){
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;
 
+
   //合算
-  vR = v_spd + v_angvel;
-  vL = v_spd - v_angvel;
+  vR = (2/TIRE_DIAM)*(tgt_spd+v_spd) + (WHEELDIST/TIRE_DIAM)*(tgt_angvel+v_angvel);
+  vL = (2/TIRE_DIAM)*(tgt_spd+v_spd) - (WHEELDIST/TIRE_DIAM)*(tgt_angvel+v_angvel);
+
+  vR*=62.;
+  vL*=62.;
+
 
   //電圧をデューティ比に変換
   uint8_t motL_isCW = 0;
