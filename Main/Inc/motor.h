@@ -29,6 +29,8 @@ extern float I_spd,I_angvel;
 extern float tgt_spd,tgt_angvel;
 extern int I_error;
 extern uint8_t wallfix_is;
+extern int16_t encR_val,encL_val;
+extern int16_t d_encR_val,d_encL_val;
 
 void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW);
 void GetSpeed();

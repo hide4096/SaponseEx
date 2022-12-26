@@ -9,8 +9,8 @@ static uint8_t mode = 4;
 static uint8_t txbuf[64];
 
 unsigned int timer = 0;
-volatile uint32_t writeadrs = 0;
 volatile uint32_t cnt = 0;
+volatile int32_t save[4][4096];
 
 void DoPanic(){
   runmode = DISABLE_MODE;
@@ -46,13 +46,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     TrigWallSens();
   }
   else if(htim == &htim11){
-    if(writeadrs >= 0x080E0000 && writeadrs <= 0x080FFFFF){
-      HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(spd*1000.));
-      writeadrs+=sizeof(int32_t);
-      HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,writeadrs,(int32_t)(angvel*1000.));
-      writeadrs+=sizeof(int32_t);
+      save[0][cnt] = (int32_t)(spd*100000);
+      save[1][cnt] = (int32_t)(angvel*100000);
+      save[2][cnt] = (int32_t)(d_encL_val);
+      save[3][cnt] = (int32_t)(d_encR_val);
       cnt++;
-    }
   }
 }
 
@@ -129,34 +127,43 @@ void mainmenu(){
         break;
       case 3:
         while(1){
-          ITM_SendChar((uint8_t)(sensval[SL]>>4),1);
-          ITM_SendChar((uint8_t)(sensval[SSR]>>4),2);
+          ITM_SendChar((uint8_t)(spd*1000),1);
           HAL_Delay(10);
         }
         break;
       case 4:
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(FULL_SECTION,0,0,0);
-        break;
-      case 5:
-
-        HAL_FLASH_Unlock();
-        writeadrs = 0x080E0000;
         cnt=0;
         HAL_TIM_Base_Start_IT(&htim11);  //interrupt 100Hz
 
-        HAL_Delay(500);
+        tvL=0.7;
+        tvR=1.3;
+        runmode=TEST_MODE;
+        HAL_Delay(1000);
 
+        //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        runmode = DISABLE_MODE;
+
+        HAL_TIM_Base_Stop_IT(&htim11);
+
+        HAL_FLASH_Unlock();
+
+        for(int i=0;i<cnt;i++){
+          for(int j=0;j<4;j++){
+            uint32_t _adrs = 0x080E0000 + (i*4+j)*sizeof(uint32_t);
+            HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,_adrs,save[j][i]);
+          }
+        }
+        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,0x080FFFF0,cnt);
+
+        HAL_FLASH_Lock();
+        break;
+      case 5:
         tvL = 2.5,tvR = -2.5;
         runmode = TEST_MODE;
         HAL_Delay(3000);
         runmode = DISABLE_MODE;
-
         HAL_Delay(500);
-
-        HAL_TIM_Base_Stop_IT(&htim11);
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,(uint32_t)(0x080FFFF0),cnt);
-        HAL_FLASH_Lock();
         break;
       case 6:
         led = 0b000;
@@ -172,15 +179,17 @@ void mainmenu(){
           cnt = *(uint32_t*)(0x080FFFF0);
           printf("%ld\r\n",cnt);
 
-          while(_adrs<0x080E0000+sizeof(int32_t)*2*cnt){
-            printf("%ld,",*(uint32_t*)_adrs);
+          while(_adrs<0x080E0000+sizeof(int32_t)*4*cnt){
+            printf("%ld,",*(int32_t*)_adrs);
             _adrs+=sizeof(int32_t);
-            led=(_adrs&0b111000)>>3;
-            printf("%ld\r\n",*(uint32_t*)_adrs);
+            printf("%ld,",*(int32_t*)_adrs);
             _adrs+=sizeof(int32_t);
-            led=(_adrs&0b111000)>>3;
+            printf("%ld,",*(int32_t*)_adrs);
+            _adrs+=sizeof(int32_t);
+            printf("%ld\r\n",*(int32_t*)_adrs);
+            _adrs+=sizeof(int32_t);
           } 
-          Blink(50);
+          Blink(10);
         }
         break;
       default:

@@ -25,6 +25,8 @@ float max_angvel = 0.;
 float angvel,r_yaw_ref;
 float tgt_spd=0.,tgt_angvel=0.;
 float tvR = 0.,tvL=0.;
+int16_t encR_val,encL_val;
+int16_t d_encR_val,d_encL_val;
 
 float I_spd = 0.;
 float I_angvel = 0.;
@@ -94,7 +96,6 @@ void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
 }
 
 void GetSpeed(){
-  int16_t encR_val,encL_val;
 
   //エンコーダ読む
   encR_val = AS5047P_ReadPosition(&encR, AS5047P_OPT_ENABLED);
@@ -103,8 +104,8 @@ void GetSpeed(){
 	if(AS5047P_ErrorPending(&encL)) AS5047P_ErrorAck(&encL);
 
   //差分とる
-  int16_t d_encR_val = encR_val - b_encR_val;
-  int16_t d_encL_val = b_encL_val -  encL_val;
+  d_encR_val = encR_val - b_encR_val;
+  d_encL_val = b_encL_val -  encL_val;
   b_encR_val = encR_val;
   b_encL_val = encL_val;
 

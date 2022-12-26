@@ -18,15 +18,15 @@
 //エンコーダ
 #define ENC_MAX     16384   //エンコーダ1回転のステップ数
 #define ENC_HALF    8192
-#define ENCLPF 0.1
+#define ENCLPF 0.
 
 //機体情報
 #define TIRE_DIAM   13.23   //タイヤ直径[mm]
 #define PPMM        (TIRE_DIAM*M_PI)/ENC_MAX
 #define DELTA_T     0.0005
 #define FAILSAFE    8.0   //単位はm/s
-#define MIN_SPEED   0.1
-#define SEARCH_ACCEL    1.0     //探索走行の加速度[m/s^2]
+#define MIN_SPEED   0.05
+#define SEARCH_ACCEL    2.0     //探索走行の加速度[m/s^2]
 #define SEARCH_SPEED    0.2     //探索走行の速度[m/s]
 #define MIN_ANGVEL      (M_PI/2.)     //旋回の最低速度[rad/s]
 #define TURN_ACCEL      (M_PI)     //旋回加速度[rad/s^2]
@@ -54,10 +54,10 @@
 
 //PIDゲイン
 #define SPD_KP 12.9744
-#define SPD_KI 136.3349
+#define SPD_KI 1363.349
 #define SPD_KD 0.089958
 #define ANGVEL_KP 12.1858
-#define ANGVEL_KI 86.0724
+#define ANGVEL_KI 860.724
 #define ANGVEL_KD 0.1075
 #define WALL_KP 0.0
 #define WALL_KI 0.001
