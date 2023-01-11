@@ -43,18 +43,18 @@ void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
 
     
     if(motL_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motL*MTPERIOD);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,(1.0-motL)*MTPERIOD);
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD);  
     }else{
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motL*MTPERIOD);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,(1.0-motL)*MTPERIOD);
     }
 
     if(motR_isCW){
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MTPERIOD);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motR*MTPERIOD);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,(1.0-motR)*MTPERIOD);
     }else{
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motR*MTPERIOD);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,(1.0-motR)*MTPERIOD);
       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,MTPERIOD);
     }
 

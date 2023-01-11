@@ -141,8 +141,8 @@ void mainmenu(){
         cnt=0;
         HAL_TIM_Base_Start_IT(&htim11);  //interrupt 100Hz
 
-        tvL=-1.5;
-        tvR=2.5;
+        tvL=2.0;
+        tvR=2.0;
         runmode=TEST_MODE;
         HAL_Delay(2000);
 
@@ -164,8 +164,12 @@ void mainmenu(){
         HAL_FLASH_Lock();
         break;
       case 5:
-        tvL = 2.5,tvR = 2.5;
+        tvL = tvR = 0;
         runmode = TEST_MODE;
+        for(float v=0;v<3.0;v+=0.1){
+          tvL=tvR=v;
+          HAL_Delay(100);
+        }
         HAL_Delay(3000);
         runmode = DISABLE_MODE;
         HAL_Delay(500);
