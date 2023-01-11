@@ -6,8 +6,6 @@
 
 #include"motor.h"
 
-#define PWM_MODE_LAP
-
 static int16_t b_encR_val=0,b_encL_val=0;
 static float spdR = 0,spdL=0;
 static float b_spdR = 0,b_spdL=0;
@@ -41,57 +39,30 @@ void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
   if(runmode != DISABLE_MODE){
     if(motR > 1.0) motR = 1.0;
     if(motL > 1.0) motL = 1.0;
+    printf("%f\t%f\r\n",motL,motR);
 
-    if(motL <= 0.4 || motR <= 0.4){
-      __HAL_TIM_SET_PRESCALER(&htim1,100-1);
-      __HAL_TIM_SET_PRESCALER(&htim2,100-1);
-    }else if(motL <= 0.6 || motR <= 0.6){
-      __HAL_TIM_SET_PRESCALER(&htim1,50-1);
-      __HAL_TIM_SET_PRESCALER(&htim2,50-1);
-    }else if(motL <= 0.8 || motR <= 0.8){
-      __HAL_TIM_SET_PRESCALER(&htim1,10-1);
-      __HAL_TIM_SET_PRESCALER(&htim2,10-1);
-    }else if(motL <= 0.9 || motR <= 0.9){
-      __HAL_TIM_SET_PRESCALER(&htim1,5-1);
-      __HAL_TIM_SET_PRESCALER(&htim2,5-1);
-    }else{                                 
-      __HAL_TIM_SET_PRESCALER(&htim1,4-1);
-      __HAL_TIM_SET_PRESCALER(&htim2,4-1);
-    }
-    #ifdef PWM_MODE_LAP
-
-    if(motL_isCW) motL*=-1.;
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD*(0.5+(motL/2.)));
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD*(0.5-(motL/2.)));
-
-    if(motR_isCW) motR*=-1.;
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MTPERIOD*(0.5-(motR/2.)));
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,MTPERIOD*(0.5+(motR/2.)));
-
-    #else
     
     if(motL_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motL*MTPERIOD);
-    }else{
       __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,motL*MTPERIOD);
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);  
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD);  
+    }else{
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,motL*MTPERIOD);
     }
 
     if(motR_isCW){
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motR*MTPERIOD);
-      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
-    }else{
-      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MTPERIOD);
       __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,motR*MTPERIOD);
+    }else{
+      __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,motR*MTPERIOD);
+      __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,MTPERIOD);
     }
-    #endif
 
   }else{
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);
-    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,0);
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);
-    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MTPERIOD);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,MTPERIOD);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MTPERIOD);
+    __HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MTPERIOD);
   }
 }
 
