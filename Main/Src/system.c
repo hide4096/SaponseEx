@@ -5,7 +5,7 @@
 */
 #include"system.h"
 
-static uint8_t mode = 4;
+static uint8_t mode = 3;
 static uint8_t txbuf[64];
 
 unsigned int timer = 0;
@@ -37,9 +37,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //1kHz
     GetBattVoltage();
     ControlDuty();
-    FailSafe();
+    //FailSafe();
     SetLED();
     timer++;
+    printf("%.2f\r\n",deg);
   }
   else if(htim == &htim10){
     //4kHz
@@ -47,8 +48,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   }
   else if(htim == &htim11){
       save[0][cnt] = (int32_t)(spd*100000);
-      save[1][cnt] = (int32_t)(angvel*100000);
-      save[2][cnt] = (int32_t)(deg*100);
+      save[1][cnt] = (int32_t)(d_encL_val);
+      save[2][cnt] = (int32_t)(encL_val);
       save[3][cnt] = (int32_t)(0);
       cnt++;
   }
@@ -128,7 +129,9 @@ void mainmenu(){
       case 3:
         HAL_Delay(100);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(FULL_SECTION,0,0,0);
+        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
+        //Straight(FULL_SECTION,0,0,0);
         /*
         while(1){
           ITM_SendChar((uint8_t)(spd*1000),1);
@@ -139,12 +142,12 @@ void mainmenu(){
       case 4:
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         cnt=0;
-        HAL_TIM_Base_Start_IT(&htim11);  //interrupt 100Hz
+        HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
 
-        tvL=2.0;
-        tvR=2.0;
+        tvL=0.7;
+        tvR=1.3;
         runmode=TEST_MODE;
-        HAL_Delay(2000);
+        HAL_Delay(3000);
 
         //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
         runmode = DISABLE_MODE;
@@ -188,6 +191,8 @@ void mainmenu(){
           cnt = *(uint32_t*)(0x080FFFF0);
           printf("%ld\r\n",cnt);
 
+          int wait = 0;
+
           while(_adrs<0x080E0000+sizeof(int32_t)*4*cnt){
             printf("%ld,",*(int32_t*)_adrs);
             _adrs+=sizeof(int32_t);
@@ -197,6 +202,13 @@ void mainmenu(){
             _adrs+=sizeof(int32_t);
             printf("%ld\r\n",*(int32_t*)_adrs);
             _adrs+=sizeof(int32_t);
+            if(wait>=1000){
+              wait = 0;
+              HAL_Delay(15000);
+              printf("\r\n\r\n\033[2J");
+            }else{
+              wait++;
+            }
           } 
           Blink(10);
         }

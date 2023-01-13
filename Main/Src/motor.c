@@ -7,8 +7,7 @@
 #include"motor.h"
 
 static int16_t b_encR_val=0,b_encL_val=0;
-static float spdR = 0,spdL=0;
-static float b_spdR = 0,b_spdL=0;
+static float b_spd =0;
 static float r_yaw = 0,r_yaw_new = 0,r_b_yaw;
 static float before_spd=0.;
 static float before_angvel=0.;
@@ -39,7 +38,6 @@ void SetDutyRatio(float motL,float motR,uint8_t motR_isCW,uint8_t motL_isCW){
   if(runmode != DISABLE_MODE){
     if(motR > 1.0) motR = 1.0;
     if(motL > 1.0) motL = 1.0;
-    printf("%f\t%f\r\n",motL,motR);
 
     
     if(motL_isCW){
@@ -93,18 +91,14 @@ void GetSpeed(){
   //走行距離に入れる
   len += (lenR + lenL) / 2.0;
 
-  //進んだ距離から速度計算する
+  //進んだ距離(mm)から速度(m/s)計算する
   float n_spdR = (lenR / 1000.) / DELTA_T;
   float n_spdL = (lenL / 1000.) / DELTA_T;
 
-  b_spdR = spdR;
-  b_spdL = spdL;
-  spdR = b_spdR * ENCLPF + n_spdR * (1.0 - ENCLPF);
-  spdL = b_spdL * ENCLPF + n_spdL * (1.0 - ENCLPF);
-  
-
   //機体全体の速度を計算する
-  spd = (spdR + spdL) / 2.0;
+  float enc_spd = (n_spdL + n_spdR) / 2.0;
+  spd = ALPHA*(b_spd + accelY()*9.8*DELTA_T) + (1-ALPHA)*enc_spd; 
+  b_spd = spd;
 }
 
 void ControlDuty(){
@@ -160,7 +154,7 @@ void ControlDuty(){
 
   //速度フィードバック
   float diff_spd = tgt_spd - spd;
-  float v_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(diff_spd - before_spd)*SPD_KD;
+  float v_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(diff_spd - before_spd)/LOOPFREQ*SPD_KD;
   before_spd = diff_spd;
   I_spd+=diff_spd/LOOPFREQ;
   if(I_spd > SPD_I_MAX) I_spd = SPD_I_MAX;
@@ -168,7 +162,7 @@ void ControlDuty(){
 
   //角速度フィードバック
   float diff_angvel = tgt_angvel-angvel;
-  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(diff_angvel - before_angvel)*ANGVEL_KD;
+  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(diff_angvel - before_angvel)/LOOPFREQ*ANGVEL_KD;
   before_angvel = diff_angvel;
   I_angvel+=diff_angvel/LOOPFREQ;
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
@@ -176,11 +170,14 @@ void ControlDuty(){
 
 
   //合算
-  vR = (2/TIRE_DIAM)*(tgt_spd+v_spd) + (WHEELDIST/TIRE_DIAM)*(tgt_angvel+v_angvel);
-  vL = (2/TIRE_DIAM)*(tgt_spd+v_spd) - (WHEELDIST/TIRE_DIAM)*(tgt_angvel+v_angvel);
+  //vR = (2/TIRE_DIAM)*(tgt_spd+v_spd) + (WHEELDIST/TIRE_DIAM)*(tgt_angvel+v_angvel);
+  //vL = (2/TIRE_DIAM)*(tgt_spd+v_spd) - (WHEELDIST/TIRE_DIAM)*(tgt_angvel+v_angvel);
 
-  vR*=62.;
-  vL*=62.;
+  //vR*=62.;
+  //vL*=62.;
+
+  vR = v_spd + v_angvel;
+  vL = v_spd - v_angvel;
 
 
   //電圧をデューティ比に変換
@@ -221,8 +218,6 @@ void ControlDuty(){
 }
 
 void FailSafe(){
-  if(spdL < FAILSAFE && spdL > -FAILSAFE) return;
-  if(spdR < FAILSAFE && spdR > -FAILSAFE) return;
   if(vbat > LOWVOLT) return;
   led=0;
   while(1);
