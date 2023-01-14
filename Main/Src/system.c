@@ -40,7 +40,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //FailSafe();
     SetLED();
     timer++;
-    printf("%.2f\r\n",deg);
   }
   else if(htim == &htim10){
     //4kHz
@@ -131,6 +130,9 @@ void mainmenu(){
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
         SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
+        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
+        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
         //Straight(FULL_SECTION,0,0,0);
         /*
         while(1){
