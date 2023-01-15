@@ -41,8 +41,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     SetLED();
     timer++;
 
-    //ITM_SendChar(deg*10+128,1);
-    //ITM_SendChar(angvel+128,2);
+    ITM_SendChar(sensval[0]/16,1);
+    ITM_SendChar(sensval[1]/16,2);
+    ITM_SendChar(sensval[2]/16,3);
+    ITM_SendChar(sensval[3]/16,4);
     //printf("%d,%d\r\n",d_encL_val,d_encR_val);
   }
   else if(htim == &htim10){
