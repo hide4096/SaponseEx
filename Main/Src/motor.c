@@ -11,6 +11,7 @@ static float b_spd =0;
 static float r_yaw = 0,r_yaw_new = 0,r_b_yaw;
 static float before_spd=0.;
 static float before_angvel=0.;
+static float spdR,spdL;
 
 uint8_t runmode=DISABLE_MODE;
 uint8_t wallfix_is = DISABLE_MODE;
@@ -92,11 +93,11 @@ void GetSpeed(){
   len += (lenR + lenL) / 2.0;
 
   //進んだ距離(mm)から速度(m/s)計算する
-  float n_spdR = (lenR / 1000.) / DELTA_T;
-  float n_spdL = (lenL / 1000.) / DELTA_T;
+  spdR = (lenR / 1000.) / DELTA_T;
+  spdL = (lenL / 1000.) / DELTA_T;
 
   //機体全体の速度を計算する
-  float enc_spd = (n_spdL + n_spdR) / 2.0;
+  float enc_spd = (spdL + spdR) / 2.0;
   spd = ALPHA*(b_spd + accelY()*9.8*DELTA_T) + (1-ALPHA)*enc_spd; 
   b_spd = spd;
 }
@@ -151,6 +152,14 @@ void ControlDuty(){
       I_error = 0.;
     }
   }
+
+  /*
+  //速度フィードフォワード
+  const int Mass = 24.22;
+  float torque = ((Mass / 1000.)* accel * (TIRE_DIAM / 2.)) / ((38./9.)*4.);
+  float v_acc_r = 5.9*(torque*(1./0.594))  + (((d_encR_val/ENC_MAX)/DELTA_T)*60.)*0.062*1000.;
+  float v_acc_l = 3.9*(torque*(1./0.594))  + (((d_encL_val/ENC_MAX)/DELTA_T)*60.)*0.062*1000.;
+  */
 
   //速度フィードバック
   float diff_spd = tgt_spd - spd;
@@ -210,8 +219,8 @@ void ControlDuty(){
     }
   }
 
-  float dutyR = vR/vbat;
-  float dutyL = vL/vbat;
+  float dutyR = (vR*(1.+R_DIFF))/vbat;
+  float dutyL = (vL*(1.-R_DIFF))/vbat;
 
   //デューティ比を設定
   SetDutyRatio(dutyL,dutyR,motR_isCW,motL_isCW);
@@ -224,7 +233,7 @@ void FailSafe(){
 }
 
 void GetYawDeg(){
-  r_yaw_new = gyroZ() - r_yaw_ref;
+  r_yaw_new = K*(gyroZ() - r_yaw_ref);
   
   r_b_yaw = r_yaw;
   r_yaw = r_b_yaw * IMULPF + r_yaw_new * (1.0 - IMULPF);

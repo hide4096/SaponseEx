@@ -12,8 +12,9 @@
 #define LOWVOLT 3.3
 
 //ジャイロ
-#define GYROREFTIME 1000
-#define IMULPF 0.2
+#define GYROREFTIME 1024
+#define K 1
+#define IMULPF 0.1
 
 //エンコーダ
 #define ENC_MAX     16384   //エンコーダ1回転のステップ数
@@ -28,7 +29,7 @@
 #define MIN_SPEED   0.1
 #define SEARCH_ACCEL    2.0     //探索走行の加速度[m/s^2]
 #define SEARCH_SPEED    0.45     //探索走行の速度[m/s]
-#define MIN_ANGVEL      (M_PI/10.)     //旋回の最低速度[rad/s]
+#define MIN_ANGVEL      (M_PI)     //旋回の最低速度[rad/s]
 #define TURN_ACCEL      (M_PI*7.)     //旋回加速度[rad/s^2]
 #define TURN_SPEED      (M_PI*10.)    //旋回の最高速度[rad/s]
 #define DELAY 100
@@ -54,12 +55,13 @@
 #define CONFIRM 1500
 
 //PIDゲイン
-#define SPD_KP 200.
-#define SPD_KI 50.
-#define SPD_KD 30.0
-#define ANGVEL_KP 20.0
+#define R_DIFF 0.3
+#define SPD_KP 10.
+#define SPD_KI 80.0
+#define SPD_KD 0.0
+#define ANGVEL_KP 0.8
 #define ANGVEL_KI 30.0
-#define ANGVEL_KD 0.1
+#define ANGVEL_KD 0.
 #define WALL_KP 0.0
 #define WALL_KI 0.001
 

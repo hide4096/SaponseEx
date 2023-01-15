@@ -40,6 +40,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //FailSafe();
     SetLED();
     timer++;
+
+    //ITM_SendChar(deg*10+128,1);
+    //ITM_SendChar(angvel+128,2);
+    //printf("%d,%d\r\n",d_encL_val,d_encR_val);
   }
   else if(htim == &htim10){
     //4kHz
@@ -72,6 +76,7 @@ void init(){
 
   //InitIMU
   if(IMU_init(&hspi2,CS_IMU_GPIO_Port,CS_IMU_Pin) < 0) DoPanic();
+  HAL_Delay(500);
   r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
 
   //Motor
@@ -119,8 +124,11 @@ void mainmenu(){
         while(sensval[FL] + sensval[FR] >= CONFIRM*2);
         break;
       case 2:
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        deg = 0;
         while(1){
-          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[SL],sensval[FL],sensval[FR],sensval[SSR]);
+          sprintf((char*)txbuf,"%.3f\r\n",deg);
+          printf("%s",txbuf);
           HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
           HAL_Delay(1000);
         }
@@ -128,11 +136,25 @@ void mainmenu(){
       case 3:
         HAL_Delay(100);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-        SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-        SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-        Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        //Straight(FULL_SECTION,0,0,0);
+        while(1){
+          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+          SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
+          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+          SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
+          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+          SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
+          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+          SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
+          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+          SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
+          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+          SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
+          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+          SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
+          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+          SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
+        }
         //Straight(FULL_SECTION,0,0,0);
         /*
         while(1){
@@ -146,8 +168,8 @@ void mainmenu(){
         cnt=0;
         HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
 
-        tvL=0.7;
-        tvR=1.3;
+        tvL=1.0;
+        tvR=1.0;
         runmode=TEST_MODE;
         HAL_Delay(3000);
 

@@ -142,7 +142,7 @@ float IMU_SurveyBias(int _reftime){
     float r_yaw_ref_tmp = 0;
     for(uint16_t i = 0;i<_reftime;i++){
         r_yaw_ref_tmp += gyroZ();
-        HAL_Delay(1);
+        for(int i=0;i<100;i++) __NOP();
     }
   return (float)(r_yaw_ref_tmp / GYROREFTIME);
 }
