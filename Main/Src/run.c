@@ -93,7 +93,7 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
     }else if(turndir == RIGHT){
         ang_accel = +_ang_accel;
         while((deg - start_deg) > tgt_deg){
-            if(tgt_angvel < MIN_ANGVEL){
+            if(tgt_angvel > -MIN_ANGVEL){
                 ang_accel = 0.;
                 tgt_angvel = -MIN_ANGVEL;
             }
