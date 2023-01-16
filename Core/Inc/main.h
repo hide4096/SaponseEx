@@ -107,10 +107,10 @@ void Error_Handler(void);
 #define MOT_L_IN1_GPIO_Port GPIOA
 #define FAN_Pin GPIO_PIN_15
 #define FAN_GPIO_Port GPIOA
-#define LED_FR_L_Pin GPIO_PIN_4
-#define LED_FR_L_GPIO_Port GPIOB
-#define LED_FL_R_Pin GPIO_PIN_5
-#define LED_FL_R_GPIO_Port GPIOB
+#define FR_L_Pin GPIO_PIN_4
+#define FR_L_GPIO_Port GPIOB
+#define FR_LB5_Pin GPIO_PIN_5
+#define FR_LB5_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
