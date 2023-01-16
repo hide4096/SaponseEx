@@ -96,16 +96,17 @@ void init(){
   //迷路情報を初期化
   InitMaze();
 
-  //Compare有効化
-  HAL_TIM_OC_Start(&htim3,TIM_CHANNEL_1);
-  HAL_TIM_OC_Start(&htim3,TIM_CHANNEL_2);
+  //ADC有効化
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
 
   //割り込みを有効化
   HAL_TIM_Base_Start_IT(&htim3);  //interrupt 20kHz
   HAL_TIM_Base_Start_IT(&htim6);  //interrupt 2kHz
   HAL_TIM_Base_Start_IT(&htim7);  //interrupt 1kHz
 
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 5);
+  //Compare有効化
+  HAL_TIM_OC_Start(&htim3,TIM_CHANNEL_1);
+  HAL_TIM_OC_Start(&htim3,TIM_CHANNEL_2);
 }
 
 void mainmenu(){
