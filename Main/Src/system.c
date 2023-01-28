@@ -132,13 +132,11 @@ void mainmenu(){
         while(sensval[FL] + sensval[FR] >= CONFIRM*2);
         break;
       case 2:
-        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        deg = 0;
         while(1){
-          sprintf((char*)txbuf,"%.3f\r\n",deg);
+          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
           printf("%s",txbuf);
           HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
-          HAL_Delay(1000);
+          HAL_Delay(100);
         }
         break;
       case 3:
