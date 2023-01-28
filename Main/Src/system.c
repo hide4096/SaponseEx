@@ -37,7 +37,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //1kHz
     GetBattVoltage();
     ControlDuty();
-    //FailSafe();
+    FailSafe();
     SetLED();
     timer++;
 
@@ -45,7 +45,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     ITM_SendChar(sensval[1]/16,2);
     ITM_SendChar(sensval[2]/16,3);
     ITM_SendChar(sensval[3]/16,4);
-    //printf("%d,%d\r\n",d_encL_val,d_encR_val);
+    ITM_SendChar(deg+128,5);
+    //printf("%.2f,%d\r\n",vbat,adcval[0]);
   }
   else if(htim == &htim10){
     //4kHz
@@ -129,10 +130,10 @@ void mainmenu(){
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
         while(1){
-          sprintf((char*)txbuf,"%.3f\r\n",deg);
+          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
           printf("%s",txbuf);
           HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
-          HAL_Delay(1000);
+          HAL_Delay(100);
         }
         break;
       case 3:

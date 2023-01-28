@@ -116,6 +116,8 @@ void SetWall(uint8_t x,uint8_t y){
     switch(dire_mypos){
         case north:
             w.north = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L || sensval[SSR] > WALL_TH_R);
+            if(w.north == ISWALL) led = 0b101;
+            else led = 0b000;
             w.east  = _WALL_OR_NOWALL(sensval[FR] > WALL_TH_FR);
             w.west  = _WALL_OR_NOWALL(sensval[FL] > WALL_TH_FL);
             w.south = NOWALL;
@@ -168,7 +170,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
     }
 
     if((wall[x_mypos][y_mypos].east & mask) == NOWALL){
-        tmp_priority =GetPriority(x_mypos+1,y_mypos,east);
+        tmp_priority = GetPriority(x_mypos+1,y_mypos,east);
         uint8_t nextstep = step[x_mypos+1][y_mypos];
         if(nextstep < little){
             little = nextstep;
@@ -216,22 +218,21 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
 
 void SearchAdachi(uint8_t gx,uint8_t gy){
     dire_global nextdire;
-    led = 0b010;
     switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
         case front:
-            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
             break;
         case right:
             SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
             break;
         case left:
             SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
             break;
         case back:
             SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
-            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
             break;
     }
 
@@ -254,25 +255,24 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
 
     while((x_mypos != gx) || (y_mypos != gy)){
         SetWall(x_mypos,y_mypos);
-        led = 0b101;
         switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
             case front:
-                Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 break;
             case right:
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 break;
             case left:
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 break;
             case back:
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 break;
         }
         dire_mypos = nextdire;

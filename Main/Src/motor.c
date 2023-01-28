@@ -226,10 +226,33 @@ void ControlDuty(){
   SetDutyRatio(dutyL,dutyR,motR_isCW,motL_isCW);
 }
 
+static uint8_t cnt_disarm = 0;
+
 void FailSafe(){
-  if(vbat > LOWVOLT) return;
-  led=0;
-  while(1);
+  if(vbat > LOWVOLT){
+    cnt_disarm=0;
+    return;
+  }
+
+  cnt_disarm++;
+
+  if(cnt_disarm >= 10){
+    HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_2);
+    HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_3);
+    HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);
+    HAL_TIM_PWM_Stop(&htim2, TIM_CHANNEL_3);
+    HAL_GPIO_WritePin(FAN_GPIO_Port,FAN_Pin,0);
+    HAL_TIM_Base_Stop_IT(&htim6);  //interrupt 2kHz
+    HAL_TIM_Base_Stop_IT(&htim7);  //interrupt 1kHz
+    HAL_TIM_Base_Stop_IT(&htim10);  //interrupt 4kHz
+    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,0);
+    HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,0);
+
+    led=0;
+    SetLED();
+
+    while(1);
+  }
 }
 
 void GetYawDeg(){
