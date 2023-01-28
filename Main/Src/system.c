@@ -46,7 +46,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     ITM_SendChar(sensval[1]/16,2);
     ITM_SendChar(sensval[2]/16,3);
     ITM_SendChar(sensval[3]/16,4);
-    ITM_SendChar((TIM3->CNT)/20,6);
     //printf("%d,%d\r\n",d_encL_val,d_encR_val);
   }
   else if(htim == &htim3){
