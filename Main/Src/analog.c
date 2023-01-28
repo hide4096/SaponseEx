@@ -36,7 +36,7 @@ void TrigWallSens(){
       break;
     default:
       _SETIR(0,0);
-      for(int i=0;i<FLASH_WAIT;i++);
+      for(int i=0;i<DARK_WAIT;i++);
       break;
   }
 
