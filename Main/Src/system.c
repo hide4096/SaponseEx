@@ -123,6 +123,27 @@ void mainmenu(){
         led = 0b000;
         SearchAdachi(GOAL_X,GOAL_Y);
         runmode = DISABLE_MODE;
+
+        if(FlashMemory() != 0){
+          printf("Sector Initialize Failed.\r\n");
+          break;
+        }
+        Blink(10);
+
+        HAL_FLASH_Unlock();
+
+        for(int x=0;x<MAZESIZE_X;x++){
+          for(int y=0;y<MAZESIZE_Y;y++){
+            wall_azim w = wall[x][y];
+            uint32_t _adrs = 0x080E0000 + (x*MAZESIZE_Y+y)*sizeof(uint8_t)*2;
+            HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD,_adrs,(w.north<<8)+w.south);
+            _adrs += sizeof(uint8_t)*2;
+            HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD,_adrs,(w.west<<8)+w.east);
+          }
+        }
+
+        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,0x080FFFF0,cnt);
+
         HAL_Delay(1000);
         while(sensval[FL] + sensval[FR] >= CONFIRM*2);
         break;
@@ -132,8 +153,8 @@ void mainmenu(){
         while(1){
           sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
           printf("%s",txbuf);
-          HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
-          HAL_Delay(100);
+          //HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
+          HAL_Delay(10);
         }
         break;
       case 3:
@@ -167,6 +188,11 @@ void mainmenu(){
         */
         break;
       case 4:
+        if(FlashMemory() != 0){
+          printf("Sector Initialize Failed.\r\n");
+          break;
+        }
+        Blink(10);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         cnt=0;
         HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
@@ -204,13 +230,18 @@ void mainmenu(){
         runmode = DISABLE_MODE;
         HAL_Delay(500);
         break;
-      case 6:
-        led = 0b000;
-        if(FlashMemory() != 0){
-          printf("Sector Initialize Failed.\r\n");
-          break;
+      case 6:{
+          uint32_t _adrs = 0x080E0000;
+          for(int i=0;i<MAZESIZE_X*MAZESIZE_Y;i+=2){
+            uint16_t _fetch = *(uint16_t*)_adrs;
+           printf("%d,%d,",_fetch>>8,_fetch&0xFF);
+           _adrs+=sizeof(uint16_t);
+            _fetch = *(uint16_t*)_adrs;
+            printf("%d,%d\r\n",_fetch>>8,_fetch&0xFF);
+            _adrs+=sizeof(uint16_t);
+          }
+          Blink(10);
         }
-        Blink(10);
         break;
       case 7:
         {

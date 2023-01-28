@@ -116,8 +116,6 @@ void SetWall(uint8_t x,uint8_t y){
     switch(dire_mypos){
         case north:
             w.north = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L || sensval[SSR] > WALL_TH_R);
-            if(w.north == ISWALL) led = 0b101;
-            else led = 0b000;
             w.east  = _WALL_OR_NOWALL(sensval[FR] > WALL_TH_FR);
             w.west  = _WALL_OR_NOWALL(sensval[FL] > WALL_TH_FL);
             w.south = NOWALL;

@@ -40,8 +40,8 @@
 #define DARK_WAIT 300
 
 //迷路情報
-#define GOAL_X 4
-#define GOAL_Y 4
+#define GOAL_X 1
+#define GOAL_Y 1
 #define MAZESIZE_X 16
 #define MAZESIZE_Y 16
 #define FULL_SECTION 90
