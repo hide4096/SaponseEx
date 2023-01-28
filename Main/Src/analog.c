@@ -27,16 +27,16 @@ void TrigWallSens(){
     case 2:
     case 4:
       _SETIR(1,0);
-      for(int i=0;i<300;i++);
+      for(int i=0;i<FLASH_WAIT;i++);
       break;
     case 6:
     case 8:
       _SETIR(0,1);
-      for(int i=0;i<300;i++);
+      for(int i=0;i<FLASH_WAIT;i++);
       break;
     default:
       _SETIR(0,0);
-      for(int i=0;i<300;i++);
+      for(int i=0;i<FLASH_WAIT;i++);
       break;
   }
 
