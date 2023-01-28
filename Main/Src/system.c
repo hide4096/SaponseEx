@@ -5,7 +5,7 @@
 */
 #include"system.h"
 
-static uint8_t mode = 3;
+static uint8_t mode = 2;
 static uint8_t txbuf[64];
 
 unsigned int timer = 0;
@@ -38,6 +38,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     GetBattVoltage();
     ControlDuty();
     //FailSafe();
+    AverageSens();
     SetLED();
     timer++;
 
@@ -45,6 +46,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     ITM_SendChar(sensval[1]/16,2);
     ITM_SendChar(sensval[2]/16,3);
     ITM_SendChar(sensval[3]/16,4);
+    ITM_SendChar((TIM3->CNT)/20,6);
     //printf("%d,%d\r\n",d_encL_val,d_encR_val);
   }
   else if(htim == &htim3){
@@ -113,7 +115,7 @@ void mainmenu(){
   I_angvel = 0;
   angvel = 0;
 
-  if(sensval[FL] + sensval[FR] >= CONFIRM*2){
+  if(sensval[FL] + sensval[FR] >= CONFIRM*2 || 1){
     Blink(2);
     switch (mode){
       case 1:
@@ -136,7 +138,7 @@ void mainmenu(){
           sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
           printf("%s",txbuf);
           HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
-          HAL_Delay(100);
+          HAL_Delay(10);
         }
         break;
       case 3:

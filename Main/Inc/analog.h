@@ -15,5 +15,6 @@ extern float vbat;
 
 void GetBattVoltage();
 void FetchWallSens();
+void AverageSens();
 
 #endif

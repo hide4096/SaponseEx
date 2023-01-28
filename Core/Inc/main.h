@@ -109,8 +109,6 @@ void Error_Handler(void);
 #define FAN_GPIO_Port GPIOA
 #define FR_L_Pin GPIO_PIN_4
 #define FR_L_GPIO_Port GPIOB
-#define FL_R_Pin GPIO_PIN_5
-#define FL_R_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
