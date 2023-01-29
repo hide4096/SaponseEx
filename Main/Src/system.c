@@ -135,14 +135,11 @@ void mainmenu(){
         for(int x=0;x<MAZESIZE_X;x++){
           for(int y=0;y<MAZESIZE_Y;y++){
             wall_azim w = wall[x][y];
-            uint32_t _adrs = 0x080E0000 + (x*MAZESIZE_Y+y)*sizeof(uint8_t)*2;
-            HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD,_adrs,(w.north<<8)+w.south);
-            _adrs += sizeof(uint8_t)*2;
-            HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD,_adrs,(w.west<<8)+w.east);
+            uint32_t _adrs = 0x080E0000 + (x*MAZESIZE_Y+y)*sizeof(uint32_t);
+            uint32_t _burn = w.north*16777216 + w.south*65536 + w.west*256 + w.east;
+            HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,_adrs,_burn);
           }
         }
-
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,0x080FFFF0,cnt);
 
         HAL_Delay(1000);
         while(sensval[FL] + sensval[FR] >= CONFIRM*2);
@@ -232,13 +229,10 @@ void mainmenu(){
         break;
       case 6:{
           uint32_t _adrs = 0x080E0000;
-          for(int i=0;i<MAZESIZE_X*MAZESIZE_Y;i+=2){
-            uint16_t _fetch = *(uint16_t*)_adrs;
-           printf("%d,%d,",_fetch>>8,_fetch&0xFF);
-           _adrs+=sizeof(uint16_t);
-            _fetch = *(uint16_t*)_adrs;
-            printf("%d,%d\r\n",_fetch>>8,_fetch&0xFF);
-            _adrs+=sizeof(uint16_t);
+          for(int i=0;i<MAZESIZE_X*MAZESIZE_Y;i++){
+            uint32_t _fetch = *(uint32_t*)_adrs;
+            printf("%d,%d,%d,%d\r\n",_fetch>>24,(_fetch&0xFF0000)>>16,(_fetch&0xFF00)>>8,_fetch&0xFF);
+            _adrs+=sizeof(uint32_t);
           }
           Blink(10);
         }
