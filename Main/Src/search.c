@@ -152,7 +152,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
     uint8_t tmp_priority,priority = 0;
     uint8_t little = 255;
 
-    if((wall[x_mypos][y_mypos].north & mask) == NOWALL){
+    if((wall[x_mypos][y_mypos].north & mask) == NOWALL && y_mypos < MAZESIZE_Y){
         tmp_priority = GetPriority(x_mypos,y_mypos+1,north);
         uint8_t nextstep = step[x_mypos][y_mypos+1];
         if(nextstep < little){
@@ -167,7 +167,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
         }
     }
 
-    if((wall[x_mypos][y_mypos].east & mask) == NOWALL){
+    if((wall[x_mypos][y_mypos].east & mask) == NOWALL && x_mypos < MAZESIZE_X){
         tmp_priority = GetPriority(x_mypos+1,y_mypos,east);
         uint8_t nextstep = step[x_mypos+1][y_mypos];
         if(nextstep < little){
@@ -182,7 +182,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
         }
     }
 
-    if((wall[x_mypos][y_mypos].south  & mask) == NOWALL){
+    if((wall[x_mypos][y_mypos].south  & mask) == NOWALL && y_mypos < MAZESIZE_Y){
         tmp_priority = GetPriority(x_mypos,y_mypos-1,south);
         uint8_t nextstep = step[x_mypos][y_mypos-1];
         if(nextstep < little){
@@ -197,7 +197,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
         }
     }
 
-    if((wall[x_mypos][y_mypos].west & mask) == NOWALL){
+    if((wall[x_mypos][y_mypos].west & mask) == NOWALL && x_mypos >0){
         tmp_priority =GetPriority(x_mypos-1,y_mypos,west);
         uint8_t nextstep = step[x_mypos-1][y_mypos];
         if(nextstep < little){
