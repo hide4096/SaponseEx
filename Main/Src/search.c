@@ -144,9 +144,9 @@ void SetWall(uint8_t x,uint8_t y){
     wall[x][y] = w;
 
     if(x < MAZESIZE_X-1) wall[x+1][y].west  = w.east;
-    if(y < MAZESIZE_Y-1) wall[x][y+1].north = w.south;
+    if(y < MAZESIZE_Y-1) wall[x][y+1].south = w.north;
     if(x > 0)            wall[x-1][y].east  = w.west;         
-    if(y > 0)            wall[x][y-1].south  = w.north;         
+    if(y > 0)            wall[x][y-1].north  = w.south;         
 }
 
 dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
