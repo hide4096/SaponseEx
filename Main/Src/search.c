@@ -117,25 +117,25 @@ void SetWall(uint8_t x,uint8_t y){
     cnt++;
     switch(dire_mypos){
         case north:
-            w.north = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L || sensval[SSR] > WALL_TH_R);
+            w.north = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L && sensval[SSR] > WALL_TH_R);
             w.east  = _WALL_OR_NOWALL(sensval[FR] > WALL_TH_FR);
             w.west  = _WALL_OR_NOWALL(sensval[FL] > WALL_TH_FL);
             w.south = NOWALL;
             break;
         case south:
-            w.south = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L || sensval[SSR] > WALL_TH_R);
+            w.south = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L && sensval[SSR] > WALL_TH_R);
             w.west  = _WALL_OR_NOWALL(sensval[FR] > WALL_TH_FR);
             w.east  = _WALL_OR_NOWALL(sensval[FL] > WALL_TH_FL);
             w.north = NOWALL;
             break;
         case east:
-            w.east  = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L || sensval[SSR] > WALL_TH_R);
+            w.east  = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L && sensval[SSR] > WALL_TH_R);
             w.south = _WALL_OR_NOWALL(sensval[FR] > WALL_TH_FR);
             w.north = _WALL_OR_NOWALL(sensval[FL] > WALL_TH_FL);
             w.west  = NOWALL;
             break;
         case west:
-            w.west  = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L || sensval[SSR] > WALL_TH_R);
+            w.west  = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L && sensval[SSR] > WALL_TH_R);
             w.north = _WALL_OR_NOWALL(sensval[FR] > WALL_TH_FR);
             w.south = _WALL_OR_NOWALL(sensval[FL] > WALL_TH_FL);
             w.east  = NOWALL;

@@ -28,7 +28,7 @@
 #define FAILSAFE    8.0   //単位はm/s
 #define MIN_SPEED   0.1
 #define SEARCH_ACCEL    2.0     //探索走行の加速度[m/s^2]
-#define SEARCH_SPEED    1.0     //探索走行の速度[m/s]
+#define SEARCH_SPEED    0.4     //探索走行の速度[m/s]
 #define MIN_ANGVEL      (M_PI)     //旋回の最低速度[rad/s]
 #define TURN_ACCEL      (M_PI*10.)     //旋回加速度[rad/s^2]
 #define TURN_SPEED      (M_PI*10.)    //旋回の最高速度[rad/s]
@@ -40,18 +40,18 @@
 #define DARK_WAIT 300
 
 //迷路情報
-#define GOAL_X 1
-#define GOAL_Y 1
+#define GOAL_X 0
+#define GOAL_Y 5 
 #define MAZESIZE_X 16
 #define MAZESIZE_Y 16
 #define FULL_SECTION 90
 #define HALF_SECTION 45
 
 //閾値
-#define WALL_TH_R   60
-#define WALL_TH_L   60
-#define WALL_TH_FR  110
-#define WALL_TH_FL  130
+#define WALL_TH_R   30
+#define WALL_TH_L   30
+#define WALL_TH_FR  100
+#define WALL_TH_FL  100
 #define REF_FR  417
 #define REF_FL  268 
 #define CONFIRM 1500
