@@ -166,32 +166,9 @@ void mainmenu(){
       case 3:
         HAL_Delay(100);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        //Straight(FULL_SECTION,0,0,0);
-        while(1){
-          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-          SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-          SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-          SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-          SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-          SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-          SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-          SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-          Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-          SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-        }
-        //Straight(FULL_SECTION,0,0,0);
-        /*
-        while(1){
-          ITM_SendChar((uint8_t)(spd*1000),1);
-          HAL_Delay(10);
-        }
-        */
+        SpinTurn(360,TURN_ACCEL,TURN_SPEED,RIGHT);
+        HAL_Delay(1000);
+        SpinTurn(360,TURN_ACCEL,TURN_SPEED,LEFT);
         break;
       case 4:
         if(FlashMemory() != 0){
