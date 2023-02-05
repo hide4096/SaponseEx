@@ -39,7 +39,6 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
                     accel = 0.;
             }
         }
-        while(spd >= 0);
     }
     accel = 0;
     len = 0.;

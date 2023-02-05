@@ -150,6 +150,7 @@ void SetWall(uint8_t x,uint8_t y){
 }
 
 dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
+    SetLED();
     CreateMap(gx,gy,mask);
     uint8_t tmp_priority,priority = 0;
     uint8_t little = 255;
@@ -220,19 +221,19 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
     dire_global nextdire;
     switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
         case front:
-            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
         case right:
             SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
         case left:
             SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
         case back:
             SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
-            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+            Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
     }
 
@@ -257,22 +258,22 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
         SetWall(x_mypos,y_mypos);
         switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
             case front:
-                Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+                Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case right:
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case left:
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case back:
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
         }
         dire_mypos = nextdire;
@@ -294,4 +295,5 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
     }
     SetWall(x_mypos,y_mypos);
     Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+    HAL_Delay(100);
 }

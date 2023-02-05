@@ -5,7 +5,7 @@
 */
 #include"system.h"
 
-static uint8_t mode = 3;
+static uint8_t mode = 1;
 static uint8_t txbuf[64];
 
 unsigned int timer = 0;
@@ -166,9 +166,12 @@ void mainmenu(){
       case 3:
         HAL_Delay(100);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        SpinTurn(360,TURN_ACCEL,TURN_SPEED,RIGHT);
+        Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
+        /*
+        SpinTurn(720,TURN_ACCEL,TURN_SPEED,RIGHT);
         HAL_Delay(1000);
-        SpinTurn(360,TURN_ACCEL,TURN_SPEED,LEFT);
+        SpinTurn(720,TURN_ACCEL,TURN_SPEED,LEFT);
+        */
         break;
       case 4:
         if(FlashMemory() != 0){

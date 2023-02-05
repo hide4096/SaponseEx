@@ -7,6 +7,7 @@
 #define SEARCH_H
 
 #include"main.h"
+#include"show.h"
 #include"param.h"
 
 #define _WALL_OR_NOWALL(f) ((f) ? ISWALL : NOWALL)

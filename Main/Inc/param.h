@@ -13,7 +13,7 @@
 
 //ジャイロ
 #define GYROREFTIME 1024
-#define K 1.03
+#define K 1.00
 #define IMULPF 0.1
 
 //エンコーダ
@@ -27,11 +27,11 @@
 #define DELTA_T     0.0005
 #define FAILSAFE    8.0   //単位はm/s
 #define MIN_SPEED   0.1
-#define SEARCH_ACCEL    0.5     //探索走行の加速度[m/s^2]
-#define SEARCH_SPEED    0.3     //探索走行の速度[m/s]
+#define SEARCH_ACCEL    2.0     //探索走行の加速度[m/s^2]
+#define SEARCH_SPEED    1.0     //探索走行の速度[m/s]
 #define MIN_ANGVEL      (M_PI)     //旋回の最低速度[rad/s]
 #define TURN_ACCEL      (M_PI*10.)     //旋回加速度[rad/s^2]
-#define TURN_SPEED      (M_PI*20.)    //旋回の最高速度[rad/s]
+#define TURN_SPEED      (M_PI*10.)    //旋回の最高速度[rad/s]
 #define DELAY 100
 #define ADCWAIT 10
 #define WHEELDIST 35.7  //トレッド幅[mm]

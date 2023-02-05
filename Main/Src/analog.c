@@ -50,6 +50,8 @@ void TrigWallSens(){
       TrigWallSens();
       break;
   }
+
+  FetchWallSens();
 }
 
 void FetchWallSens(){
