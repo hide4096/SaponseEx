@@ -17,6 +17,8 @@
 #include"memory.h"
 
 extern unsigned int timer;
+extern uint32_t cnt;
+extern int32_t save[4][4096];
 
 void DoPanic();
 void init();

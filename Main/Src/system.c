@@ -9,8 +9,8 @@ static uint8_t mode = 3;
 static uint8_t txbuf[64];
 
 unsigned int timer = 0;
-volatile uint32_t cnt = 0;
-volatile int32_t save[4][4096];
+uint32_t cnt = 0;
+int32_t save[4][4096];
 
 void DoPanic(){
   runmode = DISABLE_MODE;
@@ -131,7 +131,7 @@ void mainmenu(){
         Blink(10);
 
         HAL_FLASH_Unlock();
-
+        /*
         for(int x=0;x<MAZESIZE_X;x++){
           for(int y=0;y<MAZESIZE_Y;y++){
             wall_azim w = wall[x][y];
@@ -140,6 +140,15 @@ void mainmenu(){
             HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,_adrs,_burn);
           }
         }
+        */
+        uint32_t _adrs = 0x080E0000;
+        for(int i =0;i<cnt;i++){
+          for(int j=0;j<4;j++){
+            HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,_adrs,save[j][i]);
+            _adrs+=sizeof(int32_t);
+          }
+        }
+        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,0x080FFFF0,cnt);
 
         HAL_Delay(1000);
         while(sensval[FL] + sensval[FR] >= CONFIRM*2);
