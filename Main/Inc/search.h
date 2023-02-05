@@ -22,8 +22,8 @@ typedef struct{
 typedef enum{
     front   = 0,
     right   = 1,
-    left    = 2,
-    back    = 3,
+    back    = 2,
+    left    = 3,
 }dire_local;
 
 typedef enum{
