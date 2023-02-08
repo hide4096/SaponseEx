@@ -150,7 +150,7 @@ void mainmenu(){
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
         while(1){
-          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
           printf("%s",txbuf);
 
           ITM_SendChar(sensval[0]/16,1);

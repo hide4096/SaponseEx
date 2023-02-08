@@ -8,8 +8,7 @@
 #define MAXINITERR  10      //センサ初期化試行回数
 
 //電圧
-#define VBATREF 0.03
-#define LOWVOLT 3.50
+#define LOWVOLT (3.3+0.18)
 
 //ジャイロ
 #define GYROREFTIME 1024
@@ -36,7 +35,7 @@
 #define ADCWAIT 10
 #define WHEELDIST 35.7  //トレッド幅[mm]
 #define LOOPFREQ 1000
-#define FLASH_WAIT 50
+#define FLASH_WAIT 30
 
 //迷路情報
 #define GOAL_X 0
@@ -47,10 +46,10 @@
 #define HALF_SECTION 45
 
 //閾値
-#define WALL_TH_R   30
-#define WALL_TH_L   30
+#define WALL_TH_R   45
+#define WALL_TH_L   20
 #define WALL_TH_FR  100
-#define WALL_TH_FL  100
+#define WALL_TH_FL  27
 #define REF_FR  417
 #define REF_FL  268 
 #define CONFIRM 1500

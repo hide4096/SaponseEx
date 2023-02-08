@@ -51,22 +51,26 @@ static uint16_t GetADCValue(int channel){
   return adcvalue;
 }
 
+static int16_t CutNegative(int16_t number){
+  return number*(number>0);
+}
+
 void TrigWallSens(){
   if(flip){
     uint16_t darkA = GetADCValue(1);
     uint16_t darkB = GetADCValue(3);
     _SETIR(1,0);
     for(int i=0;i<FLASH_WAIT;i++);
-    sensval[0] = GetADCValue(1) - darkA;
-    sensval[2] = GetADCValue(3) - darkB;
+    sensval[0] = CutNegative(GetADCValue(1) - darkA);
+    sensval[2] = CutNegative(GetADCValue(3) - darkB);
     _SETIR(0,0);
   }else{
     uint16_t darkA = GetADCValue(2);
     uint16_t darkB = GetADCValue(4);
     _SETIR(0,1);
     for(int i=0;i<FLASH_WAIT;i++);
-    sensval[1] = GetADCValue(2) - darkA;
-    sensval[3] = GetADCValue(4) - darkB;
+    sensval[1] = CutNegative(GetADCValue(2) - darkA);
+    sensval[3] = CutNegative(GetADCValue(4) - darkB);
     _SETIR(0,0);
 
     GetBattVoltage();
@@ -76,6 +80,5 @@ void TrigWallSens(){
 }
 
 void GetBattVoltage(){
-  vbat = 3.3 * ((float)GetADCValue(9) / 4096.0) * 2.;
-  vbat += VBATREF;
+  vbat = ((float)GetADCValue(9)/4095) * 4.9052;
 }
