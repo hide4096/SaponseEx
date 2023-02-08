@@ -36,8 +36,7 @@
 #define ADCWAIT 10
 #define WHEELDIST 35.7  //トレッド幅[mm]
 #define LOOPFREQ 1000
-#define FLASH_WAIT 700
-#define DARK_WAIT 300
+#define FLASH_WAIT 50
 
 //迷路情報
 #define GOAL_X 0

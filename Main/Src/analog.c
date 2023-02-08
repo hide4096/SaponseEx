@@ -6,64 +6,76 @@
 
 #include"analog.h"
 
-uint16_t adcval[9];
 int16_t sensval[4];
 float vbat = 0;
 
-volatile int16_t offval[4];
-static int adcrank = -1;
+static int flip = 1;
 
 static void _SETIR(uint8_t FRL,uint8_t FLR){
   HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,FRL);
   HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,FLR);
 }
 
-void TrigWallSens(){
-  adcrank=(adcrank+1)%9;
-  switch(adcrank){
-    case 0:
-      _SETIR(0,0);
+static uint16_t GetADCValue(int channel){
+  ADC_ChannelConfTypeDef sConfig = {0};
+  sConfig.SamplingTime = ADC_SAMPLETIME_56CYCLES;
+  sConfig.Rank = 1;
+  switch(channel){
+    case 1:
+      sConfig.Channel = ADC_CHANNEL_1;
       break;
     case 2:
-    case 4:
-      _SETIR(1,0);
-      for(int i=0;i<FLASH_WAIT;i++);
+      sConfig.Channel = ADC_CHANNEL_2;
       break;
-    case 6:
-    case 8:
-      _SETIR(0,1);
-      for(int i=0;i<FLASH_WAIT;i++);
+    case 3:
+      sConfig.Channel = ADC_CHANNEL_3;
+      break;
+    case 4:
+      sConfig.Channel = ADC_CHANNEL_4;
       break;
     default:
-      _SETIR(0,0);
-      for(int i=0;i<DARK_WAIT;i++);
+      sConfig.Channel = ADC_CHANNEL_9;
       break;
   }
-
-  hadc1.Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
-
-  switch(adcrank){
-    case 1:
-    case 3:
-    case 5:
-    case 7:
-      TrigWallSens();
-      break;
+  if(HAL_ADC_ConfigChannel(&hadc1,&sConfig) != HAL_OK){
+    Error_Handler();
   }
 
-  FetchWallSens();
+  HAL_ADC_Start(&hadc1);
+  HAL_ADC_PollForConversion(&hadc1,HAL_MAX_DELAY);
+
+  uint16_t adcvalue = HAL_ADC_GetValue(&hadc1);
+
+  HAL_ADC_Stop(&hadc1);
+
+  return adcvalue;
 }
 
-void FetchWallSens(){
-  if(adcrank == 8){
-    sensval[0] = (adcval[2] - adcval[1])*(adcval[2] > adcval[1]);
-    sensval[1] = (adcval[6] - adcval[5])*(adcval[6] > adcval[5]);
-    sensval[2] = (adcval[4] - adcval[3])*(adcval[4] > adcval[3]);
-    sensval[3] = (adcval[8] - adcval[7])*(adcval[8] > adcval[7]);
+void TrigWallSens(){
+  if(flip){
+    uint16_t darkA = GetADCValue(1);
+    uint16_t darkB = GetADCValue(3);
+    _SETIR(1,0);
+    for(int i=0;i<FLASH_WAIT;i++);
+    sensval[0] = GetADCValue(1) - darkA;
+    sensval[2] = GetADCValue(3) - darkB;
+    _SETIR(0,0);
+  }else{
+    uint16_t darkA = GetADCValue(2);
+    uint16_t darkB = GetADCValue(4);
+    _SETIR(0,1);
+    for(int i=0;i<FLASH_WAIT;i++);
+    sensval[1] = GetADCValue(2) - darkA;
+    sensval[3] = GetADCValue(4) - darkB;
+    _SETIR(0,0);
+
+    GetBattVoltage();
   }
+
+  flip=1-flip;
 }
 
 void GetBattVoltage(){
-  vbat = 3.3 * ((float)adcval[0] / 4096.0) * 2.;
+  vbat = 3.3 * ((float)GetADCValue(9) / 4096.0) * 2.;
   vbat += VBATREF;
 }

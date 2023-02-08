@@ -35,21 +35,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   }
   else if(htim == &htim7){
     //1kHz
-    GetBattVoltage();
     ControlDuty();
     FailSafe();
     SetLED();
     timer++;
-
-    ITM_SendChar(sensval[0]/16,1);
-    ITM_SendChar(sensval[1]/16,2);
-    ITM_SendChar(sensval[2]/16,3);
-    ITM_SendChar(sensval[3]/16,4);
-    ITM_SendChar(deg+128,5);
-    //printf("%.2f,%d\r\n",vbat,adcval[0]);
   }
   else if(htim == &htim10){
-    //4kHz
+    //2kHz
     TrigWallSens();
   }
   else if(htim == &htim11){
@@ -93,15 +85,16 @@ void init(){
   //LED
   led = 0b000;
 
-
   //迷路情報を初期化
   InitMaze();
+
+  //消灯
+  HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,0);
+  HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,0);
 
   HAL_TIM_Base_Start_IT(&htim6);  //interrupt 2kHz
   HAL_TIM_Base_Start_IT(&htim7);  //interrupt 1kHz
   HAL_TIM_Base_Start_IT(&htim10);  //interrupt 4kHz
-
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 9);
 }
 
 void mainmenu(){
@@ -159,7 +152,11 @@ void mainmenu(){
         while(1){
           sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
           printf("%s",txbuf);
-          //HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
+
+          ITM_SendChar(sensval[0]/16,1);
+          ITM_SendChar(sensval[1]/16,2);
+          ITM_SendChar(sensval[2]/16,3);
+          ITM_SendChar(sensval[3]/16,4);
           HAL_Delay(10);
         }
         break;
@@ -220,7 +217,7 @@ void mainmenu(){
           uint32_t _adrs = 0x080E0000;
           for(int i=0;i<MAZESIZE_X*MAZESIZE_Y;i++){
             uint32_t _fetch = *(uint32_t*)_adrs;
-            printf("%d,%d,%d,%d\r\n",_fetch>>24,(_fetch&0xFF0000)>>16,(_fetch&0xFF00)>>8,_fetch&0xFF);
+            printf("%d,%d,%d,%d\r\n",(int)_fetch>>24,(int)(_fetch&0xFF0000)>>16,(int)(_fetch&0xFF00)>>8,(int)_fetch&0xFF);
             _adrs+=sizeof(uint32_t);
           }
           Blink(10);
