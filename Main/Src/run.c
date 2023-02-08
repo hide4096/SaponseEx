@@ -12,7 +12,7 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     tgt_angvel = 0.;
     max_spd = _max_spd;
     accel = _accel;
-    wallfix_is = DISABLE_MODE;
+    wallfix_is = ENABLE_MODE;
     runmode = STRAIGHT_MODE;
 
     if(_end_spd == 0){

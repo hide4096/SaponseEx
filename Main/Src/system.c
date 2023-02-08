@@ -163,7 +163,7 @@ void mainmenu(){
       case 3:
         HAL_Delay(100);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
+        Straight(200,0,0,0);
         /*
         SpinTurn(720,TURN_ACCEL,TURN_SPEED,RIGHT);
         HAL_Delay(1000);

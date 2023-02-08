@@ -251,7 +251,7 @@ void FailSafe(){
     led=0;
     SetLED();
 
-    while(1);
+    while(1) Blink(10);
   }
 }
 

@@ -50,20 +50,20 @@
 #define WALL_TH_L   20
 #define WALL_TH_FR  100
 #define WALL_TH_FL  27
-#define REF_FR  417
-#define REF_FL  268 
-#define CONFIRM 1500
+#define REF_FR  423
+#define REF_FL  361
+#define CONFIRM 2000
 
 //PIDゲイン
 #define R_DIFF 0.3
 #define SPD_KP 10.
-#define SPD_KI 50.0
+#define SPD_KI 100.0
 #define SPD_KD 0.0
 #define ANGVEL_KP 0.6
-#define ANGVEL_KI 10.0
+#define ANGVEL_KI 20.0
 #define ANGVEL_KD 0.01
-#define WALL_KP 0.0
-#define WALL_KI 0.001
+#define WALL_KP -0.0005
+#define WALL_KI -0.0000001
 
 //Iゲイン上限
 #define SPD_I_MAX       10000
