@@ -9,6 +9,7 @@
 #include"main.h"
 #include"show.h"
 #include"param.h"
+#include"odom.h"
 
 #define _WALL_OR_NOWALL(f) ((f) ? ISWALL : NOWALL)
 

@@ -8,7 +8,7 @@
 
 #include"main.h"
 
-extern float x,y;
+extern float pos_x,pos_y;
 
 void CalcPosition();
 

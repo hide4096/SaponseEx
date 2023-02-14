@@ -113,8 +113,13 @@ uint8_t GetPriority(uint8_t x,uint8_t y,dire_global dire){
 
 void SetWall(uint8_t x,uint8_t y){
     wall_azim w;
-    for(int i=0;i<4;i++) save[i][cnt] = sensval[i];
+
+    save[0][cnt] = (int32_t)(sensval[SL] << 16) + sensval[FL];
+    save[1][cnt] = (int32_t)(sensval[FR] << 16) + sensval[SSR];
+    save[2][cnt] = (int32_t)pos_x;
+    save[3][cnt] = (int32_t)pos_y;
     cnt++;
+
     switch(dire_mypos){
         case north:
             w.north = _WALL_OR_NOWALL(sensval[SL] > WALL_TH_L && sensval[SSR] > WALL_TH_R);
