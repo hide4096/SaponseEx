@@ -236,7 +236,7 @@ void FailSafe(){
 
   cnt_disarm++;
 
-  if(cnt_disarm >= 300){
+  if(cnt_disarm >= 150){
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_2);
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_3);
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);

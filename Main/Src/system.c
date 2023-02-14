@@ -164,17 +164,21 @@ void mainmenu(){
         deg = 0;
         len=0;
         while(1){
-          /*
-          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
+          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+          printf("WallSens(SL,FL,FR,SR)\r\n");
           printf("%s",txbuf);
+
+          printf("Voltage\t%.2fV\r\n",vbat);
+          printf("Degree\t%.2f°\r\n",deg);
+          printf("Length\t%.2fmm\r\n",len);
+
+          printf("\033[2J");
 
           ITM_SendChar(sensval[0]/16,1);
           ITM_SendChar(sensval[1]/16,2);
           ITM_SendChar(sensval[2]/16,3);
           ITM_SendChar(sensval[3]/16,4);
-          */
-          printf("%.2f\r\n",len);
-          HAL_Delay(10);
+          HAL_Delay(50);
         }
         break;
       case 3: //宴会芸
