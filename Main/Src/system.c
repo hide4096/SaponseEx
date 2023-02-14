@@ -53,6 +53,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   }
 }
 
+void StartLogging(){
+  cnt = 0;
+  HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
+}
+
 void init(){
   //InitEnc
   uint8_t errcnt = 0;
@@ -104,8 +109,9 @@ void mainmenu(){
   if(sensval[FL] + sensval[FR] >= CONFIRM*2){
     Blink(2);
     switch (mode){
-      case 1:
+      case 1: //探索走行
         Blink(2);
+
         led = 0b111;
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
@@ -113,9 +119,12 @@ void mainmenu(){
         x_mypos = 0;
         y_mypos = 0;
         dire_mypos = north;
+        cnt = 0;
+
         led = 0b000;
+
         SearchAdachi(GOAL_X,GOAL_Y);
-        runmode = DISABLE_MODE;
+
 
         if(FlashMemory() != 0){
           printf("Sector Initialize Failed.\r\n");
@@ -124,6 +133,8 @@ void mainmenu(){
         Blink(10);
 
         HAL_FLASH_Unlock();
+
+        //迷路情報の書き込み
         /*
         for(int x=0;x<MAZESIZE_X;x++){
           for(int y=0;y<MAZESIZE_Y;y++){
@@ -134,6 +145,8 @@ void mainmenu(){
           }
         }
         */
+
+       //センサ値の書き込み
         uint32_t _adrs = 0x080E0000;
         for(int i =0;i<cnt;i++){
           for(int j=0;j<4;j++){
@@ -146,7 +159,7 @@ void mainmenu(){
         HAL_Delay(1000);
         while(sensval[FL] + sensval[FR] >= CONFIRM*2);
         break;
-      case 2:
+      case 2: //センサ値表示
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
         len=0;
@@ -164,28 +177,26 @@ void mainmenu(){
           HAL_Delay(10);
         }
         break;
-      case 3:
+      case 3: //宴会芸
         HAL_Delay(100);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
+        //Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
+        Straight(200,0,0,0);
         HAL_Delay(100);
-        /*
-        SpinTurn(720,TURN_ACCEL,TURN_SPEED,RIGHT);
-        HAL_Delay(1000);
-        SpinTurn(720,TURN_ACCEL,TURN_SPEED,LEFT);
-        */
         break;
-      case 4:
+      case 4: //走行テスト
         if(FlashMemory() != 0){
           printf("Sector Initialize Failed.\r\n");
           break;
         }
+
         Blink(10);
+
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        cnt=0;
         len = 0;
         deg = 0;
-        HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
+
+        StartLogging();
 
         Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
         HAL_Delay(100);
@@ -206,7 +217,7 @@ void mainmenu(){
 
         HAL_FLASH_Lock();
         break;
-      case 5:
+      case 5: //電圧指定して走行
         tvL = tvR = 0;
         runmode = TEST_MODE;
         for(float v=0;v<3.0;v+=0.1){
@@ -216,7 +227,7 @@ void mainmenu(){
         runmode = DISABLE_MODE;
         HAL_Delay(500);
         break;
-      case 6:{
+      case 6:{  //ログダンプ
           uint32_t _adrs = 0x080E0000;
           for(int i=0;i<MAZESIZE_X*MAZESIZE_Y;i++){
             uint32_t _fetch = *(uint32_t*)_adrs;
@@ -226,23 +237,24 @@ void mainmenu(){
           Blink(10);
         }
         break;
-      case 7:
+      case 7: //走行ログダンプ
         {
           uint32_t _adrs = 0x080E0000;
+          const uint32_t ADRS_END = _adrs + sizeof(int32_t)*4*cnt;
           cnt = *(uint32_t*)(0x080FFFF0);
           printf("%ld\r\n",cnt);
 
           int wait = 0;
 
-          while(_adrs<0x080E0000+sizeof(int32_t)*4*cnt){
-            printf("%ld,",*(int32_t*)_adrs);
-            _adrs+=sizeof(int32_t);
-            printf("%ld,",*(int32_t*)_adrs);
-            _adrs+=sizeof(int32_t);
-            printf("%ld,",*(int32_t*)_adrs);
-            _adrs+=sizeof(int32_t);
+          while( _adrs < ADRS_END ){
+            for(int i=0;i<3;i++){
+              printf("%ld,",*(int32_t*)_adrs);
+              _adrs+=sizeof(int32_t);
+            }
             printf("%ld\r\n",*(int32_t*)_adrs);
             _adrs+=sizeof(int32_t);
+
+            //1000行おきに待機
             if(wait>=1000){
               wait = 0;
               HAL_Delay(15000);
@@ -250,6 +262,7 @@ void mainmenu(){
             }else{
               wait++;
             }
+
           } 
           Blink(10);
         }

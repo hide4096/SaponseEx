@@ -55,13 +55,13 @@
 #define CONFIRM 2000
 
 //PIDゲイン
-#define R_DIFF 0.2
+#define R_DIFF 0.3
 #define SPD_KP 20.
-#define SPD_KI 100.
+#define SPD_KI 1000.
 #define SPD_KD 0.001
-#define ANGVEL_KP 0.6
-#define ANGVEL_KI 150.0
-#define ANGVEL_KD 0.5
+#define ANGVEL_KP 0.5
+#define ANGVEL_KI 100.0
+#define ANGVEL_KD 0.25
 #define WALL_KP 0.4
 #define WALL_KI 0.0
 

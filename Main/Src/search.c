@@ -295,5 +295,6 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
     }
     SetWall(x_mypos,y_mypos);
     Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+    runmode = DISABLE_MODE;
     HAL_Delay(100);
 }
