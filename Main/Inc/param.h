@@ -26,7 +26,7 @@
 #define DELTA_T     0.0005
 #define MIN_SPEED   0.05
 #define SEARCH_ACCEL    4.0     //探索走行の加速度[m/s^2]
-#define SEARCH_SPEED    0.4     //探索走行の速度[m/s]
+#define SEARCH_SPEED    0.5     //探索走行の速度[m/s]
 #define MIN_ANGVEL      (M_PI)     //旋回の最低速度[rad/s]
 #define TURN_ACCEL      (M_PI*20.)     //旋回加速度[rad/s^2]
 #define TURN_SPEED      (M_PI*7.)    //旋回の最高速度[rad/s]

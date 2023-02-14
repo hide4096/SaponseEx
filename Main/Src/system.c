@@ -32,6 +32,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //2kHz
     GetSpeed();
     GetYawDeg();
+    CalcPosition();
   }
   else if(htim == &htim7){
     //1kHz
@@ -163,6 +164,7 @@ void mainmenu(){
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
         len=0;
+        x=y=0.;
         while(1){
           sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
           printf("WallSens(SL,FL,FR,SR)\r\n");
@@ -171,6 +173,8 @@ void mainmenu(){
           printf("Voltage\t%.2fV\r\n",vbat);
           printf("Degree\t%.2f°\r\n",deg);
           printf("Length\t%.2fmm\r\n",len);
+          printf("x\t%.2f\r\n",x);
+          printf("y\t%.2f\r\n",y);
 
           printf("\033[2J");
 

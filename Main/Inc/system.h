@@ -15,6 +15,7 @@
 #include"run.h"
 #include"search.h"
 #include"memory.h"
+#include"odom.h"
 
 extern unsigned int timer;
 extern uint32_t cnt;
