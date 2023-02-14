@@ -46,17 +46,29 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     TrigWallSens();
   }
   else if(htim == &htim11){
-      save[0][cnt] = (int32_t)(spd*100000);
-      save[1][cnt] = (int32_t)(len*100);
-      save[2][cnt] = (int32_t)(deg*100);
-      save[3][cnt] = (int32_t)(tgt_spd*100000);
-      cnt++;
+    save[0][cnt] = (int32_t)(spd*100000);
+    save[1][cnt] = (int32_t)(len*100);
+    save[2][cnt] = (int32_t)(deg*100);
+    save[3][cnt] = (int32_t)(tgt_spd*100000);
+    cnt++;
+  }
+  else if(htim == &htim13){
+    save[0][cnt] = (int32_t)(sensval[SL] << 16) + sensval[FL];
+    save[1][cnt] = (int32_t)(sensval[FR] << 16) + sensval[SSR];
+    save[2][cnt] = (int32_t)pos_x;
+    save[3][cnt] = (int32_t)pos_y;
+    cnt++;
+
   }
 }
 
-void StartLogging(){
+void StartLogging(int logtype){
   cnt = 0;
-  HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
+  if(logtype){
+    HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
+  }else{
+    HAL_TIM_Base_Start_IT(&htim13);  //interrupt 100Hz
+  }
 }
 
 void init(){
@@ -120,12 +132,10 @@ void mainmenu(){
         x_mypos = 0;
         y_mypos = 0;
         dire_mypos = north;
-        cnt = 0;
-
+        StartLogging(0);
         led = 0b000;
 
         SearchAdachi(GOAL_X,GOAL_Y);
-
 
         if(FlashMemory() != 0){
           printf("Sector Initialize Failed.\r\n");
@@ -204,7 +214,7 @@ void mainmenu(){
         len = 0;
         deg = 0;
 
-        StartLogging();
+        StartLogging(1);
 
         Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
         HAL_Delay(100);
