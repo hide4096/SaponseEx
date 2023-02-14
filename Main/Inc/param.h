@@ -18,7 +18,7 @@
 //エンコーダ
 #define ENC_MAX     16384   //エンコーダ1回転のステップ数
 #define ENC_HALF    8192
-#define ALPHA 0.65
+#define ALPHA       0.5
 
 //機体情報
 #define TIRE_DIAM   13.4   //タイヤ直径[mm]
@@ -26,11 +26,11 @@
 #define DELTA_T     0.0005
 #define FAILSAFE    8.0   //単位はm/s
 #define MIN_SPEED   0.1
-#define SEARCH_ACCEL    2.0     //探索走行の加速度[m/s^2]
-#define SEARCH_SPEED    0.4     //探索走行の速度[m/s]
+#define SEARCH_ACCEL    4.0     //探索走行の加速度[m/s^2]
+#define SEARCH_SPEED    0.5     //探索走行の速度[m/s]
 #define MIN_ANGVEL      (M_PI)     //旋回の最低速度[rad/s]
-#define TURN_ACCEL      (M_PI*10.)     //旋回加速度[rad/s^2]
-#define TURN_SPEED      (M_PI*10.)    //旋回の最高速度[rad/s]
+#define TURN_ACCEL      (M_PI*20.)     //旋回加速度[rad/s^2]
+#define TURN_SPEED      (M_PI*5.)    //旋回の最高速度[rad/s]
 #define DELAY 100
 #define ADCWAIT 10
 #define WHEELDIST 35.7  //トレッド幅[mm]
@@ -38,16 +38,16 @@
 #define FLASH_WAIT 30
 
 //迷路情報
-#define GOAL_X 0
-#define GOAL_Y 5 
-#define MAZESIZE_X 16
-#define MAZESIZE_Y 16
+#define GOAL_X 3
+#define GOAL_Y 3 
+#define MAZESIZE_X 19
+#define MAZESIZE_Y 19
 #define FULL_SECTION 90
 #define HALF_SECTION 45
 
 //閾値
-#define WALL_TH_R   45
-#define WALL_TH_L   20
+#define WALL_TH_R   40
+#define WALL_TH_L   18
 #define WALL_TH_FR  100
 #define WALL_TH_FL  27
 #define REF_FR  423
@@ -55,15 +55,15 @@
 #define CONFIRM 2000
 
 //PIDゲイン
-#define R_DIFF 0.3
-#define SPD_KP 10.
-#define SPD_KI 100.0
-#define SPD_KD 0.0
+#define R_DIFF 0.2
+#define SPD_KP 20.
+#define SPD_KI 100.
+#define SPD_KD 0.001
 #define ANGVEL_KP 0.6
-#define ANGVEL_KI 20.0
-#define ANGVEL_KD 0.01
-#define WALL_KP -0.0005
-#define WALL_KI -0.0000001
+#define ANGVEL_KI 150.0
+#define ANGVEL_KD 0.5
+#define WALL_KP 0.4
+#define WALL_KI 0.0
 
 //Iゲイン上限
 #define SPD_I_MAX       10000

@@ -46,9 +46,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   }
   else if(htim == &htim11){
       save[0][cnt] = (int32_t)(spd*100000);
-      save[1][cnt] = (int32_t)(d_encL_val);
-      save[2][cnt] = (int32_t)(encL_val);
-      save[3][cnt] = (int32_t)(0);
+      save[1][cnt] = (int32_t)(len*100);
+      save[2][cnt] = (int32_t)(deg*100);
+      save[3][cnt] = (int32_t)(tgt_spd*100000);
       cnt++;
   }
 }
@@ -149,7 +149,9 @@ void mainmenu(){
       case 2:
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
+        len=0;
         while(1){
+          /*
           sprintf((char*)txbuf,"%d\t%d\t%d\t%d\t%.2f\r\n",sensval[0],sensval[1],sensval[2],sensval[3],vbat);
           printf("%s",txbuf);
 
@@ -157,13 +159,16 @@ void mainmenu(){
           ITM_SendChar(sensval[1]/16,2);
           ITM_SendChar(sensval[2]/16,3);
           ITM_SendChar(sensval[3]/16,4);
+          */
+          printf("%.2f\r\n",len);
           HAL_Delay(10);
         }
         break;
       case 3:
         HAL_Delay(100);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(200,0,0,0);
+        Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
+        HAL_Delay(100);
         /*
         SpinTurn(720,TURN_ACCEL,TURN_SPEED,RIGHT);
         HAL_Delay(1000);
@@ -178,14 +183,13 @@ void mainmenu(){
         Blink(10);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         cnt=0;
+        len = 0;
+        deg = 0;
         HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
 
-        tvL=1.0;
-        tvR=1.0;
-        runmode=TEST_MODE;
-        HAL_Delay(3000);
+        Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
+        HAL_Delay(100);
 
-        //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
         runmode = DISABLE_MODE;
 
         HAL_TIM_Base_Stop_IT(&htim11);
@@ -206,7 +210,6 @@ void mainmenu(){
         tvL = tvR = 0;
         runmode = TEST_MODE;
         for(float v=0;v<3.0;v+=0.1){
-          tvL=tvR=v;
           HAL_Delay(100);
         }
         HAL_Delay(3000);

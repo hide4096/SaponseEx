@@ -135,18 +135,18 @@ void ControlDuty(){
       */
       int error = 0;
       if(fl_wall_is && fr_wall_is){
-        error = (sensval[FL] - REF_FL) - (sensval[FR] - REF_FR); 
+        error = (sensval[FR] - REF_FR) - (sensval[FL] - REF_FL); 
       }else if(fl_wall_is){
-        error = (sensval[FL] - REF_FL)*2;
+        error = (sensval[FL] - REF_FL)*-2;
       }else if(fr_wall_is){
-        error = 0. - (sensval[FR] - REF_FR)*2;
+        error = (sensval[FR] - REF_FR)*2;
       }
 
       //PIDして目標角速度に出力
       I_error += error;
       if(I_error > WALLERROR_I_MAX) I_error = WALLERROR_I_MAX;
       if(I_error < -WALLERROR_I_MAX) I_error = -WALLERROR_I_MAX;
-      tgt_angvel = error * WALL_KP + I_error * WALL_KI;
+      tgt_angvel = (error * WALL_KP + I_error * WALL_KI)/1000;
     }else{
       tgt_angvel = 0.;
       I_error = 0.;
@@ -236,7 +236,7 @@ void FailSafe(){
 
   cnt_disarm++;
 
-  if(cnt_disarm >= 100){
+  if(cnt_disarm >= 300){
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_2);
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_3);
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);

@@ -16,7 +16,7 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     runmode = STRAIGHT_MODE;
 
     if(_end_spd == 0){
-        while( (tgt_len - len) > 1000*(((float)(tgt_spd*tgt_spd) - (float)(_end_spd*_end_spd))/(float)(2.0*accel)) );
+        while( ((tgt_len-30) - len) > 1000*(((float)(tgt_spd*tgt_spd) - (float)(_end_spd*_end_spd))/(float)(2.0*accel)) );
         accel = -_accel;
         while(len < tgt_len -1){
             if(tgt_spd <= MIN_SPEED){
@@ -29,7 +29,7 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
         while (spd >= 0.0);
     }else{
         //加速して巡行する
-        while( (tgt_len - len) > 1000*(((float)(tgt_spd*tgt_spd) - (float)(_end_spd*_end_spd))/(float)(2.0*accel)) );
+        while( ((tgt_len-30) - len) > 1000*(((float)(tgt_spd*tgt_spd) - (float)(_end_spd*_end_spd))/(float)(2.0*accel)) );
 
         //ゴールギリ手前まで減速する
         accel = -_accel;
