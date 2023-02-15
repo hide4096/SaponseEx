@@ -36,6 +36,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   }
   else if(htim == &htim7){
     //1kHz
+    if(runmode == CHASE_MODE) GenerateChase();
     ControlDuty();
     FailSafe();
     SetLED();
@@ -170,30 +171,12 @@ void mainmenu(){
         HAL_Delay(1000);
         while(sensval[FL] + sensval[FR] >= CONFIRM*2);
         break;
-      case 2: //センサ値表示
+      case 2: //軌道追従
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        deg = 0;
-        len=0;
-        pos_x=pos_y=0.;
-        while(1){
-          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
-          printf("WallSens(SL,FL,FR,SR)\r\n");
-          printf("%s",txbuf);
-
-          printf("Voltage\t%.2fV\r\n",vbat);
-          printf("Degree\t%.2f°\r\n",deg);
-          printf("Length\t%.2fmm\r\n",len);
-          printf("x\t%.2f\r\n",pos_x);
-          printf("y\t%.2f\r\n",pos_y);
-
-          printf("\033[2J");
-
-          ITM_SendChar(sensval[0]/16,1);
-          ITM_SendChar(sensval[1]/16,2);
-          ITM_SendChar(sensval[2]/16,3);
-          ITM_SendChar(sensval[3]/16,4);
-          HAL_Delay(50);
-        }
+        chase_phase = 0;
+        pos_x=pos_y=0;
+        runmode = CHASE_MODE;
+        while(runmode == CHASE_MODE);
         break;
       case 3: //宴会芸
         HAL_Delay(100);
@@ -235,15 +218,30 @@ void mainmenu(){
 
         HAL_FLASH_Lock();
         break;
-      case 5: //電圧指定して走行
-        tvL = tvR = 0;
-        runmode = TEST_MODE;
-        for(float v=0;v<3.0;v+=0.1){
-          HAL_Delay(100);
+      case 5: //センサ値表示
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        deg = 0;
+        len=0;
+        pos_x=pos_y=0.;
+        while(1){
+          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+          printf("WallSens(SL,FL,FR,SR)\r\n");
+          printf("%s",txbuf);
+
+          printf("Voltage\t%.2fV\r\n",vbat);
+          printf("Degree\t%.2f°\r\n",deg);
+          printf("Length\t%.2fmm\r\n",len);
+          printf("x\t%.2f\r\n",pos_x);
+          printf("y\t%.2f\r\n",pos_y);
+
+          printf("\033[2J");
+
+          ITM_SendChar(sensval[0]/16,1);
+          ITM_SendChar(sensval[1]/16,2);
+          ITM_SendChar(sensval[2]/16,3);
+          ITM_SendChar(sensval[3]/16,4);
+          HAL_Delay(50);
         }
-        HAL_Delay(3000);
-        runmode = DISABLE_MODE;
-        HAL_Delay(500);
         break;
       case 6:{  //ログダンプ
           uint32_t _adrs = 0x080E0000;

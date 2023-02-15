@@ -63,6 +63,9 @@
 #define ANGVEL_KD 0.25
 #define WALL_KP 0.4
 #define WALL_KI 0.0
+#define KX  0.01
+#define KY  0.01
+#define KT  0.01
 
 //Iゲイン上限
 #define SPD_I_MAX       10000
@@ -74,6 +77,7 @@
 #define ENABLE_MODE 1
 #define STRAIGHT_MODE 1
 #define TURN_MODE 2
+#define CHASE_MODE 3
 #define TEST_MODE 4
 #define LEFT    -1
 #define RIGHT   1
