@@ -32,7 +32,7 @@
 #define TURN_SPEED      (M_PI*10.)    //旋回の最高速度[rad/s]
 #define SLALOM_ACCEL      (M_PI*30.)     //旋回加速度[rad/s^2]
 #define SLALOM_SPEED      (M_PI*10.)    //旋回の最高速度[rad/s]
-#define EXTEND 20
+#define EXTEND 15
 #define DELAY 100
 #define ADCWAIT 10
 #define WHEELDIST 35.7  //トレッド幅[mm]

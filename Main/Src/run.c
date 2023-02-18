@@ -109,7 +109,7 @@ void SlalomTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
     I_error = 0;
     accel = 0;
     tgt_angvel = 0;
-    tgt_spd = max_spd = 0.2;
+    tgt_spd = max_spd = 0.25;
     turndir = _dir;
     float start_deg = deg;
     float tgt_deg;
