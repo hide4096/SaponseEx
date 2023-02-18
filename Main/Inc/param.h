@@ -52,8 +52,8 @@
 #define WALL_TH_L   15
 #define WALL_TH_FR  70
 #define WALL_TH_FL  40
-#define REF_FR  423
-#define REF_FL  361
+#define REF_FR  523
+#define REF_FL  381
 #define CONFIRM 2000
 
 //PIDゲイン
@@ -64,7 +64,7 @@
 #define ANGVEL_KP 0.5
 #define ANGVEL_KI 20.0
 #define ANGVEL_KD 0.2
-#define WALL_KP 2.0
+#define WALL_KP 2.5
 #define WALL_KI 0.0
 #define KX  0.1
 #define KY  0.1
