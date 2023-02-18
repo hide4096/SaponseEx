@@ -169,16 +169,16 @@ void ControlDuty(){
 
   //速度フィードバック
   float diff_spd = tgt_spd - spd;
-  float v_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(diff_spd - before_spd)/LOOPFREQ*SPD_KD;
-  before_spd = diff_spd;
+  float v_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(spd - before_spd)/LOOPFREQ*SPD_KD;
+  before_spd = spd;
   I_spd+=diff_spd/LOOPFREQ;
   if(I_spd > SPD_I_MAX) I_spd = SPD_I_MAX;
   else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
 
   //角速度フィードバック
   float diff_angvel = tgt_angvel-angvel;
-  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(diff_angvel - before_angvel)/LOOPFREQ*ANGVEL_KD;
-  before_angvel = diff_angvel;
+  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(angvel - before_angvel)/LOOPFREQ*ANGVEL_KD;
+  before_angvel = angvel;
   I_angvel+=diff_angvel/LOOPFREQ;
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;

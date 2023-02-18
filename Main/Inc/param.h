@@ -28,11 +28,11 @@
 #define SEARCH_ACCEL    4.0     //探索走行の加速度[m/s^2]
 #define SEARCH_SPEED    0.4     //探索走行の速度[m/s]
 #define MIN_ANGVEL      (M_PI)     //旋回の最低速度[rad/s]
-#define TURN_ACCEL      (M_PI*10.)     //旋回加速度[rad/s^2]
-#define TURN_SPEED      (M_PI*7.)    //旋回の最高速度[rad/s]
-#define SLALOM_ACCEL      (M_PI*40.)     //旋回加速度[rad/s^2]
+#define TURN_ACCEL      (M_PI*15.)     //旋回加速度[rad/s^2]
+#define TURN_SPEED      (M_PI*10.)    //旋回の最高速度[rad/s]
+#define SLALOM_ACCEL      (M_PI*30.)     //旋回加速度[rad/s^2]
 #define SLALOM_SPEED      (M_PI*10.)    //旋回の最高速度[rad/s]
-#define EXTEND 12
+#define EXTEND 20
 #define DELAY 100
 #define ADCWAIT 10
 #define WHEELDIST 35.7  //トレッド幅[mm]
@@ -48,10 +48,10 @@
 #define HALF_SECTION 45
 
 //閾値
-#define WALL_TH_R   10
-#define WALL_TH_L   10
-#define WALL_TH_FR  80
-#define WALL_TH_FL  47
+#define WALL_TH_R   15
+#define WALL_TH_L   15
+#define WALL_TH_FR  70
+#define WALL_TH_FL  40
 #define REF_FR  423
 #define REF_FL  361
 #define CONFIRM 2000
@@ -61,11 +61,11 @@
 #define SPD_KP 20.
 #define SPD_KI 160.
 #define SPD_KD 0.001
-#define ANGVEL_KP 0.6
+#define ANGVEL_KP 0.5
 #define ANGVEL_KI 20.0
-#define ANGVEL_KD 0.01
-#define WALL_KP 1.5
-#define WALL_KI 0.
+#define ANGVEL_KD 0.2
+#define WALL_KP 2.0
+#define WALL_KI 0.0
 #define KX  0.1
 #define KY  0.1
 #define KT  0.1

@@ -218,6 +218,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
 
 void SearchAdachi(uint8_t gx,uint8_t gy){
     dire_global nextdire;
+    wallfix_is = ENABLE_MODE;
     switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
         case front:
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
@@ -232,6 +233,7 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
             break;
         case back:
             SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
+            wallfix_is = DISABLE_MODE;
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
     }
@@ -270,10 +272,14 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
                 //Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case back:
-                Straight(HALF_SECTION+25,SEARCH_ACCEL,SEARCH_SPEED,0);
-                SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
-                Straight(20,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
-                break;
+                wallfix_is = DISABLE_MODE;
+                Straight(HALF_SECTION+20,SEARCH_ACCEL,SEARCH_SPEED,0);
+                SpinTurn(180,TURN_ACCEL,TURN_SPEED,LEFT);
+                runmode = TEST_MODE;
+                tvL = tvR = -2.0;
+                HAL_Delay(500);
+                Straight(5,8.0,SEARCH_SPEED,SEARCH_SPEED);
+                runmode = ENABLE_MODE;
         }
         dire_mypos = nextdire;
     

@@ -12,7 +12,6 @@ void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd){
     tgt_angvel = 0.;
     max_spd = _max_spd;
     accel = _accel;
-    wallfix_is = ENABLE_MODE;
     runmode = STRAIGHT_MODE;
 
     if(_end_spd == 0){
@@ -110,7 +109,7 @@ void SlalomTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
     I_error = 0;
     accel = 0;
     tgt_angvel = 0;
-    tgt_spd = max_spd = 0.3;
+    tgt_spd = max_spd = 0.2;
     turndir = _dir;
     float start_deg = deg;
     float tgt_deg;
