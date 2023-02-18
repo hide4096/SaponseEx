@@ -102,3 +102,61 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
     len = 0.;
     HAL_Delay(DELAY);
 }
+
+void SlalomTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
+    Straight(EXTEND,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+    I_angvel = 0.;
+    I_spd = 0.;
+    I_error = 0;
+    accel = 0;
+    tgt_angvel = 0;
+    tgt_spd = max_spd = 0.3;
+    turndir = _dir;
+    float start_deg = deg;
+    float tgt_deg;
+
+    runmode = TURN_MODE;
+
+    if(turndir == LEFT){
+        ang_accel = _ang_accel;
+        max_angvel = _max_angvel;
+        tgt_deg = _deg;
+        while((tgt_deg - (deg - start_deg))*M_PI/180. > (tgt_angvel*tgt_angvel/(2.0*ang_accel)) );
+    }else if(turndir == RIGHT){
+        ang_accel = -_ang_accel;
+        max_angvel = -_max_angvel;
+        tgt_deg = -_deg;
+        while(-(float)(tgt_deg - (deg - start_deg))*M_PI/180. > (float)(tgt_angvel*tgt_angvel/(2.0*-ang_accel)) );
+    }
+
+    if(turndir == LEFT){
+        ang_accel = -_ang_accel;
+        while((deg - start_deg) < tgt_deg){
+            if(tgt_angvel < MIN_ANGVEL){
+                ang_accel = 0.;
+                tgt_angvel = MIN_ANGVEL;
+            }
+        }
+
+        ang_accel = 0.;
+        tgt_angvel = 0.;
+    }else if(turndir == RIGHT){
+        ang_accel = +_ang_accel;
+        while((deg - start_deg) > tgt_deg){
+            if(tgt_angvel > -MIN_ANGVEL){
+                ang_accel = 0.;
+                tgt_angvel = -MIN_ANGVEL;
+            }
+        }
+
+        ang_accel = 0.;
+        tgt_angvel = 0.;
+    }
+
+    while(angvel >= 2.5 || angvel <= -2.5);
+
+    ang_accel = 0.;
+    tgt_angvel = 0.;
+    len = 0.;
+    Straight(EXTEND,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+}

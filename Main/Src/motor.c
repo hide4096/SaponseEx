@@ -138,6 +138,7 @@ void ControlDuty(){
         壁との距離から目標コースとのずれを測る
         壁の有無に応じて切り替えるよ
       */
+
       int error = 0;
       if(fl_wall_is && fr_wall_is){
         error = (sensval[FR] - REF_FR) - (sensval[FL] - REF_FL); 
@@ -151,7 +152,7 @@ void ControlDuty(){
       I_error += error;
       if(I_error > WALLERROR_I_MAX) I_error = WALLERROR_I_MAX;
       if(I_error < -WALLERROR_I_MAX) I_error = -WALLERROR_I_MAX;
-      tgt_angvel = (error * WALL_KP + I_error * WALL_KI)/1000;
+      tgt_angvel = (error * WALL_KP + I_error * WALL_KI)/1000.;
     }else{
       tgt_angvel = 0.;
       I_error = 0.;

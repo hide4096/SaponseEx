@@ -11,5 +11,6 @@
 
 void Straight(float tgt_len,float _accel,float _max_spd,float _end_spd);
 void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir);
+void SlalomTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir);
 
 #endif

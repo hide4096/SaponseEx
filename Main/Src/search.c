@@ -260,19 +260,19 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
                 Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case right:
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-                SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                //Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+                //Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case left:
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
-                SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                //Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,LEFT);
+                //Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case back:
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+                Straight(HALF_SECTION+25,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                Straight(20,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
         }
         dire_mypos = nextdire;

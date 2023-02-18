@@ -165,7 +165,7 @@ float traject[][3]={{0.0000000000,0.0000000000,0.0000000000},
 {85.0000000000,84.9999997369,1.5707963268}};
 
 void GenerateChase(){
-    chase_phase++;
+    chase_phase = len;
     if(chase_phase >= 140){
         runmode = DISABLE_MODE;
         return;
@@ -182,9 +182,7 @@ void GenerateChase(){
     float err_y = -(tgt_x - pos_x)*sin_rad+(tgt_y - pos_y)*cos_rad;
     float err_theta = rad - tgt_rad;
 
-    float Vr = 0.1;
-    float Wr = 0.1;
 
-    tgt_spd = Vr*cos(err_theta) + KX*err_x;
-    tgt_angvel = Wr + Vr*(KY*err_y + KT*sin(err_theta));
+    tgt_spd = tgt_spd*cos(err_theta) + KX*err_x;
+    tgt_angvel = tgt_angvel + tgt_spd*(KY*err_y + KT*sin(err_theta));
 }

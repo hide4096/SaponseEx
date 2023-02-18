@@ -173,10 +173,22 @@ void mainmenu(){
         break;
       case 2: //軌道追従
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        /*
         chase_phase = 0;
         pos_x=pos_y=0;
+        len = 0;
+        tgt_spd = SEARCH_SPEED;
+        tgt_angvel = 0;
         runmode = CHASE_MODE;
         while(runmode == CHASE_MODE);
+        */
+        deg = 0;
+        Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+        SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+        SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+        SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+        SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+        runmode = DISABLE_MODE;
         break;
       case 3: //宴会芸
         HAL_Delay(100);
