@@ -6,5 +6,5 @@
   (lib (name "DRV8212DSGR")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/DRV8212DSGR.kicad_sym")(options "")(descr ""))
   (lib (name "SMT-0540")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/SMT-0540.kicad_sym")(options "")(descr ""))
   (lib (name "IRLML6344")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/IRLML6344.kicad_sym")(options "")(descr ""))
-  (lib (name "NJM2844")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/NJM2844.kicad_sym")(options "")(descr ""))
+  (lib (name "NJM2884")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/NJM2884.kicad_sym")(options "")(descr ""))
 )
