@@ -32,32 +32,43 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     //2kHz
     GetSpeed();
     GetYawDeg();
+    CalcPosition();
   }
   else if(htim == &htim7){
     //1kHz
-    GetBattVoltage();
+    if(runmode == CHASE_MODE) GenerateChase();
     ControlDuty();
     FailSafe();
     SetLED();
     timer++;
-
-    ITM_SendChar(sensval[0]/16,1);
-    ITM_SendChar(sensval[1]/16,2);
-    ITM_SendChar(sensval[2]/16,3);
-    ITM_SendChar(sensval[3]/16,4);
-    ITM_SendChar(deg+128,5);
-    //printf("%.2f,%d\r\n",vbat,adcval[0]);
   }
   else if(htim == &htim10){
-    //4kHz
+    //2kHz
     TrigWallSens();
   }
   else if(htim == &htim11){
-      save[0][cnt] = (int32_t)(spd*100000);
-      save[1][cnt] = (int32_t)(d_encL_val);
-      save[2][cnt] = (int32_t)(encL_val);
-      save[3][cnt] = (int32_t)(0);
-      cnt++;
+    save[0][cnt] = (int32_t)(spd*100000);
+    save[1][cnt] = (int32_t)(len*100);
+    save[2][cnt] = (int32_t)(deg*100);
+    save[3][cnt] = (int32_t)(tgt_spd*100000);
+    cnt++;
+  }
+  else if(htim == &htim13){
+    save[0][cnt] = (int32_t)(sensval[SL] << 16) + sensval[FL];
+    save[1][cnt] = (int32_t)(sensval[FR] << 16) + sensval[SSR];
+    save[2][cnt] = (int32_t)pos_x;
+    save[3][cnt] = (int32_t)pos_y;
+    cnt++;
+
+  }
+}
+
+void StartLogging(int logtype){
+  cnt = 0;
+  if(logtype){
+    HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
+  }else{
+    HAL_TIM_Base_Start_IT(&htim13);  //interrupt 100Hz
   }
 }
 
@@ -93,15 +104,16 @@ void init(){
   //LED
   led = 0b000;
 
-
   //迷路情報を初期化
   InitMaze();
+
+  //消灯
+  HAL_GPIO_WritePin(LED_FR_L_GPIO_Port,LED_FR_L_Pin,0);
+  HAL_GPIO_WritePin(LED_FL_R_GPIO_Port,LED_FL_R_Pin,0);
 
   HAL_TIM_Base_Start_IT(&htim6);  //interrupt 2kHz
   HAL_TIM_Base_Start_IT(&htim7);  //interrupt 1kHz
   HAL_TIM_Base_Start_IT(&htim10);  //interrupt 4kHz
-
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcval, 9);
 }
 
 void mainmenu(){
@@ -111,8 +123,9 @@ void mainmenu(){
   if(sensval[FL] + sensval[FR] >= CONFIRM*2){
     Blink(2);
     switch (mode){
-      case 1:
+      case 1: //探索走行
         Blink(2);
+
         led = 0b111;
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
         deg = 0;
@@ -120,9 +133,10 @@ void mainmenu(){
         x_mypos = 0;
         y_mypos = 0;
         dire_mypos = north;
+        StartLogging(0);
         led = 0b000;
+
         SearchAdachi(GOAL_X,GOAL_Y);
-        runmode = DISABLE_MODE;
 
         if(FlashMemory() != 0){
           printf("Sector Initialize Failed.\r\n");
@@ -131,6 +145,8 @@ void mainmenu(){
         Blink(10);
 
         HAL_FLASH_Unlock();
+
+        //迷路情報の書き込み
         /*
         for(int x=0;x<MAZESIZE_X;x++){
           for(int y=0;y<MAZESIZE_Y;y++){
@@ -141,6 +157,8 @@ void mainmenu(){
           }
         }
         */
+
+       //センサ値の書き込み
         uint32_t _adrs = 0x080E0000;
         for(int i =0;i<cnt;i++){
           for(int j=0;j<4;j++){
@@ -153,42 +171,49 @@ void mainmenu(){
         HAL_Delay(1000);
         while(sensval[FL] + sensval[FR] >= CONFIRM*2);
         break;
-      case 2:
+      case 2: //軌道追従
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        /*
+        chase_phase = 0;
+        pos_x=pos_y=0;
+        len = 0;
+        tgt_spd = SEARCH_SPEED;
+        tgt_angvel = 0;
+        runmode = CHASE_MODE;
+        while(runmode == CHASE_MODE);
+        */
         deg = 0;
-        while(1){
-          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
-          printf("%s",txbuf);
-          //HAL_UART_Transmit(&huart6,txbuf,strlen((char*)txbuf),1000);
-          HAL_Delay(10);
-        }
+        Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+        SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+        SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+        SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+        SlalomTurn(90,SLALOM_ACCEL,SLALOM_SPEED,RIGHT);
+        runmode = DISABLE_MODE;
         break;
-      case 3:
+      case 3: //宴会芸
         HAL_Delay(100);
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
-        /*
-        SpinTurn(720,TURN_ACCEL,TURN_SPEED,RIGHT);
-        HAL_Delay(1000);
-        SpinTurn(720,TURN_ACCEL,TURN_SPEED,LEFT);
-        */
+        //Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
+        Straight(200,0,0,0);
+        HAL_Delay(100);
         break;
-      case 4:
+      case 4: //走行テスト
         if(FlashMemory() != 0){
           printf("Sector Initialize Failed.\r\n");
           break;
         }
+
         Blink(10);
+
         r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
-        cnt=0;
-        HAL_TIM_Base_Start_IT(&htim11);  //interrupt 1kHz
+        len = 0;
+        deg = 0;
 
-        tvL=1.0;
-        tvR=1.0;
-        runmode=TEST_MODE;
-        HAL_Delay(3000);
+        StartLogging(1);
 
-        //Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+        Straight(200,SEARCH_ACCEL,SEARCH_SPEED,0);
+        HAL_Delay(100);
+
         runmode = DISABLE_MODE;
 
         HAL_TIM_Base_Stop_IT(&htim11);
@@ -205,44 +230,64 @@ void mainmenu(){
 
         HAL_FLASH_Lock();
         break;
-      case 5:
-        tvL = tvR = 0;
-        runmode = TEST_MODE;
-        for(float v=0;v<3.0;v+=0.1){
-          tvL=tvR=v;
-          HAL_Delay(100);
+      case 5: //センサ値表示
+        r_yaw_ref = IMU_SurveyBias(GYROREFTIME);
+        deg = 0;
+        len=0;
+        pos_x=pos_y=0.;
+        while(1){
+          sprintf((char*)txbuf,"%d\t%d\t%d\t%d\r\n",sensval[0],sensval[1],sensval[2],sensval[3]);
+          printf("WallSens(SL,FL,FR,SR)\r\n");
+          printf("%s",txbuf);
+
+          printf("Voltage\t%.2fV\r\n",vbat);
+          printf("Degree\t%.2f°\r\n",deg);
+          printf("Length\t%.2fmm\r\n",len);
+          printf("x\t%.2f\r\n",pos_x);
+          printf("y\t%.2f\r\n",pos_y);
+
+          printf("\033[2J");
+
+          ITM_SendChar(sensval[0]/16,1);
+          ITM_SendChar(sensval[1]/16,2);
+          ITM_SendChar(sensval[2]/16,3);
+          ITM_SendChar(sensval[3]/16,4);
+          HAL_Delay(50);
         }
-        HAL_Delay(3000);
-        runmode = DISABLE_MODE;
-        HAL_Delay(500);
         break;
-      case 6:{
+      case 6:{  //ログダンプ
           uint32_t _adrs = 0x080E0000;
           for(int i=0;i<MAZESIZE_X*MAZESIZE_Y;i++){
             uint32_t _fetch = *(uint32_t*)_adrs;
-            printf("%d,%d,%d,%d\r\n",_fetch>>24,(_fetch&0xFF0000)>>16,(_fetch&0xFF00)>>8,_fetch&0xFF);
+            printf("%d,%d,%d,%d\r\n",(int)_fetch>>24,(int)(_fetch&0xFF0000)>>16,(int)(_fetch&0xFF00)>>8,(int)_fetch&0xFF);
             _adrs+=sizeof(uint32_t);
           }
           Blink(10);
         }
         break;
-      case 7:
+      case 7: //走行ログダンプ
         {
           uint32_t _adrs = 0x080E0000;
+          const uint32_t ADRS_END = _adrs + sizeof(int32_t)*4*cnt;
           cnt = *(uint32_t*)(0x080FFFF0);
           printf("%ld\r\n",cnt);
 
           int wait = 0;
 
-          while(_adrs<0x080E0000+sizeof(int32_t)*4*cnt){
-            printf("%ld,",*(int32_t*)_adrs);
-            _adrs+=sizeof(int32_t);
-            printf("%ld,",*(int32_t*)_adrs);
-            _adrs+=sizeof(int32_t);
+          while( _adrs < ADRS_END ){
+            for(int i=0;i<2;i++){
+              int32_t _recv = *(int32_t*)_adrs;
+              printf("%d,",(int16_t)(_recv>>16));
+              printf("%d,",(int16_t)_recv);
+              _adrs+=sizeof(int32_t);
+            }
+
             printf("%ld,",*(int32_t*)_adrs);
             _adrs+=sizeof(int32_t);
             printf("%ld\r\n",*(int32_t*)_adrs);
             _adrs+=sizeof(int32_t);
+
+            //1000行おきに待機
             if(wait>=1000){
               wait = 0;
               HAL_Delay(15000);
@@ -250,6 +295,7 @@ void mainmenu(){
             }else{
               wait++;
             }
+
           } 
           Blink(10);
         }

@@ -106,19 +106,24 @@ void ControlDuty(){
   float vR = 0.,vL = 0.;
 
   //速度生成
-  if(runmode == STRAIGHT_MODE){
-    tgt_spd += accel/1000.;
-    if(tgt_spd > max_spd) tgt_spd = max_spd;
-  }else if(runmode == TURN_MODE){
-    tgt_spd += accel/1000.;
-    if(tgt_spd > max_spd) tgt_spd = max_spd;
 
-    tgt_angvel += ang_accel/1000.0;
-    if(turndir == LEFT){
-      if(tgt_angvel > max_angvel) tgt_angvel = max_angvel;
-    }else if(turndir == RIGHT){
-      if(tgt_angvel < max_angvel) tgt_angvel = max_angvel;
-    }
+  switch(runmode){
+    case STRAIGHT_MODE:
+      tgt_spd += accel/1000.;
+      if(tgt_spd > max_spd) tgt_spd = max_spd;
+      break;
+    
+    case TURN_MODE:
+      tgt_spd += accel/1000.;
+      if(tgt_spd > max_spd) tgt_spd = max_spd;
+
+      tgt_angvel += ang_accel/1000.0;
+      if(turndir == LEFT){
+        if(tgt_angvel > max_angvel) tgt_angvel = max_angvel;
+      }else if(turndir == RIGHT){
+        if(tgt_angvel < max_angvel) tgt_angvel = max_angvel;
+      }
+      break;
   }
 
   //壁制御
@@ -133,20 +138,21 @@ void ControlDuty(){
         壁との距離から目標コースとのずれを測る
         壁の有無に応じて切り替えるよ
       */
+
       int error = 0;
       if(fl_wall_is && fr_wall_is){
-        error = (sensval[FL] - REF_FL) - (sensval[FR] - REF_FR); 
+        error = (sensval[FR] - REF_FR) - (sensval[FL] - REF_FL); 
       }else if(fl_wall_is){
-        error = (sensval[FL] - REF_FL)*2;
+        error = (sensval[FL] - REF_FL)*-2;
       }else if(fr_wall_is){
-        error = 0. - (sensval[FR] - REF_FR)*2;
+        error = (sensval[FR] - REF_FR)*2;
       }
 
       //PIDして目標角速度に出力
       I_error += error;
       if(I_error > WALLERROR_I_MAX) I_error = WALLERROR_I_MAX;
       if(I_error < -WALLERROR_I_MAX) I_error = -WALLERROR_I_MAX;
-      tgt_angvel = error * WALL_KP + I_error * WALL_KI;
+      tgt_angvel = (error * WALL_KP + I_error * WALL_KI)/1000.;
     }else{
       tgt_angvel = 0.;
       I_error = 0.;
@@ -163,16 +169,16 @@ void ControlDuty(){
 
   //速度フィードバック
   float diff_spd = tgt_spd - spd;
-  float v_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(diff_spd - before_spd)/LOOPFREQ*SPD_KD;
-  before_spd = diff_spd;
+  float v_spd = diff_spd*SPD_KP+I_spd*SPD_KI+(spd - before_spd)/LOOPFREQ*SPD_KD;
+  before_spd = spd;
   I_spd+=diff_spd/LOOPFREQ;
   if(I_spd > SPD_I_MAX) I_spd = SPD_I_MAX;
   else if(I_spd < -SPD_I_MAX) I_spd = -SPD_I_MAX;
 
   //角速度フィードバック
   float diff_angvel = tgt_angvel-angvel;
-  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(diff_angvel - before_angvel)/LOOPFREQ*ANGVEL_KD;
-  before_angvel = diff_angvel;
+  float v_angvel = diff_angvel*ANGVEL_KP+I_angvel*ANGVEL_KI+(angvel - before_angvel)/LOOPFREQ*ANGVEL_KD;
+  before_angvel = angvel;
   I_angvel+=diff_angvel/LOOPFREQ;
   if(I_angvel > ANGVEL_I_MAX) I_angvel = ANGVEL_I_MAX;
   else if(I_angvel < -ANGVEL_I_MAX) I_angvel = -ANGVEL_I_MAX;
@@ -236,7 +242,7 @@ void FailSafe(){
 
   cnt_disarm++;
 
-  if(cnt_disarm >= 100){
+  if(cnt_disarm >= 150){
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_2);
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_3);
     HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);
@@ -251,7 +257,7 @@ void FailSafe(){
     led=0;
     SetLED();
 
-    while(1);
+    while(1) Blink(10);
   }
 }
 
