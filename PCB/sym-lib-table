@@ -1,0 +1,10 @@
+(sym_lib_table
+  (lib (name "ICM-20648")(type "Legacy")(uri "Y:/My Drive/reRo/Part/HandMade/ICM-20648.lib")(options "")(descr ""))
+  (lib (name "LBR-127HLD")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/LBR-127HLD.kicad_sym")(options "")(descr ""))
+  (lib (name "NJM2845DL1-33")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/NJM2845DL1-33.kicad_sym")(options "")(descr ""))
+  (lib (name "SSSS810701")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/SSSS810701.kicad_sym")(options "")(descr ""))
+  (lib (name "DRV8212DSGR")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/DRV8212DSGR.kicad_sym")(options "")(descr ""))
+  (lib (name "SMT-0540")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/SMT-0540.kicad_sym")(options "")(descr ""))
+  (lib (name "IRLML6344")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/IRLML6344.kicad_sym")(options "")(descr ""))
+  (lib (name "NJM2884")(type "KiCad")(uri "Y:/My Drive/reRo/Part/HandMade/NJM2884.kicad_sym")(options "")(descr ""))
+)
