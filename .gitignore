@@ -1,7 +1,4 @@
 build
 PCB/SaponseEx-Backups
-.gitignore
-.vscode/.cortex-debug.registers.state.json
-.vscode/configurationCache.log
-.vscode/dryrun.log
-.vscode/targets.log
+.vscode
+!.vscode/c_cpp/settings.json
