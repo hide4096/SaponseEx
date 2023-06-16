@@ -59,12 +59,12 @@
 //PIDゲイン
 #define R_DIFF 0.3
 #define SPD_KP 20.
-#define SPD_KI 160.
-#define SPD_KD 0.001
-#define ANGVEL_KP 0.5
-#define ANGVEL_KI 20.0
-#define ANGVEL_KD 0.2
-#define WALL_KP 2.5
+#define SPD_KI 5.0
+#define SPD_KD 0.0
+#define ANGVEL_KP 1.0
+#define ANGVEL_KI 0.1
+#define ANGVEL_KD 0.0
+#define WALL_KP 0.0
 #define WALL_KI 0.0
 #define KX  0.1
 #define KY  0.1
