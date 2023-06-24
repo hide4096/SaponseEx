@@ -2059,9 +2059,10 @@ extern volatile int32_t ITM_RxBuffer;                              /*!< External
            \li Just returns when no debugger is connected that has booked the output.
            \li Is blocking when a debugger is connected, but the previous character sent has not been transmitted.
   \param [in]     ch  Character to transmit.
+  \param [in] port    Port to transmit define in core_cm4.h
   \returns            Character to transmit.
  */
-__STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch,uint8_t const port)
+__STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch,uint8_t port)
 {
   if (((ITM->TCR & ITM_TCR_ITMENA_Msk) != 0UL) &&      /* ITM enabled */
       ((ITM->TER & (port+1)          ) != 0UL)   )     /* ITM Port #0 enabled */

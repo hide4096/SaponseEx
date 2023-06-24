@@ -111,6 +111,7 @@ void Error_Handler(void);
 #define LED_FR_L_GPIO_Port GPIOB
 #define LED_FL_R_Pin GPIO_PIN_5
 #define LED_FL_R_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
