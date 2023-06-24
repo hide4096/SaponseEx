@@ -144,7 +144,7 @@ float IMU_SurveyBias(int _reftime){
         r_yaw_ref_tmp += gyroZ();
         for(int i=0;i<300;i++) __NOP();
     }
-  return (float)(r_yaw_ref_tmp / GYROREFTIME);
+  return (float)(r_yaw_ref_tmp / _reftime);
 }
 
 int16_t accelX_raw(){
