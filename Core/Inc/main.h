@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
+  * Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -33,11 +33,8 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 #include<stdio.h>
 #include<stdlib.h>
-#include<math.h>
 #define ARM_MATH_CM4
 #include"arm_math.h"
-#include"system.h"
-#include"param.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
