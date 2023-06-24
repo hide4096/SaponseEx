@@ -108,11 +108,13 @@ static int IMU_changeSensitivity(uint8_t _gyro,uint8_t _accel){
     return 0;
 }
 
-uint8_t readWHO_AM_I(){
+static uint8_t readWHO_AM_I(){
     return IMU_readRegister(0x00);
 }
 
-int IMU_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
+// ここから外部公開関数
+
+int icm20648_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
     himu = handle;
     _port_cs = port;
     _pin_cs = pin;
@@ -122,7 +124,7 @@ int IMU_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
     while(whoami != WHO_AM_I){
         HAL_Delay(100);
         whoami = readWHO_AM_I();
-        printf("%x\r\n",whoami);
+        //printf("%x\r\n",whoami);
         errcnt++;
         if(errcnt >= RETRY_INIT) return -1;
     }
@@ -138,7 +140,7 @@ int IMU_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
     return 0;
 }
 
-float IMU_SurveyBias(int _reftime){
+float icm20648_SurveyBias(int _reftime){
     float r_yaw_ref_tmp = 0;
     for(uint16_t i = 0;i<_reftime;i++){
         r_yaw_ref_tmp += gyroZ();

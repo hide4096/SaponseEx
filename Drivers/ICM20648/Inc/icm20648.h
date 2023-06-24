@@ -11,10 +11,8 @@
 #include"spi.h"
 
 
-int IMU_init(SPI_HandleTypeDef*,GPIO_TypeDef*,uint16_t);
-float IMU_SurveyBias(int);
-
-uint8_t  readWHO_AM_I();
+int icm20648_init(SPI_HandleTypeDef*,GPIO_TypeDef*,uint16_t);
+float icm20648_SurveyBias(int);
 
 int16_t accelX_raw();
 int16_t accelY_raw();
