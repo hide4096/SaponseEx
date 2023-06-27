@@ -14,9 +14,10 @@ static uint8_t CalcEvenParity(uint16_t data){
 }
 
 static inline uint16_t GenerateSendCommand(uint16_t data,uint8_t rw){
-    uint16_t command = 0;
-    command = (data & 0x3FFF) + (rw << 14);
-    command = command + (CalcEvenParity(command) << 15);
+    uint16_t command;
+    command = data & 0x3FFF;
+    command |= rw << 14;
+    command |= CalcEvenParity(command) << 15;
     return command;
 }
 
@@ -27,6 +28,8 @@ static int readRegister(uint16_t address,uint16_t* data){
     _send[0] = send >> 8;
     _send[1] = send & 0xFF;
     uint8_t _recv[2];
+
+    __NOP();
 
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_RESET);
     HAL_SPI_Transmit(henc,_send,2,HAL_MAX_DELAY);
@@ -67,8 +70,21 @@ static int writeRegister(uint16_t address,uint16_t data){
 
 //ここから外部公開関数
 
-uint8_t WHOAMI(){
-    uint16_t recv;
-    readRegister(0x0001,&recv);
-    return recv;
+int as5047p_init(SPI_HandleTypeDef* handle,GPIO_TypeDef* port,uint16_t pin){
+    henc = handle;
+    _cs_port = port;
+    _cs_pin = pin;
+
+    HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
+    HAL_Delay(10);
+
+    uint16_t data;
+    if(readRegister(0x0001,&data) != 0){
+        return -1;
+    }
+
+    readRegister(0x3FFE,&data);
+    printf("%x\r\n",data);
+
+    return 0;
 }
