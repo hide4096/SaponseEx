@@ -5,5 +5,6 @@ void system_init(){
         printf("ICM-20648 init failed\r\n");
         while(1);
     }
+    printf("0x%x\r\n",WHOAMI());
     printf("Hello World!\r\n");
 }
