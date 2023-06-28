@@ -22,14 +22,19 @@ static inline uint16_t GenerateSendCommand(uint16_t data,uint8_t rw){
 }
 
 
-static int readRegister(uint16_t address,uint16_t* data){
+int16_t readRegister(uint16_t address){
     uint16_t send = GenerateSendCommand(address,1);
     uint16_t recv;
 
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_RESET);
-    HAL_SPI_TransmitReceive(henc,(uint8_t*)&send,(uint8_t*)&recv,1,HAL_MAX_DELAY);
+    HAL_SPI_Transmit(henc,(uint8_t*)&send,2,HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
+    HAL_Delay(1);
+    HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_RESET);
+    HAL_SPI_Receive(henc,(uint8_t*)&recv,2,HAL_MAX_DELAY);
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
 
+    printf("%x\r\n",recv);
 
     if(CalcEvenParity(recv) != recv>>15){
         printf("Parity error\r\n");
@@ -40,8 +45,7 @@ static int readRegister(uint16_t address,uint16_t* data){
         return -1;
     }
 
-    *data = recv & 0x3FFF;
-    return 0;
+    return recv & 0x3FFF;
 }
 
 static int writeRegister(uint16_t address,uint16_t data){
@@ -66,15 +70,9 @@ int as5047p_init(SPI_HandleTypeDef* handle,GPIO_TypeDef* port,uint16_t pin){
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
     HAL_Delay(10);
 
-    uint16_t data;
-    if(readRegister(0x0001,&data) != 0){
+    if(readRegister(0x0001) != 0){
         return -1;
     }
+    printf("%x\r\n",readRegister(0x3FFF));
     return 0;
-}
-
-float as5047p_getAngle(){
-    uint16_t data;
-    readRegister(0x3FFF,&data);
-    return (float)data * 360.0f / 16384.0f;
 }
