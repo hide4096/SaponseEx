@@ -730,6 +730,7 @@ AS5047P_ErrCode AS5047P_Init(AS5047P_Instance * instance, uint16_t id)
 
   //--- Read error register value after clear. Must be zero.
   readRegErrCode = AS5047P_ReadRegister(instance, AS5047P_ERRFL ,AS5047P_OPT_ENABLED);
+  printf("Init1:%d\r\n",readRegErrCode);
 
   //--- Error register read failed
   if( readRegErrCode < 0)
@@ -1138,6 +1139,7 @@ AS5047P_ErrCode AS5047P_SetZeroPosition(AS5047P_Instance * instance)
       ************************************************************************************/
 
      currZPOSLContent = AS5047P_ReadRegister(instance, AS5047P_ZPOSL ,AS5047P_OPT_ENABLED);
+     printf("currZPOSLContent = %d\n",currZPOSLContent);
 
      if(currZPOSLContent < 0 )
      {
@@ -1173,6 +1175,7 @@ AS5047P_ErrCode AS5047P_SetZeroPosition(AS5047P_Instance * instance)
      ************************************************************************************/
 
     currPosition = AS5047P_ReadRegister(instance, AS5047P_ANGLECOM ,AS5047P_OPT_ENABLED);
+    printf("currPosition = %d\n",currPosition);
 
     //--- Position reading failed
     if(currPosition < 0 )
