@@ -32,7 +32,9 @@ void system_init(){
         send |= 1 << 14;
         send |= 1 << 15;
         HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
-        HAL_SPI_TransmitReceive(&hspi1,(uint8_t*)&send,(uint8_t*)&recv,1,HAL_MAX_DELAY);
+        //HAL_SPI_TransmitReceive(&hspi1,(uint8_t*)&send,(uint8_t*)&recv,1,HAL_MAX_DELAY);
+        HAL_SPI_Transmit(&hspi1,(uint8_t*)&send,1,HAL_MAX_DELAY);
+        //HAL_SPI_Receive(&hspi1,(uint8_t*)&recv,1,HAL_MAX_DELAY);
         HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET);
 
         send = 0x3FFC;
@@ -41,7 +43,9 @@ void system_init(){
         recv = 0;
 
         HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
-        HAL_SPI_TransmitReceive(&hspi1,(uint8_t*)&send,(uint8_t*)&recv,1,HAL_MAX_DELAY);
+        //HAL_SPI_TransmitReceive(&hspi1,(uint8_t*)&send,(uint8_t*)&recv,1,HAL_MAX_DELAY);
+        //HAL_SPI_Transmit(&hspi1,(uint8_t*)&send,1,HAL_MAX_DELAY);
+        HAL_SPI_Receive(&hspi1,(uint8_t*)&recv,1,HAL_MAX_DELAY);
         HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET);
         printf("%d\r\n",recv&0x3FFF);
         HAL_Delay(500);
