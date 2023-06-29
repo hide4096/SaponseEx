@@ -24,7 +24,7 @@ static inline uint16_t GenerateSendCommand(uint16_t data,uint8_t rw){
 
 int16_t readRegister(uint16_t address){
     uint16_t send = GenerateSendCommand(address,1);
-    uint16_t recv;
+    uint16_t recv = 0;
 
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_RESET);
     HAL_SPI_Transmit(henc,(uint8_t*)&send,1,HAL_MAX_DELAY);
@@ -35,13 +35,14 @@ int16_t readRegister(uint16_t address){
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
 
     if(CalcEvenParity(recv) != recv>>15){
-        printf("Parity error\r\n");
+        //printf("Parity error\r\n");
         return -1;
     }
     if(recv & 0x4000){
-        printf("Error occurred\r\n");
+        //printf("Error occurred\r\n");
         return -1;
     }
+
 
     return recv & 0x3FFF;
 }
@@ -53,6 +54,7 @@ int as5047p_init(SPI_HandleTypeDef* handle,GPIO_TypeDef* port,uint16_t pin){
     _cs_pin = pin;
 
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
+    readRegister(0x0001);
     if(readRegister(0x0001) != 0){
         return -1;
     }
