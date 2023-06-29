@@ -5,7 +5,6 @@ void system_init(){
         printf("ICM-20648 init failed\r\n");
         while(1);
     }
-    printf("%d\r\n",accelX_raw());
     if(as5047p_init(&hspi1,GPIOB,GPIO_PIN_2) == -1){
         printf("AS5047P init failed\r\n");
         while(1);
@@ -14,6 +13,6 @@ void system_init(){
     while(1){
         printf("%d\r\n",readAngle());
         //printf("%d\r\n",accelX_raw());
-        HAL_Delay(100);
+        HAL_Delay(500);
     }
 }

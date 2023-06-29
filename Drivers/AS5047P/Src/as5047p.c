@@ -29,6 +29,7 @@ int16_t readRegister(uint16_t address){
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_RESET);
     HAL_SPI_Transmit(henc,(uint8_t*)&send,1,HAL_MAX_DELAY);
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
+
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_RESET);
     HAL_SPI_Receive(henc,(uint8_t*)&recv,1,HAL_MAX_DELAY);
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
@@ -52,7 +53,6 @@ int as5047p_init(SPI_HandleTypeDef* handle,GPIO_TypeDef* port,uint16_t pin){
     _cs_pin = pin;
 
     HAL_GPIO_WritePin(_cs_port,_cs_pin,GPIO_PIN_SET);
-
     if(readRegister(0x0001) != 0){
         return -1;
     }
