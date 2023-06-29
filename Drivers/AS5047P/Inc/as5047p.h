@@ -3,7 +3,13 @@
 
 #include"spi.h"
 
-int as5047p_init(SPI_HandleTypeDef*,GPIO_TypeDef*,uint16_t);
-int16_t readAngle(void);
+struct as5047p{
+    SPI_HandleTypeDef* henc;
+    GPIO_TypeDef* cs_port;
+    uint16_t cs_pin;
+};
+
+int as5047p_init(struct as5047p*);
+int16_t readAngle(struct as5047p*);
 
 #endif
