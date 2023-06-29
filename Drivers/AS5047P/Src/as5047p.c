@@ -48,6 +48,10 @@ int as5047p_init(struct as5047p* enc){
     if(readRegister(enc,0x0001) != 0){
         return -1;
     }
+    int16_t err = readRegister(enc,0x3FFC);
+    if(err >> 8 != 0x1){
+        return -1;
+    }
     return 0;
 }
 
