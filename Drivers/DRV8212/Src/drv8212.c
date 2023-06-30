@@ -27,20 +27,20 @@ static void drv8212_stop(struct drv8212* hdrv){
 }
 
 void Motors_init(struct opposedMotors* hmtrs){
-    drv8212_init(hmtrs->hdrv_r);
-    drv8212_init(hmtrs->hdrv_l);
-    drv8212_set(hmtrs->hdrv_r,0.);
-    drv8212_set(hmtrs->hdrv_l,0.);
+    drv8212_init(hmtrs->hdrvR);
+    drv8212_init(hmtrs->hdrvL);
+    drv8212_set(hmtrs->hdrvR,0.);
+    drv8212_set(hmtrs->hdrvL,0.);
 }
 
 void Motors_set(struct opposedMotors* hmtrs){
-    drv8212_set(hmtrs->hdrv_r,hmtrs->pwm_r,hmtrs->pwm_r);
-    drv8212_set(hmtrs->hdrv_l,hmtrs->pwm_l,hmtrs->pwm_l);
+    drv8212_set(hmtrs->hdrvR,hmtrs->pwmR);
+    drv8212_set(hmtrs->hdrvL,hmtrs->pwmL);
 }
 
 void Motors_stop(struct opposedMotors* hmtrs){
-    drv8212_set(hmtrs->hdrv_r,0.);
-    drv8212_set(hmtrs->hdrv_l,0.);
-    drv8212_stop(hmtrs->hdrv_r);
-    drv8212_stop(hmtrs->hdrv_l);
+    drv8212_set(hmtrs->hdrvR,0.);
+    drv8212_set(hmtrs->hdrvL,0.);
+    drv8212_stop(hmtrs->hdrvR);
+    drv8212_stop(hmtrs->hdrvL);
 }

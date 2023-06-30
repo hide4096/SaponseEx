@@ -40,6 +40,7 @@ $(wildcard Core/Src/*.c) \
 $(wildcard Main/Src/*.c) \
 $(wildcard Drivers/STM32F4xx_HAL_Driver/Src/*.c) \
 $(wildcard Drivers/ICM20648/Src/*.c) \
+$(wildcard Drivers/DRV8212/Src/*.c) \
 $(wildcard Drivers/AS5047P/Src/*.c)
 
 # ASM sources
