@@ -4,17 +4,18 @@
 #include "tim.h"
 
 struct drv8212{
-    TIM_HandleTypeDef* htim1;
-    uint32_t ch1;
-    TIM_HandleTypeDef* htim2;
-    uint32_t ch2;
+    TIM_HandleTypeDef* hin1;
+    uint32_t in1_ch;
+    TIM_HandleTypeDef* hin2;
+    uint32_t in2_ch;
+    uint8_t is_reverse;
 };
 
 struct opposedMotors{
-    struct drv8212* hdrv_r;
-    struct drv8212* hdrv_l;
-    int16_t pwm_r;
-    int16_t pwm_l;
+    struct drv8212* hdrvR;
+    struct drv8212* hdrvL;
+    double pwmR;
+    double pwmL;
 };
 
 void Motors_init(struct opposedMotors*);

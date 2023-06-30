@@ -105,7 +105,8 @@ C_INCLUDES =  \
 -IDrivers/CMSIS/Include \
 -IMiddlewares/ST/ARM/DSP/Inc \
 -IDrivers/AS5047P/Inc \
--IDrivers/ICM20648/Inc
+-IDrivers/ICM20648/Inc \
+-IDrivers/DRV8212/Inc
 
 
 # compile gcc flags

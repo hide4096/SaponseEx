@@ -3,15 +3,11 @@
 
 #include"spi.h"
 
-enum direction{
-    CW,
-    CCW
-};
 struct as5047p{
     SPI_HandleTypeDef* henc;
     GPIO_TypeDef* cs_port;
-    uint8_t direction;
     uint16_t cs_pin;
+    uint8_t is_reverse;
 };
 
 int as5047p_init(struct as5047p*);

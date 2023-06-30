@@ -65,7 +65,7 @@ int16_t readAngle(struct as5047p* enc){
     if(angle == -1){
         return -1;
     }
-    if(enc->direction == CW){
+    if(enc->is_reverse){
         return 0x3FFF - angle;
     }else{
         return angle;
