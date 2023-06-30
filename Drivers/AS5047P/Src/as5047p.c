@@ -1,5 +1,7 @@
 #include"as5047p.h"
 
+#define RETRY_INIT 5
+
 static uint8_t CalcEvenParity(uint16_t data){
     uint8_t parity = 0;
     data &= 0x7FFF;
@@ -44,17 +46,28 @@ static int16_t readRegister(struct as5047p* enc,uint16_t address){
 
 //ここから外部公開関数
 int as5047p_init(struct as5047p* enc){
+    uint8_t retrycnt = 0;
     readRegister(enc,0x0001);
-    if(readRegister(enc,0x0001) != 0){
-        return -1;
-    }
-    int16_t err = readRegister(enc,0x3FFC);
-    if(err >> 8 != 0x1){
-        return -1;
+    while (retrycnt < RETRY_INIT){
+        if(readRegister(enc,0x0001) == 0){
+            if(readRegister(enc,0x3FFC) >> 8 == 0x1){
+                break;
+            }
+        }
+        retrycnt++;
+        HAL_Delay(10);
     }
     return 0;
 }
 
 int16_t readAngle(struct as5047p* enc){
-  return readRegister(enc,0x3FFF);
+    int16_t angle = readRegister(enc,0x3FFF);
+    if(angle == -1){
+        return -1;
+    }
+    if(enc->direction == CW){
+        return 0x3FFF - angle;
+    }else{
+        return angle;
+    }
 }
