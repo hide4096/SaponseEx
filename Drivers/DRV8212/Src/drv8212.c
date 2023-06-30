@@ -5,7 +5,7 @@ static void drv8212_init(struct drv8212* hdrv){
     HAL_TIM_PWM_Start(hdrv->hin2,hdrv->in2_ch);
 }
 
-static void drv8212_set(struct drv8212* hdrv,float _dutyratio){
+static void drv8212_set(struct drv8212* hdrv,double _dutyratio){
     double ratio = _dutyratio;
     if(ratio > 1.) ratio = 1.;
     else if(ratio < -1.) ratio = -1.;

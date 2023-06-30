@@ -43,7 +43,7 @@ void system_init(){
     };
 
     Motors_init(&motors);
-    Motors_set(&motors,0.0,0.0);
+    Motors_stop(&motors);
 
     printf("Hello World!\r\n\n");
     while(1){
