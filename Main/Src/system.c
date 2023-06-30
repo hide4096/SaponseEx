@@ -27,23 +27,23 @@ void system_init(){
         .hin1 = &htim1,
         .hin2 = &htim2,
         .in1_ch = TIM_CHANNEL_1,
-        .in2_ch = TIM_CHANNEL_1,
+        .in2_ch = TIM_CHANNEL_3,
         .is_reverse = FALSE
     };
     struct drv8212 drvL = {
         .hin1 = &htim1,
-        .hin2 = &htim2,
-        .in1_ch = TIM_CHANNEL_1,
-        .in2_ch = TIM_CHANNEL_1,
+        .hin2 = &htim1,
+        .in1_ch = TIM_CHANNEL_3,
+        .in2_ch = TIM_CHANNEL_2,
         .is_reverse = TRUE
     };
     struct opposedMotors motors = {
         .hdrvR = &drvR,
         .hdrvL = &drvL,
-        .pwmR = 0.,
-        .pwmL = 0.
     };
+
     Motors_init(&motors);
+    Motors_set(&motors,0.0,0.0);
 
     printf("Hello World!\r\n\n");
     while(1){

@@ -19,7 +19,7 @@ struct opposedMotors{
 };
 
 void Motors_init(struct opposedMotors*);
-void Motors_set(struct opposedMotors*);
+void Motors_set(struct opposedMotors*,double,double);
 void Motors_stop(struct opposedMotors*);
 
 #endif
