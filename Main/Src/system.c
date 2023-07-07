@@ -1,8 +1,25 @@
 #include"system.h"
 
+struct mouse_physical target = {
+    .v = 0,
+    .w = 0
+};
+
 struct mouse_physical mouse = {
     .v = 0,
     .w = 0
+};
+
+const struct gain straight = {
+    .Kp = 2.0f,
+    .Ki = 0.001f,
+    .Kd = 0.0f
+};
+
+const struct gain turn = {
+    .Kp = 2.0f,
+    .Ki = 0.001f,
+    .Kd = 0.0f
 };
 
 struct drv8212 drvR = {
@@ -61,16 +78,13 @@ void system_init(){
         while(1);
     }
 
-    
-
     Motors_init(&motors);
-    Motors_halt(&motors);
 
     interrupt_init();
 
     printf("Hello World!\r\n\n");
     while(1){
-        printf("%d\t%d\r\n",readAngle(&encR),readAngle(&encL));
+        printf("v:%f w:%f\r\n",mouse.v,mouse.w);
         HAL_Delay(100);
     }
 }

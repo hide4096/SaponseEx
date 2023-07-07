@@ -66,7 +66,7 @@ int16_t readAngle(struct as5047p* enc){
         return -1;
     }
     if(enc->is_reverse){
-        return 0x3FFF - angle;
+        return AS5047P_MAX_ANGLE - angle;
     }else{
         return angle;
     }

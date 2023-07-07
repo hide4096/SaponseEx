@@ -3,6 +3,8 @@
 
 #include"spi.h"
 
+#define AS5047P_MAX_ANGLE 0x3FFF
+
 struct as5047p{
     SPI_HandleTypeDef* henc;
     GPIO_TypeDef* cs_port;
