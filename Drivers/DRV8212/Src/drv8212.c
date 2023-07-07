@@ -5,19 +5,18 @@ static void drv8212_init(struct drv8212* hdrv){
     HAL_TIM_PWM_Start(hdrv->hin2,hdrv->in2_ch);
 }
 
-static void drv8212_set(struct drv8212* hdrv,double _dutyratio){
-    double ratio = _dutyratio;
-    if(ratio > 1.) ratio = 1.;
-    else if(ratio < -1.) ratio = -1.;
-
+static void drv8212_set(struct drv8212* hdrv,double _ratio){
     uint32_t max1 = hdrv->hin1->Init.Period;
     uint32_t max2 = hdrv->hin2->Init.Period;
 
-    if((ratio > 0.) ^ (hdrv->is_reverse)){
+    double dutyratio = fabs(_ratio);
+    if(dutyratio > 1.) dutyratio = 1.;
+
+    if((_ratio > 0.) ^ (hdrv->is_reverse)){
         __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in1_ch,max1);
-        __HAL_TIM_SET_COMPARE(hdrv->hin2,hdrv->in2_ch,(1.0-ratio)*max2);
+        __HAL_TIM_SET_COMPARE(hdrv->hin2,hdrv->in2_ch,dutyratio*max2);
     }else{
-        __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in1_ch,(ratio+1.0)*max1);
+        __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in1_ch,dutyratio*max1);
         __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in2_ch,max2);
     }
 }
