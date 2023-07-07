@@ -36,6 +36,7 @@ extern "C" {
 #define ARM_MATH_CM4
 #include"arm_math.h"
 #include"system.h"
+#include"interrupt.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

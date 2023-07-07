@@ -95,11 +95,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_TIM6_Init();
-  MX_TIM7_Init();
   MX_USART6_UART_Init();
-  MX_TIM10_Init();
-  MX_TIM11_Init();
-  MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
   system_init();
 
@@ -171,6 +167,12 @@ int _write(int file, char *ptr, int len)
     ITM_SendChar(*ptr++,0);
   }
   return len;
+}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if(htim->Instance == TIM6){
+    interrupt_1ms();
+  }
 }
 /* USER CODE END 4 */
 
