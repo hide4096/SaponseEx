@@ -30,6 +30,7 @@ void system_init(){
         .in2_ch = TIM_CHANNEL_3,
         .is_reverse = FALSE
     };
+
     struct drv8212 drvL = {
         .hin1 = &htim1,
         .hin2 = &htim1,
@@ -37,13 +38,15 @@ void system_init(){
         .in2_ch = TIM_CHANNEL_2,
         .is_reverse = TRUE
     };
+
     struct opposedMotors motors = {
         .hdrvR = &drvR,
         .hdrvL = &drvL,
     };
 
     Motors_init(&motors);
-    Motors_stop(&motors);
+    Motors_set(&motors,0.3,0.3);
+    Motors_halt(&motors);
 
     printf("Hello World!\r\n\n");
     while(1){

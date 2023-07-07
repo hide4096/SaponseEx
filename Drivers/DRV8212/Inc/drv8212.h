@@ -14,12 +14,10 @@ struct drv8212{
 struct opposedMotors{
     struct drv8212* hdrvR;
     struct drv8212* hdrvL;
-    double pwmR;
-    double pwmL;
 };
 
 void Motors_init(struct opposedMotors*);
 void Motors_set(struct opposedMotors*,double,double);
-void Motors_stop(struct opposedMotors*);
+void Motors_halt(struct opposedMotors*);
 
 #endif

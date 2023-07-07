@@ -11,6 +11,7 @@ static void drv8212_set(struct drv8212* hdrv,double _ratio){
 
     double dutyratio = fabs(_ratio);
     if(dutyratio > 1.) dutyratio = 1.;
+    dutyratio = 1. - dutyratio;
 
     if((_ratio > 0.) ^ (hdrv->is_reverse)){
         __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in1_ch,max1);
@@ -37,7 +38,7 @@ void Motors_set(struct opposedMotors* hmtrs,double _dutyratioR,double _dutyratio
     drv8212_set(hmtrs->hdrvL,_dutyratioL);
 }
 
-void Motors_stop(struct opposedMotors* hmtrs){
+void Motors_halt(struct opposedMotors* hmtrs){
     drv8212_set(hmtrs->hdrvR,0.);
     drv8212_set(hmtrs->hdrvL,0.);
     drv8212_stop(hmtrs->hdrvR);
