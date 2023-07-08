@@ -10,6 +10,7 @@ struct mouse_physical mouse = {
     .w = 0
 };
 
+
 const struct gain straight = {
     .Kp = 7.0f,
     .Ki = 0.1f,
@@ -20,41 +21,6 @@ const struct gain turn = {
     .Kp = 7.0f,
     .Ki = 0.1f,
     .Kd = 0.0f
-};
-
-struct drv8212 drvR = {
-    .hin1 = &htim1,
-    .hin2 = &htim2,
-    .in1_ch = TIM_CHANNEL_1,
-    .in2_ch = TIM_CHANNEL_3,
-    .is_reverse = FALSE
-};
-
-struct drv8212 drvL = {
-    .hin1 = &htim1,
-    .hin2 = &htim1,
-    .in1_ch = TIM_CHANNEL_3,
-    .in2_ch = TIM_CHANNEL_2,
-    .is_reverse = TRUE
-};
-
-struct opposedMotors motors = {
-    .hdrvR = &drvR,
-    .hdrvL = &drvL,
-};
-
-struct as5047p encR = {
-    .henc = &hspi1,
-    .cs_port = GPIOB,
-    .cs_pin = GPIO_PIN_2,
-    .is_reverse = FALSE
-};
-
-struct as5047p encL = {
-    .henc = &hspi1,
-    .cs_port = GPIOA,
-    .cs_pin = GPIO_PIN_0,
-    .is_reverse = TRUE
 };
 
 void SetLED(uint8_t state){
@@ -84,7 +50,10 @@ void system_init(){
 
     printf("Hello World!\r\n\n");
     while(1){
-        printf("v:%f w:%f\r\n",mouse.v,mouse.w);
-        HAL_Delay(100);
+        //printf("v:%f w:%f\r\n",mouse.v,mouse.w);
+        target.w = ((sensor.rr - sensor.ll) / (float)(sensor.rr+sensor.ll)) * 0.5f;
+        target.v = (4000.-(sensor.rr+sensor.ll))*0.00005;
+        printf("v:%f w:%f\r\n",target.v,target.w);
+        HAL_Delay(10);
     }
 }

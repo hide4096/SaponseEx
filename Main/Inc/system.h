@@ -2,9 +2,8 @@
 #define SYSTEM_H
 
 #include<stdio.h>
-#include"icm20648.h"
-#include"as5047p.h"
-#include"drv8212.h"
+#include"peripheral.h"
+#include"analog.h"
 
 #define TRUE 1
 #define FALSE 0
@@ -21,16 +20,11 @@ struct gain{
     float Kd;
 };
 
-extern struct mouse_physical mouse;
-extern struct mouse_physical target;
-extern struct opposedMotors motors;
-extern struct as5047p encR;
-extern struct as5047p encL;
-extern struct drv8212 drvR;
-extern struct drv8212 drvL;
+
 extern const struct gain straight;
 extern const struct gain turn;
-
+extern struct mouse_physical mouse;
+extern struct mouse_physical target;
 void system_init();
 void SetLED(uint8_t);
 

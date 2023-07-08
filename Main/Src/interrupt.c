@@ -72,17 +72,22 @@ static void PID(){
     past_error = error;
 
     //モーターに出力する
-    right /= 4.0f;
-    left /= 4.0f;
+    right /= sensor.vbat;
+    left /= sensor.vbat;
     Motors_set(&motors, right, left);
 }
 
 void interrupt_init(){
     HAL_TIM_Base_Start_IT(&htim6);
+    HAL_TIM_Base_Start_IT(&htim7);
 }
 
 void interrupt_1ms(){
     mouse.v = CalcVelocity();
     mouse.w = CalcAngularVelocity();
     PID();
+}
+
+void interrupt_500us(){
+    TrigWallSens();
 }

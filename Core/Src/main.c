@@ -96,6 +96,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM6_Init();
   MX_USART6_UART_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
   system_init();
 
@@ -172,6 +173,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if(htim->Instance == TIM6){
     interrupt_1ms();
+  }
+  if(htim->Instance == TIM7){
+    interrupt_500us();
   }
 }
 /* USER CODE END 4 */
