@@ -65,9 +65,9 @@ static void PID(){
     else if(integral.w < -max_integral) integral.w = -max_integral;
 
     float right = error.v * straight.Kp + integral.v * straight.Ki + (error.v - past_error.v) * straight.Kd;
-    right += error.w * turn.Kp + integral.w * turn.Ki + (error.w - past_error.w) * turn.Kd;
+    right -= error.w * turn.Kp + integral.w * turn.Ki + (error.w - past_error.w) * turn.Kd;
     float left = error.v * straight.Kp + integral.v * straight.Ki + (error.v - past_error.v) * straight.Kd;
-    left -= error.w * turn.Kp + integral.w * turn.Ki + (error.w - past_error.w) * turn.Kd;
+    left += error.w * turn.Kp + integral.w * turn.Ki + (error.w - past_error.w) * turn.Kd;
 
     past_error = error;
 
