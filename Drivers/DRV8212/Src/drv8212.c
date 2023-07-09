@@ -1,5 +1,7 @@
 #include"drv8212.h"
 
+const float MAX_DUTYRATIO = 0.4f;
+
 static void drv8212_init(struct drv8212* hdrv){
     HAL_TIM_PWM_Start(hdrv->hin1,hdrv->in1_ch);
     HAL_TIM_PWM_Start(hdrv->hin2,hdrv->in2_ch);
@@ -10,7 +12,7 @@ static void drv8212_set(struct drv8212* hdrv,double _ratio){
     uint32_t max2 = hdrv->hin2->Init.Period;
 
     double dutyratio = fabs(_ratio);
-    if(dutyratio > 1.) dutyratio = 1.;
+    if(dutyratio > MAX_DUTYRATIO) dutyratio = MAX_DUTYRATIO;
     dutyratio = 1. - dutyratio;
 
     if((_ratio > 0.) ^ (hdrv->is_reverse)){

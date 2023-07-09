@@ -31,13 +31,14 @@ static int16_t readRegister(struct as5047p* enc,uint16_t address){
     HAL_GPIO_WritePin(enc->cs_port,enc->cs_pin,GPIO_PIN_RESET);
     HAL_SPI_Receive(enc->henc,(uint8_t*)&recv,1,HAL_MAX_DELAY);
     HAL_GPIO_WritePin(enc->cs_port,enc->cs_pin,GPIO_PIN_SET);
+    
 
     if(CalcEvenParity(recv) != recv>>15){
-        //printf("Parity error\r\n");
+        printf("Parity error\r\n");
         return -1;
     }
     if(recv & 0x4000){
-        //printf("Error occurred\r\n");
+        printf("Error occurred\r\n");
         return -1;
     }
 
@@ -47,17 +48,15 @@ static int16_t readRegister(struct as5047p* enc,uint16_t address){
 //ここから外部公開関数
 int as5047p_init(struct as5047p* enc){
     uint8_t retrycnt = 0;
-    readRegister(enc,0x0001);
     while (retrycnt < RETRY_INIT){
         if(readRegister(enc,0x0001) == 0){
-            if(readRegister(enc,0x3FFC) >> 8 == 0x1){
-                break;
-            }
+            return 0;
         }
+
         retrycnt++;
         HAL_Delay(10);
     }
-    return 0;
+    return -1;
 }
 
 int16_t readAngle(struct as5047p* enc){

@@ -1,13 +1,11 @@
 #include"peripheral.h"
 
-
-
 struct drv8212 drvR = {
     .hin1 = &htim1,
     .hin2 = &htim2,
     .in1_ch = TIM_CHANNEL_1,
     .in2_ch = TIM_CHANNEL_3,
-    .is_reverse = FALSE
+    .is_reverse = TRUE,
 };
 
 struct drv8212 drvL = {
@@ -15,7 +13,7 @@ struct drv8212 drvL = {
     .hin2 = &htim1,
     .in1_ch = TIM_CHANNEL_3,
     .in2_ch = TIM_CHANNEL_2,
-    .is_reverse = TRUE
+    .is_reverse = FALSE,
 };
 
 struct opposedMotors motors = {
