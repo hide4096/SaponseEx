@@ -11,14 +11,14 @@ struct mouse_physical mouse = {
 };
 
 const struct gain straight = {
-    .Kp = 0.0f,
-    .Ki = 0.f,
+    .Kp = 5.0f,
+    .Ki = 0.01f,
     .Kd = 0.0f
 };
 
 const struct gain turn = {
-    .Kp = 10.0f,
-    .Ki = 1.0f,
+    .Kp = 5.0f,
+    .Ki = 0.01f,
     .Kd = 0.0f
 };
 
@@ -26,9 +26,9 @@ const struct mouse_feature sapoex = {
     .diam = 12.5f,
     .m = 27.4f,
     .gear_ratio = 4.2222,
-    .ke = 62.f,
+    .ke = 0.062f,
     .r = 5.0f,
-    .kT = 594.f
+    .kT = 0.594f
 };
 
 
@@ -68,9 +68,8 @@ void system_init(){
     while(1){
         //target.w = ((sensor.rr - sensor.ll) / (float)(sensor.rr+sensor.ll)) * 0.8f;
         //target.v = (3000.-(sensor.rr+sensor.ll))*0.0003;
-        target.v = 0.01f;
-        target.w = -0.01f;
-        //printf("v:%f w:%f\r\n",mouse.v,mouse.w);
+        target.v = 0.0f;
+        target.w = 0.0f;
         //printf("v:%f w:%f\r\n",target.v,target.w);
         //printf("%d\t%d\r\n",readAngle(&encR),readAngle(&encL));
         HAL_Delay(100);

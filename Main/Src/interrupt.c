@@ -24,8 +24,8 @@ static float CalcVelocity(){
     if(diff_rotateL > AS5047P_MAX_ANGLE/2) diff_rotateL -= AS5047P_MAX_ANGLE;
     else if(diff_rotateL < -AS5047P_MAX_ANGLE/2) diff_rotateL += AS5047P_MAX_ANGLE;
 
-    rpmL = ((float)diff_rotateL  / AS5047P_MAX_ANGLE) * 1000.*60.*-1.;
-    rpmR = ((float)diff_rotateR  / AS5047P_MAX_ANGLE) * 1000.*60.*-1.;
+    rpmL = ((float)diff_rotateL  / AS5047P_MAX_ANGLE) * 1000.*60.;
+    rpmR = ((float)diff_rotateR  / AS5047P_MAX_ANGLE) * 1000.*60.;
 
 
     float length = (diff_rotateR + diff_rotateL) * 0.5f * (M_PI*sapoex.diam/AS5047P_MAX_ANGLE);
@@ -47,12 +47,18 @@ struct targetPID{
     float w;
 };
 
+static inline float accel2voltage(float accel,float rpm){
+    float torque = (accel * (sapoex.m/1000.) / 4. * ((sapoex.diam) / 2.)) / sapoex.gear_ratio;
+    return (torque / sapoex.kT) * sapoex.r + (sapoex.ke * rpm * sapoex.gear_ratio)/1000.;
+}
+
 static void PID_FF(){
     //フィードフォワード
-    float accel_target = (target.v-mouse.v)/1000.;
-    float torque = ((accel_target * accel_target / 4. * (sapoex.diam / 2)) / sapoex.gear_ratio);
-    float right_ff = (torque / sapoex.kT) * sapoex.r + sapoex.ke * rpmR * sapoex.gear_ratio;
-    float left_ff = (torque / sapoex.kT) * sapoex.r + sapoex.ke * rpmL * sapoex.gear_ratio;
+    float right_accel_target = (target.v-mouse.v)*1000.;
+    float left_accel_target = (target.v-mouse.v)*1000.;
+    float right_ff = accel2voltage(right_accel_target,rpmR);
+    float left_ff = accel2voltage(left_accel_target,rpmL);
+    printf("%f %f\n",right_ff,left_ff);
 
     //フィードバック
     static struct targetPID integral = {
