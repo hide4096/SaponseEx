@@ -91,18 +91,40 @@ static void PID_FF(){
     past_error = error;
 
     //モーターに出力する
-    Motors_set(&motors, (right_fb + right_ff)/sensor.vbat, (left_fb + left_ff)/sensor.vbat);
+    //Motors_set(&motors, (right_fb + right_ff)/sensor.vbat, (left_fb + left_ff)/sensor.vbat);
+    Motors_set(&motors, right_fb/sensor.vbat, left_fb/sensor.vbat);
 }
+
+uint64_t count;
+uint8_t is_inloop = FALSE;
 
 void interrupt_init(){
     HAL_TIM_Base_Start_IT(&htim6);
     HAL_TIM_Base_Start_IT(&htim7);
+    count = 0;
+    is_inloop = TRUE;
 }
+
+void interrupt_stop(){
+    HAL_TIM_Base_Stop_IT(&htim6);
+    HAL_TIM_Base_Stop_IT(&htim7);
+    is_inloop = FALSE;
+}
+
+struct save_data save[16384];
 
 void interrupt_1ms(){
     mouse.v = CalcVelocity();
     mouse.w = CalcAngularVelocity();
     PID_FF();
+    if(use_logging){
+        if(count >= 16384){
+            interrupt_stop();
+        }
+        save[count].mouse = mouse;
+        save[count].target = target;
+    }
+    count++;
 }
 
 void interrupt_500us(){

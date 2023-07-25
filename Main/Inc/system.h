@@ -22,20 +22,19 @@ struct mouse_physical{
     float w;
 };
 
+struct save_data{
+    struct mouse_physical mouse;
+    struct mouse_physical target;
+};
+
 struct gain{
     float Kp;
     float Ki;
     float Kd;
 };
 
-
-extern const struct gain straight;
-extern const struct gain turn;
-extern const struct mouse_feature sapoex;
-extern struct mouse_physical mouse;
-extern struct mouse_physical target;
+extern uint8_t use_logging;
 
 void system_init();
-void SetLED(uint8_t);
 
 #endif
