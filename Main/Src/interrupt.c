@@ -1,6 +1,6 @@
 #include"interrupt.h"
 
-static const float alpha = 0.8;
+static const float alpha = 0.6;
 static const float max_integral = 1000;
 
 struct save_data save[LOGGING_SIZE];
@@ -52,14 +52,17 @@ static struct targetPID integral = {
 
 static void PID_FF(){
     static float past_target_v = 0.0f;
+
     //フィードフォワード
     float accel_target = (target.v-past_target_v)*1000.;
+    float right_ff = 0.0f;
+    float left_ff = 0.0f;
     if(accel_target > 0.){
-        float right_ff = accel_target*ff.ka;
-        float left_ff = accel_target*ff.ka;
+        right_ff = accel_target*ff.ka;
+        left_ff = accel_target*ff.ka;
     }else{
-        float right_ff = accel_target*ff.ka + mouse.v*ff.kv;
-        float left_ff = accel_target*ff.ka + mouse.v*ff.kv;
+        right_ff = accel_target*ff.ka2 + mouse.v*ff.kv;
+        left_ff = accel_target*ff.ka2 + mouse.v*ff.kv;
     }
 
     past_target_v = target.v;
@@ -98,7 +101,6 @@ static void PID_FF(){
         save[count].fbL = left_fb / sensor.vbat;
         save[count].ffR = right_ff / sensor.vbat;
         save[count].ffL = left_ff / sensor.vbat;
-        save[count].accel = accel_target;
     }
 }
 

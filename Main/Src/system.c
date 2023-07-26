@@ -76,16 +76,16 @@ void system_init(){
             if(count < 500){
                 target.v = 0.0f;
                 target.w = 0.0f;
-            }else if(count < 1000){
-                target.v +=0.0006f;
+            }else if(count < 750){
+                target.v +=0.004f;
                 target.w = 0.0f;
-            }else if(count < 1500){
-                target.v = 0.3f;
+            }else if(count < 850){
+                target.v = 1.0f;
                 target.w = 0.0f;
-            }else if(count < 2000){
-                target.v -= 0.0006f;
+            }else if(count < 1100){
+                target.v -= 0.004f;
                 target.w = 0.0f;
-            }else if(count < 2500){
+            }else{
                 target.v = 0.0f;
                 target.w = 0.0f;
             }
@@ -103,7 +103,7 @@ void system_init(){
             struct save_data *p = (struct save_data *)(_read+SAVE_SECTOR);
             int seq = _read/sizeof(struct save_data);
             printf("%d,%.4f,%.4f,%.4f,%.4f",seq,p->mouse.v,p->mouse.w,p->target.v,p->target.w);
-            printf(",%.4f,%.4f,%.4f,%.4f,%.4f\r\n",p->fbR,p->fbL,p->ffR,p->ffL, p->accel);
+            printf(",%.4f,%.4f,%.4f,%.4f\r\n",p->fbR,p->fbL,p->ffR,p->ffL);
             _read += sizeof(struct save_data);
         }
         FlashMemory();
