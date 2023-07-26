@@ -20,12 +20,7 @@ void system_init(){
 
     analog_sensing_start();
 
-    while(TRUE){
-        if(sensor.ll + sensor.rr >= 4000){
-            break;
-        }
-        HAL_Delay(1);
-    }
+    while(sensor.ll + sensor.rr < 4000);
     SetLED(0b001);
 
     uint8_t _head_flash = *(uint8_t*)(SAVE_SECTOR);
@@ -37,9 +32,28 @@ void system_init(){
         target.w = 0.0f;
 
         control_loop_start();
+
+        uint64_t _sync;
         
         while(is_inloop){
-
+            _sync = count;
+            if(count < 500){
+                target.v = 0.0f;
+                target.w = 0.0f;
+            }else if(count < 1000){
+                target.v +=0.0006f;
+                target.w = 0.0f;
+            }else if(count < 1500){
+                target.v = 0.3f;
+                target.w = 0.0f;
+            }else if(count < 2000){
+                target.v -= 0.0006f;
+                target.w = 0.0f;
+            }else if(count < 2500){
+                target.v = 0.0f;
+                target.w = 0.0f;
+            }
+            while(_sync == count);
         }
 
         control_loop_stop();
