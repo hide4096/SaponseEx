@@ -17,10 +17,10 @@ static void drv8212_set(struct drv8212* hdrv,double _ratio){
 
     if((_ratio > 0.) ^ (hdrv->is_reverse)){
         __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in1_ch,max1);
-        __HAL_TIM_SET_COMPARE(hdrv->hin2,hdrv->in2_ch,dutyratio*max2);
+        __HAL_TIM_SET_COMPARE(hdrv->hin2,hdrv->in2_ch,(uint32_t)(dutyratio*max2));
     }else{
-        __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in1_ch,dutyratio*max1);
-        __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in2_ch,max2);
+        __HAL_TIM_SET_COMPARE(hdrv->hin1,hdrv->in1_ch,(uint32_t)(dutyratio*max1));
+        __HAL_TIM_SET_COMPARE(hdrv->hin2,hdrv->in2_ch,max2);
     }
 }
 static void drv8212_stop(struct drv8212* hdrv){

@@ -1,6 +1,6 @@
 #include"interrupt.h"
 
-static const float alpha = 0.4;
+static const float alpha = 0.8;
 static const float max_integral = 1000;
 
 static float rpmR = 0.0f,rpmL = 0.0f;
@@ -8,7 +8,6 @@ static float rpmR = 0.0f,rpmL = 0.0f;
 struct save_data save[LOGGING_SIZE];
 
 uint64_t count;
-uint8_t is_inloop = FALSE;
 
 static float CalcVelocity(){
     static uint16_t rotateR=0,rotateL=0;
@@ -39,7 +38,7 @@ static float CalcVelocity(){
     float accel = accelY() / 1000.0f;
     velocity = alpha * (velocity + accel) + (1.0f - alpha) * length;
 
-    //時速はm/s
+    //単位はm/s
     return velocity;
 }
 
@@ -52,24 +51,26 @@ struct targetPID{
     float w;
 };
 
+static struct targetPID integral = {
+    .v = 0.0f,
+    .w = 0.0f
+};
+
 static inline float accel2voltage(float accel,float rpm){
-    float torque = (accel * (sapoex.m/1000.) / 4. * ((sapoex.diam) / 2.)) / sapoex.gear_ratio;
+    float torque_tire = (accel * (sapoex.m/1000.)) / (4*(sapoex.diam / 2.));
+    float torque = torque_tire / sapoex.gear_ratio;
     return (torque / sapoex.kT) * sapoex.r + (sapoex.ke * rpm * sapoex.gear_ratio)/1000.;
 }
 
 static void PID_FF(){
+
     //フィードフォワード
     float right_accel_target = (target.v-mouse.v)*1000.;
     float left_accel_target = (target.v-mouse.v)*1000.;
     float right_ff = accel2voltage(right_accel_target,rpmR);
     float left_ff = accel2voltage(left_accel_target,rpmL);
-    printf("%f %f\n",right_ff,left_ff);
 
     //フィードバック
-    static struct targetPID integral = {
-        .v = 0.0f,
-        .w = 0.0f
-    };
     static struct targetPID past_error = {
         .v = 0.0f,
         .w = 0.0f
@@ -97,24 +98,25 @@ static void PID_FF(){
 
     //モーターに出力する
     //Motors_set(&motors, (right_fb + right_ff)/sensor.vbat, (left_fb + left_ff)/sensor.vbat);
-    float dutyR = (right_fb) /sensor.vbat;
-    float dutyL = (left_fb) /sensor.vbat;
+    Motors_set(&motors, right_ff/sensor.vbat, left_ff/sensor.vbat);
 
-    save[count].dutyR = dutyR;
-    save[count].dutyL = dutyL;
-
-    Motors_set(&motors, dutyR, dutyL);
+    if(use_logging){
+        save[count].fbR = right_fb / sensor.vbat;
+        save[count].fbL = left_fb / sensor.vbat;
+        save[count].ffR = right_ff / sensor.vbat;
+        save[count].ffL = left_ff / sensor.vbat;
+    }
 }
 
 void control_loop_start(){
     HAL_TIM_Base_Start_IT(&htim6);
     count = 0;
-    is_inloop = TRUE;
+    integral.v = 0.0f;
+    integral.w = 0.0f;
 }
 
 void control_loop_stop(){
     HAL_TIM_Base_Stop_IT(&htim6);
-    is_inloop = FALSE;
 }
 
 void analog_sensing_start(){
@@ -130,7 +132,7 @@ void interrupt_1ms(){
     mouse.w = CalcAngularVelocity();
     PID_FF();
     if(use_logging){
-        if(count >= SAVE_SIZE){
+        if(count >= LOGGING_SIZE){
             control_loop_stop();
             return;
         }

@@ -46,15 +46,15 @@ struct mouse_physical mouse = {
 };
 
 const struct gain straight = {
-    .Kp = 5.0f,
-    .Ki = 0.01f,
+    .Kp = 20.0f,
+    .Ki = 0.05f,
     .Kd = 0.0f
 };
 
 const struct gain turn = {
-    .Kp = 5.0f,
-    .Ki = 0.01f,
-    .Kd = 0.0f
+    .Kp = 10.0f,
+    .Ki = 0.2f,
+    .Kd = 0.1f
 };
 
 const struct mouse_feature sapoex = {
@@ -62,7 +62,7 @@ const struct mouse_feature sapoex = {
     .m = 27.4f,
     .gear_ratio = 4.2222,
     .ke = 0.062f,
-    .r = 5.0f,
+    .r = 20.0f,
     .kT = 0.594f
 };
 

@@ -26,8 +26,10 @@ struct save_data{
     struct mouse_physical mouse;
     struct mouse_physical target;
     uint64_t count;
-    float dutyR;
-    float dutyL;
+    float fbR;
+    float fbL;
+    float ffR;
+    float ffL;
 };
 
 struct gain{

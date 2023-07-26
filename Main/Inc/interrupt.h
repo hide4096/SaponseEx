@@ -5,7 +5,7 @@
 #include"tim.h"
 #include"analog.h"
 
-#define LOGGING_SIZE 5000
+#define LOGGING_SIZE 3000
 
 extern uint8_t is_inloop;
 extern uint64_t count;
