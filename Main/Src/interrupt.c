@@ -97,8 +97,7 @@ static void PID_FF(){
     past_error = error;
 
     //モーターに出力する
-    //Motors_set(&motors, (right_fb + right_ff)/sensor.vbat, (left_fb + left_ff)/sensor.vbat);
-    Motors_set(&motors, right_ff/sensor.vbat, left_ff/sensor.vbat);
+    Motors_set(&motors, (right_fb + right_ff)/sensor.vbat, (left_fb + left_ff)/sensor.vbat);
 
     if(use_logging){
         save[count].fbR = right_fb / sensor.vbat;

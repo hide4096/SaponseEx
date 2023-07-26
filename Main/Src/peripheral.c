@@ -46,8 +46,8 @@ struct mouse_physical mouse = {
 };
 
 const struct gain straight = {
-    .Kp = 20.0f,
-    .Ki = 0.05f,
+    .Kp = 0.0f,
+    .Ki = 0.0f,
     .Kd = 0.0f
 };
 
