@@ -52,14 +52,14 @@ const struct gain straight = {
 };
 
 const struct gain turn = {
-    .Kp = 10.0f,
-    .Ki = 0.2f,
-    .Kd = 0.1f
+    .Kp = 5.0f,
+    .Ki = 0.05f,
+    .Kd = 0.05f
 };
 
 const struct ffgain ff = {
-    .ka = 250.0f,
-    .kv = 1.0f
+    .ka = 0.9f,
+    .kv = 1.2f
 };
 
 const struct mouse_feature sapoex = {

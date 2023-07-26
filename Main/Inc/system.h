@@ -30,6 +30,7 @@ struct save_data{
     float fbL;
     float ffR;
     float ffL;
+    float accel;
 };
 
 struct gain{

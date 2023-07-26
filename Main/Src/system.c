@@ -103,7 +103,7 @@ void system_init(){
             struct save_data *p = (struct save_data *)(_read+SAVE_SECTOR);
             int seq = _read/sizeof(struct save_data);
             printf("%d,%.4f,%.4f,%.4f,%.4f",seq,p->mouse.v,p->mouse.w,p->target.v,p->target.w);
-            printf(",%.4f,%.4f,%.4f,%.4f\r\n",p->fbR,p->fbL,p->ffR,p->ffL);
+            printf(",%.4f,%.4f,%.4f,%.4f,%.4f\r\n",p->fbR,p->fbL,p->ffR,p->ffL, p->accel);
             _read += sizeof(struct save_data);
         }
         FlashMemory();
