@@ -5,10 +5,17 @@
 #include"tim.h"
 #include"analog.h"
 
-extern uint8_t is_inloop;
-extern struct save_data save[16384];
+#define LOGGING_SIZE 5000
 
-void interrupt_init();
+extern uint8_t is_inloop;
+extern uint64_t count;
+
+void control_loop_start();
+void control_loop_stop();
+void analog_sensing_start();
+void analog_sensing_stop();
 void interrupt_1ms();
+void interrupt_500us();
+struct save_data* savedataHandle();
 
 #endif

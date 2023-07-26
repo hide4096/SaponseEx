@@ -5,6 +5,11 @@ static const float max_integral = 1000;
 
 static float rpmR = 0.0f,rpmL = 0.0f;
 
+struct save_data save[LOGGING_SIZE];
+
+uint64_t count;
+uint8_t is_inloop = FALSE;
+
 static float CalcVelocity(){
     static uint16_t rotateR=0,rotateL=0;
     static float velocity = 0.0f;
@@ -92,41 +97,54 @@ static void PID_FF(){
 
     //モーターに出力する
     //Motors_set(&motors, (right_fb + right_ff)/sensor.vbat, (left_fb + left_ff)/sensor.vbat);
-    Motors_set(&motors, right_fb/sensor.vbat, left_fb/sensor.vbat);
+    float dutyR = (right_fb) /sensor.vbat;
+    float dutyL = (left_fb) /sensor.vbat;
+
+    save[count].dutyR = dutyR;
+    save[count].dutyL = dutyL;
+
+    Motors_set(&motors, dutyR, dutyL);
 }
 
-uint64_t count;
-uint8_t is_inloop = FALSE;
-
-void interrupt_init(){
+void control_loop_start(){
     HAL_TIM_Base_Start_IT(&htim6);
-    HAL_TIM_Base_Start_IT(&htim7);
     count = 0;
     is_inloop = TRUE;
 }
 
-void interrupt_stop(){
+void control_loop_stop(){
     HAL_TIM_Base_Stop_IT(&htim6);
-    HAL_TIM_Base_Stop_IT(&htim7);
     is_inloop = FALSE;
 }
 
-struct save_data save[16384];
+void analog_sensing_start(){
+    HAL_TIM_Base_Start_IT(&htim7);
+}
+
+void analog_sensing_stop(){
+    HAL_TIM_Base_Stop_IT(&htim7);
+}
 
 void interrupt_1ms(){
     mouse.v = CalcVelocity();
     mouse.w = CalcAngularVelocity();
     PID_FF();
     if(use_logging){
-        if(count >= 16384){
-            interrupt_stop();
+        if(count >= SAVE_SIZE){
+            control_loop_stop();
+            return;
         }
         save[count].mouse = mouse;
         save[count].target = target;
+        save[count].count = count;
     }
     count++;
 }
 
 void interrupt_500us(){
     TrigWallSens();
+}
+
+struct save_data* savedataHandle(){
+    return save;
 }

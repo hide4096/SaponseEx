@@ -94,7 +94,7 @@ void WriteMemory(void *write,uint32_t size){
     uint32_t adrs = SAVE_SECTOR,write_size = 0;
     HAL_FLASH_Unlock();
     while(adrs < SAVE_SECTOR + SAVE_SIZE){
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE,adrs,(uint8_t*)(write+write_size));
+        HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE,adrs,*(uint8_t*)(write+write_size));
         adrs += 1;
         write_size++;
         if(size <= write_size) break;

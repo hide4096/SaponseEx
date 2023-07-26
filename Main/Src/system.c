@@ -18,29 +18,34 @@ void system_init(){
         while(1);
     }
 
+    analog_sensing_start();
+
     while(TRUE){
-        TrigWallSensor();
-        HAL_Delay(1);
         if(sensor.ll + sensor.rr >= 4000){
             break;
         }
+        HAL_Delay(1);
     }
     SetLED(0b001);
 
-    uint8_t _head_flash = &(SAVE_SECTOR);
+    uint8_t _head_flash = *(uint8_t*)(SAVE_SECTOR);
     if(_head_flash == 0xFF){
         printf("Flash memory is empty\r\n");
         Motors_init(&motors);
 
-        uint16_t past_rotateR = 0;
-        uint16_t past_rotateL = 0;
-        float spd = 0.0f,dv = 0.001f;
+        target.v = 0.0f;
+        target.w = 0.0f;
 
-        interrupt_init();
+        control_loop_start();
         
-        while(is_inloop);
+        while(is_inloop){
 
-        WriteMemory(&save,sizeof(save));
+        }
+
+        control_loop_stop();
+        Motors_halt(&motors);
+
+        WriteMemory(savedataHandle(),sizeof(struct save_data)*LOGGING_SIZE);
     }else{
         uint32_t adrs = SAVE_SECTOR;
         while(adrs < SAVE_SECTOR + SAVE_SIZE){
