@@ -3,8 +3,6 @@
 static const float alpha = 0.8;
 static const float max_integral = 1000;
 
-static float rpmR = 0.0f,rpmL = 0.0f;
-
 struct save_data save[LOGGING_SIZE];
 
 uint64_t count;
@@ -27,10 +25,6 @@ static float CalcVelocity(){
     else if(diff_rotateR < -AS5047P_MAX_ANGLE/2) diff_rotateR += AS5047P_MAX_ANGLE;
     if(diff_rotateL > AS5047P_MAX_ANGLE/2) diff_rotateL -= AS5047P_MAX_ANGLE;
     else if(diff_rotateL < -AS5047P_MAX_ANGLE/2) diff_rotateL += AS5047P_MAX_ANGLE;
-
-    rpmL = ((float)diff_rotateL  / AS5047P_MAX_ANGLE) * 1000.*60.;
-    rpmR = ((float)diff_rotateR  / AS5047P_MAX_ANGLE) * 1000.*60.;
-
 
     float length = (diff_rotateR + diff_rotateL) * 0.5f * (M_PI*sapoex.diam/AS5047P_MAX_ANGLE);
 
@@ -56,19 +50,12 @@ static struct targetPID integral = {
     .w = 0.0f
 };
 
-static inline float accel2voltage(float accel,float rpm){
-    float torque_tire = (accel * (sapoex.m/1000.)) / (4*(sapoex.diam / 2.));
-    float torque = torque_tire / sapoex.gear_ratio;
-    return (torque / sapoex.kT) * sapoex.r + (sapoex.ke * rpm * sapoex.gear_ratio)/1000.;
-}
-
 static void PID_FF(){
 
     //フィードフォワード
-    float right_accel_target = (target.v-mouse.v)*1000.;
-    float left_accel_target = (target.v-mouse.v)*1000.;
-    float right_ff = accel2voltage(right_accel_target,rpmR);
-    float left_ff = accel2voltage(left_accel_target,rpmL);
+    float accel_target = (target.v-mouse.v)*1000.;
+    float right_ff = accel_target*ff.ka + mouse.v*ff.kv;
+    float left_ff = accel_target*ff.ka + mouse.v*ff.kv;
 
     //フィードバック
     static struct targetPID past_error = {

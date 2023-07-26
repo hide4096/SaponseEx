@@ -57,6 +57,11 @@ const struct gain turn = {
     .Kd = 0.1f
 };
 
+const struct ffgain ff = {
+    .ka = 250.0f,
+    .kv = 1.0f
+};
+
 const struct mouse_feature sapoex = {
     .diam = 12.5f,
     .m = 27.4f,

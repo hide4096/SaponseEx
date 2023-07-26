@@ -38,6 +38,11 @@ struct gain{
     float Kd;
 };
 
+struct ffgain{
+    float ka;
+    float kv;
+};
+
 extern uint8_t use_logging;
 
 void system_init();

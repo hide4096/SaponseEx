@@ -52,6 +52,8 @@ void system_init(){
         }
         SetLED(slot);
     }
+    SetLED(0b000);
+    HAL_Delay(500);
 
     uint8_t _head_flash = *(uint8_t*)(SAVE_SECTOR);
     if(_head_flash == 0xFF && slot > 0){
