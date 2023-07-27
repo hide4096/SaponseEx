@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "type": "shell",
+    "echoCommand": true,
+    "tasks": [
+        {
+            "label": "Build project",
+            "command": "/usr/bin/make",
+            "args": [
+                "all",
+                "GCC_PATH=/usr/bin"
+            ],
+            "options": {
+                "env": {
+                    "PATH": "/usr/bin/make"
+                }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Clean project",
+            "command": "Remove-Item",
+            "args": [
+                "${workspaceFolder}\\build",
+                "-Recurse"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        }
+    ]
+}

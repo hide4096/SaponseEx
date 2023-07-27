@@ -1,0 +1,87 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/SaponseEx.elf",
+            "request": "launch",
+            "preLaunchTask": "Build project",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "armToolchainPath": "/usr/bin",
+            "serverpath": "/usr/bin/JLinkGDBServer",
+            "gdbPath": "/opt/st/stm32cubeclt_1.12.0/GNU-tools-for-STM32/bin/arm-none-eabi-gdb",
+            "device": "STM32F412CG",
+            "interface": "swd",
+            "swoConfig": {
+                "enabled": true,
+                "cpuFrequency": 100000000,
+                "swoFrequency": 12000000,
+                "source": "probe",
+                "decoders": [
+                    {
+                        "label": "SWO output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Cortex Debug with Graph",
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/SaponseEx.elf",
+            "request": "launch",
+            "preLaunchTask": "Build project",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "armToolchainPath": "/usr/bin",
+            "serverpath": "/usr/bin/JLinkGDBServer",
+            "gdbPath": "/opt/st/stm32cubeclt_1.12.0/GNU-tools-for-STM32/bin/arm-none-eabi-gdb",
+            "device": "STM32F412CG",
+            "interface": "swd",
+            "swoConfig": {
+                "enabled": true,
+                "cpuFrequency": 100000000,
+                "swoFrequency": 12000000,
+                "source": "probe",
+                "decoders": [
+                    {
+                        "label": "SWO output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    },
+                    {
+                        "type": "graph",
+                        "port": 1,
+                        "encoding": "unsigned",
+                        "graphId": "1",
+                        "scale": 1,
+                    }
+                ]
+            },
+            "graphConfig": [
+                {
+                    "label": "SWO Graph",
+                    "timespan": 10,
+                    "type": "realtime",
+                    "annotate": false,
+                    "maximum": 0.0,
+                    "minimum": 255.0,
+                    "plots": [
+                        {
+                            "graphId": "1",
+                            "label": "Port 1",
+                            "color": "#FF0000",
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

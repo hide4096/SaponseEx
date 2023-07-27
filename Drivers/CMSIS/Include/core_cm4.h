@@ -2062,7 +2062,7 @@ extern volatile int32_t ITM_RxBuffer;                              /*!< External
   \param [in]  port   ITM Port number
   \returns            Character to transmit.
  */
-__STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch, uint8_t port)
+__STATIC_INLINE uint32_t ITM_SendChar (uint8_t ch, uint8_t port)
 {
   if (((ITM->TCR & ITM_TCR_ITMENA_Msk) != 0UL) &&      /* ITM enabled */
       ((ITM->TER & (port+1)          ) != 0UL)   )     /* ITM Port #0 enabled */
