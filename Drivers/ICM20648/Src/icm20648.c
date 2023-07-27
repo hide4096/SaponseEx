@@ -59,10 +59,11 @@ static void IMU_writeRegister(uint8_t _adrs,uint8_t data){
     2   →   ±8g
     3   →   ±16g
 */
-static int IMU_changeSensitivity(uint8_t _gyro,uint8_t _accel){
+static int IMU_changeSensitivity(uint8_t _gyro,uint8_t _accel,uint8_t _GYRO_FCHOICE,uint8_t _GYRO_DLPCFG){
     if(_gyro > 0b11 || _accel > 0b11) return -1;
 
-    uint8_t gyro_config=_gyro << 1,accel_config=_accel<<1;
+    uint8_t gyro_config = (_GYRO_DLPCFG << 3) + (_gyro << 1) + _GYRO_FCHOICE;
+    uint8_t accel_config=_accel<<1;
 
     IMU_writeRegister(0x7F,0x20);   //バンク切り替え(バンク2)
     
@@ -71,7 +72,7 @@ static int IMU_changeSensitivity(uint8_t _gyro,uint8_t _accel){
     IMU_writeRegister(0x14,accel_config);
     
     //書き込まれたか確認
-    if((IMU_readRegister(0x01) & 0b0110) != gyro_config) return -1;
+    if((IMU_readRegister(0x01) & 0b111111) != gyro_config) return -1;
     if((IMU_readRegister(0x14) & 0b0110) != accel_config) return -1;
 
     IMU_writeRegister(0x7F,0x00);   //バンク切り替え(バンク0)
@@ -119,23 +120,26 @@ int icm20648_init(SPI_HandleTypeDef *handle,GPIO_TypeDef *port,uint16_t pin){
     _port_cs = port;
     _pin_cs = pin;
 
+    //IMUリセット
+    IMU_writeRegister(0x06,0b10000000);
+    HAL_Delay(10);
+    IMU_writeRegister(0x7F,0x00);   //バンク切り替え(バンク0)
+    HAL_Delay(10);
+
     int errcnt = 0;
     uint8_t whoami = readWHO_AM_I();
     while(whoami != WHO_AM_I){
         HAL_Delay(100);
         whoami = readWHO_AM_I();
-        //printf("%x\r\n",whoami);
+        printf("%x\r\n",whoami);
         errcnt++;
         if(errcnt >= RETRY_INIT) return -1;
     }
 
-    //IMUリセット
-    IMU_writeRegister(0x06,0b10000000);
-    HAL_Delay(10);
     //スリープモード無効&温度センサ無効
     IMU_writeRegister(0x06,0b00001001);
     //レンジの調整
-    if(IMU_changeSensitivity(3,1) != 0) return -1;
+    if(IMU_changeSensitivity(3,1,1,7) != 0) return -1;
 
     return 0;
 }

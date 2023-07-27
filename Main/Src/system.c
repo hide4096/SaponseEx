@@ -43,70 +43,81 @@ void system_init(){
             if(slot >= 0b111) slot = 0b001;
             else slot++;
             SetLED(0b000);
-            HAL_Delay(500);
+            HAL_Delay(200);
         }else if(mouse.v < -0.05f){
             if(slot <= 0b001) slot = 0b111;
             else slot--;
             SetLED(0b000);
-            HAL_Delay(500);
+            HAL_Delay(200);
         }
         SetLED(slot);
     }
     SetLED(0b000);
     HAL_Delay(500);
-
     uint8_t _head_flash = *(uint8_t*)(SAVE_SECTOR);
-    if(_head_flash == 0xFF && slot > 0){
-        printf("Flash memory is empty\r\n");
-        control_loop_stop();
-        Motors_init(&motors);
 
-        target.v = 0.0f;
-        target.w = 0.0f;
-        mouse.v = 0.0f;
-        mouse.w = 0.0f;
+    switch(slot){
+        case 1:
+            if(_head_flash == 0xFF){
+                printf("Flash memory is empty\r\n");
+                control_loop_stop();
+                Motors_init(&motors);
 
-        use_logging = TRUE;
-        control_loop_start();
-
-        uint64_t _sync;
-        
-        while(count < LOGGING_SIZE){
-            _sync = count;
-            if(count < 500){
                 target.v = 0.0f;
                 target.w = 0.0f;
-            }else if(count < 750){
-                target.v +=0.004f;
-                target.w = 0.0f;
-            }else if(count < 850){
-                target.v = 1.0f;
-                target.w = 0.0f;
-            }else if(count < 1100){
-                target.v -= 0.004f;
-                target.w = 0.0f;
+                mouse.v = 0.0f;
+                mouse.w = 0.0f;
+
+                use_logging = TRUE;
+                control_loop_start();
+
+                uint64_t _sync;
+                
+                while(count < LOGGING_SIZE){
+                    _sync = count;
+                    if(count < 500){
+                        target.v = 0.0f;
+                        target.w = 0.0f;
+                    }else if(count < 750){
+                        target.v +=0.004f;
+                        target.w = 0.0f;
+                    }else if(count < 850){
+                        target.v = 1.0f;
+                        target.w = 0.0f;
+                    }else if(count < 1100){
+                        target.v -= 0.004f;
+                        target.w = 0.0f;
+                    }else{
+                        target.v = 0.0f;
+                        target.w = 0.0f;
+                    }
+                    while(_sync == count);
+                }
+
+                control_loop_stop();
+                Motors_halt(&motors);
+                printf("Start Write\r\n");
+                WriteMemory(savedataHandle(),sizeof(struct save_data)*LOGGING_SIZE);
+                printf("End Write\r\n");
             }else{
-                target.v = 0.0f;
-                target.w = 0.0f;
+                uint32_t _read = 0;
+                while(_read < SAVE_SIZE && _read < sizeof(struct save_data)*LOGGING_SIZE){
+                    struct save_data *p = (struct save_data *)(_read+SAVE_SECTOR);
+                    int seq = _read/sizeof(struct save_data);
+                    printf("%d,%.4f,%.4f,%.4f,%.4f",seq,p->mouse.v,p->mouse.w,p->target.v,p->target.w);
+                    printf(",%.4f,%.4f,%.4f,%.4f\r\n",p->fbR,p->fbL,p->ffR,p->ffL);
+                    _read += sizeof(struct save_data);
+                }
+                FlashMemory();
             }
-            while(_sync == count);
-        }
-
-        control_loop_stop();
-        Motors_halt(&motors);
-        printf("Start Write\r\n");
-        WriteMemory(savedataHandle(),sizeof(struct save_data)*LOGGING_SIZE);
-        printf("End Write\r\n");
-    }else{
-        uint32_t _read = 0;
-        while(_read < SAVE_SIZE && _read < sizeof(struct save_data)*LOGGING_SIZE){
-            struct save_data *p = (struct save_data *)(_read+SAVE_SECTOR);
-            int seq = _read/sizeof(struct save_data);
-            printf("%d,%.4f,%.4f,%.4f,%.4f",seq,p->mouse.v,p->mouse.w,p->target.v,p->target.w);
-            printf(",%.4f,%.4f,%.4f,%.4f\r\n",p->fbR,p->fbL,p->ffR,p->ffL);
-            _read += sizeof(struct save_data);
-        }
-        FlashMemory();
+            break;
+        case 2:
+            while(1){
+                uint8_t _acc = (mouse.w * 100.0f) + 128.0f;
+                ITM_SendChar(_acc,1);
+                HAL_Delay(10);
+            }
+            break;
     }
 
     while(1){
