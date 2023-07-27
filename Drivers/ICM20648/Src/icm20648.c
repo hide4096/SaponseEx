@@ -8,10 +8,6 @@
 
 #include"icm20648.h"
 
-#define WHO_AM_I 0xE0
-#define RETRY_INIT 5
-#define TIMEOUT_MS 100
-
 static SPI_HandleTypeDef *himu;
 static GPIO_TypeDef *_port_cs;
 static uint16_t _pin_cs;

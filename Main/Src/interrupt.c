@@ -1,4 +1,6 @@
 #include"interrupt.h"
+#include"main.h"
+#include"run.h"
 
 static const float alpha = 0.6;
 static const float max_integral = 1000;
@@ -104,11 +106,15 @@ static void PID_FF(){
     }
 }
 
+void resetIntegral(){
+    integral.v = 0.0f;
+    integral.w = 0.0f;
+}
+
 void control_loop_start(){
     HAL_TIM_Base_Start_IT(&htim6);
     count = 0;
-    integral.v = 0.0f;
-    integral.w = 0.0f;
+    resetIntegral();
 }
 
 void control_loop_stop(){
@@ -123,9 +129,28 @@ void analog_sensing_stop(){
     HAL_TIM_Base_Stop_IT(&htim7);
 }
 
+uint8_t use_HMmode = FALSE;
+
 void interrupt_1ms(){
     mouse.v = CalcVelocity();
     mouse.w = CalcAngularVelocity();
+    if(use_HMmode){
+        target_HM.len += mouse.v*0.001f;
+        target_HM.deg += mouse.w*0.001f;
+        if(target_HM.mode == STRAIGHT_MODE || target_HM.mode == TURN_MODE){
+            target.v = target_HM.a * 1000.f;
+            if(target.v > target_HM.max_v) target.v = target_HM.max_v;
+        }
+
+        if(target_HM.mode == TURN_MODE){
+            target.w = target_HM.ang_a * 1000.f;
+            if(target_HM.turndir == LEFT){
+                if(target.w > target_HM.max_w) target.w = target_HM.max_w;
+            }else if(target_HM.turndir == RIGHT){
+                if(target.w < target_HM.max_w) target.w = target_HM.max_w;
+            }
+        }
+    }
     PID_FF();
     if(use_logging){
         if(count >= LOGGING_SIZE){

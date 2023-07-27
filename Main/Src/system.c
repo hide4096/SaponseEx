@@ -1,7 +1,9 @@
 #include"system.h"
 
-
 uint8_t use_logging = FALSE;
+
+const uint8_t GOAL_X = 5;
+const uint8_t GOAL_Y = 5;
 
 void system_init(){
 
@@ -124,16 +126,11 @@ void system_init(){
             control_loop_stop();
             Motors_init(&motors);
             use_logging = FALSE;
+            use_HMmode = TRUE;
             control_loop_start();
-            uint64_t sync;
-            while(1){
-                sync = count;
-                target.v = (4000 - (sensor.ll + sensor.rr)) * 0.0001f;
-                target.w = (sensor.rr - sensor.ll) * 0.001f;
-                while(sync == count);
-            }
+            SearchAdachi(GOAL_X,GOAL_Y);
+            control_loop_stop();
             break;
-
     }
 
     while(1){

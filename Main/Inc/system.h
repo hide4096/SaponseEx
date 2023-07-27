@@ -4,6 +4,7 @@
 #include<stdio.h>
 #include"peripheral.h"
 #include"analog.h"
+#include"search.h"
 
 #define TRUE 1
 #define FALSE 0

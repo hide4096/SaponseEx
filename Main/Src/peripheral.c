@@ -37,12 +37,12 @@ struct as5047p encL = {
 
 struct mouse_physical target = {
     .v = 0,
-    .w = 0
+    .w = 0,
 };
 
 struct mouse_physical mouse = {
     .v = 0,
-    .w = 0
+    .w = 0,
 };
 
 const struct gain straight = {
@@ -70,6 +70,24 @@ const struct mouse_feature sapoex = {
     .ke = 0.062f,
     .r = 20.0f,
     .kT = 0.594f
+};
+
+const struct wall_threshold detect_wall = {
+    .ll = 40,
+    .l = 15,
+    .r = 15,
+    .rr = 70
+};
+
+struct HMmode target_HM = {
+    .a = 0.0f,
+    .max_v = 0.0f,
+    .ang_a = 0.0f,
+    .max_w = 0.0f,
+    .len = 0.0f,
+    .deg = 0.0f,
+    .mode = 0,
+    .turndir = 0
 };
 
 void SetLED(uint8_t state){

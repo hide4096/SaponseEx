@@ -10,6 +10,9 @@
 
 #include"spi.h"
 
+#define WHO_AM_I 0xE0
+#define RETRY_INIT 5
+#define TIMEOUT_MS 100
 
 int icm20648_init(SPI_HandleTypeDef*,GPIO_TypeDef*,uint16_t);
 float icm20648_SurveyBias(int);
