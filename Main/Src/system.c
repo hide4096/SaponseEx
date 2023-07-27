@@ -79,14 +79,14 @@ void system_init(){
                         target.v = 0.0f;
                         target.w = 0.0f;
                     }else if(count < 750){
-                        target.v +=0.004f;
-                        target.w = 0.0f;
+                        target.v += 0.002f;
+                        target.w += 0.001f;
                     }else if(count < 850){
-                        target.v = 1.0f;
-                        target.w = 0.0f;
+                        target.v = 0.5f;
+                        target.w = 0.25f;
                     }else if(count < 1100){
-                        target.v -= 0.004f;
-                        target.w = 0.0f;
+                        target.v -= 0.002f;
+                        target.w -= 0.001f;
                     }else{
                         target.v = 0.0f;
                         target.w = 0.0f;
@@ -113,11 +113,27 @@ void system_init(){
             break;
         case 2:
             while(1){
-                uint8_t _acc = (mouse.w * 100.0f) + 128.0f;
-                ITM_SendChar(_acc,1);
+                ITM_SendChar(sensor.ll,1);
+                ITM_SendChar(sensor.l,2);
+                ITM_SendChar(sensor.r,3);
+                ITM_SendChar(sensor.rr,4);
                 HAL_Delay(10);
             }
             break;
+        case 3:
+            control_loop_stop();
+            Motors_init(&motors);
+            use_logging = FALSE;
+            control_loop_start();
+            uint64_t sync;
+            while(1){
+                sync = count;
+                target.v = (4000 - (sensor.ll + sensor.rr)) * 0.0001f;
+                target.w = (sensor.rr - sensor.ll) * 0.001f;
+                while(sync == count);
+            }
+            break;
+
     }
 
     while(1){
