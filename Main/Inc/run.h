@@ -3,12 +3,10 @@
 
 #include"main.h"
 
-#define SEARCH_SPEED 1.0
-#define SEARCH_ACCEL 0.4
-#define TURN_SPEED 1.0
-#define TURN_ACCEL  0.4
-#define SLALOM_SPEED 1.0
-#define SLALOM_ACCEL 0.4
+#define SEARCH_SPEED 0.4
+#define SEARCH_ACCEL 1.0
+#define TURN_SPEED  600.
+#define TURN_ACCEL  2000.
 
 #define HALF_SECTION 45
 #define FULL_SECTION 90
@@ -16,8 +14,8 @@
 #define RIGHT 1
 #define LEFT -1
 
-#define MIN_ANGVEL 0
-#define MIN_SPEED 0
+#define MIN_ANGVEL 150.0f
+#define MIN_SPEED 0.1f
 
 #define STRAIGHT_MODE 1
 #define TURN_MODE 2

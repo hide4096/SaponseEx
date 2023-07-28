@@ -39,7 +39,7 @@ static float CalcVelocity(){
 }
 
 static float CalcAngularVelocity(){
-    return -1. * gyroZ() / 1000.0f;
+    return -1. * gyroZ();
 }
 
 struct targetPID{
@@ -135,18 +135,18 @@ void interrupt_1ms(){
     mouse.v = CalcVelocity();
     mouse.w = CalcAngularVelocity();
     if(use_HMmode){
-        target_HM.len += mouse.v*0.001f;
+        target_HM.len += mouse.v;
         target_HM.deg += mouse.w*0.001f;
         if(target_HM.mode == STRAIGHT_MODE || target_HM.mode == TURN_MODE){
-            target.v = target_HM.a * 1000.f;
+            target.v += target_HM.a * 0.001f;
             if(target.v > target_HM.max_v) target.v = target_HM.max_v;
         }
 
         if(target_HM.mode == TURN_MODE){
-            target.w = target_HM.ang_a * 1000.f;
-            if(target_HM.turndir == LEFT){
+            target.w += target_HM.ang_a * 0.001f;
+            if(target_HM.turndir == RIGHT){
                 if(target.w > target_HM.max_w) target.w = target_HM.max_w;
-            }else if(target_HM.turndir == RIGHT){
+            }else if(target_HM.turndir == LEFT){
                 if(target.w < target_HM.max_w) target.w = target_HM.max_w;
             }
         }

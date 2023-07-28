@@ -52,9 +52,9 @@ const struct gain straight = {
 };
 
 const struct gain turn = {
-    .Kp = 8.0f,
-    .Ki = 0.2f,
-    .Kd = 0.0f
+    .Kp = 0.8f*0.01f,
+    .Ki = 0.01f*0.01f,
+    .Kd = 0.0f*0.01f
 };
 
 const struct ffgain ff = {
@@ -64,7 +64,7 @@ const struct ffgain ff = {
 };
 
 const struct mouse_feature sapoex = {
-    .diam = 12.5f,
+    .diam = 13.4f,
     .m = 27.4f,
     .gear_ratio = 4.2222,
     .ke = 0.062f,

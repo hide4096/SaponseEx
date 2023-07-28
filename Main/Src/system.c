@@ -82,13 +82,13 @@ void system_init(){
                         target.w = 0.0f;
                     }else if(count < 750){
                         target.v += 0.002f;
-                        target.w += 0.001f;
+                        target.w += 1.0f;
                     }else if(count < 850){
                         target.v = 0.5f;
-                        target.w = 0.25f;
+                        target.w = 250.f;
                     }else if(count < 1100){
                         target.v -= 0.002f;
-                        target.w -= 0.001f;
+                        target.w -= 1.0f;
                     }else{
                         target.v = 0.0f;
                         target.w = 0.0f;
@@ -131,6 +131,25 @@ void system_init(){
             SearchAdachi(GOAL_X,GOAL_Y);
             control_loop_stop();
             break;
+        case 4:
+            control_loop_stop();
+            Motors_init(&motors);
+            use_logging = FALSE;
+            use_HMmode = TRUE;
+            control_loop_start();
+            //Straight(90,2.0f,1.0f,0.0f);
+            SpinTurn(90,2000.0f,600.0f,RIGHT);
+            Motors_halt(&motors);
+            control_loop_stop();
+            break;
+        case 5:
+            use_logging = FALSE;
+            use_HMmode = TRUE;
+            while (1){
+                HAL_Delay(100);
+                printf("%.2f\t%.2f\r\n",target_HM.deg,target_HM.len);
+            }
+            
     }
 
     while(1){
