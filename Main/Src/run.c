@@ -53,8 +53,8 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
         tgt_deg = _deg;
         while((float)(tgt_deg - target_HM.deg) > (float)(target.w*target.w/(2.0*target_HM.ang_a)));
     }else if(target_HM.turndir == LEFT){
-        target_HM.ang_a = _ang_accel;
-        target_HM.max_w = _max_angvel;
+        target_HM.ang_a = -_ang_accel;
+        target_HM.max_w = -_max_angvel;
         tgt_deg = -_deg;
         while(-(float)(tgt_deg - target_HM.deg) > (float)(target.w*target.w/(2.0*-target_HM.ang_a)));
     }
@@ -71,7 +71,7 @@ void SpinTurn(float _deg,float _ang_accel,float _max_angvel,int8_t _dir){
         target_HM.ang_a = 0.;
         target.w = 0.;
     }else if(target_HM.turndir == LEFT){
-        target_HM.ang_a = +_ang_accel;
+        target_HM.ang_a = _ang_accel;
         while(target_HM.deg > tgt_deg){
             if(target.w > -MIN_ANGVEL){
                 target_HM.ang_a = 0.;

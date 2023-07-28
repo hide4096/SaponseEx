@@ -35,10 +35,6 @@ typedef enum{
     west    = 3,
 }dire_global;
 
-extern uint8_t x_mypos;
-extern uint8_t y_mypos;
-extern dire_global dire_mypos;
-
 extern wall_azim wall[MAZESIZE_X][MAZESIZE_Y];
 extern uint8_t step[MAZESIZE_X][MAZESIZE_Y];
 
@@ -47,6 +43,7 @@ void InitStep(uint8_t gx,uint8_t gy);
 void CreateMap(uint8_t gx,uint8_t gy,uint8_t mask);
 void SetWall(uint8_t x,uint8_t y);
 void SearchAdachi(uint8_t gx,uint8_t gy);
+void SetPostion(uint8_t x,uint8_t y,dire_global dire);
 dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire);
 uint8_t GetPriority(uint8_t x,uint8_t y,dire_global dire);
 

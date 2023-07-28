@@ -2,9 +2,15 @@
 
 wall_azim wall[MAZESIZE_X][MAZESIZE_Y];
 uint8_t step[MAZESIZE_X][MAZESIZE_Y];
-uint8_t x_mypos=0;
-uint8_t y_mypos=0;
-dire_global dire_mypos = north;
+static uint8_t x_mypos=0;
+static uint8_t y_mypos=0;
+static dire_global dire_mypos = north;
+
+void SetPostion(uint8_t x,uint8_t y,dire_global dire){
+    x_mypos = x;
+    y_mypos = y;
+    dire_mypos = dire;
+}
 
 void InitMaze(){
     for(int x=0;x<MAZESIZE_X;x++){
@@ -193,7 +199,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
     }
 
     if((wall[x_mypos][y_mypos].west & mask) == NOWALL && x_mypos >0){
-        tmp_priority =GetPriority(x_mypos-1,y_mypos,west);
+        tmp_priority = GetPriority(x_mypos-1,y_mypos,west);
         uint8_t nextstep = step[x_mypos-1][y_mypos];
         if(nextstep < little){
             little = nextstep;
@@ -213,17 +219,21 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
     dire_global nextdire;
     switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
         case front:
+            SetLED(0b010);
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
         case right:
+            SetLED(0b001);
             SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
         case left:
+            SetLED(0b100);
             SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
         case back:
+            SetLED(0b101);
             SpinTurn(180,TURN_ACCEL,TURN_SPEED,RIGHT);
             Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
             break;
@@ -250,22 +260,26 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
         SetWall(x_mypos,y_mypos);
         switch(GetNextDire(gx,gy,SEARCH_MASK,&nextdire)){
             case front:
+                SetLED(0b010);
                 Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case right:
+                SetLED(0b001);
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case left:
+                SetLED(0b100);
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case back:
+                SetLED(0b101);
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(180,TURN_ACCEL,TURN_SPEED,LEFT);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
         }
         dire_mypos = nextdire;
     

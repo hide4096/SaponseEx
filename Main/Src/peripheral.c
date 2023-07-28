@@ -52,8 +52,8 @@ const struct gain straight = {
 };
 
 const struct gain turn = {
-    .Kp = 0.8f*0.01f,
-    .Ki = 0.01f*0.01f,
+    .Kp = 1.0f*0.01f,
+    .Ki = 0.02f*0.01f,
     .Kd = 0.0f*0.01f
 };
 
@@ -73,10 +73,10 @@ const struct mouse_feature sapoex = {
 };
 
 const struct wall_threshold detect_wall = {
-    .ll = 40,
-    .l = 15,
-    .r = 15,
-    .rr = 70
+    .ll = 120,
+    .l = 60,
+    .r = 60,
+    .rr = 120
 };
 
 struct HMmode target_HM = {

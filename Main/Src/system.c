@@ -115,10 +115,7 @@ void system_init(){
             break;
         case 2:
             while(1){
-                ITM_SendChar(sensor.ll,1);
-                ITM_SendChar(sensor.l,2);
-                ITM_SendChar(sensor.r,3);
-                ITM_SendChar(sensor.rr,4);
+                printf("%d\t%d\t%d\t%d\r\n",sensor.ll,sensor.l,sensor.r,sensor.rr);
                 HAL_Delay(10);
             }
             break;
@@ -128,6 +125,7 @@ void system_init(){
             use_logging = FALSE;
             use_HMmode = TRUE;
             control_loop_start();
+            SetPostion(0,0,0);
             SearchAdachi(GOAL_X,GOAL_Y);
             control_loop_stop();
             break;
@@ -135,10 +133,13 @@ void system_init(){
             control_loop_stop();
             Motors_init(&motors);
             use_logging = FALSE;
-            use_HMmode = TRUE;
+            use_HMmode = FALSE;
             control_loop_start();
-            //Straight(90,2.0f,1.0f,0.0f);
-            SpinTurn(90,2000.0f,600.0f,RIGHT);
+            while(1){
+                target.v = (4000-(sensor.ll+sensor.rr))*0.0001;
+                target.w = (sensor.r-sensor.l) * 1.f;
+                HAL_Delay(1);
+            }
             Motors_halt(&motors);
             control_loop_stop();
             break;
@@ -149,7 +150,7 @@ void system_init(){
                 HAL_Delay(100);
                 printf("%.2f\t%.2f\r\n",target_HM.deg,target_HM.len);
             }
-            
+            break;
     }
 
     while(1){
