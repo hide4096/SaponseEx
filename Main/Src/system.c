@@ -2,8 +2,8 @@
 
 uint8_t use_logging = FALSE;
 
-const uint8_t GOAL_X = 5;
-const uint8_t GOAL_Y = 5;
+const uint8_t GOAL_X = 1;
+const uint8_t GOAL_Y = 1;
 
 void system_init(){
 
@@ -144,13 +144,14 @@ void system_init(){
             control_loop_stop();
             break;
         case 5:
+            control_loop_stop();
+            Motors_init(&motors);
             use_logging = FALSE;
             use_HMmode = TRUE;
-            while (1){
-                HAL_Delay(100);
-                printf("%.2f\t%.2f\r\n",target_HM.deg,target_HM.len);
-            }
-            break;
+            control_loop_start();
+            Straight(FULL_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0.0f);
+            Motors_halt(&motors);
+            control_loop_stop();
     }
 
     while(1){

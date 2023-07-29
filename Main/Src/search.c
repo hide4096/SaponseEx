@@ -107,7 +107,6 @@ uint8_t GetPriority(uint8_t x,uint8_t y,dire_global dire){
     if((w.north == UNKNOWN) || (w.east == UNKNOWN) || (w.south == UNKNOWN) || (w.west == UNKNOWN)){
         priority+=4;
     }
-
 	return priority;
 }
 
@@ -183,7 +182,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
         }
     }
 
-    if((wall[x_mypos][y_mypos].south  & mask) == NOWALL && y_mypos < MAZESIZE_Y){
+    if((wall[x_mypos][y_mypos].south & mask) == NOWALL && y_mypos > 0){
         tmp_priority = GetPriority(x_mypos,y_mypos-1,south);
         uint8_t nextstep = step[x_mypos][y_mypos-1];
         if(nextstep < little){
@@ -198,7 +197,7 @@ dire_local GetNextDire(uint8_t gx,uint8_t gy,uint8_t mask,dire_global* dire){
         }
     }
 
-    if((wall[x_mypos][y_mypos].west & mask) == NOWALL && x_mypos >0){
+    if((wall[x_mypos][y_mypos].west & mask) == NOWALL && x_mypos > 0){
         tmp_priority = GetPriority(x_mypos-1,y_mypos,west);
         uint8_t nextstep = step[x_mypos-1][y_mypos];
         if(nextstep < little){
@@ -265,13 +264,13 @@ void SearchAdachi(uint8_t gx,uint8_t gy){
                 break;
             case right:
                 SetLED(0b001);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,RIGHT);
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;
             case left:
                 SetLED(0b100);
-                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
+                Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,0);
                 SpinTurn(90,TURN_ACCEL,TURN_SPEED,LEFT);
                 Straight(HALF_SECTION,SEARCH_ACCEL,SEARCH_SPEED,SEARCH_SPEED);
                 break;

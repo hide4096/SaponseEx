@@ -57,6 +57,12 @@ const struct gain turn = {
     .Kd = 0.0f*0.01f
 };
 
+const struct gain wallref = {
+    .Kp = 0.1f,
+    .Ki = 0.01f,
+    .Kd = 0.0f
+};
+
 const struct ffgain ff = {
     .ka = 1.2f,
     .ka2 = 0.2f,

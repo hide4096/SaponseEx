@@ -4,6 +4,8 @@
 
 static const float alpha = 0.6;
 static const float max_integral = 1000;
+static const int wall_ref_r = 523;
+static const int wall_ref_l = 381;
 
 struct save_data save[LOGGING_SIZE];
 
@@ -130,6 +132,7 @@ void analog_sensing_stop(){
 }
 
 uint8_t use_HMmode = FALSE;
+int integral_ref = 0;
 
 void interrupt_1ms(){
     mouse.v = CalcVelocity();
@@ -150,8 +153,41 @@ void interrupt_1ms(){
                 if(target.w < target_HM.max_w) target.w = target_HM.max_w;
             }
         }
+
+        if(target_HM.mode == STRAIGHT_MODE){
+            uint8_t _iswall = 0b00;
+            if(sensor.l > detect_wall.l) _iswall |= 0b01;
+            if(sensor.r > detect_wall.r) _iswall |= 0b10;
+
+            int error = 0;
+
+            switch(_iswall){
+                case 0b11:
+                    error = (sensor.l - wall_ref_l) - (sensor.r - wall_ref_r);
+                    break;
+                case 0b10:
+                    error = (sensor.r - wall_ref_r)*2;
+                    break;
+                case 0b01:
+                    error = (sensor.l - wall_ref_l)*-2;
+                    break;
+                default:
+                    error = 0;
+                    integral_ref = 0;
+                    break;
+            }
+            integral_ref += error;
+            if(integral_ref > 100) integral_ref = 100;
+            else if(integral_ref < -100) integral_ref = -100;
+
+            target.w = (float)error * wallref.Kp + (float)integral_ref * wallref.Ki;
+        }else{
+            integral_ref = 0;
+        }
     }
+
     PID_FF();
+
     if(use_logging){
         if(count >= LOGGING_SIZE){
             control_loop_stop();
